@@ -6,7 +6,7 @@ phases:
       nodejs: 16.x
     commands:
       - echo "Installing dependencies..."
-      - npm ci
+      - npm install
   build:
     commands:
       - echo "Building the React app..."
