@@ -1,37 +1,3 @@
-// import "./App.css";
-// import { Container } from "react-bootstrap";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
-// import Footer from "./components/Footer";
-// import Header from "./components/Header";
-// import HomeScreen from "./components/screens/HomeScreen";
-// import ProductScreen from "./components/screens/ProductScreen";
-// import CartScreen from "./components/screens/CartScreen";
-// import LoginScreen from './components/screens/LoginScreen';
-// import RegisterScreen from './components/screens/RegisterScreen';
-
-// function App() {
-//   return (
-// <Router>
-//       <Header />
-//       <main className="py-3">
-//         <Container>
-//           <Route path="/" component={HomeScreen} exact />
-//           <Route path="/login" component={LoginScreen} exact />
-//           <Route path="/register" component={RegisterScreen} exact />
-//           <Route path="/product/:id" component={ProductScreen} exact />
-//           <Route path="/cart/:id?" component={CartScreen} exact />
-//         </Container>
-//       </main>
-
-//       <Footer />
-//       </Router>
-//   );
-// }
-
-// export default App;
-
-
-
 import "./App.css";
 import { Container } from "react-bootstrap";
 // This is a react-router-dom@5.3.4 app
@@ -41,8 +7,8 @@ import Footer from "./components/Footer";
 import HomeScreen from "./components/screens/HomeScreen";
 import ProductScreen from "./components/screens/ProductScreen";
 import CartScreen from "./components/screens/CartScreen";
-import LoginScreen from './components/screens/LoginScreen';
-import RegisterScreen from './components/screens/RegisterScreen';
+import LoginScreen from "./components/screens/LoginScreen";
+import RegisterScreen from "./components/screens/RegisterScreen";
 
 function App() {
   return (
@@ -50,7 +16,7 @@ function App() {
       <Header />
       <main className="py-3">
         <Container fluid>
-          <Route exact path='/' component={HomeScreen} />
+          <Route exact path="/" component={HomeScreen} />
           <Route path="/product/:id" component={ProductScreen} exact />
           <Route path="/login" component={LoginScreen} exact />
           <Route path="/register" component={RegisterScreen} exact />
@@ -64,10 +30,8 @@ function App() {
 
 export default App;
 
-
-
 // Notes
-// // This is a React Router v5 app
+// // This is a React Router v5 app npm i react-router-dom@5.3.4 app
 // import {
 //   BrowserRouter,
 //   Switch,
@@ -90,7 +54,6 @@ export default App;
 //     </BrowserRouter>
 //   );
 // }
-
 
 // // This is a React Router v6 app
 // import {
