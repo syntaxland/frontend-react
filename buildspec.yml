@@ -1,4 +1,4 @@
-version: 0.3
+version: 0.2
 
 phases:
   install:
@@ -11,7 +11,7 @@ phases:
     commands:
       - echo "Building the React app..."
       - npm run build
-      
+
 artifacts:
   files:
     - '**/*'
