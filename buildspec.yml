@@ -17,7 +17,7 @@ phases:
   post_build:
     commands:
     - echo "Copying build to S3 bucket..."
-    - aws s3 cp --recursive ./build s3://www.mcdofglobal/
+    - aws s3 cp --recursive ./build s3://mcdofglobal/
     - aws cloudflont create-invalidation --distribution-id E1PZGOIYMU4XAG --path /\*
 
 # artifacts:
