@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 
 // const API_URL =  process.env.REACT_APP_API_URL;
-const API_URL = 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
+const API_URL = 'http://ec2-54-84-220-209.compute-1.amazonaws.com';
 // const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
 
 
