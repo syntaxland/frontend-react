@@ -1,6 +1,6 @@
 {
   "name": "frontend-react",
-  "proxy": "http://127.0.0.1:8000",
+  "proxy": "http://ec2-54-84-220-209.compute-1.amazonaws.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
