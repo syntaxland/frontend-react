@@ -9,6 +9,11 @@ import {
 } from "../constants/userConstants";
 import axios from "axios";
 
+// const API_URL =  process.env.REACT_APP_API_URL;
+const API_URL = 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
+
+
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -22,7 +27,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/users/login/",
+      `${API_URL}/api/users/login/`,
 
       { username: email, password: password },
       config
@@ -58,7 +63,7 @@ export const register = (name, email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/users/register/",
+      `${API_URL}/api/users/register/`,
 
       { name: name, email: email, password: password },
       config

@@ -8,10 +8,14 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from "../constants/productConstants";
 
+// const API_URL =  process.env.REACT_APP_API_URL;
+const API_URL = 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
+
 export const listProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/products/");
+    const { data } = await axios.get(`${API_URL}/api/products/`);
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
@@ -30,7 +34,7 @@ export const listProducts = () => async (dispatch) => {
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`${API_URL}/api/products/${id}`);
 
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
