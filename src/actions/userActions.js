@@ -10,8 +10,8 @@ import {
 import axios from "axios";
 
 // const API_URL =  process.env.REACT_APP_API_URL;
-// const API_URL = 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
-const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
+const API_URL = 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
+// const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
 
 export const login = (email, password) => async (dispatch) => {
   try {
