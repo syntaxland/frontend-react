@@ -2,8 +2,8 @@ import axios from "axios";
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 // const API_URL =  process.env.REACT_APP_API_URL;
-const API_URL = 'http://ec2-54-84-220-209.compute-1.amazonaws.com';
-// const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-54-84-220-209.compute-1.amazonaws.com/';
+// const API_URL = 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
+const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`${API_URL}/api/products/${id}`);
