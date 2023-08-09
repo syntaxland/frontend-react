@@ -8,8 +8,8 @@ import {
   PRODUCT_DETAILS_FAIL,
 } from "../constants/productConstants";
 
-// const API_URL =  process.env.REACT_APP_API_URL;
-const API_URL = 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
+const API_URL =  process.env.REACT_APP_API_URL;
+// const API_URL = 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
 // const API_URL = process.env.REACT_APP_API_URL || 'http://ec2-34-229-79-247.compute-1.amazonaws.com';
 
 export const listProducts = () => async (dispatch) => {

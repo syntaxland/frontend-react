@@ -1,3 +1,4 @@
+// userReducers.js
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_SUCCESS,
@@ -13,7 +14,7 @@ export const userLoginReducers = (state = {}, action) => {
     case USER_LOGIN_REQUEST:
       return { laoding: true };
     case USER_LOGIN_SUCCESS:
-      return { laoding: false, userInfo: action.payload };
+      return { laoding: false, userInfo: action.payload }; 
     case USER_LOGIN_FAIL:
       return { laoding: false, error: action.payload };
 
@@ -33,6 +34,13 @@ export const userRegisterReducers = (state = {}, action) => {
       return { loading: false, userInfo: action.payload };
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
+    
+    case "STORE_REGISTRATION_DATA":
+    return {
+      ...state,
+      registrationData: action.payload,
+    };
+
     case USER_LOGOUT:
       return {};
 

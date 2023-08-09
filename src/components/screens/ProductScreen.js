@@ -79,7 +79,7 @@ function ProductScreen({ match, history }) {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Status:</Col>
+                    <Col>Status:</Col> 
                     <Col>
                       {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
                     </Col>
@@ -110,7 +110,7 @@ function ProductScreen({ match, history }) {
                 <ListGroup.Item>
                   <Button
                     className="btn-block"
-                    disabled={product.countInStock == 0}
+                    disabled={product.countInStock === 0}
                     type="button"
                     onClick={addToCartHandler}
                   >

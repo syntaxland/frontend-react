@@ -89,7 +89,7 @@ function Footer() {
         </Row>
         <Row>
           <Col className="text-center py-3">
-            &copy; McdofGlobal - Designed by SoftGlobal
+            &copy; McdofGlobal - Designed by SoftGlobal | +2349066167293
           </Col>
         </Row>
       </Container>
