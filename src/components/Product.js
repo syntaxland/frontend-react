@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Rating from "../components/Rating";
@@ -32,6 +32,10 @@ function Product({ product }) {
     cartItems.some((item) => item.product === product._id)
   );
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  const history = useHistory();
+
   const toggleCartHandler = () => {
     if (isCart) {
       dispatch(removeFromCart(product._id));
@@ -50,19 +54,40 @@ function Product({ product }) {
     }
   };
 
+  // const toggleFavoriteHandler = () => {
+  //   if (isFavorite) {
+  //     dispatch(removeFromFavorites(product._id));
+  //     setRemoveFromFavoritesMessage(true);
+  //     setTimeout(() => {
+  //       setRemoveFromFavoritesMessage(false);
+  //     }, 3000);
+  //   } else {
+  //     dispatch(addToFavorites(product));
+  //     setAddToFavoritesMessage(true);
+  //     setTimeout(() => {
+  //       setAddToFavoritesMessage(false);
+  //     }, 3000);
+  //   }
+  // };
+
   const toggleFavoriteHandler = () => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(product._id));
-      setRemoveFromFavoritesMessage(true);
-      setTimeout(() => {
-        setRemoveFromFavoritesMessage(false);
-      }, 3000);
+    if (!userInfo || !userInfo.is_verified) {
+      // If user is not logged in or not verified, redirect to login
+      history.push("/login");
     } else {
-      dispatch(addToFavorites(product));
-      setAddToFavoritesMessage(true);
-      setTimeout(() => {
-        setAddToFavoritesMessage(false);
-      }, 3000);
+      if (isFavorite) {
+        dispatch(removeFromFavorites(product._id));
+        setRemoveFromFavoritesMessage(true);
+        setTimeout(() => {
+          setRemoveFromFavoritesMessage(false);
+        }, 3000);
+      } else {
+        dispatch(addToFavorites(product));
+        setAddToFavoritesMessage(true);
+        setTimeout(() => {
+          setAddToFavoritesMessage(false);
+        }, 3000);
+      }
     }
   };
 

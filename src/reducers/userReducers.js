@@ -1,17 +1,17 @@
 // userReducers.js
 import {
-  USER_LOGIN_FAIL,
-  USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
   USER_LOGIN_REQUEST,
-  USER_REGISTER_FAIL,
-  USER_REGISTER_SUCCESS,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
+  USER_LOGOUT,
   USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
 } from "../constants/userConstants";
 
 export const userLoginReducers = (state = {}, action) => {
   switch (action.type) {
-    case USER_LOGIN_REQUEST:
+    case USER_LOGIN_REQUEST: 
       return { laoding: true };
     case USER_LOGIN_SUCCESS:
       return { laoding: false, userInfo: action.payload }; 

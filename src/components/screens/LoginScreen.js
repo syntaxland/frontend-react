@@ -6,7 +6,10 @@ import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../FormContainer";
-import { login, logout, refreshToken } from "../../actions/userActions";
+import { login, logout } from "../../actions/userActions";
+
+import GoogleLogin from "react-google-login";
+// import { loginWithGoogle } from "../../actions/userActions";
 
 function LoginScreen({ location }) {
   const [email, setEmail] = useState("");
@@ -17,6 +20,10 @@ function LoginScreen({ location }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // const responseGoogle = (response) => {
+  //   dispatch(loginWithGoogle(response.tokenId));
+  // };
+
   // const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -26,8 +33,8 @@ function LoginScreen({ location }) {
     if (userInfo) {
       if (userInfo.is_verified) {
         // If the email is verified, clear the userInfo and proceed with login
-        dispatch({ type: "USER_LOGIN_SUCCESS" });
         history.push("/");
+        // history.push(redirect);
         setSuccessMessage("Login successful.");
       } else {
         // If the email is not verified, log out the user and redirect to the email verification page
@@ -46,13 +53,14 @@ function LoginScreen({ location }) {
       await dispatch(login(email, password)); // Wait for the login request to complete
       setLoading(false); // Set loading back to false after the request is completed
 
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      if (userInfo && userInfo.access) {
-        let refreshTokenTime = 1000 * 60 * 10; // ms * hr * mins
-        setTimeout(() => {
-          dispatch(refreshToken(userInfo.refresh));
-        }, refreshTokenTime);
-      }
+      // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+      // if (userInfo && userInfo.access) {
+      //   let refreshTokenTime = 1000 * 60 * 0.1; // ms * hr * mins
+      //   setTimeout(() => {
+      //     dispatch(refreshToken(userInfo.refresh));
+      //   }, refreshTokenTime);
+      // }
     } catch (error) {
       setLoading(false);
     }
@@ -99,17 +107,39 @@ function LoginScreen({ location }) {
                 variant="success"
                 block
               >
+                <i className="bi bi-box-arrow-in-right"></i>
                 Login
               </Button>
             </Col>
           </Row>
         </Form>
 
-        <Row className="py-3">
+        {/* <Row className="py-3">
           <Col className="text-center">
             <Button variant="danger" className="rounded w-100" block>
               Continue with Google
             </Button>
+          </Col>
+        </Row> */}
+
+        <Row className="py-3">
+          <Col className="text-center">
+            <GoogleLogin
+              clientId="551868905468-afspiie229k0936gn1i5ipj8b4s9dmk5.apps.googleusercontent.com"
+              // onSuccess={responseGoogle}
+              // onFailure={responseGoogle}
+              render={(renderProps) => (
+                <Button
+                  variant="danger"
+                  block
+                  className="google-login-button rounded w-100"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  Continue with Google
+                </Button>
+              )}
+            />
           </Col>
         </Row>
 
@@ -127,7 +157,7 @@ function LoginScreen({ location }) {
 
         <Row className="py-3">
           <Col className="text-center">
-            Forgot Password? <Link to="/forgot-password">Reset</Link>
+            Forgot Password? <Link to="/reset-password-request">Reset</Link>
           </Col>
         </Row>
       </FormContainer>

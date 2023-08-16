@@ -5,24 +5,39 @@ import { useHistory } from "react-router-dom";
 import {
   getUserProfile,
   updateUserProfile,
-  deleteUserAccount,
+  updateUserAvatar,
 } from "../../actions/userProfileActions";
 import { resendEmailOtp } from "../../actions/emailOtpActions";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
+import Message from "../Message";
+import Loader from "../Loader";
 
 function UserProfile() {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
+  const updateProfile = useSelector((state) => state.updateProfile);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const { loading, success, error } = updateProfile;
+  const [successMessage, setSuccessMessage] = useState("");
   const history = useHistory();
+
+  // const { loading: updateAvatarLoading, success: updateAvatarSuccess, error: updateAvatarError } = useSelector((state) => state.updateUserAvatar);
+
+  const handleAvatarChange = (e) => {
+    const avatar = e.target.files[0];
+    if (avatar) {
+      const formData = new FormData();
+      formData.append("avatar", avatar);
+      dispatch(updateUserAvatar(formData));
+    }
+  };
 
   const [userData, setUserData] = useState({
     first_name: "",
     last_name: "",
     phone_number: "",
     avatar: "",
-    password: "",
   });
 
   useEffect(() => {
@@ -31,18 +46,51 @@ function UserProfile() {
     }
   }, [dispatch, userInfo]);
 
+  // useEffect(() => {
+  //   if (userProfile && userProfile.profile) {
+  //     const profile = userProfile.profile;
+  //     setUserData({
+  //       ...userData,
+  //       first_name: profile.first_name,
+  //       last_name: profile.last_name,
+  //       phone_number: profile.phone_number,
+  //       avatar: profile.avatar,
+  //     });
+  //   }
+  // }, [userProfile, userData]);
+
   useEffect(() => {
     if (userProfile && userProfile.profile) {
-      const profile = userProfile.profile;
       setUserData({
-        ...userData,
-        first_name: profile.first_name,
-        last_name: profile.last_name,
-        phone_number: profile.phone_number,
-        avatar: profile.avatar,
+        first_name: userProfile.profile.first_name,
+        last_name: userProfile.profile.last_name,
+        phone_number: userProfile.profile.phone_number,
+        avatar: userProfile.profile.avatar,
       });
     }
-  }, [userProfile, userData]);
+  }, [userProfile]);
+
+  
+
+  useEffect(() => {
+    if (userInfo) {
+      setUserData({
+        first_name: userInfo.first_name,
+        last_name: userInfo.last_name,
+        phone_number: userInfo.phone_number,
+        avatar: userInfo.avatar,
+      });
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    if (success) {
+      setSuccessMessage("Profile updated successfully.");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000); 
+    }
+  }, [success]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,24 +102,18 @@ function UserProfile() {
   };
 
   const handleDeleteAccount = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to delete your account? This action cannot be undone."
-      )
-    ) {
-      dispatch(deleteUserAccount());
-    }
+    // setUserData({ ...userData, password: "" }); // Clear the password field
+    history.push("/delete-account");
   };
 
   const handleResendEmailOtp = () => {
     dispatch(resendEmailOtp(userInfo.email, userInfo.first_name));
-    history.push("/verify-email-otp"); 
+    history.push("/verify-email-otp");
   };
 
   const handleFavourite = () => {
-    history.push("/favourites"); 
+    history.push("/favourites");
   };
-  
 
   const handleVerifyEmail = () => {
     if (!userInfo.is_verified) {
@@ -80,27 +122,28 @@ function UserProfile() {
   };
 
   const handleChangePassword = () => {
-    // Logic to handle changing password
-    // You can implement a modal or redirect to a separate change password page
+    history.push("/delete-account");
   };
 
   return (
     <Container>
       <Row>
         <Col>
-          <h2 className="text-center">Bio</h2>
+          <h2 className="text-center">Update Profile</h2>
+          {loading && <Loader />}
+          {/* {success && (
+            <Message variant="success">Profile updated successfully.</Message>
+          )} */}
+          {successMessage && (
+        <Message variant="success">{successMessage}</Message>
+      )}
+          {error && <Message variant="danger">{error}</Message>}
+          {/* {deleteSuccessMessage && <Alert variant="success">{deleteSuccessMessage}</Alert>} */}
           <p>
             Verified{" "}
             <input type="checkbox" checked={userInfo.is_verified} readOnly />
           </p>
-          <Form>
-            {/* {userInfo.is_verified ? (
-              <p>Verified</p>
-            ) : (
-              <Button variant="primary" onClick={handleVerifyEmail}>
-                Verify Email
-              </Button>
-            )} */}
+          <Form encType="multipart/form-data">
             {!userInfo.is_verified && (
               <Button variant="primary" onClick={handleVerifyEmail}>
                 Verify Email
@@ -111,7 +154,7 @@ function UserProfile() {
               <Form.Control
                 type="text"
                 name="first_name"
-                value={userInfo.first_name}
+                value={userData.first_name}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -120,7 +163,7 @@ function UserProfile() {
               <Form.Control
                 type="text"
                 name="last_name"
-                value={userInfo.last_name}
+                value={userData.last_name}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -130,6 +173,7 @@ function UserProfile() {
                 type="text"
                 name="email"
                 value={userInfo.email}
+                readOnly
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -138,34 +182,42 @@ function UserProfile() {
               <Form.Control
                 type="text"
                 name="phone_number"
-                value={userInfo.phone_number}
+                value={userData.phone_number}
                 onChange={handleInputChange}
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                readOnly
-                onChange={handleInputChange}
-              />
-              <Button variant="primary" onClick={handleChangePassword}>
-                Change Password
-              </Button>
-            </Form.Group>
+
             <Form.Group>
               <Form.Label>Avatar</Form.Label>
               <Form.Control
                 type="file"
                 name="avatar"
                 accept="image/*"
-                onChange={handleInputChange}
+                onChange={handleAvatarChange}
               />
             </Form.Group>
-            <Button variant="primary" onClick={handleUpdateProfile}>
-              Update Profile
-            </Button>{" "}
+
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <div className="d-flex justify-content-between pt-3">
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={userData.password}
+                  readOnly
+                  onChange={handleInputChange}
+                />
+                <Button variant="success" onClick={handleChangePassword}>
+                  Change Password
+                </Button>
+              </div>
+            </Form.Group>
+
+            <div className="d-flex justify-content-right pt-3">
+              <Button variant="primary" onClick={handleUpdateProfile}>
+                Update Profile
+              </Button>{" "}
+            </div>
           </Form>
         </Col>
       </Row>
@@ -181,7 +233,7 @@ function UserProfile() {
       <Row>
         <Col>
           {/* Orders Shipments Section */}
-          <h2 className="text-center">Orders Shipments</h2>
+          <h2 className="text-center">Order Shipments</h2>
           {/* Orders Shipments content */}
         </Col>
       </Row>

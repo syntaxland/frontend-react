@@ -1,5 +1,11 @@
+/* Header.css */
+
+.navbar-nav .nav-link {
+  text-transform: none; /* Set text transformation to none (manual) */
+}
+
 .searchBarContainer {
-  width: 300px;
+  width: 350px;
   max-width: 350px;
 }
 

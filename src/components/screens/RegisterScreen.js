@@ -21,47 +21,80 @@ function RegisterScreen({ location, history }) {
   const dispatch = useDispatch();
   const [selectedCountry] = useState("US");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isValid, setIsValid] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phoneNumber: false,
+    password: false,
+    confirmPassword: false,
+  });
 
   const userRegister = useSelector((state) => state.userRegister);
   const { error, loading, userInfo } = userRegister;
 
-  const submitHandler = (e) => {
+  
+
+  const handleInputChange = (field, value) => {
+    if (field === "confirmPassword") {
+      setIsValid((prevIsValid) => ({
+        ...prevIsValid,
+        [field]: value === password,
+      }));
+    } else {
+      setIsValid((prevIsValid) => ({ ...prevIsValid, [field]: !!value }));
+    }
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      dispatch(register(firstName, lastName, email, password, phoneNumber));
-      // dispatch(sendEmailOtp(email, firstName));
-      // Dispatch the sendEmailOtp action after successful registration
-      // if (!loading && !error && userRegister.userInfo) {
-      //   dispatch(sendEmailOtp(email, firstName));
-      // }
+      console.log("Dispatching registration...");
       try {
-        dispatch(sendEmailOtp(email, firstName));
-      } catch (e) {
-        console.log(e);
+
+      dispatch(register(firstName, lastName, email, password, phoneNumber));
+
+        // console.log("Checking conditions...");
+        // console.log("Loading:", loading);
+        // console.log("Error:", error);
+        // console.log("User Info:", userRegister.userInfo);
+
+        // if (!loading && !error && userRegister.userInfo) {
+        //   console.log("Dispatching email OTP...");
+        //   dispatch(sendEmailOtp(email, firstName));
+        // }
+      //  await dispatch(sendEmailOtp(email, firstName));
+      } catch (error) {
+        setMessage(error.response.data.detail);
+        // console.log(error);
+        console.log("Error object:", error);
       }
     }
   };
 
   useEffect(() => {
     if (userInfo && !error) {
-      if (userInfo.is_verified) {
+      if (!userInfo.is_verified) {
+        history.push("/verify-email-otp");
+        setSuccessMessage("Please verify your email.");
+
+        
+      } else {
+        // dispatch({ type: "USER_REGISTER_SUCCESS" });
         setSuccessMessage("User already exists. Please login.");
         const redirectTimer = setTimeout(() => {
-          dispatch({ type: "USER_REGISTER_SUCCESS" });
+          // dispatch({ type: "USER_REGISTER_SUCCESS" });
           history.push("/login");
         }, 3000);
         return () => {
           clearTimeout(redirectTimer);
         };
-      } else {
-        dispatch({ type: "USER_REGISTER_SUCCESS" });
-        history.push("/verify-email-otp");
-        setSuccessMessage("Please verify your email.");
+        
       }
       dispatch({
-        type: "STORE_REGISTRATION_DATA", // Custom action type
+        type: "STORE_REGISTRATION_DATA",
         payload: {
           firstName,
           email,
@@ -70,6 +103,44 @@ function RegisterScreen({ location, history }) {
     }
   }, [userInfo, error, history, dispatch, email, firstName]);
 
+  useEffect(() => {
+    if (!loading && !error && userRegister.userInfo) {
+      dispatch(sendEmailOtp(email, firstName));
+    }
+  }, [loading, error, userRegister.userInfo, dispatch, email, firstName]);
+
+  // useEffect(() => {
+  //   if (userInfo && !error) {
+  //     dispatch({
+  //       type: "STORE_REGISTRATION_DATA",
+  //       payload: {
+  //         firstName,
+  //         email,
+  //       },
+  //     });
+  
+  //     if (!userInfo.is_verified) {
+  //       // Dispatch the sendEmailOtp action
+  //       dispatch(sendEmailOtp(email, firstName));
+        
+  //       // Redirect to the verify-email-otp page
+  //       history.push("/verify-email-otp");
+  //       setSuccessMessage("Please verify your email.");
+  //     } else {
+  //       // User is already verified
+  //       setSuccessMessage("User already exists. Please login.");
+  //       const redirectTimer = setTimeout(() => {
+  //         history.push("/login");
+  //       }, 3000);
+        
+  //       return () => {
+  //         clearTimeout(redirectTimer);
+  //       };
+  //     }
+  //   }
+  // }, [userInfo, error, history, dispatch, email, firstName]);
+  
+
   return (
     <Container>
       <FormContainer>
@@ -77,8 +148,27 @@ function RegisterScreen({ location, history }) {
         {successMessage && (
           <Message variant="success">{successMessage}</Message>
         )}
+
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
+
+        {/* {error && (
+          <Message variant="danger">
+            {error.email &&
+              error.email.map((msg, index) => (
+                <div key={`email-${index}`}>{msg}</div>
+              ))}
+            {error.phone_number &&
+              error.phone_number.map((msg, index) => (
+                <div key={`phone-${index}`}>{msg}</div>
+              ))}
+            {error.username &&
+              error.username.map((msg, index) => (
+                <div key={`username-${index}`}>{msg}</div>
+              ))}
+          </Message>
+        )} */}
+
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="firstName">
@@ -87,11 +177,24 @@ function RegisterScreen({ location, history }) {
               type="text"
               placeholder="Enter First Name"
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={(e) => {
+                setFirstName(e.target.value);
+                handleInputChange("firstName", e.target.value);
+              }}
               required
-              className="rounded"
-              isInvalid={error && error.first_name}
+              className={`rounded ${
+                error && error.first_name
+                  ? "is-invalid"
+                  : isValid.firstName
+                  ? "is-valid"
+                  : ""
+              }`}
             />
+            <div className="valid-feedback">
+              {isValid.firstName && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
             <Form.Control.Feedback type="invalid">
               {error && error.first_name}
             </Form.Control.Feedback>
@@ -103,11 +206,24 @@ function RegisterScreen({ location, history }) {
               type="text"
               placeholder="Enter Last Name"
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={(e) => {
+                setLastName(e.target.value);
+                handleInputChange("lastName", e.target.value);
+              }}
               required
-              className="rounded"
-              isInvalid={error && error.last_name}
+              className={`rounded ${
+                error && error.last_name
+                  ? "is-invalid"
+                  : isValid.lastName
+                  ? "is-valid"
+                  : ""
+              }`}
             />
+            <div className="valid-feedback">
+              {isValid.lastName && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
             <Form.Control.Feedback type="invalid">
               {error && error.last_name}
             </Form.Control.Feedback>
@@ -119,11 +235,24 @@ function RegisterScreen({ location, history }) {
               type="email"
               placeholder="Enter Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                handleInputChange("email", e.target.value);
+              }}
               required
-              className="rounded"
-              isInvalid={error && error.email}
+              className={`rounded ${
+                error && error.email
+                  ? "is-invalid"
+                  : isValid.email
+                  ? "is-valid"
+                  : ""
+              }`}
             />
+            <div className="valid-feedback">
+              {isValid.email && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
             <Form.Control.Feedback type="invalid">
               {error && error.email}
             </Form.Control.Feedback>
@@ -134,10 +263,23 @@ function RegisterScreen({ location, history }) {
             <PhoneInput
               country={selectedCountry}
               value={phoneNumber}
-              onChange={setPhoneNumber}
-              className="form-control rounded"
-              isInvalid={error && error.phone_number}
+              onChange={(value) => {
+                setPhoneNumber(value);
+                handleInputChange("phoneNumber", value);
+              }}
+              className={`form-control rounded ${
+                error && error.phone_number
+                  ? "is-invalid"
+                  : isValid.phoneNumber
+                  ? "is-valid"
+                  : ""
+              }`}
             />
+            <div className="valid-feedback">
+              {isValid.phoneNumber && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
             <Form.Control.Feedback type="invalid">
               {error && error.phone_number}
             </Form.Control.Feedback>
@@ -149,11 +291,24 @@ function RegisterScreen({ location, history }) {
               type="password"
               placeholder="Enter Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                handleInputChange("password", e.target.value);
+              }}
               required
-              className="rounded"
-              isInvalid={error && error.password}
+              className={`rounded ${
+                error && error.password
+                  ? "is-invalid"
+                  : isValid.password
+                  ? "is-valid"
+                  : ""
+              }`}
             />
+            <div className="valid-feedback">
+              {isValid.password && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
             <Form.Control.Feedback type="invalid">
               {error && error.password}
             </Form.Control.Feedback>
@@ -165,11 +320,24 @@ function RegisterScreen({ location, history }) {
               type="password"
               placeholder="Confirm Password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                handleInputChange("confirmPassword", e.target.value);
+              }}
               required
-              className="rounded"
-              isInvalid={error && error.confirm_password}
+              className={`rounded ${
+                error && error.confirm_password
+                  ? "is-invalid"
+                  : isValid.confirmPassword
+                  ? "is-valid"
+                  : ""
+              }`}
             />
+            <div className="valid-feedback">
+              {isValid.confirmPassword && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
             <Form.Control.Feedback type="invalid">
               {error && error.confirm_password}
             </Form.Control.Feedback>
@@ -183,6 +351,7 @@ function RegisterScreen({ location, history }) {
                 variant="success"
                 block
               >
+                <i className="bi bi-check2-circle"></i>
                 Register
               </Button>
             </Col>
@@ -192,10 +361,12 @@ function RegisterScreen({ location, history }) {
         <Row className="py-3">
           <Col className="text-center">
             <Button variant="danger" className="rounded w-100" block>
+              <i className="bi bi-google"></i>
               Continue with Google
             </Button>
           </Col>
         </Row>
+
         <Row className="py-3">
           <Col className="text-center">
             <Button

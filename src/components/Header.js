@@ -41,11 +41,11 @@ function Header() {
     // Get the current hour of the day
     const currentHour = new Date().getHours();
     if (currentHour >= 5 && currentHour < 12) {
-      setGreeting(`Good morning`);
+      setGreeting(`Good morning,`);
     } else if (currentHour >= 12 && currentHour < 18) {
-      setGreeting(`Good afternoon`);
+      setGreeting(`Good afternoon,`);
     } else {
-      setGreeting(`Good evening`);
+      setGreeting(`Good evening,`);
     }
   }, []);
 
@@ -59,7 +59,7 @@ function Header() {
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">
             <Form
-              className="searchBarContainer d-flex flex-grow-1"
+              className="searchBarContainer d-flex flex-grow-1 mt-2"
               onSubmit={searchHandler}
               inline={!userInfo} // Set to inline mode when user is not logged in
             >

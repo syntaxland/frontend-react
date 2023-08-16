@@ -54,6 +54,9 @@ function FavouritesScreen() {
         
       ) : (
         <>
+        <h5 className="mb-3">
+            Favourite Items ({favoriteItems.length})
+          </h5>
           <Row>
             {currentItems.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>

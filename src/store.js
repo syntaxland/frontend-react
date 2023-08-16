@@ -13,7 +13,17 @@ import { userRegisterReducers } from "./reducers/userReducers";
 import { orderCreateReducer } from "./reducers/orderReducers";
 import { paymentCreateReducer } from "./reducers/paymentReducers";
 import { favoriteReducer } from "./reducers/favoriteReducers";
-import { userProfileReducer, 
+import { 
+  // userProfileReducer, 
+  getUserProfileReducer,
+  changePasswordReducer,
+  updateUserProfileReducer,
+  deleteUserProfileReducer,
+  updateUserAvatarReducer,
+
+  sendPasswordResetLinkReducer,
+  resetPasswordReducer,
+
   // userDeleteReducer,
 } from "./reducers/userProfileReducers";
 
@@ -23,6 +33,25 @@ import {
   emailOtpResendReducer,
 } from "./reducers/emailOtpReducers";
 
+import axios from "axios";
+import { logout } from "./actions/userActions";
+
+// Axios instance setup
+const axiosInstance = axios.create({
+  // ...other configurations
+});
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Unauthorized, token expired
+      store.dispatch(logout());
+    }
+    return Promise.reject(error);
+  }
+);
+
 const reducer = combineReducers({
   productList: productListReducers,
   productDetails: productDetailsReducers,
@@ -30,7 +59,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducers,
   userRegister: userRegisterReducers,
 
-  orderCreate: orderCreateReducer,
+  orderCreate: orderCreateReducer, 
   paymentCreate: paymentCreateReducer,
   favorites: favoriteReducer,
 
@@ -38,8 +67,14 @@ const reducer = combineReducers({
   emailOtpVerify: emailOtpVerifyReducer,
   emailOtpResend: emailOtpResendReducer,
 
-  userProfile: userProfileReducer,
-  // userDelete: userDeleteReducer,
+  userProfile: getUserProfileReducer,
+  updateProfile: updateUserProfileReducer,
+  userChangePassword: changePasswordReducer,
+  deleteProfile: deleteUserProfileReducer,
+  updateUserAvatar: updateUserAvatarReducer,
+
+  sendPasswordResetLink: sendPasswordResetLinkReducer,
+  resetPassword: resetPasswordReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

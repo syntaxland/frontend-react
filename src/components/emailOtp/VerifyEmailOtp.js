@@ -8,7 +8,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 
-const VerifyEmailOtp = () => {
+const VerifyEmailOtp = () => { 
   const [otp, setOtp] = useState("");
   const [resendDisabled, setResendDisabled] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
