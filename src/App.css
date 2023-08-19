@@ -1,3 +1,5 @@
+/* footer --------------------------------------------------------------------------------- */
+
 body,
 html {
   height: 100%;
@@ -17,12 +19,15 @@ html {
 
 main {
   flex: 1;
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
 .App {
   text-align: center;
+  text-transform: none;
 }
+
+/* --------------------------------------------------------------------------------- */
 
 .App-logo {
   height: 40vmin;
@@ -59,4 +64,31 @@ main {
   }
 }
 
+/* Dashboard --------------------------------------------------------------------------------- */
+/* .sidebar-content {
+  height: auto;
+  width: auto;
+  overflow-y: auto;
+} */
+.sidebar-content .sidebar-button {
+  text-transform: none;
+}
 
+.sidebar-content {
+  height: auto;
+  overflow-y: hidden; 
+  transition: overflow-y 0.3s; 
+
+}
+
+.sidebar:hover .sidebar-content {
+  overflow-y: auto; 
+}
+
+
+/* --------------------------------------------------------------------------------- */
+
+
+.warning-icon {
+  color: yellow; 
+}

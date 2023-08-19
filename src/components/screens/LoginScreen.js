@@ -7,27 +7,25 @@ import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../FormContainer";
 import { login, logout } from "../../actions/userActions";
-
-import GoogleLogin from "react-google-login";
-// import { loginWithGoogle } from "../../actions/userActions";
+import GoogleLoginScreen from "./GoogleLoginScreen";
 
 function LoginScreen({ location }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+
   const dispatch = useDispatch();
   const history = useHistory();
-
-  // const responseGoogle = (response) => {
-  //   dispatch(loginWithGoogle(response.tokenId));
-  // };
 
   // const redirect = location.search ? location.search.split("=")[1] : "/";
 
   const userLogin = useSelector((state) => state.userLogin);
   const { error, userInfo } = userLogin;
+
+  // const handleGoogleLoginClick = () => {
+  //   setShowGoogleLogin(true);
+  // };
 
   useEffect(() => {
     if (userInfo) {
@@ -83,6 +81,7 @@ function LoginScreen({ location }) {
               required
               type="email"
               placeholder="Enter Email"
+              className="rounded w-100"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -94,6 +93,7 @@ function LoginScreen({ location }) {
               required
               type="password"
               placeholder="Enter Password"
+              className="rounded w-100"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -118,30 +118,10 @@ function LoginScreen({ location }) {
           <Col className="text-center">
             <Button variant="danger" className="rounded w-100" block>
               Continue with Google
-            </Button>
+            </Button> 
           </Col>
         </Row> */}
-
-        <Row className="py-3">
-          <Col className="text-center">
-            <GoogleLogin
-              clientId="551868905468-afspiie229k0936gn1i5ipj8b4s9dmk5.apps.googleusercontent.com"
-              // onSuccess={responseGoogle}
-              // onFailure={responseGoogle}
-              render={(renderProps) => (
-                <Button
-                  variant="danger"
-                  block
-                  className="google-login-button rounded w-100"
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  Continue with Google
-                </Button>
-              )}
-            />
-          </Col>
-        </Row>
+        <GoogleLoginScreen />
 
         <Row className="py-3">
           <Col className="text-center">

@@ -57,36 +57,37 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const loginWithGoogle = (tokenId) => async (dispatch) => {
+export const loginWithGoogle = (email, googleId, tokenId) => async (dispatch) => {
   try {
-      const config = {
-          headers: {
-              'Content-Type': 'application/json',
-          },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-      const { data } = await axios.post(
-          `${API_URL}/api/google-login/`,
-          { token_id: tokenId },
-          config
-      ); 
+    const { data } = await axios.post(
+      `${API_URL}/api/google-login/`,
+      { email, google_id: googleId, token_id: tokenId },
+      config
+    );
 
-      dispatch({
-          type: USER_LOGIN_SUCCESS,
-          payload: data,
-      });
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
+    });
 
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
-      dispatch({
-          type: USER_LOGIN_FAIL,
-          payload:
-              error.response && error.response.data.detail
-                  ? error.response.data.detail
-                  : error.message,
-      });
+    dispatch({
+      type: USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
   }
 };
- 
+
 export const register =
   (firstName, lastName, email, password, phoneNumber) => async (dispatch) => {
     try {

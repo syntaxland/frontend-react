@@ -1,3 +1,4 @@
+// Checkout.js
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Form, Button } from "react-bootstrap";
@@ -92,6 +93,12 @@ function Checkout() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    console.log("Address:", address);
+    console.log("City:", city);
+    console.log("Postal Code:", postalCode);
+    console.log("Country:", country);
+
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     placeOrderHandler();
     history.push(`/payment/${order_id}`);

@@ -10,8 +10,17 @@ import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducers } from "./reducers/userReducers";
 import { userRegisterReducers } from "./reducers/userReducers";
 
-import { orderCreateReducer } from "./reducers/orderReducers";
+import { 
+  orderCreateReducer, 
+  orderListReducer, 
+  orderDeleteReducer,
+  orderItemsListReducer,
+  reviewAddReducer,
+  confirmDeliveryReducer,
+ } from "./reducers/orderReducers";
+
 import { paymentCreateReducer } from "./reducers/paymentReducers";
+import { paymentListReducer } from './reducers/paymentReducers';
 import { favoriteReducer } from "./reducers/favoriteReducers";
 import { 
   // userProfileReducer, 
@@ -26,6 +35,10 @@ import {
 
   // userDeleteReducer,
 } from "./reducers/userProfileReducers";
+// import { 
+//   orderListReducer, 
+//   orderDeleteReducer,
+//  } from "./reducers/orderReducers";
 
 import {
   emailOtpSendReducer,
@@ -56,11 +69,20 @@ const reducer = combineReducers({
   productList: productListReducers,
   productDetails: productDetailsReducers,
   cart: cartReducer,
+
   userLogin: userLoginReducers,
   userRegister: userRegisterReducers,
 
   orderCreate: orderCreateReducer, 
+  orderItemsList: orderItemsListReducer,
+  reviewAdd: reviewAddReducer,
+  confirmDelivery: confirmDeliveryReducer,
+  orderList: orderListReducer, 
+  orderDelete: orderDeleteReducer,
+
   paymentCreate: paymentCreateReducer,
+  paymentList: paymentListReducer,
+
   favorites: favoriteReducer,
 
   emailOtpSend: emailOtpSendReducer,

@@ -71,7 +71,7 @@ function Product({ product }) {
   // };
 
   const toggleFavoriteHandler = () => {
-    if (!userInfo || !userInfo.is_verified) {
+    if (!userInfo) {
       // If user is not logged in or not verified, redirect to login
       history.push("/login");
     } else {

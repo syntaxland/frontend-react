@@ -9,6 +9,7 @@ import { sendEmailOtp } from "../../actions/emailOtpActions";
 import FormContainer from "../FormContainer";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
+import GoogleLoginScreen from "./GoogleLoginScreen";
 
 function RegisterScreen({ location, history }) {
   const [firstName, setFirstName] = useState("");
@@ -358,14 +359,16 @@ function RegisterScreen({ location, history }) {
           </Row>
         </Form>
 
-        <Row className="py-3">
+        {/* <Row className="py-3">
           <Col className="text-center">
             <Button variant="danger" className="rounded w-100" block>
               <i className="bi bi-google"></i>
               Continue with Google
             </Button>
           </Col>
-        </Row>
+        </Row> */}
+        <GoogleLoginScreen />
+
 
         <Row className="py-3">
           <Col className="text-center">

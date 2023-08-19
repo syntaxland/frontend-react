@@ -41,7 +41,7 @@ function DeleteAccount() {
 
   return (
     <Container>
-      <Row className="justify-content-center mt-5">
+      <Row className="justify-content-center mt-3">
         <Col md={6}>
           <h2 className="mb-4">Delete Account</h2>
           {/* {deleteSuccess && ( 
@@ -61,7 +61,12 @@ function DeleteAccount() {
           <Form>
             <Form.Group>
               <Form.Label>Email Address</Form.Label>
-              <Form.Control type="email" value={userInfo.email} readOnly />
+              <Form.Control
+                type="email"
+                value={userInfo.email}
+                readOnly
+                className="rounded mt-2"
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Password</Form.Label>
@@ -70,9 +75,14 @@ function DeleteAccount() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password to confirm account deletion"
+                className="rounded mt-2"
               />
             </Form.Group>
-            <Button variant="danger" onClick={handleDelete}>
+            <Button
+              variant="danger"
+              onClick={handleDelete}
+              className="rounded mt-2 text-center w-100"
+            >
               Delete Account
             </Button>
           </Form>

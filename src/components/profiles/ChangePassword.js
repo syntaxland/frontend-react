@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { changePassword } from "../../actions/userProfileActions";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+
 import Message from "../Message";
 import Loader from "../Loader";
 
@@ -38,7 +39,9 @@ function ChangePassword() {
 
   return (
     <Container>
-      <h1 className="text-center">Change Password</h1>
+      <Row className="justify-content-center mt-3">
+        <Col md={6}>
+      <h2 className="text-center">Change Password</h2>
       {success && (
         <Message variant="success">Password changed successfully.</Message>
       )}
@@ -50,6 +53,7 @@ function ChangePassword() {
           <Form.Control
             type="password"
             value={oldPassword}
+            className="rounded"
             onChange={(e) => setOldPassword(e.target.value)}
             required
           />
@@ -59,6 +63,7 @@ function ChangePassword() {
           <Form.Control
             type="password"
             value={newPassword}
+            className="rounded"
             onChange={(e) => setNewPassword(e.target.value)}
             required
           />
@@ -68,14 +73,17 @@ function ChangePassword() {
           <Form.Control
             type="password"
             value={confirmNewPassword}
+            className="rounded"
             onChange={(e) => setConfirmNewPassword(e.target.value)}
             required
           />
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="success" className="rounded mt-2 w-100">
           Change Password
         </Button>
       </Form>
+      </Col>
+      </Row>
     </Container>
   );
 }

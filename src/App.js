@@ -9,24 +9,27 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import OrderSuccessPage from "./components/OrderSuccessPage";
 import HomeScreen from "./components/screens/HomeScreen";
 import ProductScreen from "./components/screens/ProductScreen";
-import FavouritesScreen from "./components/screens/FavouritesScreen";
+// import FavouritesScreen from "./components/profiles/FavouritesScreen";
 import SearchScreen from "./components/screens/SearchScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import LoginScreen from "./components/screens/LoginScreen";
 import CartScreen from "./components/screens/CartScreen";
+import Checkout from "./components/screens/CheckoutScreen";
+import Payment from "./components/screens/PaymentScreen";
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
 import ResendEmailOtp from "./components/emailOtp/ResendEmailOtp";
-import Checkout from "./components/screens/CheckoutScreen";
 import UserProfile from "./components/profiles/UserProfile";
-import Payment from "./components/screens/PaymentScreen";
-import OrderSuccessPage from "./components/OrderSuccessPage";
 import DeleteAccount from "./components/profiles/DeleteAccount";
 import ChangePassword from "./components/profiles/ChangePassword"; 
 import ResetPasswordRequest from './components/profiles/ResetPasswordRequest';
 import ResetPassword from './components/profiles/ResetPassword';
+import Orders from "./components/profiles/Orders";
+import Payments from "./components/profiles/Payments";
+import Dashboard from "./components/profiles/Dashboard";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -37,7 +40,7 @@ function App() {
       <Container fluid>
         {/* <section class="container-fliud"> */}
         <Header userInfo={userInfo} />
-        <main className="container py-3">
+        <main className=" py-3">
           <Route exact path="/" component={HomeScreen} />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/login" component={LoginScreen} />
@@ -46,7 +49,7 @@ function App() {
           <Route path="/products/search/:keyword" component={SearchScreen} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/payment" component={Payment} />
-          <Route path="/favourites" component={FavouritesScreen} />
+          {/* <Route path="/favourites" component={FavouritesScreen} /> */}
           <Route path="/send-email-otp" component={SendEmailOtp} />
           <Route path="/verify-email-otp" component={VerifyEmailOtp} />
           <Route path="/resend-email-otp" component={ResendEmailOtp} />
@@ -54,8 +57,11 @@ function App() {
           <Route path="/user/profile" component={UserProfile} />
           <Route path="/delete-account" component={DeleteAccount} />
           <Route path="/change-password" component={ChangePassword} />
-          <Route exact path="/reset-password-request" component={ResetPasswordRequest} />
-          <Route exact path="/reset-password/:token" component={ResetPassword} />
+          <Route path="/reset-password-request" component={ResetPasswordRequest} />
+          <Route path="/reset-password/:token" component={ResetPassword} />
+          <Route path="/orders" component={Orders} />
+          <Route path="/payments" component={Payments} />
+          <Route path="/user-dashboard" component={Dashboard} />
         </main>
         <Footer />
         {/* </section> */}

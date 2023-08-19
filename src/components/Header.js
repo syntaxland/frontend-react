@@ -41,11 +41,11 @@ function Header() {
     // Get the current hour of the day
     const currentHour = new Date().getHours();
     if (currentHour >= 5 && currentHour < 12) {
-      setGreeting(`Good morning,`);
+      setGreeting(`Good morning!`);
     } else if (currentHour >= 12 && currentHour < 18) {
-      setGreeting(`Good afternoon,`);
+      setGreeting(`Good afternoon!`);
     } else {
-      setGreeting(`Good evening,`);
+      setGreeting(`Good evening!`);
     }
   }, []);
 
@@ -54,19 +54,20 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            <i className="fas fa-home"></i> Mcdof Global Store
+            {/* <i className="fas fa-home"></i>  */}
+            Mcdof Global
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">
             <Form
               className="searchBarContainer d-flex flex-grow-1 mt-2"
               onSubmit={searchHandler}
-              inline={!userInfo} // Set to inline mode when user is not logged in
+              inline={!userInfo}
             >
               <Form.Control
                 type="search"
-                placeholder="Search"
-                className="mr-2 rounded"
+                placeholder="Search products, brands or categories."
+                className="mr-auto ml-auto rounded"
                 aria-label="Search"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
@@ -74,7 +75,7 @@ function Header() {
               <Button
                 variant="primary"
                 type="submit"
-                className={!userInfo ? "rounded" : ""}
+                className="mr-auto ml-auto rounded"
               >
                 Search
               </Button>
@@ -112,10 +113,21 @@ function Header() {
                   )}
               </Nav.Link>
               {userInfo ? (
-                <NavDropdown title={userInfo.first_name} id="username">
-                  <NavDropdown.Divider />
-                  <Nav.Link as={Link} to="user/profile"> {" "}
-                  Go to Profile
+                // <NavDropdown title={userInfo.first_name}
+                <NavDropdown
+                  title={
+                    userInfo.first_name
+                      ? userInfo.first_name.charAt(0).toUpperCase() +
+                        userInfo.first_name.slice(1)
+                      : ""
+                  }
+                  id="username"
+                  className="profile-dropdown"
+                >
+                  {/* <NavDropdown.Divider /> */}
+                  <Nav.Link as={Link} to="/user-dashboard">
+                    {" "}
+                    Go to Profile
                   </Nav.Link>
                   <NavDropdown.Divider />
                   {/* <NavDropdown.Item as={Link} to="/favorites">
@@ -129,7 +141,7 @@ function Header() {
                 </NavDropdown>
               ) : (
                 <Nav.Link as={Link} to="/login">
-                  sign in
+                  Sign in
                 </Nav.Link>
               )}
               <Nav.Link as={Link} to="/cart">
@@ -138,6 +150,7 @@ function Header() {
                   {cartItems.length > 0 && (
                     <span className="cart-count">{cartItems.length}</span>
                   )}
+                {/* <i>Cart</i> */}
                 </div>
               </Nav.Link>
             </Nav>
