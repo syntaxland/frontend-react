@@ -44,7 +44,7 @@ function OrderItem() {
             <thead>
               <tr>
                 <th>SN</th>
-                <th>ID</th>
+                {/* <th>ID</th> */}
                 <th>Image</th>
                 <th>Name</th>
                 <th>Order ID</th>
@@ -59,7 +59,7 @@ function OrderItem() {
               {currentItems.map((item, index) => (
                 <tr key={item._id}>
                   <td>{index + 1}</td>
-                  <td>{item._id}</td>
+                  {/* <td>{item._id}</td> */}
                   <td>
                     <Image
                       src={item.image}

@@ -32,7 +32,7 @@ const query = new URLSearchParams(location.search);
 
   return (
     <div>
-      <h2>Add Review</h2>
+      <h2 >Add Review</h2>
       {loading && <Loader />}
       {error && <Message variant="danger">{error}</Message>}
       {success && (
