@@ -1,38 +1,43 @@
-// Payments.js
+// ReviewScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Table } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Table, Button } from "react-bootstrap";
+import { listReviews } from "../../actions/orderActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import { listPayments } from "../../actions/paymentActions";
 
-function Payments() {
+function ReviewScreen() {
   const dispatch = useDispatch();
 
-  const paymentList = useSelector((state) => state.paymentList);
-  const { loading, error, payments } = paymentList;
+  const { productId  } = useParams();
+//   const location = useLocation();
+//   const productId = new URLSearchParams(location.search).get("product");
+
+  const reviewList = useSelector((state) => state.reviewList);
+  const { loading, error, reviews } = reviewList;
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = payments.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(payments.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(reviews.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  useEffect(() => {
-    dispatch(listPayments());
-  }, [dispatch]);
+useEffect(() => {
+    dispatch(listReviews(productId ));
+  }, [dispatch, productId ]);
 
   return (
     <div>
-      <h1 className="text-center">Payments</h1>
+      <h1 className="text-center">Reviews</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -43,29 +48,28 @@ function Payments() {
             <thead>
               <tr>
                 <th>SN</th>
+                <th>Product</th>
                 <th>Order ID</th>
                 <th>User</th>
-                <th>Email</th>
-                <th>Amount Paid</th>
-                <th>Payment Reference</th>
-                <th>Created At</th>
+                <th>Rating</th>
+                <th>Comment</th>
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((payment, index) => (
-                <tr key={payment.id}>
+              {currentItems.map((review, index) => (
+                <tr key={review._id}>
                   <td>{index + 1}</td>
-                  {/* <td>{payment.order.order_id}</td> */}
-                  {/* <td>{payment.order.user.first_name}</td> */}
-                  {/* <td>{payment.order.user.email}</td> */}
-
-                  <td>{payment.order_id}</td>
-                  <td>{payment.first_name}</td>
-                  <td>{payment.user.email}</td>
-
-                  <td>{payment.amount}</td>
-                  <td>{payment.reference}</td>
-                  {new Date(payment.created_at).toLocaleString()}
+                  <td>{review.product.name}</td>
+                  <td>{review.order_id}</td>
+                  <td>{review.user.first_name}</td>
+                  <td>{review.rating}</td>
+                  <td>{review.comment}</td>
+                  <td>
+                    <Button className="rounded" variant="danger" size="sm">
+                      <i className="fas fa-heart"></i>
+                      Like
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -117,4 +121,4 @@ function Payments() {
   );
 }
 
-export default Payments;
+export default ReviewScreen;

@@ -7,6 +7,11 @@ import UserProfile from "./UserProfile";
 import Orders from "./Orders";
 import Payments from "./Payments";
 import Favorites from "./SavedItems";
+import OrderShipment from "./OrderShipment";
+import OrderItem from "./OrderItem";
+import Reviews from "./Reviews";
+import UserDashboard from "./UserDashboard";
+import AdminDashboard from "./AdminDashboard";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("profile");
@@ -28,6 +33,20 @@ function Dashboard() {
         return <Payments />;
       case "favorites":
         return <Favorites />;
+      case "order-shipment":
+        return <OrderShipment />;
+      case "order-items":
+        return <OrderItem />;
+
+      case "reviews":
+        return <Reviews />;
+
+      case "user-dashboard":
+        return <UserDashboard />;
+
+      case "admin-dashboard":
+        return <AdminDashboard />;
+
       default:
         return <UserProfile />;
     }
@@ -68,6 +87,16 @@ function Dashboard() {
 
               <Button
                 variant={
+                  activeTab === "order-items" ? "primary" : "outline-primary"
+                }
+                className="sidebar-button"
+                onClick={() => handleTabChange("order-items")}
+              >
+                Order Items
+              </Button>
+
+              <Button
+                variant={
                   activeTab === "payments" ? "primary" : "outline-primary"
                 }
                 className="sidebar-button"
@@ -76,10 +105,25 @@ function Dashboard() {
                 Payments
               </Button>
 
-              <Button className="sidebar-button">Order Items</Button>
-              <Button className="sidebar-button">Shipments</Button>
+              <Button
+                variant={
+                  activeTab === "order-shipment" ? "primary" : "outline-primary"
+                }
+                className="sidebar-button"
+                onClick={() => handleTabChange("order-shipment")}
+              >
+                Shipments
+              </Button>
 
-              <Button className="sidebar-button">Reviews</Button>
+              <Button
+                variant={
+                  activeTab === "reviews" ? "primary" : "outline-primary"
+                }
+                className="sidebar-button"
+                onClick={() => handleTabChange("reviews")}
+              >
+                Reviews
+              </Button>
 
               <Button
                 variant={
@@ -91,10 +135,32 @@ function Dashboard() {
                 Saved Items
               </Button>
 
+              <Button
+                variant={
+                  activeTab === "user-dashboard" ? "primary" : "outline-primary"
+                }
+                className="sidebar-button"
+                onClick={() => handleTabChange("user-dashboard")}
+              >
+                User Dashboard
+              </Button>
+
+              <Button
+                variant={
+                  activeTab === "admin-dashboard"
+                    ? "primary"
+                    : "outline-primary"
+                }
+                className="sidebar-button"
+                onClick={() => handleTabChange("admin-dashboard")}
+              >
+                Admin Dashboard
+              </Button>
+
               <Button className="sidebar-button">Viewed Items</Button>
               <Button className="sidebar-button">Credit Points</Button>
 
-              <Button className="sidebar-button">Dashboard</Button>
+              <Button className="sidebar-button">Home</Button>
 
               <Button className="sidebar-button">Best Offers</Button>
               <Button className="sidebar-button">Recommendations</Button>

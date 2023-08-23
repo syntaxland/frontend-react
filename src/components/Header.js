@@ -146,7 +146,7 @@ function Header() {
               )}
               <Nav.Link as={Link} to="/cart">
                 <div className="cart-icon">
-                  <i className="fas fa-shopping-cart"></i>
+                Cart <i className="fas fa-shopping-cart"></i>
                   {cartItems.length > 0 && (
                     <span className="cart-count">{cartItems.length}</span>
                   )}

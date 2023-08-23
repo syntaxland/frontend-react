@@ -1,8 +1,12 @@
 // Orders.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+// import { Link } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
-import { getOrders, deleteOrder } from "../../actions/orderActions";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faToggleOn } from '@fortawesome/free-solid-svg-icons';
+// import { faBox, faCheck, faToggleOn } from '@fortawesome/free-solid-svg-icons';
+import { getOrders, confirmOderDelivery, deleteOrder } from "../../actions/orderActions";
 import Message from "../Message";
 import Loader from "../Loader";
 
@@ -19,9 +23,12 @@ function Orders() {
     error: deleteError,
   } = orderDelete;
   const [showDeleteSuccess, setShowDeleteSuccess] = useState(deleteSuccess);
+  // const [delivered, setDelivered] = useState(false);
+
+
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -33,6 +40,15 @@ function Orders() {
   for (let i = 1; i <= Math.ceil(orders.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  // const handleToggleDelivered = () => {
+  //   setDelivered(!delivered);
+  //   // Dispatch your action here to update the delivery status
+  // };
+
+  const handleConfirmDelivery = (orderId) => {
+    dispatch(confirmOderDelivery(orderId));
+  };
 
   useEffect(() => {
     dispatch(getOrders());
@@ -97,11 +113,10 @@ function Orders() {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>SN</th>
                 <th>Order ID</th>
+                <th>User</th>
                 {/* <th>Email</th> */}
-                {/* <th>First Name</th> */}
-                {/* <th>User</th> */}
                 <th>Payment Method</th>
                 <th>Tax (3%)</th>
                 <th>Shipping Price</th>
@@ -109,7 +124,8 @@ function Orders() {
                 <th>Paid</th>
                 <th>Paid At</th>
                 <th>Delivered</th>
-                <th>Delivered At</th>
+                {/* <th>Delivered At</th> */}
+                <th>Delivery Status</th>
                 <th>Created At</th>
                 <th></th>
               </tr>
@@ -119,9 +135,8 @@ function Orders() {
                 <tr key={order._id}>
                   <td>{index + 1}</td>
                   <td>{order.order_id}</td>
-                  {/* <td>{order.email}</td> */}
-                  {/* <td>{order.first_name}</td> */}
-                  {/* <td>{order.user}</td> */}
+                  <td>{order.user.first_name} {order.user.last_name}</td>
+                  {/* <td>{order.user.email}</td> */}
                   <td>{order.paymentMethod}</td>
                   <td>{order.taxPrice}</td>
                   <td>{order.shippingPrice}</td>
@@ -130,20 +145,52 @@ function Orders() {
                   {/* <td>{order.paidAt}</td> */}
                   {new Date(order.paidAt).toLocaleString()}
                   <td>{order.isDelivered ? "Yes" : "No"}</td>
-                  <td>{order.deliveredAt}</td>
-                  {/* <td>{order.createdAt}</td> */}
-                  {new Date(order.createdAt).toLocaleString()}
+                  {/* <td>{order.deliveredAt}</td> */}
+                   
+                  
+
                   {/* <td>
-                    <Button
-                      className="rounded"
-                    //   variant="danger"
-                      size="sm"
-                      onClick={() => deleteHandler(order._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                    
+                    {order.isDelivered ? (
+
+                  <Button variant="success" className={`toggle-button ${delivered ? 'delivered' : ''}`} onClick={handleToggleDelivered}>
+                  {delivered ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faBox} />}
+                  </Button>
+                    ) : (
+                      <span>Order Not Paid</span>
+                    )}
                   </td> */}
+
+                  <td>
+                <Button
+                variant="success"
+                  className={`toggle-button ${order.is_delivered ? 'delivered' : ''}`}
+                  onClick={() => handleConfirmDelivery(order._id)}
+                >
+                  <FontAwesomeIcon icon={faToggleOn} />
+                </Button>
+                <span>{order.is_delivered ? 'Delivered' : 'Not Delivered'}</span> 
+              </td>
+
+                  {/* <td>
+                    {order.isPaid ? (
+
+                      <Link
+                        to={{
+                          pathname: '/add-review',
+                          search: `?orderItemId=${order._id}`,
+                        }}
+                        className="btn btn-success btn-sm rounded"
+                      >
+                        Confirm Delivery
+                      </Link>
+                    ) : (
+                      <span>Order Not Paid</span>
+                    )}
+                  </td> */}
+                  
+
+                  <td>{new Date(order.createdAt).toLocaleString()}</td>
+
                   <td>
                     {order.isPaid ? (
                       <Button className="rounded" size="sm" disabled>
@@ -160,6 +207,7 @@ function Orders() {
                       </Button>
                     )}
                   </td>
+
                 </tr>
               ))}
             </tbody>

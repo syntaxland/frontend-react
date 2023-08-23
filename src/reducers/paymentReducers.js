@@ -7,6 +7,11 @@ import {
   PAYMENT_LIST_REQUEST,
   PAYMENT_LIST_SUCCESS,
   PAYMENT_LIST_FAIL,
+
+  ADMIN_PAYMENT_LIST_REQUEST,
+  ADMIN_PAYMENT_LIST_SUCCESS,
+  ADMIN_PAYMENT_LIST_FAIL,
+
   } from '../constants/paymentConstants';
   
   const initialState = {
@@ -57,6 +62,19 @@ import {
           loading: false,
           error: action.payload,
         };
+      default:
+        return state;
+    }
+  };
+
+  export const adminPaymentListReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case ADMIN_PAYMENT_LIST_REQUEST:
+        return { ...state, loading: true };
+      case ADMIN_PAYMENT_LIST_SUCCESS:
+        return { loading: false, payments: action.payload };
+      case ADMIN_PAYMENT_LIST_FAIL:
+        return { loading: false, error: action.payload };
       default:
         return state;
     }

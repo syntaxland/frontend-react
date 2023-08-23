@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   cartItems: [],
-  shippingAddress: {},
+  shippingAddress: {}, 
 };
 
 export const cartReducer = (state = initialState, action) => {

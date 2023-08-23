@@ -21,13 +21,31 @@ import {
   CONFIRM_DELIVERY_REQUEST,
   CONFIRM_DELIVERY_SUCCESS,
   CONFIRM_DELIVERY_FAIL,
-  } from "../constants/orderConstants"; 
+
+  SHIPPING_ADDRESS_REQUEST,
+  SHIPPING_ADDRESS_SUCCESS,
+  SHIPPING_ADDRESS_FAIL,
+
+  REVIEW_LIST_REQUEST,
+  REVIEW_LIST_SUCCESS,
+  REVIEW_LIST_FAIL,
+
+  ORDER_ADD_REVIEW_REQUEST,
+  ORDER_ADD_REVIEW_SUCCESS,
+  ORDER_ADD_REVIEW_FAIL,
   
+  ORDER_EDIT_REVIEW_REQUEST,
+  ORDER_EDIT_REVIEW_SUCCESS,
+  ORDER_EDIT_REVIEW_FAIL,
+  } from "../constants/orderConstants"; 
+   
   const initialState = {
     loading: false,
     success: false,
     error: null,
     order: {},
+    shippingAddress: [],
+    reviews: [],
   };
   
   export const orderCreateReducer = (state = initialState, action) => {
@@ -117,3 +135,64 @@ import {
         return state;
     }
   };
+
+export const shippingAddressReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SHIPPING_ADDRESS_REQUEST:
+      return { loading: true, ...state };
+    case SHIPPING_ADDRESS_SUCCESS:
+      return { loading: false, shippingAddress: action.payload };
+    case SHIPPING_ADDRESS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const reviewListReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REVIEW_LIST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case REVIEW_LIST_SUCCESS:
+      return {
+        loading: false,
+        reviews: action.payload,
+      };
+    case REVIEW_LIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const orderAddReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_ADD_REVIEW_REQUEST:
+      return { loading: true };
+    case ORDER_ADD_REVIEW_SUCCESS:
+      return { loading: false, success: true, review: action.payload };
+    case ORDER_ADD_REVIEW_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const orderEditReviewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ORDER_EDIT_REVIEW_REQUEST:
+      return { loading: true };
+    case ORDER_EDIT_REVIEW_SUCCESS:
+      return { loading: false, success: true, review: action.payload };
+    case ORDER_EDIT_REVIEW_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};

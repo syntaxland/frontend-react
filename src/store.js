@@ -15,15 +15,22 @@ import {
   orderListReducer, 
   orderDeleteReducer,
   orderItemsListReducer,
-  reviewAddReducer,
   confirmDeliveryReducer,
+  shippingAddressReducer,
+
+  reviewListReducer,
+  orderAddReviewReducer,
+  orderEditReviewReducer,
+  
  } from "./reducers/orderReducers";
 
-import { paymentCreateReducer } from "./reducers/paymentReducers";
-import { paymentListReducer } from './reducers/paymentReducers';
+import { paymentCreateReducer, paymentListReducer, adminPaymentListReducer } from "./reducers/paymentReducers";
+// import { paymentListReducer } from './reducers/paymentReducers';
+// import { adminPaymentListReducer } from './reducers/adminReducers';
+
 import { favoriteReducer } from "./reducers/favoriteReducers";
+
 import { 
-  // userProfileReducer, 
   getUserProfileReducer,
   changePasswordReducer,
   updateUserProfileReducer,
@@ -33,18 +40,16 @@ import {
   sendPasswordResetLinkReducer,
   resetPasswordReducer,
 
-  // userDeleteReducer,
 } from "./reducers/userProfileReducers";
-// import { 
-//   orderListReducer, 
-//   orderDeleteReducer,
-//  } from "./reducers/orderReducers";
+
 
 import {
   emailOtpSendReducer,
   emailOtpVerifyReducer,
   emailOtpResendReducer,
 } from "./reducers/emailOtpReducers";
+
+
 
 import axios from "axios";
 import { logout } from "./actions/userActions";
@@ -75,13 +80,19 @@ const reducer = combineReducers({
 
   orderCreate: orderCreateReducer, 
   orderItemsList: orderItemsListReducer,
-  reviewAdd: reviewAddReducer,
   confirmDelivery: confirmDeliveryReducer,
+  shippingAddress: shippingAddressReducer,
+
+  reviewList: reviewListReducer,
+  orderAddReview: orderAddReviewReducer,
+  orderEditReview: orderEditReviewReducer,
+
   orderList: orderListReducer, 
   orderDelete: orderDeleteReducer,
 
   paymentCreate: paymentCreateReducer,
   paymentList: paymentListReducer,
+  adminPaymentList: adminPaymentListReducer,
 
   favorites: favoriteReducer,
 

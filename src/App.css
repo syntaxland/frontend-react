@@ -86,6 +86,20 @@ main {
 }
 
 
+
+.sidebar-buttons-container {
+  display: flex;
+  flex-direction: column; /* Display buttons vertically */
+  align-items: flex-start; /* Align buttons to the left */
+}
+
+.sidebar-button {
+  width: 100%; /* Make buttons take full width of the container */
+  text-align: left; /* Align button text to the left */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+}
 /* --------------------------------------------------------------------------------- */
 
 

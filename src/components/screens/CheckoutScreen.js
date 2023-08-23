@@ -5,6 +5,7 @@ import { Row, Col, ListGroup, Image, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../actions/orderActions";
 import { saveShippingAddress } from "../../actions/cartActions";
+// import { saveShipment } from "../../actions/orderActions";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -19,12 +20,18 @@ function Checkout() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const [order_id, setOrderId] = useState("");
   const [paymentMethod] = useState("Paystack");
+
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
-  const [order_id, setOrderId] = useState("");
+
+  // const [address, setAddress] = useState(shippingAddress.address || '');
+  // const [city, setCity] = useState(shippingAddress.city || '');
+  // const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
+  // const [country, setCountry] = useState(shippingAddress.country || '');
 
   useEffect(() => {
     if (!userInfo) {
@@ -91,17 +98,49 @@ function Checkout() {
     });
   };
 
-  const submitHandler = (e) => {
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+
+  //   console.log("Address:", address);
+  //   console.log("City:", city);
+  //   console.log("Postal Code:", postalCode);
+  //   console.log("Country:", country);
+
+  //   dispatch(saveShippingAddress({ address, city, postalCode, country }));
+  //   placeOrderHandler();
+  //   history.push(`/payment/${order_id}`);
+  // };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+    placeOrderHandler();
 
     console.log("Address:", address);
     console.log("City:", city);
     console.log("Postal Code:", postalCode);
     console.log("Country:", country);
 
-    dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    placeOrderHandler();
-    history.push(`/payment/${order_id}`);
+    // const shipmentData = {
+    //   address,
+    //   city,
+    //   postalCode,
+    //   country,
+    //   order_id,
+    //   shippingPrice,
+    // };
+    
+
+    try {
+      await dispatch(
+        // saveShipment(shipmentData),
+        saveShippingAddress({ address, city, postalCode, country })
+      );
+    } catch (error) {
+      console.log("Shipping address not dispatched.", error);
+    }
+
+    
+    history.push(`/payment/${order_id}`); 
   };
 
   return (

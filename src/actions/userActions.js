@@ -41,7 +41,7 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem("userInfo", JSON.stringify(data));
 
     // Set timer to refresh the access token after refreshTokenTime minutes (ms)
-    let refreshTokenTime = 1000 * 60 * 60; // ms * hr * mins
+    let refreshTokenTime = 1000 * 60 * 90; // ms * hr * mins
     setTimeout(() => {
       dispatch(refreshToken(data.refresh));
     }, refreshTokenTime);

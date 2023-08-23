@@ -1,3 +1,4 @@
+// Product.js
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useLocation, useHistory } from "react-router-dom";
@@ -54,22 +55,6 @@ function Product({ product }) {
     }
   };
 
-  // const toggleFavoriteHandler = () => {
-  //   if (isFavorite) {
-  //     dispatch(removeFromFavorites(product._id));
-  //     setRemoveFromFavoritesMessage(true);
-  //     setTimeout(() => {
-  //       setRemoveFromFavoritesMessage(false);
-  //     }, 3000);
-  //   } else {
-  //     dispatch(addToFavorites(product));
-  //     setAddToFavoritesMessage(true);
-  //     setTimeout(() => {
-  //       setAddToFavoritesMessage(false);
-  //     }, 3000);
-  //   }
-  // };
-
   const toggleFavoriteHandler = () => {
     if (!userInfo) {
       // If user is not logged in or not verified, redirect to login
@@ -121,9 +106,11 @@ function Product({ product }) {
           <div className="my-3">
             <Rating
               value={product.rating}
-              text={`${product.numReviews} reviews`}
+              text={`${product.numReviews} reviews `}
               color={"yellow"}
             />
+            {/* <Link to="/review-list">(Verified Purchase)</Link> */}
+            <Link to={`/review-list/${product._id}`}>(Verified Purchase)</Link>
           </div>
         </Card.Text>
 
