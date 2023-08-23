@@ -136,6 +136,7 @@ function Dashboard() {
               </Button>
 
               <Button
+              disabled
                 variant={
                   activeTab === "user-dashboard" ? "primary" : "outline-primary"
                 }
@@ -146,6 +147,7 @@ function Dashboard() {
               </Button>
 
               <Button
+              disabled
                 variant={
                   activeTab === "admin-dashboard"
                     ? "primary"
@@ -160,9 +162,8 @@ function Dashboard() {
               <Button className="sidebar-button">Viewed Items</Button>
               <Button className="sidebar-button">Credit Points</Button>
 
-              <Button className="sidebar-button">Home</Button>
 
-              <Button className="sidebar-button">Best Offers</Button>
+              <Button className="sidebar-button">Hot Deals & Offers</Button>
               <Button className="sidebar-button">Recommendations</Button>
               <Button className="sidebar-button">Inbox</Button>
               <Button className="sidebar-button">Settings</Button>
