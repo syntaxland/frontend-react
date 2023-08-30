@@ -125,9 +125,9 @@ function Header() {
                   className="profile-dropdown"
                 >
                   {/* <NavDropdown.Divider /> */}
-                  <Nav.Link as={Link} to="/user-dashboard">
+                  <Nav.Link as={Link} to="/dashboard">
                     {" "}
-                    Go to Profile
+                    Go to Dashboard
                   </Nav.Link>
                   <NavDropdown.Divider />
                   {/* <NavDropdown.Item as={Link} to="/favorites">

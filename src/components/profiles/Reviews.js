@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
+import { Table, Image } from "react-bootstrap";
 import { getUseReviews } from "../../actions/orderActions";
 import Message from "../Message";
 import Loader from "../Loader";
+import Rating from "../Rating";
 
 function Reviews() {
   const dispatch = useDispatch();
@@ -45,32 +46,53 @@ function Reviews() {
               <tr>
                 <th>SN</th>
                 <th>Product</th>
+                <th>Name</th>
                 <th>Order ID</th>
                 <th>User</th>
                 <th>Rating</th>
                 <th>Comment</th>
+                <th>Created At</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {currentItems.map((review, index) => (
                 <tr key={review._id}>
                   <td>{index + 1}</td>
+                  {/* <td>{review.product.image}</td> */}
+                  <td>
+                    <Image
+                      src={review.product.image}
+                      alt={review.product.name}
+                      fluid
+                      rounded
+                      style={{ width: "80px", height: "80px" }}
+                    />
+                  </td>
                   <td>{review.product.name}</td>
                   <td>{review.order_id}</td>
-                  <td>{review.user.first_name}</td>
-                  <td>{review.rating}</td>
-                  <td>{review.comment}</td>
+                  {/* <td>{review.user}</td> */}
                   <td>
-                  <Link
-                        // to={`/edit-review/${review._id}`}
-                        to={{
-                          pathname: '/edit-review',
-                          search: `?reviewId=${review._id}`,
-                        }}
-                        className="btn btn-success btn-sm rounded"
-                      >
-                        Edit Review
-                      </Link>
+                    {review.user.first_name} {review.user.last_name}
+                  </td>
+                  {/* <td>{review.rating}</td> */}
+                  <td>
+                    <Rating value={review.rating} color={"#f8e825"} />
+                  </td>
+
+                  <td>{review.comment}</td>
+                  <td>{new Date(review.createdAt).toLocaleString()}</td>
+                  <td>
+                    <Link
+                      // to={`/edit-review/${review._id}`}
+                      to={{
+                        pathname: "/edit-review",
+                        search: `?reviewId=${review._id}`,
+                      }}
+                      className="btn btn-success btn-sm rounded"
+                    >
+                      Edit Review
+                    </Link>
 
                     {/* <Button className="rounded" variant="success" size="sm">
                       Edit Review
@@ -128,27 +150,3 @@ function Reviews() {
 }
 
 export default Reviews;
-
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// import { Row, Col } from 'react-bootstrap';
-
-// const Reviews = ({ product }) => {
-//   const reviewAdd = useSelector((state) => state.reviewAdd);
-//   const { success: successReviewAdd, review } = reviewAdd;
-
-//   return (
-//     <div>
-//       {/* ... existing code for product details */}
-//       <Row>
-//         <Col md={6}>
-//           <h2>Reviews</h2>
-//           {/* Display existing reviews */}
-//           {/* ... */}
-//         </Col>
-//       </Row>
-//     </div>
-//   );
-// };
-
-// export default Reviews;

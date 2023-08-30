@@ -18,7 +18,7 @@ function Favorites() {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage =6;
+  const itemsPerPage = 6;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -48,15 +48,12 @@ function Favorites() {
     <div>
       <h1 className="text-center">Saved Items</h1>
       {favoriteItems.length === 0 ? (
-        <Message>Your favourites list is empty.{" "}
-          <Link to="/">Save Items?</Link>
+        <Message>
+          Your favourite item list is empty. <Link to="/">Save Items?</Link>
         </Message>
-        
       ) : (
         <>
-        <h5 className="mb-3">
-            Favourite Items ({favoriteItems.length})
-          </h5>
+          <h5 className="mb-3">Favourite Items ({favoriteItems.length})</h5>
           <Row>
             {currentItems.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
@@ -119,9 +116,7 @@ function Favorites() {
           <nav className="mt-4">
             <ul className="pagination justify-content-center">
               <li
-                className={`page-item ${
-                  currentPage === 1 ? "disabled" : ""
-                }`}
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
               >
                 <button
                   className="page-link"
@@ -137,7 +132,10 @@ function Favorites() {
                     currentPage === number ? "active" : ""
                   }`}
                 >
-                  <button className="page-link" onClick={() => paginate(number)}>
+                  <button
+                    className="page-link"
+                    onClick={() => paginate(number)}
+                  >
                     {number}
                   </button>
                 </li>
@@ -162,4 +160,4 @@ function Favorites() {
   );
 }
 
-export default Favorites; 
+export default Favorites;

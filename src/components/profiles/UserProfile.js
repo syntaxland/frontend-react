@@ -8,7 +8,7 @@ import {
   getUserProfile,
   updateUserProfile,
   updateUserAvatar,
-} from "../../actions/userProfileActions";
+} from "../../actions/userProfileActions"; 
 import { resendEmailOtp } from "../../actions/emailOtpActions";
 import { Form, Button, Row, Col, Container, Accordion } from "react-bootstrap";
 import Message from "../Message";

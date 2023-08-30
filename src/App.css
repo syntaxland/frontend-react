@@ -1,3 +1,53 @@
+/* App.css */
+
+/* Dashboard --------------------------------------------------------------------------------- */
+
+.sidebar-content .sidebar-button {
+  text-transform: none;
+}
+
+.sidebar-content {
+  height: auto;
+  overflow-y: hidden; 
+  transition: overflow-y 0.3s; 
+
+}
+
+.sidebar:hover .sidebar-content {
+  overflow-y: auto; 
+}
+
+
+
+/* --------------------------------------------------------------------------------- */
+
+.sidebar {
+  /* ... (existing styles) */
+
+  &.open {
+    .sidebar-toggle-button {
+      transform: translateX(-100%);
+    }
+
+    .sidebar-content {
+      overflow-y: auto;
+      width: 100%; /* Show the full sidebar content when open */
+      transition: width 0.3s;
+    }
+  }
+
+  .sidebar-toggle-button {
+    /* ... (existing styles) */
+    transition: transform 0.3s;
+  }
+
+  .sidebar-content {
+    /* ... (existing styles) */
+    transition: width 0.3s, overflow-y 0.3s; /* Add transition for width */
+  }
+}
+
+
 /* footer --------------------------------------------------------------------------------- */
 
 body,
@@ -27,7 +77,9 @@ main {
   text-transform: none;
 }
 
-/* --------------------------------------------------------------------------------- */
+
+
+
 
 .App-logo {
   height: 40vmin;
@@ -64,45 +116,16 @@ main {
   }
 }
 
-/* Dashboard --------------------------------------------------------------------------------- */
-/* .sidebar-content {
-  height: auto;
-  width: auto;
-  overflow-y: auto;
-} */
-.sidebar-content .sidebar-button {
-  text-transform: none;
-}
-
-.sidebar-content {
-  height: auto;
-  overflow-y: hidden; 
-  transition: overflow-y 0.3s; 
-
-}
-
-.sidebar:hover .sidebar-content {
-  overflow-y: auto; 
-}
 
 
-
-.sidebar-buttons-container {
-  display: flex;
-  flex-direction: column; /* Display buttons vertically */
-  align-items: flex-start; /* Align buttons to the left */
-}
-
-.sidebar-button {
-  width: 100%; /* Make buttons take full width of the container */
-  text-align: left; /* Align button text to the left */
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
-}
 /* --------------------------------------------------------------------------------- */
 
 
 .warning-icon {
   color: yellow; 
+}
+
+
+.testing {
+  color: #520712; 
 }

@@ -1,42 +1,44 @@
-// ReviewScreen.js
+// Orders.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Table, Button, Image } from "react-bootstrap";
-import { listReviews } from "../../actions/orderActions";
+// import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
+// import { faBox, faCheck, faToggleOn } from '@fortawesome/free-solid-svg-icons';
+import { getAllOrders } from "../../actions/orderActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import Rating from "../Rating";
 
-function ReviewScreen() {
+function Orders() {
   const dispatch = useDispatch();
 
-  const { productId } = useParams();
-
-  const reviewList = useSelector((state) => state.reviewList);
-  const { loading, error, reviews } = reviewList;
+  const allOrderList = useSelector((state) => state.allOrderList);
+  const { loading, error, orders } = allOrderList;
+  console.log("Orders:", orders);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(reviews.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(orders.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
   useEffect(() => {
-    dispatch(listReviews(productId));
-  }, [dispatch, productId]);
+    dispatch(getAllOrders());
+  }, [dispatch]);
 
   return (
     <div>
-      <h1 className="text-center">Reviews</h1>
+      <h1 className="text-center">Orders (All Users)</h1>
+
       {loading ? (
         <Loader />
       ) : error ? (
@@ -47,49 +49,44 @@ function ReviewScreen() {
             <thead>
               <tr>
                 <th>SN</th>
-                <th>Product</th>
-                <th>Name</th>
+                <th>Order ID</th>
                 <th>User</th>
-                <th>Rating</th>
-                <th>Comment</th>
+                <th>Email</th>
+                <th>Payment Method</th>
+                <th>Tax (3%)</th>
+                <th>Shipping Price</th>
+                <th>Total Price</th>
+                <th>Paid</th>
+                <th>Paid At</th>
+                <th>Delivered</th>
+                {/* <th>Delivered At</th> */}
+                {/* <th>Delivery Status</th> */}
                 <th>Created At</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((review, index) => (
-                <tr key={review._id}>
+              {currentItems.map((order, index) => (
+                <tr key={order._id}>
                   <td>{index + 1}</td>
+                  <td>{order.order_id}</td>
                   <td>
-                    <Image
-                      src={review.product.image}
-                      alt={review.product.name}
-                      fluid
-                      rounded
-                      style={{ width: "80px", height: "80px" }}
-                    />
+                    {order.user.first_name} {order.user.last_name}
                   </td>
-                  <td>{review.product.name}</td>
-                  {/* <td>{review.order_id}</td> */}
-                  {/* <td>{review.user}</td> */}
-                  <td>
-                    {review.user.first_name} {review.user.last_name}
-                  </td>
-                  {/* <td>{review.rating}</td> */}
-                  <td>
-                    <Rating value={review.rating} color={"#f8e825"} />
-                  </td>
-                  <td>{review.comment}</td>
-                  <td>{new Date(review.createdAt).toLocaleString()}</td>
-                  <td>
-                    <Button className="rounded" variant="danger" size="sm">
-                      <i className="fas fa-heart"></i> Like
-                    </Button>
-                  </td>
+                  <td>{order.user.email}</td>
+                  <td>{order.paymentMethod}</td>
+                  <td>{order.taxPrice}</td>
+                  <td>{order.shippingPrice}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>{order.isPaid ? "Yes" : "No"}</td>
+                  {/* <td>{order.paidAt}</td> */}
+                  {new Date(order.paidAt).toLocaleString()}
+                  <td>{order.isDelivered ? "Yes" : "No"}</td>
+                  <td>{new Date(order.createdAt).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
+
           <nav className="mt-4">
             <ul className="pagination justify-content-center">
               <li
@@ -137,4 +134,4 @@ function ReviewScreen() {
   );
 }
 
-export default ReviewScreen;
+export default Orders;

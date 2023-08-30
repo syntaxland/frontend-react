@@ -1,12 +1,12 @@
-// UserDashboard.js
-import React, { useEffect,  } from "react";
+// Dashboard.js
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { Col, Row, Button } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
-import { listPayments } from "../../actions/paymentActions";
-import { getOrders } from "../../actions/orderActions";
+import { getAllPaymentsList } from "../../actions/paymentActions";
+import { getAllOrders } from "../../actions/orderActions";
 import { Line, Pie } from "react-chartjs-2";
 
 import {
@@ -34,25 +34,24 @@ ChartJS.register(
   PointElement
 );
 
-function UserDashboard() {
-  // const [creditPointEarning, setCreditPointEarning] = useState(0);
+function Dashboard() {
   const dispatch = useDispatch();
 
-  const paymentList = useSelector((state) => state.paymentList);
-  const {
+  const listAllPayments = useSelector((state) => state.listAllPayments);
+  const { 
     loading: paymentLoading,
     error: paymentError,
     payments,
-  } = paymentList;
+  } = listAllPayments;
   console.log("payments:", payments);
 
-  const orderList = useSelector((state) => state.orderList);
-  const { loading: orderLoading, error: orderError, orders } = orderList;
+  const allOrderList = useSelector((state) => state.allOrderList);
+  const { loading: orderLoading, error: orderError, orders } = allOrderList;
   console.log("Orders from state:", orders);
 
   useEffect(() => {
-    dispatch(listPayments());
-    dispatch(getOrders());
+    dispatch(getAllPaymentsList());
+    dispatch(getAllOrders());
   }, [dispatch]);
 
   const lineGraphData = {
@@ -72,48 +71,36 @@ function UserDashboard() {
 
   const getTotalPayment = () => {
     let totalPayment = 0;
-
     payments.forEach((payment) => {
       totalPayment += parseFloat(payment.amount);
     });
     return totalPayment;
   };
 
-  // const getCreditPointEarning = () => {
-  //   let totalCreditPointEarning = 0;
-  //   payments.forEach((payment) => {
-  //     totalCreditPointEarning = parseFloat(payment.amount * 0.01);
-  //     console.log("paymentAmount:", payment.amount);
-  //     console.log("creditPointEarning:", payment.amount * 0.01);
-  //   });
-  //   // setCreditPointEarning(totalCreditPointEarning);
-  //   return totalCreditPointEarning;
-  // };
-
   const totalPayment = getTotalPayment();
   const creditPoints = totalPayment * 0.01;
 
   console.log("totalPayment:", totalPayment, "creditPoints:", creditPoints);
 
-  const withdrawCreditPoints =
-    totalPayment >= 500000 ? (
-      <Link
-        to={{
-          pathname: "/credit-point",
-          search: `?creditPoints=${creditPoints}`,
-        }}
-      >
-        <Button variant="success" className="rounded" size="sm">
-          Withdraw Points
-        </Button>
-      </Link>
-    ) : (
-      <p>
-        <Button variant="outline" className="rounded" size="sm" disabled>
-          Earned points mature from NGN 5000
-        </Button>
-      </p>
-    );
+  // const withdrawCreditPoints =
+  //   totalPayment >= 500000 ? (
+  //     <Link
+  //       to={{
+  //         pathname: "/credit-point",
+  //         search: `?creditPoints=${creditPoints}`,
+  //       }}
+  //     >
+  //       <Button variant="success" className="rounded" size="sm">
+  //         Withdraw Points
+  //       </Button>
+  //     </Link>
+  //   ) : (
+  //     <p>
+  //       <Button variant="outline" className="rounded" size="sm" disabled>
+  //         Earned points mature from NGN 5000
+  //       </Button>
+  //     </p>
+  //   );
 
   const paidOrderRateData = {
     labels: [
@@ -177,7 +164,7 @@ function UserDashboard() {
               <Col>
                 <div>
                   <div className="bar-chart">
-                    <h2 className="pt-4">Total Payment</h2>
+                    <h2 className="pt-4">Total Payment (All Users)</h2>
                     <div className="bar">
                       <div
                         className="bar-fill"
@@ -197,13 +184,13 @@ function UserDashboard() {
                 </div>
                 <hr />
                 <div className="line-graph mt-4">
-                  <h2 className="py-3">Payments</h2>
+                  <h2 className="py-3">Payments (All Users)</h2>
                   <Line data={lineGraphData} />
                 </div>
               </Col>
               <hr />
               <div className="mt-4 py-3">
-                <h2 className="py-3">Orders</h2>
+                <h2 className="py-3">Orders (All Users)</h2>
                 <Row>
                   <Col>
                     <h5 className="py-3">Paid Order Rate</h5>
@@ -230,36 +217,26 @@ function UserDashboard() {
                 </Row>
               </div>
               <hr />
-              <Col>
-                <h2 className="py-3">Credit Point Wallet</h2>
-                <p>
-                  Balance: NGN{" "}
-                  {creditPoints.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </p>
-                <div className="py-3">{withdrawCreditPoints}</div>
+              
+              {/* <Col>
+                <h2 className="py-3">Shipments</h2>
+                <div className="py-3"></div>
               </Col>
+              <hr /> */}
 
-              {/* <hr />
               <Col>
-                <h2 className="py-3">Credit Point Earning</h2>
-                <p>
-                  Balance: NGN{" "}
-                  {getCreditPointEarning()}
-
-                  {creditPointEarning.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </p>
-                <Button onClick={() => setCreditPointEarning(0)}>
-                  Withdraw Earning
-                </Button>
-              </Col> */}
-
+                <h2 className="py-3">Credit Points</h2>
+                <div></div>
+              </Col>
               <hr />
+
+              <Col>
+                <h2 className="py-3">Messages</h2>
+                <div></div>
+              </Col>
+              <hr />
+
+
             </Row>
           </div>
         )}
@@ -268,4 +245,5 @@ function UserDashboard() {
   );
 }
 
-export default UserDashboard;
+export default Dashboard;
+ 

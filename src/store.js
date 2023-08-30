@@ -10,38 +10,41 @@ import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducers } from "./reducers/userReducers";
 import { userRegisterReducers } from "./reducers/userReducers";
 
-import { 
-  orderCreateReducer, 
-  orderListReducer, 
+import {
+  orderCreateReducer,
+  shipmentSaveReducer,
+  userShipmentsReducer,
+allUserShipmentsReducer,
+  orderListReducer,
+  allOrderListReducer,
   orderDeleteReducer,
   orderItemsListReducer,
   confirmDeliveryReducer,
-  shippingAddressReducer,
-
+  // shippingAddressReducer,
   reviewListReducer,
   orderAddReviewReducer,
   orderEditReviewReducer,
-  
- } from "./reducers/orderReducers";
+} from "./reducers/orderReducers";
 
-import { paymentCreateReducer, paymentListReducer, adminPaymentListReducer } from "./reducers/paymentReducers";
+import {
+  paymentCreateReducer,
+  paymentListReducer,
+  listAllPaymentsReducer,
+} from "./reducers/paymentReducers";
 // import { paymentListReducer } from './reducers/paymentReducers';
 // import { adminPaymentListReducer } from './reducers/adminReducers';
 
 import { favoriteReducer } from "./reducers/favoriteReducers";
 
-import { 
+import {
   getUserProfileReducer,
   changePasswordReducer,
   updateUserProfileReducer,
   deleteUserProfileReducer,
   updateUserAvatarReducer,
-
   sendPasswordResetLinkReducer,
   resetPasswordReducer,
-
 } from "./reducers/userProfileReducers";
-
 
 import {
   emailOtpSendReducer,
@@ -49,7 +52,13 @@ import {
   emailOtpResendReducer,
 } from "./reducers/emailOtpReducers";
 
+import {
+  creditPointRequestCreateReducer,
+  creditPointListReducer,
+  creditPointAllListReducer,
+} from "./reducers/creditPointReducers";
 
+import { messagingReducer, emailReducer } from './reducers/messagingReducers';
 
 import axios from "axios";
 import { logout } from "./actions/userActions";
@@ -78,21 +87,29 @@ const reducer = combineReducers({
   userLogin: userLoginReducers,
   userRegister: userRegisterReducers,
 
-  orderCreate: orderCreateReducer, 
+  orderCreate: orderCreateReducer,
+  shipmentSave: shipmentSaveReducer,
+  userShipments: userShipmentsReducer,
+  allUserShipments: allUserShipmentsReducer,
   orderItemsList: orderItemsListReducer,
   confirmDelivery: confirmDeliveryReducer,
-  shippingAddress: shippingAddressReducer,
+  // shippingAddress: shippingAddressReducer,
 
   reviewList: reviewListReducer,
   orderAddReview: orderAddReviewReducer,
   orderEditReview: orderEditReviewReducer,
 
-  orderList: orderListReducer, 
+  creditPointRequestCreate: creditPointRequestCreateReducer,
+  creditPointList: creditPointListReducer,
+  creditPointAllList: creditPointAllListReducer,
+
+  orderList: orderListReducer,
+  allOrderList: allOrderListReducer,
   orderDelete: orderDeleteReducer,
 
   paymentCreate: paymentCreateReducer,
   paymentList: paymentListReducer,
-  adminPaymentList: adminPaymentListReducer,
+  listAllPayments: listAllPaymentsReducer,
 
   favorites: favoriteReducer,
 
@@ -108,6 +125,9 @@ const reducer = combineReducers({
 
   sendPasswordResetLink: sendPasswordResetLinkReducer,
   resetPassword: resetPasswordReducer,
+
+  messaging: messagingReducer,
+  emailMessaging: emailReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

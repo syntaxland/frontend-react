@@ -1,42 +1,38 @@
-// ReviewScreen.js
+// Payments.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Table, Button, Image } from "react-bootstrap";
-import { listReviews } from "../../actions/orderActions";
+import { Table } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
-import Rating from "../Rating";
+import { getAllPaymentsList } from "../../actions/paymentActions";
 
-function ReviewScreen() {
+function Payments() {
   const dispatch = useDispatch();
 
-  const { productId } = useParams();
-
-  const reviewList = useSelector((state) => state.reviewList);
-  const { loading, error, reviews } = reviewList;
+  const listAllPayments = useSelector((state) => state.listAllPayments);
+  const { loading, error, payments } = listAllPayments;
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = reviews.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = payments.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(reviews.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(payments.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
   useEffect(() => {
-    dispatch(listReviews(productId));
-  }, [dispatch, productId]);
+    dispatch(getAllPaymentsList());
+  }, [dispatch]);
 
   return (
     <div>
-      <h1 className="text-center">Reviews</h1>
+      <h1 className="text-center">Payments (All Users)</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -47,45 +43,30 @@ function ReviewScreen() {
             <thead>
               <tr>
                 <th>SN</th>
-                <th>Product</th>
-                <th>Name</th>
+                <th>Order ID</th>
                 <th>User</th>
-                <th>Rating</th>
-                <th>Comment</th>
+                <th>Email</th>
+                <th>Amount Paid</th>
+                <th>Payment Reference</th>
                 <th>Created At</th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((review, index) => (
-                <tr key={review._id}>
+              {currentItems.map((payment, index) => (
+                <tr key={payment.id}>
                   <td>{index + 1}</td>
-                  <td>
-                    <Image
-                      src={review.product.image}
-                      alt={review.product.name}
-                      fluid
-                      rounded
-                      style={{ width: "80px", height: "80px" }}
-                    />
-                  </td>
-                  <td>{review.product.name}</td>
-                  {/* <td>{review.order_id}</td> */}
-                  {/* <td>{review.user}</td> */}
-                  <td>
-                    {review.user.first_name} {review.user.last_name}
-                  </td>
-                  {/* <td>{review.rating}</td> */}
-                  <td>
-                    <Rating value={review.rating} color={"#f8e825"} />
-                  </td>
-                  <td>{review.comment}</td>
-                  <td>{new Date(review.createdAt).toLocaleString()}</td>
-                  <td>
-                    <Button className="rounded" variant="danger" size="sm">
-                      <i className="fas fa-heart"></i> Like
-                    </Button>
-                  </td>
+                  {/* <td>{payment.order.order_id}</td> */}
+                  {/* <td>{payment.order.user.first_name}</td> */}
+                  {/* <td>{payment.order.user.email}</td> */}
+
+                  <td>{payment.order_id}</td>
+                  <td>{payment.first_name}</td>
+                  <td>{payment.user.email}</td>
+
+                  <td>{payment.amount}</td>
+                  <td>{payment.reference}</td>
+                  {/* <td>{payment.reference.reference}</td> */}
+                  {new Date(payment.created_at).toLocaleString()}
                 </tr>
               ))}
             </tbody>
@@ -132,9 +113,9 @@ function ReviewScreen() {
             </ul>
           </nav>
         </>
-      )}
+      )} 
     </div>
   );
 }
 
-export default ReviewScreen;
+export default Payments;

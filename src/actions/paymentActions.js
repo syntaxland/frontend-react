@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   PAYMENT_CREATE_REQUEST,
   PAYMENT_CREATE_SUCCESS,
@@ -6,12 +6,11 @@ import {
   PAYMENT_LIST_REQUEST,
   PAYMENT_LIST_SUCCESS,
   PAYMENT_LIST_FAIL,
+  LIST_ALL_PAYMENTS_REQUEST,
+  LIST_ALL_PAYMENTS_SUCCESS,
+  LIST_ALL_PAYMENTS_FAIL,
+} from "../constants/paymentConstants";
 
-  ADMIN_PAYMENT_LIST_REQUEST,
-  ADMIN_PAYMENT_LIST_SUCCESS,
-  ADMIN_PAYMENT_LIST_FAIL,
-} from '../constants/paymentConstants';
- 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const createPayment = (paymentData) => async (dispatch, getState) => {
@@ -21,11 +20,12 @@ export const createPayment = (paymentData) => async (dispatch, getState) => {
     });
 
     const {
-      userLogin: { userInfo },  } = getState();
+      userLogin: { userInfo },
+    } = getState();
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.access}`,
       },
     };
@@ -67,7 +67,10 @@ export const listPayments = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`${API_URL}/api/get-user-payments/`, config);
+    const { data } = await axios.get(
+      `${API_URL}/api/get-user-payments/`,
+      config
+    );
 
     dispatch({
       type: PAYMENT_LIST_SUCCESS,
@@ -84,9 +87,9 @@ export const listPayments = () => async (dispatch, getState) => {
   }
 };
 
-export const listAdminPayments = () => async (dispatch, getState) => {
+export const getAllPaymentsList = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: ADMIN_PAYMENT_LIST_REQUEST });
+    dispatch({ type: LIST_ALL_PAYMENTS_REQUEST });
 
     const {
       userLogin: { userInfo },
@@ -98,15 +101,18 @@ export const listAdminPayments = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`${API_URL}/api/get-payments/`, config);
+    const { data } = await axios.get(
+      `${API_URL}/api/get-all-payments/`,
+      config
+    );
 
     dispatch({
-      type: ADMIN_PAYMENT_LIST_SUCCESS,
+      type: LIST_ALL_PAYMENTS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: ADMIN_PAYMENT_LIST_FAIL,
+      type: LIST_ALL_PAYMENTS_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

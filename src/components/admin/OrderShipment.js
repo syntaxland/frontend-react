@@ -1,38 +1,41 @@
-// Payments.js
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Table } from "react-bootstrap";
-import Message from "../Message";
-import Loader from "../Loader";
-import { listPayments } from "../../actions/paymentActions";
+// OrderShipment.js
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Table } from 'react-bootstrap';
+import { getAllShipments } from '../../actions/orderActions'; 
+import Message from '../Message';
+import Loader from '../Loader';
 
-function Payments() {
+function OrderShipment() {
   const dispatch = useDispatch();
 
-  const paymentList = useSelector((state) => state.paymentList);
-  const { loading, error, payments } = paymentList;
+  const allUserShipments = useSelector((state) => state.allUserShipments);
+  const { loading, error, shipments } = allUserShipments;
+  console.log("All shipments:", shipments);
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = payments.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = shipments.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(payments.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(shipments.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
+
   useEffect(() => {
-    dispatch(listPayments());
+    dispatch(getAllShipments());
   }, [dispatch]);
 
   return (
     <div>
-      <h1 className="text-center">Payments</h1>
+      <h2 className="text-center py-3">Shipments (All Users)</h2>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -46,35 +49,37 @@ function Payments() {
                 <th>Order ID</th>
                 <th>User</th>
                 <th>Email</th>
-                <th>Amount Paid</th>
-                <th>Payment Reference</th>
-                <th>Created At</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Postal Code</th>
+                <th>Country</th>
+                <th>Shipping Price</th>
+                <th>Is Delivered</th>
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((payment, index) => (
-                <tr key={payment.id}>
+              {currentItems.map((address, index) => (
+                <tr key={address._id}>
                   <td>{index + 1}</td>
-                  {/* <td>{payment.order.order_id}</td> */}
-                  {/* <td>{payment.order.user.first_name}</td> */}
-                  {/* <td>{payment.order.user.email}</td> */}
-
-                  <td>{payment.order_id}</td>
-                  <td>{payment.first_name}</td>
-                  <td>{payment.user.email}</td>
-
-                  <td>{payment.amount}</td>
-                  <td>{payment.reference}</td>
-                  {/* <td>{payment.reference.reference}</td> */} 
-                  {new Date(payment.created_at).toLocaleString()}
+                  <td>{address.order.order_id}</td>
+                  <td>{address.order.user.first_name}</td>
+                  <td>{address.order.user.email}</td>
+                  <td>{address.address}</td>
+                  <td>{address.city}</td>
+                  <td>{address.postalCode}</td>
+                  <td>{address.country}</td>
+                  <td>{address.shippingPrice}</td>
+                  <td>{address.isDelivered ? 'Yes' : 'No'}</td>
+                  
                 </tr>
               ))}
             </tbody>
           </Table>
+
           <nav className="mt-4">
             <ul className="pagination justify-content-center">
               <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
               >
                 <button
                   className="page-link"
@@ -87,7 +92,7 @@ function Payments() {
                 <li
                   key={number}
                   className={`page-item ${
-                    currentPage === number ? "active" : ""
+                    currentPage === number ? 'active' : ''
                   }`}
                 >
                   <button
@@ -100,7 +105,7 @@ function Payments() {
               ))}
               <li
                 className={`page-item ${
-                  currentPage === pageNumbers.length ? "disabled" : ""
+                  currentPage === pageNumbers.length ? 'disabled' : ''
                 }`}
               >
                 <button
@@ -113,9 +118,9 @@ function Payments() {
             </ul>
           </nav>
         </>
-      )} 
+      )}
     </div>
   );
 }
 
-export default Payments;
+export default OrderShipment;

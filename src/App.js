@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 // import React, { useContext } from "react";
 import { Container } from "react-bootstrap";
 // This is a react-router-dom@5.3.4 app
+// import { useHistory  } from 'react-router'
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,11 +18,14 @@ import SearchScreen from "./components/screens/SearchScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import LoginScreen from "./components/screens/LoginScreen";
 import CartScreen from "./components/screens/CartScreen";
-import Checkout from "./components/screens/CheckoutScreen";
-import Payment from "./components/screens/PaymentScreen";
+import CheckoutScreen from "./components/screens/CheckoutScreen";
+import PaymentScreen from "./components/screens/PaymentScreen";
+import ShipmentScreen from "./components/screens/ShipmentScreen";
 import ReviewScreen from "./components/screens/ReviewScreen";
 import AddReviewScreen from "./components/screens/AddReviewScreen";
 import EditReviewScreen from "./components/screens/EditReviewScreen";
+import CreditPointScreen from "./components/screens/CreditPointScreen";
+
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
 import ResendEmailOtp from "./components/emailOtp/ResendEmailOtp";
@@ -33,6 +37,7 @@ import ResetPassword from "./components/profiles/ResetPassword";
 import Orders from "./components/profiles/Orders";
 import Payments from "./components/profiles/Payments";
 import Dashboard from "./components/profiles/Dashboard";
+import AdminDashboard from "./components/admin/AdminDashboard";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -40,6 +45,7 @@ function App() {
 
   return (
     <Router>
+      {/* <Router forceRefresh={true}> */}
       <Container fluid>
         {/* <section class="container-fliud"> */}
         <Header userInfo={userInfo} />
@@ -50,8 +56,10 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/products/search/:keyword" component={SearchScreen} />
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/payment" component={Payment} />
+          <Route path="/checkout" component={CheckoutScreen} />
+          <Route path="/payment" component={PaymentScreen} />
+
+          <Route path="/shipment/:id" component={ShipmentScreen} />
           {/* <Route path="/favourites" component={FavouritesScreen} /> */}
           <Route path="/send-email-otp" component={SendEmailOtp} />
           <Route path="/verify-email-otp" component={VerifyEmailOtp} />
@@ -70,14 +78,18 @@ function App() {
           <Route path="/reset-password/:token" component={ResetPassword} />
           <Route path="/orders" component={Orders} />
           <Route path="/payments" component={Payments} />
-          <Route path="/user-dashboard" component={Dashboard} />
-          {/* <Route path="/review-list" component={ReviewScreen} /> */}
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/admin-dashboard" component={AdminDashboard} />
           <Route path="/review-list/:productId" component={ReviewScreen} />
 
           <Route path="/add-review/" component={AddReviewScreen} />
           {/* <Route path="/add-review/:orderItemId" component={AddReviewScreen} /> */}
           <Route path="/edit-review/" component={EditReviewScreen} />
-          {/* <Route path="/edit-review/:reviewId" component={EditReviewScreen} /> */}
+          <Route path="/credit-point/" component={CreditPointScreen} />
+          {/* <Route path="/get-credit-point" component={CreditPoint} /> */}
+
+          {/* <Route path="/send-message" component={SendMessageScreen} />
+          <Route path="/message-inbox" component={MessageInboxScreen} /> */}
         </main>
         <Footer />
         {/* </section> */}

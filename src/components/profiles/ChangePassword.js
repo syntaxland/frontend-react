@@ -27,12 +27,9 @@ function ChangePassword() {
 
   useEffect(() => {
     if (success) {
-      // Wait for 3 seconds and then redirect to login page
       const timer = setTimeout(() => {
         history.push("/login");
       }, 3000);
-
-      // Clean up the timer on unmount
       return () => clearTimeout(timer);
     }
   }, [success, history]);

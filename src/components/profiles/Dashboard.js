@@ -1,8 +1,11 @@
 // Dashboard.js
 import React, { useState } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+// import { login } from "../../actions/userActions";
 import UserProfile from "./UserProfile";
 import Orders from "./Orders";
 import Payments from "./Payments";
@@ -11,10 +14,15 @@ import OrderShipment from "./OrderShipment";
 import OrderItem from "./OrderItem";
 import Reviews from "./Reviews";
 import UserDashboard from "./UserDashboard";
-import AdminDashboard from "./AdminDashboard";
+import MessageInbox from "./MessageInbox";
+import CreditPoint from "./CreditPoint";
 
-function Dashboard() {
-  const [activeTab, setActiveTab] = useState("profile");
+function Dashboard({ history }) {
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
+  // const dispatch = useDispatch();
+
+  const [activeTab, setActiveTab] = useState("user-dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const handleTabChange = (tab) => {
@@ -25,30 +33,45 @@ function Dashboard() {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const handleAdminDashboard = () => {
+    history.push("/admin-dashboard");
+  };
+
+  // useEffect(() => {
+  //   dispatch(login());
+  // }, [dispatch]);
+
   const renderTabContent = () => {
     switch (activeTab) {
+      case "profile":
+        return <UserProfile />;
+
       case "orders":
         return <Orders />;
+
       case "payments":
         return <Payments />;
+
       case "favorites":
         return <Favorites />;
+
       case "order-shipment":
         return <OrderShipment />;
+
       case "order-items":
         return <OrderItem />;
 
       case "reviews":
         return <Reviews />;
 
-      case "user-dashboard":
-        return <UserDashboard />;
+      case "message-inbox":
+        return <MessageInbox />;
 
-      case "admin-dashboard":
-        return <AdminDashboard />;
+      case "credit-point":
+        return <CreditPoint />;
 
       default:
-        return <UserProfile />;
+        return <UserDashboard />;
     }
   };
 
@@ -67,106 +90,191 @@ function Dashboard() {
 
           {sidebarOpen && (
             <div className="sidebar-content">
-              <Button
-                variant={
-                  activeTab === "profile" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("profile")}
-              >
-                Profile
-              </Button>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "user-dashboard"
+                      ? "primary"
+                      : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("user-dashboard")}
+                >
+                  Dashboard
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "profile" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("profile")}
+                >
+                  Profile
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "orders" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("orders")}
+                >
+                  Orders
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "order-items" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("order-items")}
+                >
+                  Ordered Items
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "payments" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("payments")}
+                >
+                  Payments
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "order-shipment"
+                      ? "primary"
+                      : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("order-shipment")}
+                >
+                  Shipments
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "reviews" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("reviews")}
+                >
+                  Reviews
+                </Button>
+              </div>
 
-              <Button
-                variant={activeTab === "orders" ? "primary" : "outline-primary"}
-                className="sidebar-button"
-                onClick={() => handleTabChange("orders")}
-              >
-                Orders
-              </Button>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "favorites" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("favorites")}
+                >
+                  Saved Items
+                </Button>
+              </div>
 
-              <Button
-                variant={
-                  activeTab === "order-items" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("order-items")}
-              >
-                Order Items
-              </Button>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "credit-point" ? "primary" : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("credit-point")}
+                >
+                  Credit Point
+                </Button>
+              </div>
 
-              <Button
-                variant={
-                  activeTab === "payments" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("payments")}
-              >
-                Payments
-              </Button>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "message-inbox"
+                      ? "primary"
+                      : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleTabChange("message-inbox")}
+                >
+                  <i className="fa fa-message"></i> Inbox
+                </Button>
+              </div>
 
-              <Button
-                variant={
-                  activeTab === "order-shipment" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("order-shipment")}
-              >
-                Shipments
-              </Button>
+              <div>
+                <Button disabled className="sidebar-button">
+                  Viewed Items
+                </Button>
+              </div>
 
-              <Button
-                variant={
-                  activeTab === "reviews" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("reviews")}
-              >
-                Reviews
-              </Button>
+              <div>
+                <Button disabled className="sidebar-button">
+                  Hot Deals & Offers
+                </Button>
+              </div>
 
-              <Button
-                variant={
-                  activeTab === "favorites" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("favorites")}
-              >
-                Saved Items
-              </Button>
+              <div>
+                <Button disabled className="sidebar-button">
+                  Recommendations
+                </Button>
+              </div>
 
-              <Button
-              disabled
-                variant={
-                  activeTab === "user-dashboard" ? "primary" : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("user-dashboard")}
-              >
-                User Dashboard
-              </Button>
+              <div>
+                <Button disabled className="sidebar-button">
+                  Referrals
+                </Button>
+              </div>
 
-              <Button
-              disabled
-                variant={
-                  activeTab === "admin-dashboard"
-                    ? "primary"
-                    : "outline-primary"
-                }
-                className="sidebar-button"
-                onClick={() => handleTabChange("admin-dashboard")}
-              >
-                Admin Dashboard
-              </Button>
+              
 
-              <Button className="sidebar-button">Viewed Items</Button>
-              <Button className="sidebar-button">Credit Points</Button>
+              <div>
+                <Button disabled className="sidebar-button">
+                  <i className="fas fa-gear"></i> Settings
+                </Button>
+              </div>
 
+              {/* <div>
+                {userInfo.is_superuser ? (
+                  <div>
+                    <Button
+                      variant={
+                        activeTab === "admin-dashboard"
+                          ? "primary"
+                          : "outline-primary"
+                      }
+                      className="sidebar-button"
+                      onClick={() => handleAdminDashboard()}
+                    >
+                      Admin Dashboard
+                    </Button>
+                  </div>
+                ) : (
+                  <span>Not Admin</span>
+                )}
+              </div> */}
 
-              <Button className="sidebar-button">Hot Deals & Offers</Button>
-              <Button className="sidebar-button">Recommendations</Button>
-              <Button className="sidebar-button">Inbox</Button>
-              <Button className="sidebar-button">Settings</Button>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "admin-dashboard"
+                      ? "primary"
+                      : "outline-primary"
+                  }
+                  className="sidebar-button"
+                  onClick={() => handleAdminDashboard()}
+                >
+                  Admin Dashboard
+                </Button>
+              </div>
             </div>
           )}
         </Col>

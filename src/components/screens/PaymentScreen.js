@@ -1,3 +1,4 @@
+// PaymentScreen.js
 import React, { useEffect, useState } from "react";
 import { Button, Row, Col, ListGroup } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router-dom";
@@ -12,7 +13,7 @@ import { createPayment } from "../../actions/paymentActions";
 const API_URL = process.env.REACT_APP_API_URL;
 // const accessToken = localStorage.getItem("accessToken");
 
-function Payment() {
+function PaymentScreen() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -21,7 +22,6 @@ function Payment() {
 
   const [publicKey, setPublicKey] = useState("");
   const [reference, setReference] = useState("");
-  // const [userEmail, setUserEmail] = useState("");
   const userEmail = userInfo.email;
 
   const location = useLocation();
@@ -31,14 +31,21 @@ function Payment() {
   const paymentCreate = useSelector((state) => state.paymentCreate);
   const { loading, success, error } = paymentCreate;
 
+  const shipmentSave = useSelector((state) => state.shipmentSave);
+  // const { loading: shipmentLoading, error: shipmentError } = shipmentSave;
+  // const { address, city, country } = useSelector(
+  //   (state) => state.shipmentSave
+  // );
+  console.log("shipmentSave:", shipmentSave);
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
   useEffect(() => {
     if (success) {
       history.push("/");
     }
   }, [success, history]);
-
-  const cart = useSelector((state) => state.cart);
-  const { cartItems, shippingAddress } = cart;
 
   const itemsPrice = cartItems.reduce(
     (acc, item) => acc + item.qty * item.price,
@@ -91,7 +98,8 @@ function Payment() {
       const paymentData = {
         reference: reference,
         order_id: order_id,
-        amount: totalPrice * 100,
+        amount: totalPrice,
+        // amount: amount,
         email: userEmail,
       };
 
@@ -110,6 +118,7 @@ function Payment() {
     publicKey: publicKey,
     email: userEmail,
     reference: reference,
+    // amount: totalPrice,
     amount: totalPrice * 100,
     currency: "NGN",
     order_id: order_id,
@@ -122,7 +131,7 @@ function Payment() {
       <Row>
         <div className="d-flex justify-content-center ">
           <Col md={6}>
-            <h1 className="text-center">Payment Page</h1>
+            <h1 className="text-center py-2">Payment Page</h1>
             {loading && <Loader />}
             {error && <Message variant="danger">{error}</Message>}
             <ListGroup variant="flush">
@@ -148,8 +157,8 @@ function Payment() {
               ))}
               <ListGroup.Item>Order ID: {order_id}</ListGroup.Item>
               <ListGroup.Item>
-                Shipping Address: {shippingAddress.address},{" "}
-                {shippingAddress.city}, {shippingAddress.country}
+                Shipping Address: {shipmentSave.address}, {shipmentSave.city},{" "}
+                {shipmentSave.country}
               </ListGroup.Item>
               <ListGroup.Item>
                 Shipping Cost: NGN {shippingPrice}
@@ -157,7 +166,7 @@ function Payment() {
               <ListGroup.Item>Tax: NGN {taxPrice}</ListGroup.Item>
               <ListGroup.Item>Total Amount: NGN {totalPrice}</ListGroup.Item>
             </ListGroup>
-            <div className="text-center">
+            <div className="text-center py-2">
               <PaystackButton {...paymentObject}>
                 <Button variant="primary">Pay Now</Button>
               </PaystackButton>
@@ -169,4 +178,4 @@ function Payment() {
   );
 }
 
-export default Payment;
+export default PaymentScreen;

@@ -2,39 +2,38 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import { getShippingAddress } from '../../actions/orderActions';
+import { getUserShipments } from '../../actions/orderActions'; 
 import Message from '../Message';
 import Loader from '../Loader';
 
 function OrderShipment() {
   const dispatch = useDispatch();
 
-  const shippingAddressState = useSelector((state) => state.shippingAddress);
-  const { loading, error, shippingAddress } = shippingAddressState;
+  const userShipments = useSelector((state) => state.userShipments);
+  const { loading, error, shipments } = userShipments;
+  console.log("User shipments:", shipments);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = shippingAddress.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = shipments.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(shippingAddress.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(shipments.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  console.log("Shipping Address Data:", shippingAddress);
-
   useEffect(() => {
-    dispatch(getShippingAddress);
+    dispatch(getUserShipments());
   }, [dispatch]);
 
   return (
     <div>
-      <h2>Shipping Address Details</h2>
+      <h2 className="text-center py-3">Shipments</h2>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -45,7 +44,7 @@ function OrderShipment() {
             <thead>
               <tr>
                 <th>SN</th>
-                {/* <th>Order ID</th> */}
+                <th>Order ID</th>
                 {/* <th>User</th> */}
                 {/* <th>Email</th> */}
                 <th>Address</th>
@@ -60,7 +59,7 @@ function OrderShipment() {
               {currentItems.map((address, index) => (
                 <tr key={address._id}>
                   <td>{index + 1}</td>
-                  {/* <td>{address.order.order_id}</td> */}
+                  <td>{address.order.order_id}</td>
                   {/* <td>{address.order.user.first_name}</td> */}
                   {/* <td>{address.order.user.email}</td> */}
                   <td>{address.address}</td>
@@ -122,37 +121,3 @@ function OrderShipment() {
 }
 
 export default OrderShipment;
-
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getShippingAddress } from '../../actions/orderActions';
-
-// const OrderShipment = () => {
-//   const dispatch = useDispatch();
-//   const { loading, shippingAddress, error } = useSelector((state) => state.shippingAddress);
-
-//   useEffect(() => {
-//     dispatch(getShippingAddress());
-//   }, [dispatch]);
-
-//   return (
-//     <div>
-//       <h2>Shipping Address Details</h2>
-//       {loading ? (
-//         <p>Loading...</p>
-//       ) : error ? (
-//         <p>Error: {error}</p>
-//       ) : (
-//         <div>
-//           <p>Address: {shippingAddress.address}</p>
-//           <p>City: {shippingAddress.city}</p>
-//           <p>Postal Code: {shippingAddress.postalCode}</p>
-//           <p>Country: {shippingAddress.country}</p>
-//           {/* Include other fields as needed */}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default OrderShipment;
