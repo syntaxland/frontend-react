@@ -19,7 +19,7 @@ const CreditPointScreen = ({ history }) => {
   const [accountNumber, setAccountNumber] = useState("");
   const [bankName, setBankName] = useState("");
   const [creditPointAmount, setCreditPointAmount] = useState(0);
-
+ 
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const creditPoints = query.get("creditPoints");
@@ -57,7 +57,7 @@ const CreditPointScreen = ({ history }) => {
           <h2 className="py-3 text-center">Credit Point Request</h2>
           {success && (
             <Message variant="success">Request sent successfully.</Message>
-          )}
+          )} 
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>

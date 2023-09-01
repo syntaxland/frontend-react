@@ -45,7 +45,7 @@ function GoogleLoginScreen() {
                 disabled={renderProps.disabled}
                 cookiePolicy={"single_host_origin"}
               >
-                Login with Google
+                <i className="fab fa-google"></i> Login with Google
               </Button>
             )}
           />

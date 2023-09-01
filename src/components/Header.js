@@ -54,8 +54,7 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            {/* <i className="fas fa-home"></i>  */}
-            Mcdof Global
+            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> Mcdof Global
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">
@@ -77,7 +76,7 @@ function Header() {
                 type="submit"
                 className="mr-auto ml-auto rounded"
               >
-                Search
+                <i className="fas fa-search" ></i> Search
               </Button>
             </Form>
             <Nav className="mr-auto ml-auto">
@@ -146,11 +145,11 @@ function Header() {
               )}
               <Nav.Link as={Link} to="/cart">
                 <div className="cart-icon">
-                Cart <i className="fas fa-shopping-cart"></i>
+                  Cart <i className="fas fa-shopping-cart"></i>
                   {cartItems.length > 0 && (
                     <span className="cart-count">{cartItems.length}</span>
                   )}
-                {/* <i>Cart</i> */}
+                  {/* <i>Cart</i> */}
                 </div>
               </Nav.Link>
             </Nav>

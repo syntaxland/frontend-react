@@ -56,6 +56,7 @@ import {
   creditPointRequestCreateReducer,
   creditPointListReducer,
   creditPointAllListReducer,
+  creditPointBalanceReducer,
 } from "./reducers/creditPointReducers";
 
 import { messagingReducer, emailReducer } from './reducers/messagingReducers';
@@ -102,6 +103,7 @@ const reducer = combineReducers({
   creditPointRequestCreate: creditPointRequestCreateReducer,
   creditPointList: creditPointListReducer,
   creditPointAllList: creditPointAllListReducer,
+  creditPointBal: creditPointBalanceReducer,
 
   orderList: orderListReducer,
   allOrderList: allOrderListReducer,

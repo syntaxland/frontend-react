@@ -100,7 +100,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("user-dashboard")}
                 >
-                  Dashboard
+                  <i className="fa fa-dashboard"></i> Dashboard
                 </Button>
               </div>
               <div>
@@ -111,7 +111,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("profile")}
                 >
-                  Profile
+                  <i className="fas fa-user"></i> Profile
                 </Button>
               </div>
               <div>
@@ -122,7 +122,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("orders")}
                 >
-                  Orders
+                  <i className="fa fa-cart-arrow-down"></i> Orders
                 </Button>
               </div>
               <div>
@@ -133,7 +133,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("order-items")}
                 >
-                  Ordered Items
+                  <i className="fa fa-opencart"></i> Ordered Items
                 </Button>
               </div>
               <div>
@@ -144,7 +144,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("payments")}
                 >
-                  Payments
+                  <i className="fas fa-credit-card"></i> Payments
                 </Button>
               </div>
               <div>
@@ -157,7 +157,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("order-shipment")}
                 >
-                  Shipments
+                  <i className="fas fa-shipping-fast"></i> Shipments
                 </Button>
               </div>
               <div>
@@ -168,7 +168,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("reviews")}
                 >
-                  Reviews
+                  <i className="fas fa-star"></i> Reviews
                 </Button>
               </div>
 
@@ -180,7 +180,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("favorites")}
                 >
-                  Saved Items
+                  <i className="fa fa-heart"></i> Saved Items
                 </Button>
               </div>
 
@@ -192,7 +192,7 @@ function Dashboard({ history }) {
                   className="sidebar-button"
                   onClick={() => handleTabChange("credit-point")}
                 >
-                  Credit Point
+                  <i className="fas fa-sack-dollar"></i> Credit Point
                 </Button>
               </div>
 
@@ -212,29 +212,27 @@ function Dashboard({ history }) {
 
               <div>
                 <Button disabled className="sidebar-button">
-                  Viewed Items
+                  <i className="fas fa-eye"></i> Viewed Items
                 </Button>
               </div>
 
               <div>
                 <Button disabled className="sidebar-button">
-                  Hot Deals & Offers
+                  <i className="fa fa-gift"></i> Offers
                 </Button>
               </div>
 
               <div>
                 <Button disabled className="sidebar-button">
-                  Recommendations
+                  <i className="fa fa-thumbs-up"></i> Recommendations
                 </Button>
               </div>
 
               <div>
                 <Button disabled className="sidebar-button">
-                  Referrals
+                  <i className="fa fa-user-plus"></i> Referrals
                 </Button>
               </div>
-
-              
 
               <div>
                 <Button disabled className="sidebar-button">

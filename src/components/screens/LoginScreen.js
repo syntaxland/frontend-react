@@ -42,9 +42,8 @@ function LoginScreen({ location }) {
           setSuccessMessage("Please verify your email.");
         }
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
-      
     }
   }, [userInfo, history, dispatch]);
 
@@ -81,7 +80,9 @@ function LoginScreen({ location }) {
         <Form onSubmit={submitHandler}>
           {loading && <Loader />}
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>
+              <i className="fas fa-envelope"></i> Email Address
+            </Form.Label>
             <Form.Control
               required
               type="email"
@@ -93,7 +94,9 @@ function LoginScreen({ location }) {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>
+              <i className="fas fa-key"></i> Password{" "}
+            </Form.Label>
             <Form.Control
               required
               type="password"
@@ -112,8 +115,7 @@ function LoginScreen({ location }) {
                 variant="success"
                 block
               >
-                <i className="bi bi-box-arrow-in-right"></i>
-                Login
+                Login <i className="fa fa-sign-in"></i>
               </Button>
             </Col>
           </Row>

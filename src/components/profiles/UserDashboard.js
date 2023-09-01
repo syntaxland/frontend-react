@@ -1,10 +1,11 @@
 // UserDashboard.js
-import React, { useEffect,  } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Col, Row, Button } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
+import { getCreditPointBalance } from "../../actions/creditPointActions";
 import { listPayments } from "../../actions/paymentActions";
 import { getOrders } from "../../actions/orderActions";
 import { Line, Pie } from "react-chartjs-2";
@@ -38,6 +39,10 @@ function UserDashboard() {
   // const [creditPointEarning, setCreditPointEarning] = useState(0);
   const dispatch = useDispatch();
 
+  const creditPointBal = useSelector((state) => state.creditPointBal);
+  const { loading, error, creditPointBalance } = creditPointBal;
+  console.log("creditPointBalance:", creditPointBalance);
+
   const paymentList = useSelector((state) => state.paymentList);
   const {
     loading: paymentLoading,
@@ -51,6 +56,7 @@ function UserDashboard() {
   console.log("Orders from state:", orders);
 
   useEffect(() => {
+    dispatch(getCreditPointBalance());
     dispatch(listPayments());
     dispatch(getOrders());
   }, [dispatch]);
@@ -79,24 +85,10 @@ function UserDashboard() {
     return totalPayment;
   };
 
-  // const getCreditPointEarning = () => {
-  //   let totalCreditPointEarning = 0;
-  //   payments.forEach((payment) => {
-  //     totalCreditPointEarning = parseFloat(payment.amount * 0.01);
-  //     console.log("paymentAmount:", payment.amount);
-  //     console.log("creditPointEarning:", payment.amount * 0.01);
-  //   });
-  //   // setCreditPointEarning(totalCreditPointEarning);
-  //   return totalCreditPointEarning;
-  // };
-
-  const totalPayment = getTotalPayment();
-  const creditPoints = totalPayment * 0.01;
-
-  console.log("totalPayment:", totalPayment, "creditPoints:", creditPoints);
+  const creditPoints = creditPointBalance.balance;
 
   const withdrawCreditPoints =
-    totalPayment >= 500000 ? (
+    creditPoints >= 5000 ? (
       <Link
         to={{
           pathname: "/credit-point",
@@ -109,8 +101,8 @@ function UserDashboard() {
       </Link>
     ) : (
       <p>
-        <Button variant="outline" className="rounded" size="sm" disabled>
-          Earned points mature from NGN 5000
+        <Button variant="danger" className="rounded" size="sm" readOnly >
+          Mature from NGN 5,000
         </Button>
       </p>
     );
@@ -167,10 +159,12 @@ function UserDashboard() {
   return (
     <div className="justify-content-center text-center">
       <div>
-        {paymentLoading || orderLoading ? (
+        {loading || paymentLoading || orderLoading ? (
           <Loader />
-        ) : paymentError || orderError ? (
-          <Message variant="danger">{paymentError || orderError}</Message>
+        ) : error || paymentError || orderError ? (
+          <Message variant="danger">
+            {error || paymentError || orderError}
+          </Message>
         ) : (
           <div>
             <Row>
@@ -234,30 +228,15 @@ function UserDashboard() {
                 <h2 className="py-3">Credit Point Wallet</h2>
                 <p>
                   Balance: NGN{" "}
-                  {creditPoints.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
+                  {creditPoints
+                  // .toLocaleString(undefined, {
+                  //   minimumFractionDigits: 2,
+                  //   maximumFractionDigits: 2,
+                  // })
+                  }
                 </p>
                 <div className="py-3">{withdrawCreditPoints}</div>
               </Col>
-
-              {/* <hr />
-              <Col>
-                <h2 className="py-3">Credit Point Earning</h2>
-                <p>
-                  Balance: NGN{" "}
-                  {getCreditPointEarning()}
-
-                  {creditPointEarning.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </p>
-                <Button onClick={() => setCreditPointEarning(0)}>
-                  Withdraw Earning
-                </Button>
-              </Col> */}
 
               <hr />
             </Row>

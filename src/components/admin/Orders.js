@@ -77,7 +77,20 @@ function Orders() {
                   <td>{order.taxPrice}</td>
                   <td>{order.shippingPrice}</td>
                   <td>{order.totalPrice}</td>
-                  <td>{order.isPaid ? "Yes" : "No"}</td>
+                  {/* <td>{order.isPaid ? "Yes" : "No"}</td> */}
+                  <td>
+                    {order.isPaid ? (
+                      <i
+                        className="fas fa-check-circle"
+                        style={{ fontSize: "16px", color: "green" }}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fas fa-times-circle"
+                        style={{ fontSize: "16px", color: "red" }}
+                      ></i>
+                    )}
+                  </td>
                   {/* <td>{order.paidAt}</td> */}
                   {new Date(order.paidAt).toLocaleString()}
                   <td>{order.isDelivered ? "Yes" : "No"}</td>

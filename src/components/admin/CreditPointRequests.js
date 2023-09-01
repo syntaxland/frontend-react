@@ -76,7 +76,20 @@ const CreditPointRequests = () => {
                       <td>{creditPoint.account_number}</td>
                       <td>{creditPoint.bank_name}</td>
                       <td>{creditPoint.credit_point_amount}</td>
-                      <td>{creditPoint.is_paid ? "Yes" : "No"}</td>
+                      {/* <td>{creditPoint.is_paid ? "Yes" : "No"}</td> */}
+                      <td>
+                        {creditPoint.is_paid ? (
+                          <i
+                            className="fas fa-check-circle"
+                            style={{ fontSize: "16px", color: "green" }}
+                          ></i>
+                        ) : (
+                          <i
+                            className="fas fa-times-circle"
+                            style={{ fontSize: "16px", color: "red" }}
+                          ></i>
+                        )}
+                      </td>
                       <td>{creditPoint.paid_at}</td>
                       <td>{creditPoint.is_delivered ? "Yes" : "No"}</td>
                       <td>{creditPoint.delivered_at}</td>

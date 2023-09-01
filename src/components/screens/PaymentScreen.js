@@ -161,10 +161,26 @@ function PaymentScreen() {
                 {shipmentSave.country}
               </ListGroup.Item>
               <ListGroup.Item>
-                Shipping Cost: NGN {shippingPrice}
+                Shipping Cost: NGN{" "}
+                {shippingPrice.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </ListGroup.Item>
-              <ListGroup.Item>Tax: NGN {taxPrice}</ListGroup.Item>
-              <ListGroup.Item>Total Amount: NGN {totalPrice}</ListGroup.Item>
+              <ListGroup.Item>
+                Tax: NGN{" "}
+                {taxPrice.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                Total Amount: NGN{" "}
+                {totalPrice.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+              </ListGroup.Item>
             </ListGroup>
             <div className="text-center py-2">
               <PaystackButton {...paymentObject}>

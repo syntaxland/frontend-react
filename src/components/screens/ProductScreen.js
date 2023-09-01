@@ -59,7 +59,7 @@ function ProductScreen({ match, history }) {
                   color={"#f8e825"}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>Price: NGN{product.price}</ListGroup.Item>
+              <ListGroup.Item>Price: NGN {product.price}</ListGroup.Item>
 
               <ListGroup.Item>
                 Description: {product.description}
@@ -73,7 +73,7 @@ function ProductScreen({ match, history }) {
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>NGN{product.price}</strong>
+                      <strong>NGN {product.price}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -85,7 +85,7 @@ function ProductScreen({ match, history }) {
                     </Col>
                   </Row>
                 </ListGroup.Item>
-
+ 
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row>

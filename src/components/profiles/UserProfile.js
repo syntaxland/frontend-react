@@ -8,7 +8,7 @@ import {
   getUserProfile,
   updateUserProfile,
   updateUserAvatar,
-} from "../../actions/userProfileActions"; 
+} from "../../actions/userProfileActions";
 import { resendEmailOtp } from "../../actions/emailOtpActions";
 import { Form, Button, Row, Col, Container, Accordion } from "react-bootstrap";
 import Message from "../Message";
@@ -134,7 +134,9 @@ function UserProfile() {
   return (
     <Container Fluid>
       <Row>
-        <h2 className="text-center">Profile</h2>
+        <h2 className="text-center">
+          Profile <i className="fas fa-user"></i>
+        </h2>
         {loading && <Loader />}
         {/* {success && (
             <Message variant="success">Profile updated successfully.</Message>
@@ -144,9 +146,25 @@ function UserProfile() {
         )}
         {error && <Message variant="danger">{error}</Message>}
         {/* {deleteSuccessMessage && <Alert variant="success">{deleteSuccessMessage}</Alert>} */}
-        <p>
+        {/* <p>
           Verified{" "}
           <input type="checkbox" checked={userInfo.is_verified} readOnly />
+        </p> */}
+        <p>
+          Verified{" "}
+          {userInfo.is_verified ? (
+            <i
+              className="fas fa-check-circle"
+              // className="fas fa-badge-check"
+              style={{ fontSize: "18px", color: "white" }}
+            ></i>
+          ) : (
+            <i
+              className="fas fa-times-circle"
+              // className="fas fa-badge-check"
+              style={{ fontSize: "18px", color: "red" }}
+            ></i>
+          )}
         </p>
 
         {/* <Col

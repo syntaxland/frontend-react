@@ -12,6 +12,10 @@ import {
   CREDIT_POINT_ALL_LIST_REQUEST,
   CREDIT_POINT_ALL_LIST_SUCCESS,
   CREDIT_POINT_ALL_LIST_FAIL,
+
+  CREDIT_POINT_BALANCE_REQUEST,
+  CREDIT_POINT_BALANCE_SUCCESS,
+  CREDIT_POINT_BALANCE_FAIL,
 } from '../constants/creditPointConstants';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -84,6 +88,32 @@ export const getCreditPointList = () => async (dispatch, getState) => {
     } catch (error) {
       dispatch({
         type: CREDIT_POINT_ALL_LIST_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
+
+  export const getCreditPointBalance = () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: CREDIT_POINT_BALANCE_REQUEST });
+  
+      const { userLogin: { userInfo } } = getState();
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.access}`,
+        },
+      };
+  
+      const { data } = await axios.get(`${API_URL}/api/get-credit-point-balance/`, config);
+  
+      dispatch({ type: CREDIT_POINT_BALANCE_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: CREDIT_POINT_BALANCE_FAIL,
         payload:
           error.response && error.response.data.detail
             ? error.response.data.detail

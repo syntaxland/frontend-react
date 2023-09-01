@@ -169,7 +169,7 @@ function RegisterScreen({ location, history }) {
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="firstName">
-            <Form.Label>First Name</Form.Label>
+            <Form.Label><i className="fas fa-user-circle"></i> First Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter First Name"
@@ -229,7 +229,7 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label><i className="fas fa-envelope"></i> Email Address</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter Email"
@@ -259,7 +259,7 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="phoneNumber">
-            <Form.Label>Phone Number</Form.Label>
+            <Form.Label><i className="fas fa-phone-square"></i> Phone Number</Form.Label>
             <PhoneInput
               country={selectedCountry}
               value={phoneNumber}
@@ -287,7 +287,7 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label><i className="fas fa-key"></i> Password</Form.Label>
             <Form.Control
               type={passwordVisible ? "text" : "password"}
               placeholder="Enter Password"
@@ -490,8 +490,7 @@ function RegisterScreen({ location, history }) {
                 variant="success"
                 block
               >
-                <i className="bi bi-check2-circle"></i>
-                Register
+                <i className="fas fa-registered"></i> Register
               </Button>
             </Col>
           </Row>
@@ -515,7 +514,7 @@ function RegisterScreen({ location, history }) {
               block
               onClick={() => history.push("/login")}
             >
-              Already a user? Login
+              Already a user? Login <i className="fas fa-sign-in"></i>
             </Button>
           </Col>
         </Row>
