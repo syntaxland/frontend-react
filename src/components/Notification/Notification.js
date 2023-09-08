@@ -1,33 +1,33 @@
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
-export const showNotification = (message, type) => {
-  switch (type) {
-    case "success":
-      toast.success(message, {
-        className: "toastify-success",
-        autoClose: 3000,
-      });
-      break;
-    case "warning":
-      toast.warning(message, {
-        className: "toastify-warning",
-        autoClose: 3000,
-      });
-      break;
-    case "error":
-      toast.error(message, {
-        className: "toastify-error",
-        autoClose: 3000,
-      });
-      break;
-    default:
-      toast.info(message, {
-        className: "toastify-info",
-        autoClose: 3000,
-      });
-      break;
-  }
-};
+// export const showNotification = (message, type) => {
+//   switch (type) {
+//     case "success":
+//       toast.success(message, {
+//         className: "toastify-success",
+//         autoClose: 3000,
+//       });
+//       break;
+//     case "warning":
+//       toast.warning(message, {
+//         className: "toastify-warning",
+//         autoClose: 3000,
+//       });
+//       break;
+//     case "error":
+//       toast.error(message, {
+//         className: "toastify-error",
+//         autoClose: 3000,
+//       });
+//       break;
+//     default:
+//       toast.info(message, {
+//         className: "toastify-info",
+//         autoClose: 3000,
+//       });
+//       break;
+//   }
+// };
 
 // import { toast } from "react-toastify";
 
@@ -48,42 +48,42 @@ export const showNotification = (message, type) => {
 //   }
 // };
 
-// import React from "react";
-// import { Alert, Button } from "react-bootstrap";
-// import { useNotification } from "./NotificationContext"; // Import the useNotification hook
+import React from "react";
+import { Alert, Button } from "react-bootstrap";
+import { useNotification } from "./NotificationContext"; // Import the useNotification hook
 
-// const Notification = () => {
-//   const { notification } = useNotification(); // Access the notification state
+const Notification = () => {
+  const { notification } = useNotification(); // Access the notification state
 
-//   // Define a mapping of types to Bootstrap variants
-//   const typeToVariant = {
-//     success: "success",
-//     warning: "warning",
-//     error: "danger",
-//     info: "info",
-//   };
+  // Define a mapping of types to Bootstrap variants
+  const typeToVariant = {
+    success: "success",
+    warning: "warning",
+    error: "danger",
+    info: "info",
+  };
 
-//   // Get the corresponding Bootstrap variant based on the type
-//   const variant = typeToVariant[notification?.type] || "info";
+  // Get the corresponding Bootstrap variant based on the type
+  const variant = typeToVariant[notification?.type] || "info";
 
-//   return (
-//     <>
-//       {notification && (
-//         <Alert variant={variant}>
-//           {notification.message}
-//           <Button
-//             className="ms-2 text-right"
-//             onClick={notification.onClose}
-//             variant={`outline-${variant}`}
-//             size="sm"
-//           >
-//             Close
-//           </Button>
-//         </Alert>
-//       )}
-//     </>
-//   );
-// };
+  return (
+    <>
+      {notification && (
+        <Alert variant={variant}>
+          {notification.message}
+          <Button
+            className="ms-2 text-right"
+            onClick={notification.onClose}
+            variant={`outline-${variant}`}
+            size="sm"
+          >
+            Close
+          </Button>
+        </Alert>
+      )}
+    </>
+  );
+};
 
 // export default Notification;
 

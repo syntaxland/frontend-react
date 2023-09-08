@@ -24,7 +24,7 @@ export const login = (email, password) => async (dispatch) => {
         "Content-type": "application/json",
       },
     };
-    
+
     const { data } = await axios.post(
       `${API_URL}/api/users/login/`,
       { email: email, password: password },
@@ -32,9 +32,9 @@ export const login = (email, password) => async (dispatch) => {
     );
 
     dispatch({
-      type: USER_LOGIN_SUCCESS, 
+      type: USER_LOGIN_SUCCESS,
       payload: data,
-    }); 
+    });
 
     // Set access token in Axios headers
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
@@ -45,7 +45,8 @@ export const login = (email, password) => async (dispatch) => {
     setTimeout(() => {
       dispatch(refreshToken(data.refresh));
     }, refreshTokenTime);
-    
+
+    window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -57,36 +58,37 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const loginWithGoogle = (email, googleId, tokenId) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+export const loginWithGoogle =
+  (email, googleId, tokenId) => async (dispatch) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    const { data } = await axios.post(
-      `${API_URL}/api/google-login/`,
-      { email, google_id: googleId, token_id: tokenId },
-      config
-    );
+      const { data } = await axios.post(
+        `${API_URL}/api/google-login/`,
+        { email, google_id: googleId, token_id: tokenId },
+        config
+      );
 
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+      });
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.detail
-          ? error.response.data.detail
-          : error.message,
-    });
-  }
-};
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload:
+          error.response && error.response.data.detail
+            ? error.response.data.detail
+            : error.message,
+      });
+    }
+  };
 
 export const register =
   (firstName, lastName, email, password, phoneNumber) => async (dispatch) => {
@@ -106,7 +108,7 @@ export const register =
 
       // Check if 'username' is not provided or empty, set it to the 'email' value
       // eslint-disable-next-line no-unused-vars
-      // const username = email; 
+      // const username = email;
 
       const { data } = await axios.post(
         `${API_URL}/api/users/register/`,
@@ -127,6 +129,8 @@ export const register =
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
+      window.location.reload();
+      window.location.href = "/verify-email-otp";
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -155,21 +159,32 @@ export const refreshToken = (refreshToken) => async (dispatch) => {
     // Update the access token in Axios headers
     // axios.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
     // Update the access token in Axios headers
-    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${data.access}`;
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${data.access}`;
 
     // Save the new access token in local storage
     localStorage.setItem("userInfo", JSON.stringify(data));
 
     // Set timer to refresh the access token again after refreshTokenTime minutes (ms)
-    // let refreshTokenTime = 1000 * 60 * 0.1; // ms * hr * mins
-    // setTimeout(() => {
-    //   dispatch(refreshToken(data.refresh));
-    // }, refreshTokenTime);
-
+    let refreshTokenTime = 1000 * 60 * 900; // ms * hr * mins
+    setTimeout(() => {
+      dispatch(refreshToken(data.refresh));
+    }, refreshTokenTime);
   } catch (error) {
     console.log("Error refreshing token:", error);
+    // Handle token expiration here
+    if (error.response && error.response.status === 401) {
+      // Token has expired, redirect the user to the login page
+      dispatch(logout()); // Log the user out
+      window.location.href = "/login"; // Redirect to the login page
+    } else {
+      // Handle other errors or log out the user if token refresh fails
+      dispatch(logout());
+      window.location.href = "/login";
+    }
     // Handle error or logout the user if token refresh fails
-    dispatch(logout());
+    // dispatch(logout());
   }
 };
 
@@ -196,4 +211,5 @@ export const logout = () => async (dispatch) => {
   delete axios.defaults.headers.common["Authorization"];
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  window.location.href = "/login";
 };

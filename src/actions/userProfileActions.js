@@ -73,6 +73,8 @@ export const updateUserProfile = (userData) => async (dispatch, getState) => {
       type: UPDATE_USER_PROFILE_SUCCESS,
       payload: response.data,
     });
+    window.location.reload();
+    // window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: UPDATE_USER_PROFILE_FAIL,
@@ -107,6 +109,8 @@ export const updateUserAvatar = (avatarData) => async (dispatch, getState) => {
       type: UPDATE_USER_AVATAR_SUCCESS,
       payload: data,
     });
+    window.location.reload();
+    // window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: UPDATE_USER_AVATAR_FAIL,
@@ -135,6 +139,8 @@ export const sendPasswordResetLink = (email) => async (dispatch) => {
       type: SEND_PASSWORD_RESET_LINK_SUCCESS,
       payload: response.data.detail,
     });
+    window.location.reload();
+    window.location.href = "/login";
   } catch (error) {
     dispatch({
       type: SEND_PASSWORD_RESET_LINK_FAIL,
@@ -194,6 +200,8 @@ export const changePassword = (oldPassword, newPassword) => async (dispatch, get
 
     // Logout user and redirect to login page
     dispatch(logout());
+    window.location.reload();
+    window.location.href = "/login";
 
   } catch (error) {
     dispatch({
@@ -225,6 +233,8 @@ export const deleteUserAccount = (password) => async (dispatch, getState) => {
       // Log user out after deleting the account
     //   dispatch({ type: USER_LOGOUT });
     dispatch(logout());
+    window.location.reload();
+    window.location.href = "/";
     } catch (error) {
       dispatch({
         type: DELETE_USER_ACCOUNT_FAIL,

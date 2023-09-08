@@ -34,7 +34,7 @@ function LoginScreen({ location }) {
           // If the email is verified, clear the userInfo and proceed with login
           history.push("/");
           // history.push(redirect);
-          setSuccessMessage("Login successful.");
+          setSuccessMessage("Login successful."); 
         } else {
           // If the email is not verified, log out the user and redirect to the email verification page
           dispatch(logout());

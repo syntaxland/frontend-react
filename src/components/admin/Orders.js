@@ -37,7 +37,7 @@ function Orders() {
 
   return (
     <div>
-      <h1 className="text-center">Orders (All Users)</h1>
+      <h1 className="text-center"><i className="fas fa-luggage-cart"></i> Orders (All Users)</h1>
 
       {loading ? (
         <Loader />

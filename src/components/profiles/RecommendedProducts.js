@@ -1,28 +1,28 @@
-// ViewedItems.js
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// RecommendedProducts.js
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import { getUserViewedProducts } from '../../actions/productAction';
-import Product from '../Product';
-import Message from '../Message';
-import Loader from '../Loader';
+import { fetchRecommendedProducts } from "../../actions/productAction";
+import Product from "../Product";
+import Message from "../Message";
+import Loader from "../Loader";
 
-function ViewedItems() {
+function RecommendedProducts() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserViewedProducts());
+    dispatch(fetchRecommendedProducts());
   }, [dispatch]);
 
-  const userViewedProducts = useSelector((state) => state.userViewedProducts);
-  const { loading, error, products } = userViewedProducts;
+  const recommendedProducts = useSelector((state) => state.recommendedProducts);
+  const { loading, error, productsRecommended } = recommendedProducts;
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(
+  const currentItems = productsRecommended.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -32,7 +32,7 @@ function ViewedItems() {
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(products.length / itemsPerPage);
+    i <= Math.ceil(productsRecommended.length / itemsPerPage);
     i++
   ) {
     pageNumbers.push(i);
@@ -42,7 +42,7 @@ function ViewedItems() {
     <div>
       <Row>
         <Col>
-          <h1 className="text-center">Viewed Products</h1>
+          <h1 className="text-center">Recommended Products</h1>
           {loading ? (
             <Loader />
           ) : error ? (
@@ -108,4 +108,4 @@ function ViewedItems() {
   );
 }
 
-export default ViewedItems;
+export default RecommendedProducts;

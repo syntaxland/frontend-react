@@ -101,8 +101,8 @@ function UserDashboard() {
       </Link>
     ) : (
       <p>
-        <Button variant="danger" className="rounded" size="sm" readOnly >
-          Mature from NGN 5,000
+        <Button variant="danger" className="rounded" size="sm" readOnly>
+          Earned points mature from NGN 5,000
         </Button>
       </p>
     );
@@ -181,7 +181,7 @@ function UserDashboard() {
                       ></div>
                     </div>
                     <p>
-                      NGN{" "}
+                      <i className="	fas fa-money-bill"></i> NGN{" "}
                       {getTotalPayment().toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
@@ -197,7 +197,7 @@ function UserDashboard() {
               </Col>
               <hr />
               <div className="mt-4 py-3">
-                <h2 className="py-3">Orders</h2>
+                <h2 className="py-3">Orders <i className="fas fa-luggage-cart"></i></h2>
                 <Row>
                   <Col>
                     <h5 className="py-3">Paid Order Rate</h5>
@@ -225,14 +225,17 @@ function UserDashboard() {
               </div>
               <hr />
               <Col>
-                <h2 className="py-3">Credit Point Wallet</h2>
+                <h2 className="py-3">
+                   Credit Point Wallet <i className="fas fa-wallet"></i>
+                </h2>
                 <p>
                   Balance: NGN{" "}
-                  {creditPoints
-                  // .toLocaleString(undefined, {
-                  //   minimumFractionDigits: 2,
-                  //   maximumFractionDigits: 2,
-                  // })
+                  {
+                    creditPoints
+                    // .toLocaleString(undefined, {
+                    //   minimumFractionDigits: 2,
+                    //   maximumFractionDigits: 2,
+                    // })
                   }
                 </p>
                 <div className="py-3">{withdrawCreditPoints}</div>

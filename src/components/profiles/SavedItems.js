@@ -1,163 +1,111 @@
 // SavedItems.js
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Button, Card, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { removeFromFavorites } from "../../actions/favoriteActions";
-import { addToCart, removeFromCart } from "../../actions/cartActions";
-import Message from "../Message";
-import Rating from "../Rating";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Row, Col } from "react-bootstrap";
+import { getUserFavoriteProducts } from '../../actions/productAction';
+import Product from '../Product';
+import Message from '../Message';
+import Loader from '../Loader';
 
-function Favorites() {
-  const favorites = useSelector((state) => state.favorites);
-  const { favoriteItems } = favorites;
-
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
-
+function SavedItems() {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getUserFavoriteProducts());
+  }, [dispatch]);
+
+  const userFavoriteProducts = useSelector((state) => state.userFavoriteProducts);
+  const { loading, error, products } = userFavoriteProducts;
+
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = favoriteItems.slice(indexOfFirstItem, indexOfLastItem);
-
-  const toggleCartHandler = (product) => {
-    const isInCart = cartItems.some((item) => item.product === product._id);
-    if (isInCart) {
-      dispatch(removeFromCart(product._id));
-    } else {
-      dispatch(addToCart(product._id, 1));
-    }
-  };
-
-  const removeFavoriteHandler = (id) => {
-    dispatch(removeFromFavorites(id));
-  };
+  const currentItems = products.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(favoriteItems.length / itemsPerPage); i++) {
+  for (
+    let i = 1;
+    i <= Math.ceil(products.length / itemsPerPage);
+    i++
+  ) {
     pageNumbers.push(i);
   }
 
   return (
     <div>
-      <h1 className="text-center">Saved Items</h1>
-      {favoriteItems.length === 0 ? (
-        <Message>
-          Your favourite item list is empty. <Link to="/">Save Items?</Link>
-        </Message>
-      ) : (
-        <>
-          <h5 className="mb-3">Favourite Items ({favoriteItems.length})</h5>
-          <Row>
-            {currentItems.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Card className="my-3 p-3 rounded">
-                  <Link to={`/product/${product._id}`}>
-                    <Card.Img
-                      src={product.image}
-                      style={{ maxHeight: "150px", objectFit: "contain" }}
-                    />
-                  </Link>
+      <Row>
+        <Col>
+          <h1 className="text-center">Saved Products</h1>
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant="danger">{error}</Message>
+          ) : (
+            <>
+              <Row>
+                {currentItems.map((product) => (
+                  <Col key={product._id} xs={12} sm={12} md={6} lg={4} xl={3}>
+                    <Product product={product} />
+                  </Col>
+                ))}
+              </Row>
 
-                  <Card.Body>
-                    <Link to={`/product/${product._id}`}>
-                      <Card.Title as="div">
-                        <strong>{product.name}</strong>
-                      </Card.Title>
-                    </Link>
-
-                    <Card.Text as="div">
-                      <div className="my-3">
-                        <Rating
-                          value={product.rating}
-                          text={`${product.numReviews} reviews`}
-                          color={"yellow"}
-                        />
-                      </div>
-                    </Card.Text>
-
-                    <Card.Text as="h3">NGN{product.price}</Card.Text>
-
-                    <Button
-                      onClick={() => toggleCartHandler(product)}
-                      className="btn-block"
-                      type="button"
-                      variant={
-                        cartItems.some((item) => item.product === product._id)
-                          ? "danger"
-                          : "primary"
-                      }
-                      disabled={product.countInStock === 0}
-                    >
-                      {cartItems.some((item) => item.product === product._id)
-                        ? "Remove from Cart"
-                        : "Add to Cart"}
-                    </Button>
-
-                    <Button
-                      onClick={() => removeFavoriteHandler(product._id)}
-                      className="btn-block mt-3"
-                      type="button"
-                      variant="danger"
-                    >
-                      <i className="fas fa-heart"></i> Remove from Favorites
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-          <nav className="mt-4">
-            <ul className="pagination justify-content-center">
-              <li
-                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => paginate(currentPage - 1)}
-                >
-                  Previous
-                </button>
-              </li>
-              {pageNumbers.map((number) => (
-                <li
-                  key={number}
-                  className={`page-item ${
-                    currentPage === number ? "active" : ""
-                  }`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => paginate(number)}
+              <nav className="mt-4">
+                <ul className="pagination justify-content-center">
+                  <li
+                    className={`page-item ${
+                      currentPage === 1 ? "disabled" : ""
+                    }`}
                   >
-                    {number}
-                  </button>
-                </li>
-              ))}
-              <li
-                className={`page-item ${
-                  currentPage === pageNumbers.length ? "disabled" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => paginate(currentPage + 1)}
-                >
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </>
-      )}
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(currentPage - 1)}
+                    >
+                      Previous
+                    </button>
+                  </li>
+                  {pageNumbers.map((number) => (
+                    <li
+                      key={number}
+                      className={`page-item ${
+                        currentPage === number ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => paginate(number)}
+                      >
+                        {number}
+                      </button>
+                    </li>
+                  ))}
+                  <li
+                    className={`page-item ${
+                      currentPage === pageNumbers.length ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(currentPage + 1)}
+                    >
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </>
+          )}
+        </Col>
+      </Row>
     </div>
   );
 }
 
-export default Favorites;
+export default SavedItems;

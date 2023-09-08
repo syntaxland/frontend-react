@@ -5,6 +5,15 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import {
   productListReducers,
   productDetailsReducers,
+  // productTrackSaveReducer,
+  saveProductReducer,
+  userFavoriteProductsReducer,
+  userViewedProductsReducer,
+  removeProductReducer,
+  updateProductSaveCountReducer,
+  viewedProductReducer,
+  recommendedProductsReducer,
+  productSearchReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducers } from "./reducers/userReducers";
@@ -60,6 +69,7 @@ import {
 } from "./reducers/creditPointReducers";
 
 import { messagingReducer, emailReducer } from './reducers/messagingReducers';
+import { chatReducer } from './reducers/chatReducers';
 
 import axios from "axios";
 import { logout } from "./actions/userActions";
@@ -83,6 +93,14 @@ axiosInstance.interceptors.response.use(
 const reducer = combineReducers({
   productList: productListReducers,
   productDetails: productDetailsReducers,
+  productSave: saveProductReducer,
+  userFavoriteProducts: userFavoriteProductsReducer,
+  userViewedProducts: userViewedProductsReducer,
+  viewedProduct: viewedProductReducer,
+  productRemove: removeProductReducer,
+  updateProductSaveCount: updateProductSaveCountReducer,
+  recommendedProducts: recommendedProductsReducer,
+  productSearch: productSearchReducer,
   cart: cartReducer,
 
   userLogin: userLoginReducers,
@@ -130,6 +148,7 @@ const reducer = combineReducers({
 
   messaging: messagingReducer,
   emailMessaging: emailReducer,
+  chat: chatReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

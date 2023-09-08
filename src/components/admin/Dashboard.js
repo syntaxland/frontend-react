@@ -164,7 +164,7 @@ function Dashboard() {
               <Col>
                 <div>
                   <div className="bar-chart">
-                    <h2 className="pt-4">Total Payment (All Users)</h2>
+                    <h2 className="pt-4">Total Payments (All Users)</h2>
                     <div className="bar">
                       <div
                         className="bar-fill"

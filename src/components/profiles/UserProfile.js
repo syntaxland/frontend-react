@@ -16,11 +16,17 @@ import Loader from "../Loader";
 
 function UserProfile() {
   const dispatch = useDispatch();
+
   const userProfile = useSelector((state) => state.userProfile);
+  const { loading: profileLoading, error: profileError, profile } = userProfile;
+  console.log("userProfile:", userProfile, "profile:", profile);
+
   const updateProfile = useSelector((state) => state.updateProfile);
+  const { loading, success, error } = updateProfile;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  const { loading, success, error } = updateProfile;
+
   const [successMessage, setSuccessMessage] = useState("");
   const history = useHistory();
 
@@ -117,10 +123,6 @@ function UserProfile() {
     history.push("/verify-email-otp");
   };
 
-  // const handleFavourite = () => {
-  //   history.push("/favourites");
-  // };
-
   const handleVerifyEmail = () => {
     if (!userInfo.is_verified) {
       handleResendEmailOtp();
@@ -134,22 +136,28 @@ function UserProfile() {
   return (
     <Container Fluid>
       <Row>
-        <h2 className="text-center">
+        
+
+        {userInfo.is_verified ? (
+            <h2 className="text-center">
+            Profile <i className="fas fa-user-check"></i>
+          </h2>
+          ) : (
+            <h2 className="text-center">
           Profile <i className="fas fa-user"></i>
         </h2>
+          )}
+          
         {loading && <Loader />}
-        {/* {success && (
-            <Message variant="success">Profile updated successfully.</Message>
-          )} */}
+        {profileLoading && <Loader />}
+
         {successMessage && (
           <Message variant="success">{successMessage}</Message>
         )}
+
         {error && <Message variant="danger">{error}</Message>}
-        {/* {deleteSuccessMessage && <Alert variant="success">{deleteSuccessMessage}</Alert>} */}
-        {/* <p>
-          Verified{" "}
-          <input type="checkbox" checked={userInfo.is_verified} readOnly />
-        </p> */}
+        {profileError && <Message variant="danger">{error}</Message>}
+
         <p>
           Verified{" "}
           {userInfo.is_verified ? (
@@ -225,7 +233,7 @@ function UserProfile() {
                     <Form.Control
                       type="text"
                       name="email"
-                      value={userInfo.email}
+                      value={profile.email}
                       readOnly
                       onChange={handleInputChange}
                     />

@@ -215,6 +215,7 @@ export const getOrders = () => async (dispatch, getState) => {
           ? error.response.data.detail
           : error.message,
     });
+    
   }
 };
 
@@ -472,6 +473,8 @@ export const addReview =
         type: ORDER_ADD_REVIEW_SUCCESS,
         payload: data,
       });
+      window.location.reload();
+      window.location.href = "/dashboard";
     } catch (error) {
       dispatch({
         type: ORDER_ADD_REVIEW_FAIL,
@@ -511,6 +514,8 @@ export const editReview =
         type: ORDER_EDIT_REVIEW_SUCCESS,
         payload: data,
       });
+      window.location.reload();
+      window.location.href = "/dashboard";
     } catch (error) {
       dispatch({
         type: ORDER_EDIT_REVIEW_FAIL,

@@ -66,30 +66,17 @@ function AddReviewScreen({ match, history }) {
               </Form.Control>
             </Form.Group>
 
-            {/* <Form.Group controlId="rating">
-              <Form.Label>Rating</Form.Label>
-              <Form.Control
-                as="select"
-                value={rating}
-                onChange={(e) => setRating(e.target.value)}
-              >
-                <option value="1">1 - Poor</option>
-                <option value="2">2 - Fair</option>
-                <option value="3">3 - Good</option>
-                <option value="4">4 - Very Good</option>
-                <option value="5">5 - Excellent</option>
-              </Form.Control>
-            </Form.Group> */}
             <Form.Group controlId="comment">
               <Form.Label>Comment</Form.Label>
               <Form.Control
+                required
                 as="textarea"
                 rows={4}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               ></Form.Control>
             </Form.Group>
-            <Button className="w-100" type="submit" variant="primary">
+            <Button className="w-100 rounded" type="submit" variant="success">
               Submit Review
             </Button>
           </Form>

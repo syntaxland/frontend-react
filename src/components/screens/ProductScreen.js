@@ -15,12 +15,14 @@ import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productAction";
 // import { productDetailsReducers } from "../../reducers/productReducers";
+import ProductPrice from "../ProductPrice";
 
 function ProductScreen({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  console.log('product:', product)
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
@@ -29,6 +31,11 @@ function ProductScreen({ match, history }) {
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
+
+  // const addToCartHandler = () => {
+  //   const priceToUse = product.promo_price || product.price;
+  //   history.push(`/cart/${match.params.id}?qty=${qty}&price=${priceToUse}`);
+  // };
 
   return (
     <div>
@@ -59,7 +66,11 @@ function ProductScreen({ match, history }) {
                   color={"#f8e825"}
                 />
               </ListGroup.Item>
-              <ListGroup.Item>Price: NGN {product.price}</ListGroup.Item>
+              {/* <ListGroup.Item>Price: NGN {product.price}</ListGroup.Item> */}
+
+              <ListGroup.Item>
+                <ProductPrice price={product.price} promoPrice={product.promo_price} />
+              </ListGroup.Item>
 
               <ListGroup.Item>
                 Description: {product.description}
@@ -67,8 +78,8 @@ function ProductScreen({ match, history }) {
             </ListGroup>
           </Col>
           <Col md={3}>
-            <Card>
-              <ListGroup variant="flush">
+            <Card> 
+              <ListGroup variant="flush"> 
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
@@ -109,11 +120,13 @@ function ProductScreen({ match, history }) {
 
                 <ListGroup.Item>
                   <Button
-                    className="btn-block"
+                    // className="btn-block"
+                    className="w-100 rounded"
+                    variant="success"
                     disabled={product.countInStock === 0}
                     type="button"
                     onClick={addToCartHandler}
-                  >
+                  > 
                     Add to Cart
                   </Button>
                 </ListGroup.Item>

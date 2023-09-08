@@ -74,7 +74,9 @@ function Orders() {
 
   return (
     <div>
-      <h1 className="text-center">Orders</h1>
+      <h1 className="text-center py-3">
+        <i className="fas fa-luggage-cart"></i> Orders
+      </h1>
       {deleteLoading && <Loader />}
 
       {showDeleteSuccess && (

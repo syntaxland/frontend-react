@@ -59,6 +59,7 @@ const CreditPointRequests = () => {
                     <th>Account Number</th>
                     <th>Bank</th>
                     <th>Amount</th>
+                    <th>Request Ref</th>
                     <th>Paid</th>
                     <th>Paid At</th>
                     <th>Delivered</th>
@@ -70,12 +71,13 @@ const CreditPointRequests = () => {
                   {currentItems.map((creditPoint, index) => (
                     <tr key={creditPoint.id}>
                       <td>{index + 1}</td>
-                      <td>{creditPoint.email}</td>
+                      <td>{creditPoint.email}</td> 
                       <td>{creditPoint.phone_number}</td>
                       <td>{creditPoint.account_name}</td>
                       <td>{creditPoint.account_number}</td>
                       <td>{creditPoint.bank_name}</td>
                       <td>{creditPoint.credit_point_amount}</td>
+                        <td>{creditPoint.request_ref}</td>
                       {/* <td>{creditPoint.is_paid ? "Yes" : "No"}</td> */}
                       <td>
                         {creditPoint.is_paid ? (

@@ -61,7 +61,7 @@ function ResetPassword() {
                 required
               />
             </Form.Group>
-            <Button type="submit" variant="primary" className="rounded mt-2 w-100">
+            <Button type="submit" variant="success" className="rounded mt-2 w-100">
               Reset Password
             </Button>
           </Form>

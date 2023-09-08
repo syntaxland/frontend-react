@@ -29,7 +29,6 @@ export const sendMessage = (messageData) => async (dispatch, getState) => {
       },
     };
 
-    // const data = { messageData };
     await axios.post(
       `${API_URL}/api/send-message-to-all/`,
       messageData,
@@ -37,6 +36,8 @@ export const sendMessage = (messageData) => async (dispatch, getState) => {
     );
 
     dispatch({ type: SEND_MESSAGE_SUCCESS });
+    window.location.reload();
+    window.location.href = "/admin-dashboard";
   } catch (error) {
     dispatch({
       type: SEND_MESSAGE_FAIL,
@@ -93,6 +94,8 @@ export const sendEmail = (emailData) => async (dispatch, getState) => {
     await axios.post(`${API_URL}/api/send-email-to-all/`, emailData, config);
 
     dispatch({ type: EMAIL_SEND_SUCCESS });
+    window.location.reload();
+    window.location.href = "/admin-dashboard";
   } catch (error) {
     dispatch({
       type: EMAIL_SEND_FAIL,

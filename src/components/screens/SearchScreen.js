@@ -1,162 +1,178 @@
-// SearchScreen
+// SearchScreen.js
 import React, { useEffect, useState } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, removeFromCart } from "../../actions/cartActions";
-import { addToFavorites, removeFromFavorites } from "../../actions/favoriteActions";
-// import Message from "../Message";
-import Rating from "../Rating";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, Row, Col, Form } from "react-bootstrap";
+import Product from "../Product";
+import { searchProducts } from "../../actions/productAction";
+import Message from "../Message";
+import Loader from "../Loader";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
-function SearchScreen() {
-  const { keyword } = useParams();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
-
-  const favorites = useSelector((state) => state.favorites);
-  const { favoriteItems } = favorites;
-
+function SearchScreen({ match }) {
   const dispatch = useDispatch();
+  const keyword = match.params.keyword;
+
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
+
+  const [category, setCategory] = useState("");
+  // const [sortOrder, setSortOrder] = useState("");
+  const [sortOrder, setSortOrder] = useState("createdAt");
+  const [brand, setBrand] = useState(""); // New state for brand filter
+  const [priceRange, setPriceRange] = useState(""); // New state for priceRange filter
+  const [rating, setRating] = useState(""); // New state for rating filter
+
+  // useEffect(() => {
+  //   dispatch(
+  //     searchProducts(keyword, category, brand, priceRange, rating, sortOrder)
+  //   );
+  // }, [dispatch, keyword, category, brand, priceRange, rating, sortOrder]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get(
-          `${API_URL}/api/products/search/?search=${keyword}`
-        );
-        setProducts(data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
-    };
+    dispatch(
+      searchProducts(keyword)
+    );
+  }, [dispatch, keyword]);
 
-    fetchProducts();
-  }, [keyword]);
+  console.log(
+    "keyword, category, brand, priceRange, rating, sortOrder:",
+    keyword,
+    // category,
+    // brand,
+    // priceRange,
+    // rating,
+    // sortOrder
+  );
 
-  const toggleCartHandler = (product) => {
-    const isInCart = cartItems.some((item) => item.product === product._id);
-    if (isInCart) {
-      dispatch(removeFromCart(product._id));
-    } else {
-      dispatch(addToCart(product._id, 1));
-    }
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
-  const toggleFavoriteHandler = (product) => {
-    const isFavorite = favoriteItems.find((item) => item._id === product._id);
-    if (isFavorite) {
-      dispatch(removeFromFavorites(product._id));
-    } else {
-      dispatch(addToFavorites(product));
-    }
+  const handleSortOrderChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
+  const handleBrandChange = (e) => {
+    setBrand(e.target.value);
+  };
+
+  const handlePriceRangeChange = (e) => {
+    setPriceRange(e.target.value);
+  };
+
+  const handleRatingChange = (e) => {
+    setRating(e.target.value);
   };
 
   return (
-    <div>
+    <Container>
       <h1>Search Results for "{keyword}"</h1>
+
+      <Row>
+        <Col md={4}>
+          <i className="fa fa-filter"></i>
+          <Form.Control
+            as="select"
+            onChange={handleCategoryChange}
+            value={category}
+          >
+            <option value="">Filter by Category</option>
+            <option value="Shower">Shower</option>
+            <option value="Basins">Basins</option>
+          </Form.Control>
+        </Col>
+
+        <Col md={4}>
+          <i className="fa fa-angle-down"></i>
+          <Form.Control
+            as="select"
+            onChange={handleSortOrderChange}
+            value={sortOrder}
+          >
+            <option value="">Sort by</option>
+            <option value="-createdAt">Latest</option>
+            <option value="createdAt">Oldest</option>
+            <option value="rating">Rating</option>
+            <option value="price">Price</option>
+            <option value="-price">Highest Price First</option>{" "}
+            {/* Add option for Highest Price First */}
+            <option value="price">Lowest Price First</option>{" "}
+            {/* Add option for Lowest Price First */}
+          </Form.Control>
+        </Col>
+
+        <Col md={4}>
+          <i className="fa fa-angle-down"></i>
+          <Form.Control as="select" onChange={handleBrandChange} value={brand}>
+            <option value="">Filter by Brand</option>
+            <option value="Shower">Shower</option>
+            <option value="Basins">Basins</option>
+          </Form.Control>
+        </Col>
+
+        <Col md={4}>
+          <i className="fa fa-angle-down"></i>
+          <Form.Control
+            as="select"
+            onChange={handlePriceRangeChange}
+            value={priceRange}
+          >
+            <option value="">Filter by Price Range</option>
+            <option value="100-10000">NGN 100 - 10k</option>
+            <option value="10001-50000">NGN 10.1k - 50k</option>
+            <option value="50001-100000">NGN 50.1k - 100k</option>
+            <option value="100001-500000">NGN 100.1k - 500k</option>
+            <option value="500001-10000000">NGN 500.1k and above</option>
+          </Form.Control>
+        </Col>
+        <Col md={4}>
+          <i className="fa fa-angle-down"></i>
+          <Form.Control
+            as="select"
+            onChange={handleRatingChange}
+            value={rating}
+          >
+            <option value="">Filter by Rating</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </Form.Control>
+        </Col>
+      </Row>
+
       {loading ? (
-        <p>Loading...</p>
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
       ) : products.length === 0 ? (
-        <p>No products found.</p>
+        <Message variant="danger">No products found for "{keyword}"</Message>
       ) : (
         <Row>
           {products.map((product) => (
             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Card className="my-3 p-3 rounded">
-                <Link to={`/product/${product._id}`}>
-                  <Card.Img src={product.image} />
-                </Link>
-
-                <Card.Body>
-                  <Link to={`/product/${product._id}`}>
-                    <Card.Title as="div">
-                      <strong>{product.name}</strong>
-                    </Card.Title>
-                  </Link>
-
-                  <Card.Text as="div">
-                    <div className="my-3">
-                      <Rating
-                        value={product.rating}
-                        text={`${product.numReviews} reviews`}
-                        color={"yellow"}
-                      />
-                    </div>
-                  </Card.Text>
-
-                  <Card.Text as="h3">NGN{product.price}</Card.Text>
-
-                  <Button
-                    onClick={() => toggleCartHandler(product)}
-                    className="btn-block"
-                    type="button"
-                    variant={
-                      cartItems.some((item) => item.product === product._id)
-                        ? "danger"
-                        : "primary"
-                    }
-                    disabled={product.countInStock === 0}
-                  >
-                    {product.countInStock === 0
-                      ? "Out of Stock"
-                      : cartItems.some((item) => item.product === product._id)
-                      ? "Remove from Cart"
-                      : "Add to Cart"}
-                  </Button>
-
-                  <Button
-                    onClick={() => toggleFavoriteHandler(product)}
-                    className="btn-block mt-3"
-                    type="button"
-                    variant={
-                      favoriteItems.find((item) => item._id === product._id)
-                        ? "danger"
-                        : "outline-danger"
-                    }
-                  >
-                    <i
-                      className={
-                        favoriteItems.find((item) => item._id === product._id)
-                          ? "fas fa-heart"
-                          : "far fa-heart"
-                      }
-                    ></i>{" "}
-                    {favoriteItems.find((item) => item._id === product._id)
-                      ? "Saved"
-                      : "Save"}
-                  </Button>
-                </Card.Body>
-              </Card>
+              <Product product={product} />
             </Col>
           ))}
         </Row>
       )}
-    </div>
+    </Container>
   );
 }
 
 export default SearchScreen;
 
+
 // import React, { useEffect, useState } from "react";
-// import { Row, Col, Card } from "react-bootstrap";
+// import { Row, Col } from "react-bootstrap";
 // import { useParams } from "react-router-dom";
 // import axios from "axios";
-// // import showNotification from "../../App"; 
+// import Product from "../Product";
 
 // const API_URL = process.env.REACT_APP_API_URL;
 
 // function SearchScreen() {
 //   const { keyword } = useParams();
-//   // const { id: keyword } = useParams();
 //   const [products, setProducts] = useState([]);
 //   const [loading, setLoading] = useState(true);
 
@@ -164,7 +180,9 @@ export default SearchScreen;
 //     const fetchProducts = async () => {
 //       try {
 //         setLoading(true);
-//         const { data } = await axios.get(`${API_URL}/api/products/search/?search=${keyword}`); 
+//         const { data } = await axios.get(
+//           `${API_URL}/api/products/search/?search=${keyword}`
+//         );
 //         setProducts(data);
 //         setLoading(false);
 //       } catch (error) {
@@ -176,25 +194,18 @@ export default SearchScreen;
 //     fetchProducts();
 //   }, [keyword]);
 
-//   return (
+//    return (
 //     <div>
-//       <h1>Search Results for "{keyword}"</h1> 
+//       <h1>Search Results for "{keyword}"</h1>
 //       {loading ? (
 //         <p>Loading...</p>
 //       ) : products.length === 0 ? (
 //         <p>No products found.</p>
-//         // showNotification("No products found.", "warning")
 //       ) : (
 //         <Row>
 //           {products.map((product) => (
 //             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-//               <Card>
-//               <Card.Img variant="top" src={product.image} />
-//                 <Card.Body>
-//                   <Card.Title>{product.name}</Card.Title>
-//                   <Card.Text>{product.description}</Card.Text>
-//                 </Card.Body>
-//               </Card>
+//               <Product product={product} />
 //             </Col>
 //           ))}
 //         </Row>

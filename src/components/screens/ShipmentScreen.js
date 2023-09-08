@@ -48,7 +48,7 @@ const ShipmentScreen = ({ history, match }) => {
 
   return (
     <Row>
-      <div className="d-flex justify-content-center ">
+      <div className="d-flex justify-content-center">
         <Col md={6}>
           <h1 className="text-center py-2">Shipping Address</h1>
           {error && <Message variant="danger">{error}</Message>}
@@ -95,7 +95,7 @@ const ShipmentScreen = ({ history, match }) => {
               />
             </Form.Group>
             <div className="text-center py-2">
-              <Button type="submit" variant="primary">
+              <Button type="submit" className="w-100 rounded" variant="success">
                 Proceed to Payment
               </Button>
             </div>

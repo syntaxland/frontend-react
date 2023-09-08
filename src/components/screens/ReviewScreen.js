@@ -10,11 +10,12 @@ import Rating from "../Rating";
 
 function ReviewScreen() {
   const dispatch = useDispatch();
-
+ 
   const { productId } = useParams();
 
   const reviewList = useSelector((state) => state.reviewList);
   const { loading, error, reviews } = reviewList;
+  // const { loading, error, reviews } = reviewList || { reviews: [] };
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;

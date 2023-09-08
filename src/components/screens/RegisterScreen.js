@@ -35,7 +35,10 @@ function RegisterScreen({ location, history }) {
   });
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { error, loading, userInfo } = userRegister;
+  const { error, loading } = userRegister;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin; 
 
   const handleInputChange = (field, value) => {
     if (field === "confirmPassword") {

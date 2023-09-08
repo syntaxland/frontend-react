@@ -36,6 +36,8 @@ export const createCreditPointRequest = creditPointRequest => async (dispatch, g
     const { data } = await axios.post(`${API_URL}/api/credit-point-request/`, creditPointRequest, config);
 
     dispatch({ type: CREDIT_POINT_REQUEST_CREATE_SUCCESS, payload: data });
+    window.location.reload();
+    window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: CREDIT_POINT_REQUEST_CREATE_FAIL,

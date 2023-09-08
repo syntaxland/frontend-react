@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { createCreditPointRequest } from "../../actions/creditPointActions";
 import Message from "../Message";
 import Loader from "../Loader";
+import NotificationAlert from "../NotificationAlert";
 
 const CreditPointScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -19,7 +20,10 @@ const CreditPointScreen = ({ history }) => {
   const [accountNumber, setAccountNumber] = useState("");
   const [bankName, setBankName] = useState("");
   const [creditPointAmount, setCreditPointAmount] = useState(0);
- 
+
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const creditPoints = query.get("creditPoints");
@@ -27,6 +31,16 @@ const CreditPointScreen = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    // Validate accountNumber input
+    const accountNumberRegex = /^\d{10}$/; // Regular expression for exactly 10 digits
+    if (!accountNumberRegex.test(accountNumber)) {
+      // If the input does not have exactly 10 digits, show an error message
+      setErrorMessage("Account Number must be exactly 10 digits.");
+      setShowErrorAlert(true);
+      return;
+    }
+
     dispatch(
       createCreditPointRequest({
         account_name: accountName,
@@ -57,7 +71,14 @@ const CreditPointScreen = ({ history }) => {
           <h2 className="py-3 text-center">Credit Point Request</h2>
           {success && (
             <Message variant="success">Request sent successfully.</Message>
-          )} 
+          )}
+          {showErrorAlert && (
+            <NotificationAlert
+              variant="danger"
+              message={errorMessage}
+              onClose={() => setShowErrorAlert(false)}
+            />
+          )}
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
           <Form onSubmit={submitHandler}>
@@ -108,7 +129,7 @@ const CreditPointScreen = ({ history }) => {
               />
             </Form.Group>
             <div className="py-3 text-center">
-              <Button className="w-100" type="submit" variant="primary">
+              <Button className="w-100" type="submit" variant="success">
                 Submit
               </Button>
             </div>

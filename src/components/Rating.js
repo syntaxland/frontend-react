@@ -1,5 +1,5 @@
 // Rating.js
-import React from 'react'
+import React from 'react';
 
 function Rating({value,text,color}) {
     return (

@@ -2,8 +2,40 @@
 
 /* Dashboard --------------------------------------------------------------------------------- */
 
-.sidebar-content .sidebar-button {
+.sidebar-content .sidebar-link  {
   text-transform: none;
+
+}
+
+/* .sidebar-link {
+  text-decoration: none; 
+  color: #333; 
+  display: block;
+  padding: 10px;
+  transition: background-color 0.3s; 
+
+} */
+
+.sidebar-link {
+  border: none; /* Remove the border */
+  text-align: left; /* Align text to the left within the button */
+  width: 100%; /* Make the button take the full width */
+  padding: 10px; /* Add some padding for better spacing */
+  background-color: transparent; /* Remove the button background color */
+  color: #000; /* Set the text color to your preferred color */
+  text-decoration: none; /* Remove underlines or other decorations */
+  display: block; /* Ensure the button takes the full width as a block element */
+  transition: background-color 0.3s; 
+}
+
+.sidebar-link:hover {
+  background-color: #f0f0f0; /* Add a background color on hover */
+}
+
+/* Style the active link */
+.active-link {
+  background-color: #007bff; /* Active link background color */
+  color: #fff; /* Active link text color */
 }
 
 .sidebar-content {
@@ -17,7 +49,10 @@
   overflow-y: auto; 
 }
 
-
+.active-link {
+  background-color: #007bff; /* Active link background color */
+  color: #fff; /* Active link text color */
+}
 
 /* --------------------------------------------------------------------------------- */
 

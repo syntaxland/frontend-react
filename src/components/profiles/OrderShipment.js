@@ -1,10 +1,10 @@
 // OrderShipment.js
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Table } from 'react-bootstrap';
-import { getUserShipments } from '../../actions/orderActions'; 
-import Message from '../Message';
-import Loader from '../Loader';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Table } from "react-bootstrap";
+import { getUserShipments } from "../../actions/orderActions";
+import Message from "../Message";
+import Loader from "../Loader";
 
 function OrderShipment() {
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ function OrderShipment() {
                   <td>{address.postalCode}</td>
                   <td>{address.country}</td>
                   <td>{address.shippingPrice}</td>
-                  <td>{address.isDelivered ? 'Yes' : 'No'}</td>
+                  <td>{address.isDelivered ? "Yes" : "No"}</td>
                 </tr>
               ))}
             </tbody>
@@ -76,7 +76,7 @@ function OrderShipment() {
           <nav className="mt-4">
             <ul className="pagination justify-content-center">
               <li
-                className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
               >
                 <button
                   className="page-link"
@@ -89,7 +89,7 @@ function OrderShipment() {
                 <li
                   key={number}
                   className={`page-item ${
-                    currentPage === number ? 'active' : ''
+                    currentPage === number ? "active" : ""
                   }`}
                 >
                   <button
@@ -102,7 +102,7 @@ function OrderShipment() {
               ))}
               <li
                 className={`page-item ${
-                  currentPage === pageNumbers.length ? 'disabled' : ''
+                  currentPage === pageNumbers.length ? "disabled" : ""
                 }`}
               >
                 <button
@@ -116,6 +116,10 @@ function OrderShipment() {
           </nav>
         </>
       )}
+      <hr />
+      <div>
+        <h2 className="text-center py-3">Live Shipment Tracking</h2>
+      </div>
     </div>
   );
 }

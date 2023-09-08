@@ -72,57 +72,57 @@ function AdminDashboard({ history }) {
                 <Button
                   variant={
                     activeTab === "admin-dashboard"
-                      ? "primary"
-                      : "outline-primary"
+                      ? "info"
+                      : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("admin-dashboard")}
                 >
-                  Admin Dashboard
+                 <i className="fa fa-dashboard"></i> Admin
                 </Button>
-              </div>
+              </div> 
               <div>
                 <Button
                   variant={
-                    activeTab === "orders" ? "primary" : "outline-primary"
+                    activeTab === "orders" ? "info" : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("orders")}
                 >
-                  Orders
+                  <i className="fas fa-luggage-cart"></i> Orders
                 </Button>
               </div>
               <div>
                 <Button
                   variant={
-                    activeTab === "payments" ? "primary" : "outline-primary"
+                    activeTab === "payments" ? "info" : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("payments")}
                 >
-                  Payments
+                  <i className="fas fa-credit-card"></i> Payments
                 </Button>
               </div>
               <div>
                 <Button
                   variant={
                     activeTab === "order-shipment"
-                      ? "primary"
-                      : "outline-primary"
+                      ? "info"
+                      : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("order-shipment")}
                 >
-                  Shipments
+                 <i className="fas fa-shipping-fast"></i> Shipments
                 </Button>
               </div>
 
               <div>
                 <Button
                   variant={
-                    activeTab === "send-message" ? "primary" : "outline-primary"
+                    activeTab === "send-message" ? "info" : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("send-message")}
                 >
                   <i className="fa-solid fa-message"></i> Send Message
@@ -132,9 +132,9 @@ function AdminDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "send-email" ? "primary" : "outline-primary"
+                    activeTab === "send-email" ? "info" : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("send-email")}
                 >
                   <i className="fa-solid fa-envelope"></i> Send Email
@@ -145,13 +145,13 @@ function AdminDashboard({ history }) {
                 <Button
                   variant={
                     activeTab === "credit-point-requests"
-                      ? "primary"
-                      : "outline-primary"
+                      ? "info"
+                      : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleTabChange("credit-point-requests")}
                 >
-                  Credit Point
+                  <i className="fas fa-sack-dollar"></i> Credit Point
                 </Button>
               </div>
 
@@ -159,10 +159,10 @@ function AdminDashboard({ history }) {
                 <Button
                   variant={
                     activeTab === "admin-dashboard"
-                      ? "primary"
-                      : "outline-primary"
+                      ? "info"
+                      : "outline-info"
                   }
-                  className="sidebar-button"
+                  className="sidebar-link"
                   onClick={() => handleUserDashboard()}
                 >
                   User Dashboard

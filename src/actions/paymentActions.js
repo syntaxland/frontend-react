@@ -40,6 +40,8 @@ export const createPayment = (paymentData) => async (dispatch, getState) => {
       type: PAYMENT_CREATE_SUCCESS,
       payload: data,
     });
+    window.location.reload();
+    window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: PAYMENT_CREATE_FAIL,
