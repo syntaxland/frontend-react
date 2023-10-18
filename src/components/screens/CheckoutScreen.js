@@ -5,12 +5,17 @@ import { Row, Col, ListGroup, Image, Button } from "react-bootstrap";
 import { createOrder } from "../../actions/orderActions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import Message from "../Message";
+import Loader from "../Loader";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 function CheckoutScreen() {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error } = orderCreate;
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -49,6 +54,7 @@ function CheckoutScreen() {
     (acc, item) => acc + item.qty * item.price * 0.03,
     0
   );
+
   const totalPrice =
     cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) +
     shippingPrice +
@@ -90,15 +96,24 @@ function CheckoutScreen() {
 
   return (
     <Row>
+      {loading && <Loader />}
+      {error && <Message variant="danger">{error}</Message>}{" "}
+      {success && (
+        <Message variant="success">Order created successfully!</Message>
+      )}
       <div className="d-flex justify-content-center">
-        <Col md={6}>
+        <Col xs={12} sm={12} md={6} lg={6} xl={6}>
           <h1 className="text-center py-2">Order Summary</h1>
           <ListGroup variant="flush">
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={4}>
-                    <Image src={item.image} alt={item.name}  />
+                    <Image
+                      src={item.image}
+                      className="img-fluid"
+                      alt={item.name}
+                    />
                   </Col>
                   <Col md={8}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
@@ -133,6 +148,7 @@ function CheckoutScreen() {
                 maximumFractionDigits: 2,
               })}
             </ListGroup.Item>
+
             <ListGroup.Item>Timestamp: {createdAt}</ListGroup.Item>
 
             <div className="text-center py-2">

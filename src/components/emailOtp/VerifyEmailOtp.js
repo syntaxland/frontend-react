@@ -95,14 +95,16 @@ const VerifyEmailOtp = () => {
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                   placeholder="Enter OTP"
+                  required
                 />
               </Form.Group>
               <div className="py-3">
                 <Button
                   onClick={handleVerifyEmailOtp}
                   disabled={loading || success}
-                  variant="primary"
+                  variant="success"
                   type="submit"
+                  className="rounded"
                 >
                   Verify OTP
                 </Button>

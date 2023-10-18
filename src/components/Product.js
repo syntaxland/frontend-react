@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useLocation, useHistory } from "react-router-dom";
+// import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import Rating from "../components/Rating";
 import { addToCart, removeFromCart } from "../actions/cartActions";
@@ -14,6 +15,7 @@ import {
 import Message from "./Message";
 import Loader from "./Loader";
 import ProductPrice from "./ProductPrice";
+import PromoTimer from "./PromoTimer";
 
 function Product({ product }) {
   const dispatch = useDispatch();
@@ -237,6 +239,14 @@ function Product({ product }) {
   //     }
   //   }
   // };
+  console.log(
+    "promo_code",
+    product.promo_code,
+    "expiration_date",
+    product.expiration_date,
+    "discount_percentage",
+    product.discount_percentage
+  );
 
   return (
     <Card className="my-3 p-3 rounded">
@@ -246,22 +256,6 @@ function Product({ product }) {
       {removeFromCartMessage && (
         <Message variant="danger">Item removed from cart.</Message>
       )}
-      {/* {productSaveSuccess && (
-        <Message variant="success">Item added to favorites.</Message>
-      )}
-      {productRemoveSuccess && (
-        <Message variant="danger">Item removed from favorites.</Message>
-      )}
-
-      {productSaveError && (
-        <Message variant="danger">{productSaveError}</Message>
-      )}
-      {productRemoveError && (
-        <Message variant="danger">{productRemoveError}</Message>
-      )} 
-      {productSaveLoading && <Loader />}
-      {productRemoveLoading && <Loader />}
-      */}
 
       {productMessages.productSaveSuccess && (
         <Message variant="success">Item added to favorites.</Message>
@@ -279,38 +273,16 @@ function Product({ product }) {
       {productLoading.productSaveLoading && <Loader />}
       {productLoading.productRemoveLoading && <Loader />}
 
-      {/* <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} />
-      </Link> */}
-
       <Link onClick={viewProductHandler}>
         <Card.Img src={product.image} />
       </Link>
 
       <Card.Body>
-        {/* <Link to={`/product/${product._id}`}>
-          <Card.Title as="div">
-            <strong>{product.name}</strong>
-          </Card.Title>
-        </Link> */}
-
         <Link onClick={viewProductHandler}>
           <Card.Title as="div">
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
-
-        {/* <Card.Text as="div">
-          <span className="text-right">
-           <i className="fas fa-eye"></i> 2 Views
-          </span>
-        </Card.Text> */}
-
-        {/* <Card.Text as="div">
-          <span className="text-right" onClick={viewProductHandler}>
-            <i className="fas fa-eye"></i> {product.view_count} views
-          </span>
-        </Card.Text> */}
 
         <Card.Text as="div">
           <span className="text-right" onClick={viewProductHandler}>
@@ -319,14 +291,13 @@ function Product({ product }) {
           </span>
         </Card.Text>
 
-        <Card.Text as="div">
+        <div as="div">
           <div className="my-3">
             <Rating
               value={product.rating}
               text={`${formatCount(product.numReviews)} reviews `}
               color={"yellow"}
             />
-            {/* <Link to={`/review-list/${product._id}`}>(Verified Purchase)</Link> */}
 
             {userInfo ? (
               <Link to={`/review-list/${product._id}`}>(Verified Ratings)</Link>
@@ -336,7 +307,7 @@ function Product({ product }) {
               </Link>
             )}
           </div>
-        </Card.Text>
+        </div>
 
         <Card.Text as="h5">
           <span>
@@ -347,38 +318,56 @@ function Product({ product }) {
           </span>
         </Card.Text>
 
-        <Button
-          onClick={toggleCartHandler}
-          className="btn-block rounded"
-          type="button"
-          variant="info"
-          disabled={product.countInStock === 0}
-        >
-          {product.countInStock === 0 ? (
-            "Out of Stock"
-          ) : isCart ? (
-            <span>
-              <i className="fa fa-cart-arrow-down"></i> Remove
-            </span>
-          ) : (
-            <span>
-              <i className="fa fa-cart-arrow-down"></i> Add
-            </span>
+        <span className="py-2">
+          {product.promo_code && (
+            <div>
+              Promo code "{product.promo_code}" for{" "}
+              {product.discount_percentage}% discount expires in:{" "}
+              <PromoTimer expirationDate={product.expiration_date} />
+            </div>
           )}
-        </Button>
+        </span>
 
-        <Button
-          onClick={toggleFavoriteHandler}
-          className="ml-2 rounded"
-          type="button"
-          variant={productSaved ? "danger" : "outline-danger"}
-        >
-          <div className="mt-auto">
-            <i className={productSaved ? "fas fa-heart" : "far fa-heart"}></i>{" "}
-            {productSaved ? "Saved" : "Save"}{" "}
-            <span className="text-muted">({formatCount(totalSaves)})</span>
-          </div>
-        </Button>
+        <div className="d-flex justify-content-between">
+          <span>
+            <Button
+              onClick={toggleCartHandler}
+              className="btn-block rounded"
+              type="button"
+              // variant="info"
+              variant={isCart ? "info" : "outline-info"}
+              disabled={product.countInStock === 0}
+            >
+              {product.countInStock === 0 ? (
+                "Out of Stock"
+              ) : isCart ? (
+                <span>
+                  <i className="fa fa-cart-arrow-down"></i> Remove
+                </span>
+              ) : (
+                <span>
+                  <i className="fa fa-cart-arrow-down"></i> Add
+                </span>
+              )}
+            </Button>
+          </span>
+          <span>
+            <Button
+              onClick={toggleFavoriteHandler}
+              className="ml-2 rounded"
+              type="button"
+              variant={productSaved ? "danger" : "outline-danger"}
+            >
+              <div className="mt-auto">
+                <i
+                  className={productSaved ? "fas fa-heart" : "far fa-heart"}
+                ></i>{" "}
+                {productSaved ? "Saved" : "Save"}{" "}
+                <span className="text-muted">({formatCount(totalSaves)})</span>
+              </div>
+            </Button>
+          </span>
+        </div>
       </Card.Body>
     </Card>
   );

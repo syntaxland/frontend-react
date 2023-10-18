@@ -61,6 +61,8 @@ function UserDashboard() {
     dispatch(getOrders());
   }, [dispatch]);
 
+ 
+  
   const lineGraphData = {
     labels: payments.map((payment) =>
       new Date(payment.created_at).toLocaleString()
@@ -72,9 +74,45 @@ function UserDashboard() {
         borderColor: "rgba(75,192,192,1)",
         borderWidth: 2,
         data: payments.map((payment) => payment.amount),
+        orderIds: payments.map((payment) => payment.order_id),
       },
     ],
   };
+  
+  const lineChartOptions = {
+    // ...
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.dataset.label || "";
+            if (label) {
+              const index = context.dataIndex;
+              const orderId = context.dataset.orderIds[index];
+              return `${label}: NGN ${context.formattedValue} (${orderId})`;
+            }
+            return null;
+          },
+        },
+      },
+    },
+  };
+  
+
+  // const lineGraphData = {
+  //   labels: payments.map((payment) =>
+  //     new Date(payment.created_at).toLocaleString()
+  //   ),
+  //   datasets: [
+  //     {
+  //       label: "Amount Paid (NGN)",
+  //       fill: false,
+  //       borderColor: "rgba(75,192,192,1)",
+  //       borderWidth: 2,
+  //       data: payments.map((payment) => payment.amount),
+  //     },
+  //   ],
+  // };
 
   const getTotalPayment = () => {
     let totalPayment = 0;
@@ -86,6 +124,8 @@ function UserDashboard() {
   };
 
   const creditPoints = creditPointBalance.balance;
+  const creditPointsFormatted = creditPoints ? creditPoints : [];
+
 
   const withdrawCreditPoints =
     creditPoints >= 5000 ? (
@@ -192,7 +232,7 @@ function UserDashboard() {
                 <hr />
                 <div className="line-graph mt-4">
                   <h2 className="py-3">Payments</h2>
-                  <Line data={lineGraphData} />
+                  <Line data={lineGraphData} options={lineChartOptions}/>
                 </div>
               </Col>
               <hr />
@@ -231,11 +271,11 @@ function UserDashboard() {
                 <p>
                   Balance: NGN{" "}
                   {
-                    creditPoints
-                    // .toLocaleString(undefined, {
-                    //   minimumFractionDigits: 2,
-                    //   maximumFractionDigits: 2,
-                    // })
+                    creditPointsFormatted
+                    .toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })
                   }
                 </p>
                 <div className="py-3">{withdrawCreditPoints}</div>

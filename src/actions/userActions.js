@@ -41,12 +41,13 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem("userInfo", JSON.stringify(data));
 
     // Set timer to refresh the access token after refreshTokenTime minutes (ms)
-    let refreshTokenTime = 1000 * 60 * 900; // ms * hr * mins
+    // let refreshTokenTime = 1000 * 60 * 900; // ms * hr * mins
+    let refreshTokenTime = 1000 * 60 * 60*24*7; // ms * hr * mins
     setTimeout(() => {
       dispatch(refreshToken(data.refresh));
     }, refreshTokenTime);
 
-    window.location.href = "/dashboard";
+    // window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -91,7 +92,7 @@ export const loginWithGoogle =
   };
 
 export const register =
-  (firstName, lastName, email, password, phoneNumber) => async (dispatch) => {
+  (firstName, lastName, email, password, phoneNumber, referralCode) => async (dispatch) => {
     try {
       // Convert email to lowercase
       const lowerCaseEmail = email.toLowerCase();
@@ -119,6 +120,7 @@ export const register =
           email: lowerCaseEmail,
           password,
           phone_number: phoneNumber,
+          referral_code: referralCode,
         },
         config
       );
@@ -129,7 +131,7 @@ export const register =
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-      window.location.reload();
+      // window.location.reload();
       window.location.href = "/verify-email-otp";
     } catch (error) {
       dispatch({
@@ -167,7 +169,8 @@ export const refreshToken = (refreshToken) => async (dispatch) => {
     localStorage.setItem("userInfo", JSON.stringify(data));
 
     // Set timer to refresh the access token again after refreshTokenTime minutes (ms)
-    let refreshTokenTime = 1000 * 60 * 900; // ms * hr * mins
+    // let refreshTokenTime = 1000 * 60 * 900; // ms * hr * mins
+    let refreshTokenTime = 1000 * 60 * 60*24*7; // ms * hr * mins
     setTimeout(() => {
       dispatch(refreshToken(data.refresh));
     }, refreshTokenTime);

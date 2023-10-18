@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "./bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import "./bootstrap.min.css";
 import { Provider } from "react-redux";
 import store from "./store";
-import axios from "axios"; // Import Axios library
+import axios from "axios"; 
 import { logout } from "./actions/userActions";
 // import showNotification from "./App"; 
 // import { NotificationProvider } from "./components/Notification/NotificationContext";

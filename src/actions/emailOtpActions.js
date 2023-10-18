@@ -70,7 +70,7 @@ export const verifyEmailOtp = (otp) => async (dispatch, getState) => {
     dispatch({
       type: EMAIL_OTP_VERIFY_SUCCESS,
     });
-    window.location.reload();
+    // window.location.reload();
     window.location.href = "/login";
   } catch (error) {
     dispatch({

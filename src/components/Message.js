@@ -17,7 +17,7 @@ const Message = ({ variant, children }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowMessage(false);
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearTimeout(timer);
@@ -26,7 +26,7 @@ const Message = ({ variant, children }) => {
 
   return showMessage ? (
     // <div className={`alert alert-${variant} my-3`}>{children}</div>
-    <div><Alert variant={variant} >{children}</Alert></div>
+    <div><Alert className="rounded" variant={variant} >{children}</Alert></div>
   ) : null;
 };
 

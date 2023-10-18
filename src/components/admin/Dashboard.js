@@ -54,6 +54,21 @@ function Dashboard() {
     dispatch(getAllOrders());
   }, [dispatch]);
 
+  // const lineGraphData = {
+  //   labels: payments.map((payment) =>
+  //     new Date(payment.created_at).toLocaleString()
+  //   ),
+  //   datasets: [
+  //     {
+  //       label: "Amount Paid (NGN)",
+  //       fill: false,
+  //       borderColor: "rgba(75,192,192,1)",
+  //       borderWidth: 2,
+  //       data: payments.map((payment) => payment.amount),
+  //     },
+  //   ],
+  // };
+
   const lineGraphData = {
     labels: payments.map((payment) =>
       new Date(payment.created_at).toLocaleString()
@@ -65,8 +80,31 @@ function Dashboard() {
         borderColor: "rgba(75,192,192,1)",
         borderWidth: 2,
         data: payments.map((payment) => payment.amount),
+        orderIds: payments.map((payment) => payment.order_id),
+        firstNames: payments.map((payment) => payment.first_name), 
       },
     ],
+  };
+  
+  const lineChartOptions = {
+    // ...
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.dataset.label || "";
+            if (label) {
+              const index = context.dataIndex;
+              const orderId = context.dataset.orderIds[index];
+              const firstName = context.dataset.firstNames[index];
+              // return `${label}: NGN ${context.formattedValue} (${orderId})`;
+              return `${label}: NGN ${context.formattedValue} - Order ID: ${orderId} - User: ${firstName}`;
+            }
+            return null;
+          },
+        },
+      },
+    },
   };
 
   const getTotalPayment = () => {
@@ -185,7 +223,7 @@ function Dashboard() {
                 <hr />
                 <div className="line-graph mt-4">
                   <h2 className="py-3">Payments (All Users)</h2>
-                  <Line data={lineGraphData} />
+                  <Line data={lineGraphData} options={lineChartOptions}/>
                 </div>
               </Col>
               <hr />

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons"; 
 import {
   getUserProfile,
   updateUserProfile,
@@ -113,10 +113,10 @@ function UserProfile() {
     dispatch(updateUserProfile(userData));
   };
 
-  const handleDeleteAccount = () => {
-    // setUserData({ ...userData, password: "" }); // Clear the password field
-    history.push("/delete-account");
-  };
+  // const handleDeleteAccount = () => {
+  //   // setUserData({ ...userData, password: "" }); // Clear the password field
+  //   history.push("/delete-account");
+  // };
 
   const handleResendEmailOtp = () => {
     dispatch(resendEmailOtp(userInfo.email, userInfo.first_name));
@@ -129,9 +129,9 @@ function UserProfile() {
     }
   };
 
-  const handleChangePassword = () => {
-    history.push("/change-password");
-  };
+  // const handleChangePassword = () => {
+  //   history.push("/change-password");
+  // };
 
   return (
     <Container Fluid>
@@ -289,7 +289,7 @@ function UserProfile() {
               </Accordion.Body>
             </Accordion.Item>
 
-            <Accordion.Item eventKey="1">
+            {/* <Accordion.Item eventKey="1">
               <Accordion.Header>Change Password</Accordion.Header>
               <Accordion.Body>
                 <Form.Group>
@@ -311,7 +311,7 @@ function UserProfile() {
                   Change Password
                 </Button>
               </Accordion.Body>
-            </Accordion.Item>
+            </Accordion.Item> */}
 
             <Accordion.Item eventKey="2">
               <Accordion.Header>Update Avatar</Accordion.Header>
@@ -328,7 +328,7 @@ function UserProfile() {
               </Accordion.Body>
             </Accordion.Item>
 
-            <Accordion.Item eventKey="3">
+            {/* <Accordion.Item eventKey="3">
               <Accordion.Header>Delete Account</Accordion.Header>
               <Accordion.Body>
                 <p>
@@ -347,7 +347,8 @@ function UserProfile() {
                   Delete Account
                 </Button>
               </Accordion.Body>
-            </Accordion.Item>
+            </Accordion.Item> */}
+
           </Accordion>
         </Col>
       </Row>

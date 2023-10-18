@@ -35,7 +35,7 @@ function Footer() {
         </Row>
         <Row>
           <Col className="text-center py-3">
-            &copy; McdofGlobal - Designed by SoftGlobal | +2349066167293
+            &copy; McDofShop | Powered by SoftGlobal | +2349066167293
           </Col>
         </Row>
       </Container>
@@ -44,59 +44,3 @@ function Footer() {
 }
 
 export default Footer;
-
-// import React from "react";
-// import { Container, Row, Col } from "react-bootstrap";
-
-// function Footer() {
-//   return (
-//     <footer>
-//       <Container>
-//         <Row>
-//           <Col className='text-center py-3'>@Copywrite McdofGlobal - Designed by SoftGlobal</Col>
-//         </Row>
-//       </Container>
-//     </footer>
-//   );
-// }
-
-// export default Footer;
-
-// import React from "react";
-// import { Container, Row, Col } from "react-bootstrap";
-
-// function Footer() {
-//   return (
-//     <footer className="bg-dark text-light">
-//       <Container>
-//         <Row>
-//           <Col className="text-center py-3">
-//             &copy; McdofGlobal - Designed by SoftGlobal
-//           </Col>
-//         </Row>
-//       </Container>
-//     </footer>
-//   );
-// }
-
-// export default Footer;
-
-// import React from "react";
-// import { Container } from "react-bootstrap";
-
-// function Footer() {
-//   return (
-//     <footer className="bg-dark text-light">
-//       <Container fluid className="py-3">
-//         <p className="text-center m-0">
-//           &copy; McdofGlobal - Designed by SoftGlobal
-//         </p>
-//       </Container>
-//     </footer>
-//   );
-// }
-
-// export default Footer;
-
-
-

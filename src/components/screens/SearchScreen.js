@@ -11,7 +11,7 @@ function SearchScreen({ match }) {
   const dispatch = useDispatch();
   const keyword = match.params.keyword;
 
-  const productList = useSelector((state) => state.productList);
+  const productList = useSelector((state) => state.productList); 
   const { loading, error, products } = productList;
 
   const [category, setCategory] = useState("");

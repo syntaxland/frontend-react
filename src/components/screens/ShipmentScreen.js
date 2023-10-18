@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 // import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShipment } from "../../actions/orderActions";
+import { saveShipment } from "../../actions/orderActions"; 
 import Message from "../Message";
 import Loader from "../Loader";
 
 const ShipmentScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  const { loading, error } = useSelector((state) => state.shipmentSave);
+  const { loading, success, error } = useSelector((state) => state.shipmentSave);
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -53,6 +53,9 @@ const ShipmentScreen = ({ history, match }) => {
           <h1 className="text-center py-2">Shipping Address</h1>
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
+          {success && (
+        <Message variant="success">Shipment created successfully!</Message>
+      )}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="address">
               <Form.Label>Address</Form.Label>

@@ -11,14 +11,14 @@ const NotificationAlert = ({ variant, message, onClose }) => {
   };
 
   return (
-    <Alert variant={variant} show={show} onClose={handleClose} dismissible>
+    <Alert className="rounded" variant={variant} show={show} onClose={handleClose} dismissible>
       <Alert.Heading>{variant === "danger" ? "Error" : "Notification"}</Alert.Heading>
-      <p>{message}</p>
-      <div className="d-flex justify-content-end">
+      <span>{message}</span>
+      <span className="d-flex justify-content-end">
         <Button onClick={handleClose} variant={`outline-${variant}`}>
           OK
         </Button>
-      </div>
+      </span>
     </Alert>
   );
 };

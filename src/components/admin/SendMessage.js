@@ -106,7 +106,7 @@ const SendMessage = () => {
                   <Button
                     className="rounded w-100"
                     type="submit"
-                    variant="primary"
+                    variant="success"
                   >
                     Send Message <i className="fa fa-paper-plane"></i>
                   </Button>

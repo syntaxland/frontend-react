@@ -14,7 +14,7 @@ function AddReviewScreen({ match, history }) {
 
   const location = useLocation();
   const query = new URLSearchParams(location.search);
-  const orderItemId = query.get("orderItemId");
+  const orderItemId = query.get("orderItemId"); 
 
   console.log("orderItemId:", orderItemId);
   const reviewAdd = useSelector((state) => state.orderAddReview);

@@ -34,15 +34,15 @@ const ProductPrice = ({ price, promoPrice }) => {
         {promoPrice ? (
           <>
             <span style={{ textDecoration: "line-through" }}>
-              NGN {formattedPrice}
+              NGN{formattedPrice}
             </span>
             {"  "}
             <span style={{ color: "red" }}>
-              NGN {formattedPromoPrice}
+              NGN{formattedPromoPrice}
             </span>
           </>
         ) : (
-          `NGN ${formattedPrice}`
+          `NGN${formattedPrice}`
         )}
       </div>
       {promoPrice && (

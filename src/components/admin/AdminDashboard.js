@@ -8,9 +8,15 @@ import Orders from "./Orders";
 import Payments from "./Payments";
 import OrderShipment from "./OrderShipment";
 import SendMessage from "./SendMessage";
+import MessageInbox from "./MessageInbox";
 import SendEmail from "./SendEmail";
 import Dashboard from "./Dashboard";
-import CreditPointRequests from "./CreditPointRequests";
+import CreditPoint from "./CreditPoint";
+import SetPromoCode from "./SetPromoCode";
+import PromoTimer from "./ApplyPromoCode";
+// import LiveChat from "./LiveChat";
+import SupportTicket from "./SupportTicket";
+import Feedback from "./Feedback";
 
 function AdminDashboard({ history }) {
   const [activeTab, setActiveTab] = useState("admin-dashboard");
@@ -42,11 +48,26 @@ function AdminDashboard({ history }) {
       case "send-message":
         return <SendMessage />;
 
+      case "message-inbox":
+        return <MessageInbox />;
+
       case "send-email":
         return <SendEmail />;
 
       case "credit-point-requests":
-        return <CreditPointRequests />;
+        return <CreditPoint />;
+
+      case "promo-code":
+        return <PromoTimer />;
+
+      case "set-promo-code":
+        return <SetPromoCode />;
+
+      case "support-ticket":
+        return <SupportTicket />;
+
+      case "feedback":
+        return <Feedback />;
 
       default:
         return <Dashboard />;
@@ -71,21 +92,17 @@ function AdminDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "admin-dashboard"
-                      ? "info"
-                      : "outline-info"
+                    activeTab === "admin-dashboard" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
                   onClick={() => handleTabChange("admin-dashboard")}
                 >
-                 <i className="fa fa-dashboard"></i> Admin
+                  <i className="fa fa-dashboard"></i> Admin Dashboard
                 </Button>
-              </div> 
+              </div>
               <div>
                 <Button
-                  variant={
-                    activeTab === "orders" ? "info" : "outline-info"
-                  }
+                  variant={activeTab === "orders" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("orders")}
                 >
@@ -94,9 +111,7 @@ function AdminDashboard({ history }) {
               </div>
               <div>
                 <Button
-                  variant={
-                    activeTab === "payments" ? "info" : "outline-info"
-                  }
+                  variant={activeTab === "payments" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("payments")}
                 >
@@ -106,14 +121,12 @@ function AdminDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "order-shipment"
-                      ? "info"
-                      : "outline-info"
+                    activeTab === "order-shipment" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
                   onClick={() => handleTabChange("order-shipment")}
                 >
-                 <i className="fas fa-shipping-fast"></i> Shipments
+                  <i className="fas fa-shipping-fast"></i> Shipments
                 </Button>
               </div>
 
@@ -131,13 +144,23 @@ function AdminDashboard({ history }) {
 
               <div>
                 <Button
-                  variant={
-                    activeTab === "send-email" ? "info" : "outline-info"
-                  }
+                  variant={activeTab === "send-email" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("send-email")}
                 >
                   <i className="fa-solid fa-envelope"></i> Send Email
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={
+                    activeTab === "message-inbox" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("message-inbox")}
+                >
+                  <i className="fa fa-message"></i> Inbox
                 </Button>
               </div>
 
@@ -158,9 +181,59 @@ function AdminDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "admin-dashboard"
-                      ? "info"
-                      : "outline-info"
+                    activeTab === "set-promo-code" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("set-promo-code")}
+                >
+                  <i className="fas fa-gift"></i> Create Promo Code
+                </Button>
+              </div>
+
+              {/* <div>
+                <Button
+                  variant={activeTab === "promo-code" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("promo-code")}
+                >
+                  <i className="fas fa-gift"></i> Promo Code
+                </Button>
+              </div> */}
+
+              <div>
+                <Button
+                  variant={activeTab === "feedback" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("feedback")}
+                >
+                  <i className="fa fa-comments"></i> Feedback
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={
+                    activeTab === "support-ticket" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("support-ticket")}
+                >
+                  <i className="fa fa-ticket"></i> Support Ticket
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={activeTab === "live-chat" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("live-chat")}
+                >
+                  <i className="fas fa-comments"></i> Live Chat
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant={
+                    activeTab === "admin-dashboard" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
                   onClick={() => handleUserDashboard()}

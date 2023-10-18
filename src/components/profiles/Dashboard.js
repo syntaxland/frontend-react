@@ -16,8 +16,14 @@ import Reviews from "./Reviews";
 import UserDashboard from "./UserDashboard";
 import MessageInbox from "./MessageInbox";
 import CreditPoint from "./CreditPoint";
+import PromoProduct from "./Offers";
 import RecommendedProducts from "./RecommendedProducts";
 import ViewedItems from "./ViewedItems";
+import LiveChat from "./LiveChat";
+import Referrals from "./Referrals";
+import SupportTicket from "./SupportTicket";
+import Feedback from "./Feedback";
+import Settings from "./Settings";
 
 function Dashboard({ history }) {
   // const userLogin = useSelector((state) => state.userLogin);
@@ -71,8 +77,26 @@ function Dashboard({ history }) {
       case "recommended-products":
         return <RecommendedProducts />;
 
+      case "offers":
+        return <PromoProduct />;
+
       case "viewed-products":
         return <ViewedItems />;
+
+      case "referrals":
+        return <Referrals />;
+        
+      case "live-chat":
+        return <LiveChat />;
+
+      case "support-ticket":
+        return <SupportTicket />;
+
+      case "feedback":
+        return <Feedback />;
+
+      case "settings":
+        return <Settings />;
 
       default:
         return <UserDashboard />;
@@ -133,7 +157,7 @@ function Dashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("order-items")}
                 >
-                  <i className="fa fas fa-cart-plus"></i> Order Items
+                  <i className="fa fas fa-cart-plus"></i> Purchased Items
                 </Button>
               </div>
               <div>
@@ -168,11 +192,11 @@ function Dashboard({ history }) {
 
               <div>
                 <Button
-                  variant={activeTab === "favorites" ? "info" : "outline-info"}
+                  variant={activeTab === "referrals" ? "info" : "outline-info"}
                   className="sidebar-link"
-                  onClick={() => handleTabChange("favorites")}
+                  onClick={() => handleTabChange("referrals")}
                 >
-                  <i className="fa fa-heart"></i> Saved Items
+                  <i className="fa fa-user-plus"></i> Referrals
                 </Button>
               </div>
 
@@ -197,6 +221,16 @@ function Dashboard({ history }) {
                   onClick={() => handleTabChange("message-inbox")}
                 >
                   <i className="fa fa-message"></i> Inbox
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={activeTab === "favorites" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("favorites")}
+                >
+                  <i className="fa fa-heart"></i> Saved Items
                 </Button>
               </div>
 
@@ -228,7 +262,6 @@ function Dashboard({ history }) {
 
               <div>
                 <Button
-                  disabled
                   variant={activeTab === "offers" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("offers")}
@@ -239,18 +272,26 @@ function Dashboard({ history }) {
 
               <div>
                 <Button
-                  disabled
-                  variant={activeTab === "referrals" ? "info" : "outline-info"}
+                  variant={activeTab === "feedback" ? "info" : "outline-info"}
                   className="sidebar-link"
-                  onClick={() => handleTabChange("referrals")}
+                  onClick={() => handleTabChange("feedback")}
                 >
-                  <i className="fa fa-user-plus"></i> Referrals
+                  <i className="fa fa-comments"></i> Feedback
                 </Button>
               </div>
 
               <div>
                 <Button
-                  disabled
+                  variant={activeTab === "support-ticket" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("support-ticket")}
+                >
+                  <i className="fa fa-ticket"></i> Support Ticket
+                </Button>
+              </div>
+
+              <div>
+                <Button
                   variant={activeTab === "live-chat" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("live-chat")}
@@ -261,18 +302,6 @@ function Dashboard({ history }) {
 
               <div>
                 <Button
-                  disabled
-                  variant={activeTab === "ticket" ? "info" : "outline-info"}
-                  className="sidebar-link"
-                  onClick={() => handleTabChange("ticket")}
-                >
-                  <i className="fa fa-ticket"></i> Raise A Ticket
-                </Button>
-              </div>
-
-              <div>
-                <Button
-                  disabled
                   variant={activeTab === "settings" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("settings")}
@@ -309,7 +338,7 @@ function Dashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleAdminDashboard()}
                 >
-                  <i className="fas fa-user-tag"></i> Admin
+                  <i className="fas fa-user-tag"></i> Admin Dashboard
                 </Button>
               </div>
             </div>

@@ -31,7 +31,7 @@ function Orders() {
   // const [delivered, setDelivered] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -121,6 +121,8 @@ function Orders() {
                 <th>Tax (3%)</th>
                 <th>Shipping Price</th>
                 <th>Total Price</th>
+                {/* <th>Promo Total Price</th>
+                <th>Promo Discount</th> */}
                 <th>Paid</th>
                 <th>Paid At</th>
                 <th>Delivered</th>
@@ -143,6 +145,8 @@ function Orders() {
                   <td>{order.taxPrice}</td>
                   <td>{order.shippingPrice}</td>
                   <td>{order.totalPrice}</td>
+                  {/* <td>{order.promo_total_price}</td>
+                  <td>{order.promo_discount}</td> */}
                   {/* <td>{order.isPaid ? "Yes" : "No"}</td> */}
                   <td>
                     {order.isPaid ? (
@@ -158,7 +162,7 @@ function Orders() {
                     )}
                   </td>
                   {/* <td>{order.paidAt}</td> */}
-                  {new Date(order.paidAt).toLocaleString()}
+                  <td>{new Date(order.paidAt).toLocaleString()}</td>
                   <td>{order.isDelivered ? "Yes" : "No"}</td>
                   {/* <td>{order.deliveredAt}</td> */}
 

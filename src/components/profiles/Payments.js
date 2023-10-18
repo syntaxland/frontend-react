@@ -13,7 +13,7 @@ function Payments() {
   const { loading, error, payments } = paymentList;
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -46,7 +46,13 @@ function Payments() {
                 <th>Order ID</th>
                 <th>User</th>
                 <th>Email</th>
-                <th>Amount Paid</th>
+                <th>Total Amount (Tax + Shipping)</th>
+
+                <th>Discount Amount</th>
+                <th>Total Items Amount</th>
+                <th>Discount Percentage</th>
+                <th>Final Total Amount Paid</th>
+
                 <th>Payment Reference</th>
                 <th>Created At</th>
               </tr>
@@ -63,10 +69,27 @@ function Payments() {
                   <td>{payment.first_name}</td>
                   <td>{payment.user.email}</td>
 
-                  <td>{payment.amount}</td>
+                  <td>NGN {payment.amount}</td>
+
+                  <td>NGN {payment.promo_code_discount_amount}</td>
+                  <td>NGN {payment.items_amount}</td>
+                  <td>{payment.promo_code_discount_percentage}%</td>
+                  <td>NGN {payment.final_total_amount}</td>
+
                   <td>{payment.reference}</td>
-                  {/* <td>{payment.reference.reference}</td> */} 
-                  {new Date(payment.created_at).toLocaleString()}
+                  {/* <td>{payment.reference.reference}</td> */}
+                  {/* {new Date(payment.created_at).toLocaleString()} */}
+                  <td>
+                      {new Date(payment.created_at).toLocaleString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        second: "numeric",
+                      })}
+                    </td>
                 </tr>
               ))}
             </tbody>
@@ -113,7 +136,7 @@ function Payments() {
             </ul>
           </nav>
         </>
-      )} 
+      )}
     </div>
   );
 }

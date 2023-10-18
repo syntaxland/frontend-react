@@ -49,14 +49,19 @@ function RecommendedProducts() {
             <Message variant="danger">{error}</Message>
           ) : (
             <>
-              <Row>
-                {currentItems.map((product) => (
-                  <Col key={product._id} xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <Product product={product} />
-                  </Col>
-                ))}
-              </Row>
-
+              {currentItems.length === 0 ? (
+                <div className="text-center">
+                  Recommended products appear here.
+                </div>
+              ) : (
+                <Row>
+                  {currentItems.map((product) => (
+                    <Col key={product._id} xs={12} sm={12} md={6} lg={4} xl={3}>  
+                      <Product product={product} />
+                    </Col>
+                  ))}
+                </Row>
+              )}
               <nav className="mt-4">
                 <ul className="pagination justify-content-center">
                   <li

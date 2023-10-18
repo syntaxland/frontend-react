@@ -23,7 +23,7 @@ import {
   orderCreateReducer,
   shipmentSaveReducer,
   userShipmentsReducer,
-allUserShipmentsReducer,
+  allUserShipmentsReducer,
   orderListReducer,
   allOrderListReducer,
   orderDeleteReducer,
@@ -37,6 +37,8 @@ allUserShipmentsReducer,
 
 import {
   paymentCreateReducer,
+  paysofterPaymentCreateReducer,
+  debitPaysofterAccountReducer,
   paymentListReducer,
   listAllPaymentsReducer,
 } from "./reducers/paymentReducers";
@@ -44,7 +46,17 @@ import {
 // import { adminPaymentListReducer } from './reducers/adminReducers';
 
 import { favoriteReducer } from "./reducers/favoriteReducers";
-
+import {
+  createSupportTicketReducer,
+  createSupportMessageReducer,
+  listSupportTicketReducer,
+  listSupportMessageReducer,
+  replySupportTicketReducer,
+  listSupportTicketReplyReducer,
+  ticketDetailListReducer,
+  allTicketListReducer,
+  allTicketResponseReducer,
+} from "./reducers/supportReducers";
 import {
   getUserProfileReducer,
   changePasswordReducer,
@@ -66,10 +78,30 @@ import {
   creditPointListReducer,
   creditPointAllListReducer,
   creditPointBalanceReducer,
+  creditPointEarningsReducer,
+  userCreditPointPaymentsReducer,
+  allCreditPointPaymentsReducer,
 } from "./reducers/creditPointReducers";
 
-import { messagingReducer, emailReducer } from './reducers/messagingReducers';
-import { chatReducer } from './reducers/chatReducers';
+import { messagingReducer, emailReducer } from "./reducers/messagingReducers";
+import {
+  // chatReducer,
+  chatRoomsReducer,
+  chatMessagesReducer,
+} from "./reducers/chatReducers";
+import {
+  referralReducer,
+  referralButtonReducer,
+  getUserReferralsReducer,
+  applyPomoCodeReducer,
+  createPromoCodeReducer,
+  promoProductListReducer,
+} from "./reducers/promoReducer";
+
+import {
+  feedbackCreateReducer,
+  feedbackListReducer,
+} from "./reducers/feedbackReducers";
 
 import axios from "axios";
 import { logout } from "./actions/userActions";
@@ -122,12 +154,17 @@ const reducer = combineReducers({
   creditPointList: creditPointListReducer,
   creditPointAllList: creditPointAllListReducer,
   creditPointBal: creditPointBalanceReducer,
+  userCreditPointPayments: userCreditPointPaymentsReducer,
+  allCreditPointPayments: allCreditPointPaymentsReducer,
+  creditPointEarningState: creditPointEarningsReducer,
 
   orderList: orderListReducer,
   allOrderList: allOrderListReducer,
   orderDelete: orderDeleteReducer,
 
   paymentCreate: paymentCreateReducer,
+  paysofterPayment: paysofterPaymentCreateReducer,
+  debitPaysofterAccountState: debitPaysofterAccountReducer,
   paymentList: paymentListReducer,
   listAllPayments: listAllPaymentsReducer,
 
@@ -148,7 +185,28 @@ const reducer = combineReducers({
 
   messaging: messagingReducer,
   emailMessaging: emailReducer,
-  chat: chatReducer,
+  // chat: chatReducer,
+  chatRooms: chatRoomsReducer,
+  chatMessages: chatMessagesReducer,
+
+  createSupportTicketState: createSupportTicketReducer,
+  createSupportMessageState: createSupportMessageReducer,
+  listSupportTicketState: listSupportTicketReducer,
+  listSupportMessageState: listSupportMessageReducer,
+  replySupportTicketState: replySupportTicketReducer,
+  listSupportTicketReplyState: listSupportTicketReplyReducer,
+  ticketDetailList: ticketDetailListReducer,
+  allTicketList: allTicketListReducer,
+  allTicketResponse: allTicketResponseReducer, 
+  feedbackCreate: feedbackCreateReducer,
+  feedbackList: feedbackListReducer,
+
+  referral: referralReducer,
+  referralButton: referralButtonReducer,
+  userReferralState: getUserReferralsReducer,
+  applyPomoCodeState: applyPomoCodeReducer,
+  createPromoCodeState: createPromoCodeReducer,
+  promoProductList: promoProductListReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

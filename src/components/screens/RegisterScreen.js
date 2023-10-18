@@ -24,6 +24,7 @@ function RegisterScreen({ location, history }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [referralCode, setReferralCode] = useState("");
 
   const [isValid, setIsValid] = useState({
     firstName: false,
@@ -38,7 +39,17 @@ function RegisterScreen({ location, history }) {
   const { error, loading } = userRegister;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin; 
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    // Extract referral code from the URL query parameters
+    const params = new URLSearchParams(location.search);
+    const ref = params.get("ref");
+
+    if (ref) {
+      setReferralCode(ref);
+    }
+  }, [location.search]);
 
   const handleInputChange = (field, value) => {
     if (field === "confirmPassword") {
@@ -58,18 +69,16 @@ function RegisterScreen({ location, history }) {
     } else {
       console.log("Dispatching registration...");
       try {
-        dispatch(register(firstName, lastName, email, password, phoneNumber));
-
-        // console.log("Checking conditions...");
-        // console.log("Loading:", loading);
-        // console.log("Error:", error);
-        // console.log("User Info:", userRegister.userInfo);
-
-        // if (!loading && !error && userRegister.userInfo) {
-        //   console.log("Dispatching email OTP...");
-        //   dispatch(sendEmailOtp(email, firstName));
-        // }
-        //  await dispatch(sendEmailOtp(email, firstName));
+        dispatch(
+          register(
+            firstName,
+            lastName,
+            email,
+            password,
+            phoneNumber,
+            referralCode
+          )
+        );
       } catch (error) {
         setMessage(error.response.data.detail);
         // console.log(error);
@@ -110,37 +119,6 @@ function RegisterScreen({ location, history }) {
     }
   }, [loading, error, userRegister.userInfo, dispatch, email, firstName]);
 
-  // useEffect(() => {
-  //   if (userInfo && !error) {
-  //     dispatch({
-  //       type: "STORE_REGISTRATION_DATA",
-  //       payload: {
-  //         firstName,
-  //         email,
-  //       },
-  //     });
-
-  //     if (!userInfo.is_verified) {
-  //       // Dispatch the sendEmailOtp action
-  //       dispatch(sendEmailOtp(email, firstName));
-
-  //       // Redirect to the verify-email-otp page
-  //       history.push("/verify-email-otp");
-  //       setSuccessMessage("Please verify your email.");
-  //     } else {
-  //       // User is already verified
-  //       setSuccessMessage("User already exists. Please login.");
-  //       const redirectTimer = setTimeout(() => {
-  //         history.push("/login");
-  //       }, 3000);
-
-  //       return () => {
-  //         clearTimeout(redirectTimer);
-  //       };
-  //     }
-  //   }
-  // }, [userInfo, error, history, dispatch, email, firstName]);
-
   return (
     <Container>
       <FormContainer>
@@ -152,27 +130,12 @@ function RegisterScreen({ location, history }) {
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
 
-        {/* {error && (
-          <Message variant="danger">
-            {error.email &&
-              error.email.map((msg, index) => (
-                <div key={`email-${index}`}>{msg}</div>
-              ))}
-            {error.phone_number &&
-              error.phone_number.map((msg, index) => (
-                <div key={`phone-${index}`}>{msg}</div>
-              ))}
-            {error.username &&
-              error.username.map((msg, index) => (
-                <div key={`username-${index}`}>{msg}</div>
-              ))}
-          </Message>
-        )} */}
-
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="firstName">
-            <Form.Label><i className="fas fa-user-circle"></i> First Name</Form.Label>
+            <Form.Label>
+              <i className="fas fa-user-circle"></i> First Name
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter First Name"
@@ -232,7 +195,9 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="email">
-            <Form.Label><i className="fas fa-envelope"></i> Email Address</Form.Label>
+            <Form.Label>
+              <i className="fas fa-envelope"></i> Email Address
+            </Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter Email"
@@ -262,11 +227,13 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="phoneNumber">
-            <Form.Label><i className="fas fa-phone-square"></i> Phone Number</Form.Label>
+            <Form.Label>
+              <i className="fas fa-phone-square"></i> Phone Number
+            </Form.Label>
             <PhoneInput
               country={selectedCountry}
               value={phoneNumber}
-              maxLength={14}
+              maxLength={18}
               onChange={(value) => {
                 setPhoneNumber(value);
                 handleInputChange("phoneNumber", value);
@@ -290,7 +257,9 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label><i className="fas fa-key"></i> Password</Form.Label>
+            <Form.Label>
+              <i className="fas fa-key"></i> Password
+            </Form.Label>
             <Form.Control
               type={passwordVisible ? "text" : "password"}
               placeholder="Enter Password"
@@ -356,134 +325,6 @@ function RegisterScreen({ location, history }) {
               {error && error.confirm_password}
             </Form.Control.Feedback>
           </Form.Group>
-
-          {/* <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            
-            <Form.Control
-              type="password"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                handleInputChange("password", e.target.value);
-              }}
-              required
-              className={`rounded ${
-                error && error.password
-                  ? "is-invalid"
-                  : isValid.password
-                  ? "is-valid"
-                  : ""
-              }`}
-            />
-
-            <div className="valid-feedback">
-              {isValid.password && (
-                <i className="bi bi-check2-circle text-success"></i>
-              )}
-            </div>
-            <Form.Control.Feedback type="invalid">
-              {error && error.password}
-            </Form.Control.Feedback>
-          </Form.Group> */}
-
-          {/* <Form.Group controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                handleInputChange("confirmPassword", e.target.value);
-              }}
-              required
-              className={`rounded ${
-                error && error.confirm_password
-                  ? "is-invalid"
-                  : isValid.confirmPassword
-                  ? "is-valid"
-                  : ""
-              }`}
-            />
-            <div className="valid-feedback">
-              {isValid.confirmPassword && (
-                <i className="bi bi-check2-circle text-success"></i>
-              )}
-            </div>
-            <Form.Control.Feedback type="invalid">
-              {error && error.confirm_password}
-            </Form.Control.Feedback>
-          </Form.Group> */}
-
-          {/* <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type={passwordVisible ? "text" : "password"}
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                handleInputChange("password", e.target.value);
-              }}
-              required
-              className={`rounded ${
-                error && error.password
-                  ? "is-invalid"
-                  : isValid.password
-                  ? "is-valid"
-                  : ""
-              }`}
-            />
-            <div
-              className="password-toggle-icon"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-            >
-              {passwordVisible ? (
-                <i className="fas fa-eye-slash"></i>
-              ) : (
-                <i className="fas fa-eye"></i>
-              )}
-            </div>
-            <Form.Control.Feedback type="invalid">
-              {error && error.password}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group controlId="confirmPassword">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type={confirmPasswordVisible ? "text" : "password"}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                handleInputChange("confirmPassword", e.target.value);
-              }}
-              required
-              className={`rounded ${
-                error && error.confirm_password
-                  ? "is-invalid"
-                  : isValid.confirmPassword
-                  ? "is-valid"
-                  : ""
-              }`}
-            />
-            <span
-              className="password-toggle-icon"
-              onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-            >
-              {confirmPasswordVisible ? (
-                <i className="fas fa-eye-slash"></i>
-              ) : (
-                <i className="fas fa-eye"></i>
-              )}
-            </span>
-            <Form.Control.Feedback type="invalid">
-              {error && error.confirm_password}
-            </Form.Control.Feedback>
-          </Form.Group> */}
 
           <Row className="py-3">
             <Col className="text-center">
@@ -499,14 +340,6 @@ function RegisterScreen({ location, history }) {
           </Row>
         </Form>
 
-        {/* <Row className="py-3">
-          <Col className="text-center">
-            <Button variant="danger" className="rounded w-100" block>
-              <i className="bi bi-google"></i>
-              Continue with Google
-            </Button>
-          </Col>
-        </Row> */}
         <GoogleLoginScreen />
 
         <Row className="py-3">

@@ -1,5 +1,4 @@
 // paymentReducers.js
-
 import {
   PAYMENT_CREATE_REQUEST,
   PAYMENT_CREATE_SUCCESS,
@@ -10,6 +9,12 @@ import {
   LIST_ALL_PAYMENTS_REQUEST,
   LIST_ALL_PAYMENTS_SUCCESS,
   LIST_ALL_PAYMENTS_FAIL,
+  PAYSOFTER_PAYMENT_CREATE_REQUEST,
+  PAYSOFTER_PAYMENT_CREATE_SUCCESS,
+  PAYSOFTER_PAYMENT_CREATE_FAIL,
+  DEBIT_PAYSOFTER_ACCOUNT_REQUEST,
+DEBIT_PAYSOFTER_ACCOUNT_SUCCESS,
+DEBIT_PAYSOFTER_ACCOUNT_FAIL,
 } from "../constants/paymentConstants";
 
 const initialState = {
@@ -32,6 +37,50 @@ export const paymentCreateReducer = (state = initialState, action) => {
         success: true,
       };
     case PAYMENT_CREATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const paysofterPaymentCreateReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PAYSOFTER_PAYMENT_CREATE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case PAYSOFTER_PAYMENT_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case PAYSOFTER_PAYMENT_CREATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const debitPaysofterAccountReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case DEBIT_PAYSOFTER_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DEBIT_PAYSOFTER_ACCOUNT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case DEBIT_PAYSOFTER_ACCOUNT_FAIL:
       return {
         loading: false,
         error: action.payload,

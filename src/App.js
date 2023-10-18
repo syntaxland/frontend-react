@@ -8,6 +8,8 @@ import { Container } from "react-bootstrap";
 // This is a react-router-dom@5.3.4 app
 // import { useHistory  } from 'react-router'
 import { BrowserRouter as Router, Route } from "react-router-dom";
+// import styled, {  createGlobalStyle, ThemeProvider} from "styled-components"
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import OrderSuccessPage from "./components/OrderSuccessPage";
@@ -25,6 +27,10 @@ import ReviewScreen from "./components/screens/ReviewScreen";
 import AddReviewScreen from "./components/screens/AddReviewScreen";
 import EditReviewScreen from "./components/screens/EditReviewScreen";
 import CreditPointScreen from "./components/screens/CreditPointScreen";
+import SupportTicketScreen from "./components/screens/SupportTicketScreen";
+import LiveChatScreen from "./components/screens/LiveChatScreen";
+import FeedbackScreen from "./components/screens/FeedbackScreen";
+import DarkModeScreen from "./components/screens/DarkModeScreen";
 
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
@@ -36,6 +42,7 @@ import ResetPasswordRequest from "./components/profiles/ResetPasswordRequest";
 import ResetPassword from "./components/profiles/ResetPassword";
 import Orders from "./components/profiles/Orders";
 import Payments from "./components/profiles/Payments";
+import SupportTicketDetails from "./components/profiles/SupportTicketDetails";
 import Dashboard from "./components/profiles/Dashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
@@ -52,7 +59,7 @@ function App() {
         <main className=" py-3">
           <Route exact path="/" component={HomeScreen} />
           <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/login" component={LoginScreen} />
+          <Route path="/login" component={LoginScreen} /> 
           <Route path="/register" component={RegisterScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/products/search/:keyword" component={SearchScreen} />
@@ -60,7 +67,7 @@ function App() {
           <Route path="/payment" component={PaymentScreen} />
 
           <Route path="/shipment/:id" component={ShipmentScreen} />
-          {/* <Route path="/favourites" component={FavouritesScreen} /> */}
+          {/* <Route path="/favourites" component={FavouritesScreen} /> */}  
           <Route path="/send-email-otp" component={SendEmailOtp} />
           <Route path="/verify-email-otp" component={VerifyEmailOtp} />
           <Route path="/resend-email-otp" component={ResendEmailOtp} />
@@ -83,10 +90,14 @@ function App() {
           <Route path="/review-list/:productId" component={ReviewScreen} />
 
           <Route path="/add-review/" component={AddReviewScreen} />
-          {/* <Route path="/add-review/:orderItemId" component={AddReviewScreen} /> */}
+          {/* <Route path="/add-review/:orderItemId" component={AddReviewScreen} /> */} 
           <Route path="/edit-review/" component={EditReviewScreen} />
           <Route path="/credit-point/" component={CreditPointScreen} />
-          {/* <Route path="/get-credit-point" component={CreditPoint} /> */}
+          <Route path="/create-support-ticket" component={SupportTicketScreen} />
+          <Route path="/support/ticket/:id" component={SupportTicketDetails} />
+          <Route path="/live-chat" component={LiveChatScreen} />
+          <Route path="/feedback" component={FeedbackScreen} />
+          <Route path="/dark-mode" component={DarkModeScreen} />
 
           {/* <Route path="/send-message" component={SendMessageScreen} />
           <Route path="/message-inbox" component={MessageInboxScreen} /> */}

@@ -50,13 +50,10 @@ function CartScreen({ match, location, history }) {
   };
 
   const checkoutHandler = () => {
-    // Check if the user is logged in before proceeding to checkout
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if (!userInfo) {
-      // User is not logged in, redirect to the login page
       history.push("/login");
     } else {
-      // User is logged in, proceed to checkout
       history.push("/checkout");
     }
   };

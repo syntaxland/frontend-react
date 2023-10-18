@@ -32,7 +32,7 @@ function LoginScreen({ location }) {
       try {
         if (userInfo.is_verified) {
           // If the email is verified, clear the userInfo and proceed with login
-          history.push("/");
+          history.push("/dashboard");
           // history.push(redirect);
           setSuccessMessage("Login successful."); 
         } else {
