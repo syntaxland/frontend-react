@@ -54,7 +54,7 @@ const PromoProductScroll = () => {
             <div>
               <Row>
                 {promoProducts.map((product) => (
-                  <Col key={product._id} xs={12} sm={12} md={6} lg={3} xl={3}>
+                  <Col key={product._id} xs={12} sm={12} md={6} lg={3} xl={3}> 
                     <Product product={product} />
                   </Col>
                 ))}

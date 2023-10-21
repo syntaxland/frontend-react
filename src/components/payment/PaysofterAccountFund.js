@@ -119,7 +119,7 @@ const PaysofterAccountFund = ({
                     title="A unqiuely assigned Paysofter Account ID. Don't have a Paysofter account? Click here."
                   >
                     <a
-                      href="http://paysofter.com"
+                      href="https://paysofter.com/register/" 
                       target="_blank"
                       rel="noopener noreferrer"
                     >

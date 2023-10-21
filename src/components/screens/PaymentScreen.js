@@ -187,7 +187,7 @@ function PaymentScreen() {
                     <Modal.Body>
                       Don't have a Paysofter account? {"   "}
                       <a
-                        href="http://paysofter.com"
+                        href="https://paysofter.com/register/"
                         target="_blank"
                         rel="noopener noreferrer"
                       >

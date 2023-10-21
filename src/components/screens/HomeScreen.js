@@ -140,7 +140,7 @@ function HomeScreen() {
           <div className="py-3">
             {userInfo ? <RecommendedProducts /> : null}
           </div>
-          <hr />
+          {/* <hr /> */}
         </Col>
       </Row>
     </div>

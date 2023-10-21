@@ -182,7 +182,7 @@ const CreditPoint = () => {
 
             <div>
               <hr />
-              <h1 className="py-3 text-center">Credit Point Requests</h1>
+              <h1 className="py-3 text-center">Credit Point Withdrawal Requests</h1>
               <hr />
 
               {loading ? (

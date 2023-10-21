@@ -107,6 +107,8 @@ function RecommendedProducts() {
               </nav>
             </>
           )}
+          <hr />
+
         </Col>
       </Row>
     </div>

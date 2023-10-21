@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   generateReferralLink,
   getUserReferrals,
-  generateReferralLinkButton,
+  // generateReferralLinkButton,
 } from "../../actions/promoActions";
 import Loader from "../Loader";
 import Message from "../Message";
-import NotificationAlert from "../NotificationAlert";
+// import NotificationAlert from "../NotificationAlert";
 
 function Referrals() {
   const dispatch = useDispatch();
@@ -30,21 +30,21 @@ function Referrals() {
 
   const [isReferralLinkCopied, setIsReferralLinkCopied] = useState(false);
   const [isReferralCodeCopied, setIsReferralCodeCopied] = useState(false);
-  const [showConfirmationAlert, setShowConfirmationAlert] = useState(false);
+  // const [showConfirmationAlert, setShowConfirmationAlert] = useState(false);
 
   useEffect(() => {
     dispatch(generateReferralLink());
     dispatch(getUserReferrals());
   }, [dispatch]);
 
-  const handleGenerateReferral = () => {
-    setShowConfirmationAlert(true);
-  };
+  // const handleGenerateReferral = () => {
+  //   setShowConfirmationAlert(true);
+  // };
 
-  const handleConfirmGenerate = () => {
-    dispatch(generateReferralLinkButton());
-    setShowConfirmationAlert(false);
-  };
+  // const handleConfirmGenerate = () => {
+  //   dispatch(generateReferralLinkButton());
+  //   setShowConfirmationAlert(false);
+  // };
 
   const copyToClipboard = (textToCopy) => {
     navigator.clipboard.writeText(textToCopy).then(() => {
@@ -83,7 +83,7 @@ function Referrals() {
             <h1 className="text-center py-3">Referrals</h1>
             <hr />
 
-            {showConfirmationAlert && (
+            {/* {showConfirmationAlert && (
               <NotificationAlert
                 variant="info"
                 message="This action will generate a new referral link if not existing and render the former ones invalid. Are you sure you want to proceed?"
@@ -93,7 +93,7 @@ function Referrals() {
                   OK
                 </Button>
               </NotificationAlert>
-            )}
+            )} */}
 
             {userReferralsLoading ? (
               <Loader />
@@ -178,7 +178,7 @@ function Referrals() {
               </div>
               <hr />
 
-              <div className="py-3 mt-5 text-center">
+              {/* <div className="py-3 mt-5 text-center">
                 <span>Referral link not found?</span>{" "}
                 <Button
                   variant="danger"
@@ -187,11 +187,12 @@ function Referrals() {
                 >
                   Generate
                 </Button>
-              </div>
+              </div> */}
+
             </div>
           )}
 
-          <hr />
+          {/* <hr /> */}
         </Col>
       </Row>
     </div>
