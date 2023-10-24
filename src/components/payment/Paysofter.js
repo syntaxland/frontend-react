@@ -125,7 +125,7 @@ function Paysofter({
   //   }
   // };
 
-  const publicApiKey = "test_api_key_qrq14d430svavzdorm5kn35u9gsdi9gm";
+  const publicApiKey = "test_api_key_pp5ez0j2zysuhurtdhsnfehx24rgz5ohgboc838fvwzm6bl9rs";
 
   // const handlePaysofterPayment = () => {
   //   try {
