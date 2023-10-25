@@ -31,6 +31,7 @@ function Paysofter({
   discountPercentage,
   promoTotalPrice,
   shipmentSave,
+  paysofterPublicKey,
 }) {
   // const history = useHistory();
   // const dispatch = useDispatch();
@@ -125,7 +126,7 @@ function Paysofter({
   //   }
   // };
 
-  const publicApiKey = "test_api_key_fspqdxm4mekds6klgjwlw890f87y3e3hlo0b2vxq25vi9hgtnz";
+  // const publicApiKey = "test_api_key_fspqdxm4mekds6klgjwlw890f87y3e3hlo0b2vxq25vi9hgtnz";
 
   // const handlePaysofterPayment = () => {
   //   try {
@@ -316,7 +317,7 @@ function Paysofter({
                 reference={reference}
                 userEmail={userEmail}
                 promoTotalPrice={promoTotalPrice}
-                publicApiKey={publicApiKey}
+                publicApiKey={paysofterPublicKey}
                 // createdAt={createdAt}
               />
             </div>

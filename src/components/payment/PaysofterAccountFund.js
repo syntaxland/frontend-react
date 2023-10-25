@@ -17,7 +17,7 @@ const PaysofterAccountFund = ({
   paymentData,
   reference,
   userEmail,
-  publicApiKey,
+  publicApiKey, 
 }) => {
   const dispatch = useDispatch();
 

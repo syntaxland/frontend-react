@@ -124,12 +124,12 @@ function PaysofterButton({
               {selectedPaymentOption === "ussd" && <UssdPayment />}
               {selectedPaymentOption === "account-fund" && (
                 <PaysofterAccountFund
-                  promoTotalPrice={promoTotalPrice}
+                  promoTotalPrice={promoTotalPrice} 
                   // handlePaymentSubmit={handlePaymentSubmit}
                   paymentData={paymentData}
                   reference={reference}
                   userEmail={userEmail}
-                  publicApiKey={publicApiKey}
+                  publicApiKey={publicApiKey} 
                 />
               )}
             </Col>

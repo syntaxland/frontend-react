@@ -16,7 +16,9 @@ function PaymentScreen() {
 
   // const history = useHistory();
 
-  const [publicKey, setPublicKey] = useState("");
+  // const [publicKey, setPublicKey] = useState("");
+  const [paysofterPublicKey, setPaysofterPublicKey] = useState("");
+  const [paystackPublicKey, setPaystackPublicKey] = useState("");
   const [reference, setReference] = useState("");
   const userEmail = userInfo.email;
 
@@ -96,7 +98,8 @@ function PaymentScreen() {
             },
           }
         );
-        setPublicKey(response.data.publicKey);
+        setPaysofterPublicKey(response.data.paysofterPublicKey);
+        setPaystackPublicKey(response.data.paystackPublicKey);
         setReference(response.data.reference);
       } catch (error) {
         console.log(error);
@@ -125,7 +128,9 @@ function PaymentScreen() {
     promoDiscount,
     discountPercentage,
     promoTotalPrice,
-    publicKey,
+    // publicKey,
+    paystackPublicKey,
+paysofterPublicKey,
     shipmentSave,
   };
   console.log("paymentData:", paymentData);
@@ -234,7 +239,7 @@ function PaymentScreen() {
                 promoDiscount={promoDiscount}
                 discountPercentage={discountPercentage}
                 promoTotalPrice={promoTotalPrice}
-                publicKey={publicKey}
+                paysofterPublicKey={paysofterPublicKey}
                 shipmentSave={shipmentSave}
               />
             )}

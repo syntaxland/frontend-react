@@ -20,7 +20,7 @@ function Paystack() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [publicKey, setPublicKey] = useState("");
+  const [paystackPublicKey, setPaystackPublicKey] = useState("");
   const [reference, setReference] = useState("");
   const userEmail = userInfo.email;
 
@@ -97,7 +97,7 @@ function Paystack() {
             },
           }
         );
-        setPublicKey(response.data.publicKey);
+        setPaystackPublicKey(response.data.paystackPublicKey);
         setReference(response.data.reference);
       } catch (error) {
         console.log(error);
@@ -148,7 +148,7 @@ function Paystack() {
   };
 
   const paymentObject = {
-    publicKey: publicKey,
+    publicKey: paystackPublicKey,
     email: userEmail,
     reference: reference,
     amount: promoTotalPrice * 100,
