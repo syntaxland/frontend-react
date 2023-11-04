@@ -1,10 +1,6 @@
 // Paysofter.js
 import React, { useState } from "react";
-import {
-  Row,
-  Col,
-  ListGroup,
-} from "react-bootstrap";
+import { Row, Col, ListGroup } from "react-bootstrap";
 // import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
@@ -210,7 +206,7 @@ function Paysofter({
                 <ListGroup.Item key={item.product}>
                   <Row>
                     <Col md={4}>
-                      <img
+                      <img 
                         src={item.image}
                         alt={item.name}
                         className="img-fluid"
@@ -292,33 +288,14 @@ function Paysofter({
             </div>
 
             <div>
-              
-
               <PaysofterButton
                 showPaymentModal={showPaymentModal}
                 setShowPaymentModal={setShowPaymentModal}
-                // loading={loading}
-                // error={error}
-                // success={success}
-                // paysofterError={paysofterError}
-                // paysofterSuccess={paysofterSuccess}
-                // paymentDetails={paymentDetails}
-                // handlePaymentDetailsChange={handlePaymentDetailsChange}
-                // isFormValid={isFormValid}
-                // handlePaymentSubmit={handleSubmit}
-                // cardType={cardType}
-                // isExpirationMonthYearSelected={isExpirationMonthYearSelected}
-                // setPaymentDetails={setPaymentDetails}
-                // setIsExpirationMonthYearSelected={
-                //   setIsExpirationMonthYearSelected
-                // }
                 paymentData={paymentData}
-                // paysofterPaymentData={paysofterPaymentData}
                 reference={reference}
                 userEmail={userEmail}
                 promoTotalPrice={promoTotalPrice}
                 publicApiKey={paysofterPublicKey}
-                // createdAt={createdAt}
               />
             </div>
           </Col>

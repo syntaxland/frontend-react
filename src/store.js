@@ -133,8 +133,8 @@ const reducer = combineReducers({
   updateProductSaveCount: updateProductSaveCountReducer,
   recommendedProducts: recommendedProductsReducer,
   productSearch: productSearchReducer,
-  cart: cartReducer,
 
+  cart: cartReducer,
   userLogin: userLoginReducers,
   userRegister: userRegisterReducers,
 
@@ -164,7 +164,7 @@ const reducer = combineReducers({
 
   paymentCreate: paymentCreateReducer,
   paysofterPayment: paysofterPaymentCreateReducer,
-  debitPaysofterAccountState: debitPaysofterAccountReducer,
+  debitPaysofterAccountState: debitPaysofterAccountReducer, 
   paymentList: paymentListReducer,
   listAllPayments: listAllPaymentsReducer,
 
@@ -200,7 +200,7 @@ const reducer = combineReducers({
   allTicketResponse: allTicketResponseReducer, 
   feedbackCreate: feedbackCreateReducer,
   feedbackList: feedbackListReducer,
-
+ 
   referral: referralReducer,
   referralButton: referralButtonReducer,
   userReferralState: getUserReferralsReducer,
@@ -217,12 +217,18 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
+const userRegisterFromStorage = localStorage.getItem("registerData")
+  ? JSON.parse(localStorage.getItem("registerData"))
+  : null;
+
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
   userLogin: { userInfo: userInfoFromStorage },
+  userRegister: { registerData: userRegisterFromStorage },
 };
 
 const middleware = [thunk];
+
 const store = createStore(
   reducer,
   initialState, // Use the correct variable name here

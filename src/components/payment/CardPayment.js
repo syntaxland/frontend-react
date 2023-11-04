@@ -85,8 +85,9 @@ function CardPayment({
       dispatch(createPayment(paymentData));
       dispatch(clearCart());
       const timer = setTimeout(() => {
-        history.push("/dashboard");
-        window.location.reload();
+        // history.push("/dashboard");
+        // window.location.href = "/dashboard";
+        // window.location.reload();
       }, 5000);
       return () => clearTimeout(timer);
     }
@@ -96,6 +97,7 @@ function CardPayment({
 
   return (
     <div>
+      <h2 className="py-2 text-center">Card</h2>
       {success && (
         <Message variant="success">Payment made successfully.</Message>
       )}

@@ -7,9 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDotCircle } from "@fortawesome/free-solid-svg-icons";
 import "./LiveChat.css";
 
-// const API_URL = "https://backend.mcdofshop.com";
 const API_URL = process.env.REACT_APP_API_URL;
-// const API_URL = "localhost:8000";
 
 function LiveChat() {
   // const dispatch = useDispatch();

@@ -21,7 +21,7 @@ import {
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
 // const PAYSOFTER_URL = "http://localhost:8001";
-const PAYSOFTER_URL = "https://backend.paysofter.com";
+const PAYSOFTER_URL = "https://api.paysofter.com";
 
 export const createPayment = (paymentData) => async (dispatch, getState) => {
   try {
@@ -50,8 +50,8 @@ export const createPayment = (paymentData) => async (dispatch, getState) => {
       type: PAYMENT_CREATE_SUCCESS,
       payload: data,
     });
-    window.location.reload();
-    window.location.href = "/dashboard"; 
+    // window.location.reload();
+    // window.location.href = "/dashboard"; 
   } catch (error) {
     dispatch({
       type: PAYMENT_CREATE_FAIL,

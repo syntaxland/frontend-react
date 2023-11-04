@@ -1,16 +1,18 @@
 // ShipmentScreen.js
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 // import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShipment } from "../../actions/orderActions"; 
+import { saveShipment } from "../../actions/orderActions";
 import Message from "../Message";
 import Loader from "../Loader";
 
 const ShipmentScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  const { loading, success, error } = useSelector((state) => state.shipmentSave);
+  const { loading, success, error } = useSelector(
+    (state) => state.shipmentSave
+  );
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -23,28 +25,44 @@ const ShipmentScreen = ({ history, match }) => {
   //   const { pathname } = location;
   //   const order_id = pathname.split("/shipment/")[1];
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
+  // let shipmentData = {
+  //   address,
+  //   city,
+  //   postalCode,
+  //   country,
+  //   order_id,
+  // };
 
-    const shipmentData = {
+  const shipmentData = useMemo(() => {
+    return {
       address,
       city,
       postalCode,
       country,
       order_id,
     };
-    console.log("shipmentData:", shipmentData);
+  }, [address, city, postalCode, country, order_id]);
 
+  console.log("shipmentData:", shipmentData);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
     try {
-      // Dispatch saveShipment action to save shipping address
-      await dispatch(saveShipment(shipmentData));
-
-      // Redirect to PaymentScreen with the order ID
-      history.push(`/payment/${order_id}`);
+      dispatch(saveShipment(shipmentData));
     } catch (error) {
       console.log("Error saving shipment:", error);
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      localStorage.setItem("shipmentData", JSON.stringify(shipmentData));
+      const timer = setTimeout(() => {
+        history.push(`/payment/${order_id}`);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, success, history, order_id, shipmentData]);
 
   return (
     <Row>
@@ -54,8 +72,8 @@ const ShipmentScreen = ({ history, match }) => {
           {error && <Message variant="danger">{error}</Message>}
           {loading && <Loader />}
           {success && (
-        <Message variant="success">Shipment created successfully!</Message>
-      )}
+            <Message variant="success">Shipment created successfully!</Message>
+          )}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="address">
               <Form.Label>Address</Form.Label>

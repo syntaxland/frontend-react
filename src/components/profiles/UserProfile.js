@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 // import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons"; 
 import {
   getUserProfile,
-  updateUserProfile,
+  updateUserProfile, 
   updateUserAvatar,
 } from "../../actions/userProfileActions";
 import { resendEmailOtp } from "../../actions/emailOtpActions";

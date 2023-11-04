@@ -342,11 +342,11 @@ function Product({ product }) {
                 "Out of Stock"
               ) : isCart ? (
                 <span>
-                  <i className="fa fa-cart-arrow-down"></i> Remove
+                  <i className="fa fa-cart-arrow-down"></i> Remove From Cart
                 </span>
               ) : (
                 <span>
-                  <i className="fa fa-cart-arrow-down"></i> Add
+                  <i className="fa fa-cart-arrow-down"></i> Add To Cart
                 </span>
               )}
             </Button>

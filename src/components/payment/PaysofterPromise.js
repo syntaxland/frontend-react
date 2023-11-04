@@ -1,4 +1,4 @@
-// PaysofterAccountFund.js
+// PaysofterPromise.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
@@ -11,7 +11,7 @@ import {
 import Message from "../Message";
 import Loader from "../Loader";
 
-const PaysofterAccountFund = ({
+const PaysofterPromise = ({
   history,
   promoTotalPrice,
   paymentData,
@@ -29,6 +29,7 @@ const PaysofterAccountFund = ({
   const [accountId, setAccountId] = useState("");
   const [currency, setCurrency] = useState("");
 
+  const createdAt = new Date().toISOString();
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
 
@@ -39,7 +40,6 @@ const PaysofterAccountFund = ({
   const handleAccountInfoModalClose = () => {
     setShowAccountInfoModal(false);
   };
-
   const handleInfoModalShow = () => {
     setShowInfoModal(true);
   };
@@ -47,8 +47,6 @@ const PaysofterAccountFund = ({
   const handleInfoModalClose = () => {
     setShowInfoModal(false);
   };
-
-  const createdAt = new Date().toISOString();
 
   const paysofterPaymentData = {
     payment_id: reference,
@@ -95,34 +93,33 @@ const PaysofterAccountFund = ({
         <Col>
           <Row className="text-center py-2">
             <Col md={10}>
-              <h2 className="py-2 text-center">Paysofter Account Fund</h2>
+              <h2 className="py-2 text-center">Paysofter Promise</h2>
             </Col>
             <Col md={2}>
               <Button
                 variant="outline"
-                onClick={handleAccountInfoModalShow}
+                onClick={handleInfoModalShow}
                 data-toggle="tooltip"
                 data-placement="top"
-                title="Paysofter Account Fund option settles payments using the user's funded Paysofter Account Fund."
+                title="Paysofter Promise option escrows or places in custody the received payment until a specified condition has been fulfilled before payment is transferred to the seller."
               >
                 <i className="fa fa-info-circle"> </i>
               </Button>
 
-              <Modal
-                show={showAccountInfoModal}
-                onHide={handleAccountInfoModalClose}
-              >
+              <Modal show={showInfoModal} onHide={handleInfoModalClose}>
                 <Modal.Header closeButton>
                   <Modal.Title className="text-center w-100 py-2">
-                    Paysofter Account Fund
+                    Paysofter Promise
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <p className="text-center">
-                    Paysofter Account Fund option settles payments using the
-                    payer's funded Paysofter Account Fund.{" "}
+                    Paysofter Promise option escrows or places in custody the
+                    payment made to a seller (using the payer's funded Paysofter
+                    Account Fund) until a specified condition has been
+                    fulfilled.{" "}
                     <a
-                      href="https://paysofter.com/account-fund/"
+                      href="https://paysofter.com/promise/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -163,8 +160,30 @@ const PaysofterAccountFund = ({
               </Form.Control>
             </Form.Group>
 
+            <Form.Group controlId="currency">
+              <Form.Label>Seller Paysofter Account ID</Form.Label>
+              <Form.Control
+                // as="select"
+                // value={currency}
+                // onChange={(e) => setCurrency(e.target.value)}
+                placeholder="123456789012"
+                disabled
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="seller_name">
+              <Form.Label>Seller Name</Form.Label>
+              <Form.Control
+                // as="select"
+                // value={seller_name}
+                // onChange={(e) => setCurrency(e.target.value)}
+                placeholder="Seller name"
+                disabled
+              ></Form.Control>
+            </Form.Group>
+
             <Form.Group controlId="accountId">
-              <Form.Label>Account ID</Form.Label>
+              <Form.Label>Payer Paysofter Account ID</Form.Label>
 
               <Row className="text-center py-2">
                 <Col md={10}>
@@ -180,7 +199,7 @@ const PaysofterAccountFund = ({
                 <Col md={2}>
                   <Button
                     variant="outline"
-                    onClick={handleInfoModalShow}
+                    onClick={handleAccountInfoModalShow}
                     data-toggle="tooltip"
                     data-placement="top"
                     title="A unqiuely assigned Paysofter Account ID. Don't have a Paysofter account? Click here."
@@ -188,7 +207,10 @@ const PaysofterAccountFund = ({
                     <i className="fa fa-info-circle"> </i>
                   </Button>
 
-                  <Modal show={showInfoModal} onHide={handleInfoModalClose}>
+                  <Modal
+                    show={showAccountInfoModal}
+                    onHide={handleAccountInfoModalClose}
+                  >
                     <Modal.Header closeButton>
                       <Modal.Title className="text-center w-100 py-2">
                         Paysofter Account ID
@@ -241,4 +263,4 @@ const PaysofterAccountFund = ({
   );
 };
 
-export default PaysofterAccountFund;
+export default PaysofterPromise;

@@ -54,7 +54,8 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> McDof Shop
+            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> McDof
+            Shop
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">
@@ -79,7 +80,12 @@ function Header() {
                 <i className="fas fa-search"></i>
               </Button>
             </Form>
+
             <Nav className="mr-auto ml-auto">
+              <Nav.Link as={Link} to="/marketplace">
+                {" "}
+                MarketPlace
+              </Nav.Link>
               <Nav.Link as={Link} to="#">
                 {greeting}
                 {userInfo && userInfo.avatar && (
@@ -100,7 +106,7 @@ function Header() {
                 <NavDropdown
                   title={
                     userInfo.first_name
-                      ? userInfo.first_name.charAt(0).toUpperCase() + 
+                      ? userInfo.first_name.charAt(0).toUpperCase() +
                         userInfo.first_name.slice(1)
                       : ""
                   }

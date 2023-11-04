@@ -9,7 +9,7 @@ import {
   USER_REGISTER_REQUEST,
 } from "../constants/userConstants";
 import axios from "axios";
-import axiosInstance from "../store";
+import axiosInstance from "../store"; 
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -25,9 +25,12 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
+  const lowerCaseEmail = email.toLowerCase();
+
+
     const { data } = await axios.post(
       `${API_URL}/api/users/login/`,
-      { email: email, password: password },
+      { email: lowerCaseEmail, password: password },
       config
     );
 
@@ -92,11 +95,8 @@ export const loginWithGoogle =
   };
 
 export const register =
-  (firstName, lastName, email, password, phoneNumber, referralCode) => async (dispatch) => {
+  (formData) => async (dispatch) => {
     try {
-      // Convert email to lowercase
-      const lowerCaseEmail = email.toLowerCase();
-
       dispatch({
         type: USER_REGISTER_REQUEST,
       });
@@ -107,22 +107,10 @@ export const register =
         },
       };
 
-      // Check if 'username' is not provided or empty, set it to the 'email' value
-      // eslint-disable-next-line no-unused-vars
-      // const username = email;
-
       const { data } = await axios.post(
         `${API_URL}/api/users/register/`,
-        {
-          first_name: firstName,
-          last_name: lastName,
-          username: lowerCaseEmail,
-          email: lowerCaseEmail,
-          password,
-          phone_number: phoneNumber,
-          referral_code: referralCode,
-        },
-        config
+        formData,
+        config,
       );
 
       dispatch({
@@ -130,9 +118,9 @@ export const register =
         payload: data,
       });
 
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      // window.location.reload();
-      window.location.href = "/verify-email-otp";
+      // localStorage.setItem("registerData", JSON.stringify(formData));
+      // window.location.reload(); 
+      // window.location.href = "/verify-email-otp";
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,

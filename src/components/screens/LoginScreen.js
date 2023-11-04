@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../FormContainer";
-import { login, logout } from "../../actions/userActions";
+import { login } from "../../actions/userActions";
 import GoogleLoginScreen from "./GoogleLoginScreen";
 
 function LoginScreen({ location }) {
@@ -16,7 +16,7 @@ function LoginScreen({ location }) {
   const [successMessage, setSuccessMessage] = useState("");
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useHistory(); 
 
   // const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -37,7 +37,7 @@ function LoginScreen({ location }) {
           setSuccessMessage("Login successful."); 
         } else {
           // If the email is not verified, log out the user and redirect to the email verification page
-          dispatch(logout());
+          // dispatch(logout());
           history.push("/verify-email-otp");
           setSuccessMessage("Please verify your email.");
         }

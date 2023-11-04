@@ -1,5 +1,5 @@
 // RegisterScreen.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col, Form, Button, Container } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
@@ -21,7 +21,6 @@ function RegisterScreen({ location, history }) {
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const [selectedCountry] = useState("US");
-  const [successMessage, setSuccessMessage] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [referralCode, setReferralCode] = useState("");
@@ -35,11 +34,14 @@ function RegisterScreen({ location, history }) {
     confirmPassword: false,
   });
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { error, loading } = userRegister;
+  // const emailOtpSend = useSelector((state) => state.emailOtpSend);
+  // const { loading, success, error } = emailOtpSend;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, success, error } = userRegister;
+
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
 
   useEffect(() => {
     // Extract referral code from the URL query parameters
@@ -62,69 +64,76 @@ function RegisterScreen({ location, history }) {
     }
   };
 
-  const submitHandler = async (e) => {
+  const lowerCaseEmail = email.toLowerCase();
+
+  // const formData = {
+  //   first_name: firstName,
+  //   last_name: lastName,
+  //   username: lowerCaseEmail,
+  //   email: lowerCaseEmail,
+  //   password,
+  //   phone_number: phoneNumber,
+  //   referral_code: referralCode,
+  // };
+
+  const formData = useMemo(() => {
+    return {
+      first_name: firstName,
+      last_name: lastName,
+      username: lowerCaseEmail,
+      email: lowerCaseEmail,
+      password,
+      phone_number: phoneNumber,
+      referral_code: referralCode,
+    };
+  }, [firstName, lastName, lowerCaseEmail, password, phoneNumber, referralCode]);
+
+  console.log("formData:", formData);
+
+  const submitHandler = (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
+    } else if (password.length < 8) {
+      setMessage("Password must be at least 8 characters");
     } else {
       console.log("Dispatching registration...");
+
       try {
-        dispatch(
-          register(
-            firstName,
-            lastName,
-            email,
-            password,
-            phoneNumber,
-            referralCode
-          )
-        );
+        localStorage.setItem("registrationData", JSON.stringify(formData));
+        dispatch(register(formData));
+        // dispatch(sendEmailOtp(email, firstName));
       } catch (error) {
-        setMessage(error.response.data.detail);
-        // console.log(error);
         console.log("Error object:", error);
       }
     }
   };
 
   useEffect(() => {
-    if (userInfo && !error) {
-      if (!userInfo.is_verified) {
-        history.push("/verify-email-otp");
-        setSuccessMessage("Please verify your email.");
-      } else {
-        // dispatch({ type: "USER_REGISTER_SUCCESS" });
-        setSuccessMessage("User already exists. Please login.");
-        const redirectTimer = setTimeout(() => {
-          // dispatch({ type: "USER_REGISTER_SUCCESS" });
-          history.push("/login");
-        }, 3000);
-        return () => {
-          clearTimeout(redirectTimer);
-        };
-      }
-      dispatch({
-        type: "STORE_REGISTRATION_DATA",
-        payload: {
-          firstName,
-          email,
-        },
-      });
-    }
-  }, [userInfo, error, history, dispatch, email, firstName]);
-
-  useEffect(() => {
-    if (!loading && !error && userRegister.userInfo) {
+    if (success) {
       dispatch(sendEmailOtp(email, firstName));
+      // localStorage.setItem("registrationData", JSON.stringify(formData));
+      const timer = setTimeout(() => {
+        // history.push("/verify-email-otp");
+        window.location.href = "/verify-email-otp";
+      }, 5000);
+      return () => clearTimeout(timer);
     }
-  }, [loading, error, userRegister.userInfo, dispatch, email, firstName]);
+
+    // eslint-disable-next-line
+  }, [dispatch, success, history, email, firstName, formData]);
 
   return (
     <Container>
       <FormContainer>
         <h1 className="text-center">Register</h1>
-        {successMessage && (
-          <Message variant="success">{successMessage}</Message>
+
+        {success && (
+          <Message variant="success">
+            Registration submitted successfully and verification OTP sent to:{" "}
+            {email}
+          </Message>
         )}
 
         {message && <Message variant="danger">{message}</Message>}
@@ -334,6 +343,7 @@ function RegisterScreen({ location, history }) {
                 variant="success"
                 block
               >
+                {loading && <Loader />}
                 <i className="fas fa-registered"></i> Register
               </Button>
             </Col>

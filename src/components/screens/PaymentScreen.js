@@ -39,8 +39,11 @@ function PaymentScreen() {
   );
   const [selectedPaymentGateway, setSelectedPaymentGateway] = useState(null);
 
-  const shipmentSave = useSelector((state) => state.shipmentSave);
+  // const shipmentSave = useSelector((state) => state.shipmentSave);
   // console.log("shipmentSave:", shipmentSave);
+
+  const shipmentSave = JSON.parse(localStorage.getItem("shipmentData")) || [];
+  console.log("shipmentSave:", shipmentSave);
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -130,7 +133,7 @@ function PaymentScreen() {
     promoTotalPrice,
     // publicKey,
     paystackPublicKey,
-paysofterPublicKey,
+    paysofterPublicKey,
     shipmentSave,
   };
   console.log("paymentData:", paymentData);
@@ -160,7 +163,7 @@ paysofterPublicKey,
                 </Col>
               </Row>
 
-              <Row className="text-center py-2">  
+              <Row className="text-center py-2">
                 <Col md={11}>
                   <Button
                     variant="primary"
@@ -171,9 +174,7 @@ paysofterPublicKey,
                   </Button>
                 </Col>
                 <Col md={1}>
-                  {/* <Button variant="outline" onClick={handleInfoModalShow}>
-                    <i className="fa fa-info-circle"></i>
-                  </Button> */}
+                  
 
                   <Button
                     variant="outline"
@@ -185,41 +186,38 @@ paysofterPublicKey,
                     <i className="fa fa-info-circle"> </i>
                   </Button>
 
-                  <Modal show={showInfoModal} onHide={handleInfoModalClose}>
+                  <Modal show={showInfoModal} onHide={handleInfoModalClose} >
                     <Modal.Header closeButton>
-                      <Modal.Title>Info</Modal.Title>
+                      <Modal.Title className="text-center w-100 py-2">
+                      Paysofter Account
+                      </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      Don't have a Paysofter account? {"   "}
-                      <a
-                        href="https://paysofter.com/register/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {" "}
-                        Click here
-                      </a>
+                      <p className="text-center">
+                        Don't have a Paysofter account? You're just about 3
+                        minutes away! Sign up for a much softer payment
+                        experience.{" "}
+                        <a
+                          href="https://paysofter.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {" "}
+                          <span>
+                            <Button
+                              variant="primary"
+                              size="sm"
+                              className="text-center py-2"
+                            >
+                              Create A Free Account
+                            </Button>
+                          </span>
+                        </a>
+                      </p>
                     </Modal.Body>
                   </Modal>
                 </Col>
               </Row>
-
-              {/* <Row className="text-center py-2">
-                <Col md={11}>
-                  <Button
-                    variant="success"
-                    onClick={() => handlePaymentGatewaySelection("stripe")}
-                    className="mr-2 rounded w-100"
-                  >
-                    Pay with Stripe
-                  </Button>
-                </Col>
-                <Col md={1}>
-                  <Button variant="outline">
-                    <i className="fa fa-info-circle"></i>
-                  </Button>
-                </Col>
-              </Row> */}
             </div>
 
             {selectedPaymentGateway === "paystack" && (

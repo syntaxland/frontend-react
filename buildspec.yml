@@ -6,7 +6,7 @@ phases:
   #   runtime-versions:
   #     nodejs: 16.x
     commands:
-      - echo "Installing dependencies..."
+      - echo "Installing dependencies..." 
       - npm cache clean --force
       - npm install --legacy-peer-deps
   build:
@@ -19,13 +19,3 @@ phases:
     - echo "Copying build to S3 bucket..."
     - aws s3 cp --recursive ./build s3://mcdofshop.com/
     - aws cloudfront create-invalidation --distribution-id E3J8NH6TLFTEY8 --path /\*
-
-# artifacts:
-#   files:
-#     - '**/*'
-#   base-directory: build
-
-# cache:
-#   paths:
-#     - 'node_modules/**/'
-

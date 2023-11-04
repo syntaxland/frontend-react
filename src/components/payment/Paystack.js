@@ -118,7 +118,7 @@ function Paystack() {
 
   const onClose = () => {
     console.log("Payment closed.");
-    history.push("/");
+    history.push("/payment");
   };
 
   const handlePayment = async (reference) => {

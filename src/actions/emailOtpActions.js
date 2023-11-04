@@ -13,9 +13,9 @@ import {
 } from "../constants/emailOtpConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
-
+ 
 export const sendEmailOtp =
-  (email, firstName) => async (dispatch, getState) => {
+  (email, firstName) => async (dispatch) => {
     try {
       dispatch({
         type: EMAIL_OTP_SEND_REQUEST,

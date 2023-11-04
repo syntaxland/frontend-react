@@ -10,7 +10,7 @@ import {
     EMAIL_OTP_RESEND_REQUEST,
     EMAIL_OTP_RESEND_SUCCESS,
     EMAIL_OTP_RESEND_FAIL,
-  } from "../constants/emailOtpConstants"; 
+  } from "../constants/emailOtpConstants";    
   
   const initialState = {
     loading: false,
@@ -25,7 +25,7 @@ import {
           ...state,
           loading: true,
         };
-      case EMAIL_OTP_SEND_SUCCESS:
+      case EMAIL_OTP_SEND_SUCCESS: 
         return {
           loading: false,
           success: true,

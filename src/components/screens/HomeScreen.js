@@ -1,7 +1,7 @@
 // HomeScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import Product from "../Product";
 import { listProducts } from "../../actions/productAction";
 // import { listPromoProducts } from "../../actions/promoActions";
@@ -10,7 +10,7 @@ import Message from "../Message";
 import PromoProductScroll from "../PromoProductScroll";
 import RecommendedProducts from "../profiles/RecommendedProducts";
 
-function HomeScreen() {
+function HomeScreen({ history }) {
   const dispatch = useDispatch();
 
   const productList = useSelector((state) => state.productList);
@@ -56,6 +56,25 @@ function HomeScreen() {
             ) : (
               <PromoProductScroll />
             )} */}
+          </div>
+
+          <div className="text-center">
+            <hr />
+            <h1 className="py-3">MarketPlace Hot Deals</h1>
+            <hr />
+            <PromoProductScroll />
+            <span>
+              Checkout more currently running deals at the market place and/or
+              post your ads.{" "}
+            </span>
+            <Button
+              variant="primary"
+              className="rounded"
+              size="sm"
+              onClick={() => history.push("/marketplace")}
+            >
+              Go to MarketPlace <i className="fa fa-shopping-cart"></i>
+            </Button>
           </div>
 
           <div>

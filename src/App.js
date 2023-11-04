@@ -15,7 +15,6 @@ import Footer from "./components/Footer";
 import OrderSuccessPage from "./components/OrderSuccessPage";
 import HomeScreen from "./components/screens/HomeScreen";
 import ProductScreen from "./components/screens/ProductScreen";
-// import FavouritesScreen from "./components/profiles/FavouritesScreen";
 import SearchScreen from "./components/screens/SearchScreen";
 import RegisterScreen from "./components/screens/RegisterScreen";
 import LoginScreen from "./components/screens/LoginScreen";
@@ -45,6 +44,13 @@ import Payments from "./components/profiles/Payments";
 import SupportTicketDetails from "./components/profiles/SupportTicketDetails";
 import Dashboard from "./components/profiles/Dashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
+
+import Marketplace from "./components/marketplace/Marketplace";
+import PostAds from "./components/marketplace/PostAds";
+// import Marketplace from "./components/marketplace/Marketplace";
+// import Marketplace from "./components/marketplace/Marketplace";
+// import Marketplace from "./components/marketplace/Marketplace";
+
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -99,8 +105,11 @@ function App() {
           <Route path="/feedback" component={FeedbackScreen} />
           <Route path="/dark-mode" component={DarkModeScreen} />
 
-          {/* <Route path="/send-message" component={SendMessageScreen} />
-          <Route path="/message-inbox" component={MessageInboxScreen} /> */}
+          <Route path="/marketplace" component={Marketplace} />
+          <Route path="/post-ads" component={PostAds} />
+          {/* <Route path="/marketplace" component={PostAds} />
+          <Route path="/marketplace" component={PostAds} /> */}
+          {/* <Route path="/message-inbox" component={MessageInboxScreen} /> */}
         </main>
         <Footer />
         {/* </section> */}

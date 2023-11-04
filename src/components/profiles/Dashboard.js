@@ -13,7 +13,7 @@ import Favorites from "./SavedItems";
 import OrderShipment from "./OrderShipment";
 import OrderItem from "./OrderItem";
 import Reviews from "./Reviews";
-import UserDashboard from "./UserDashboard";
+import UserDashboard from "./UserDashboard"; 
 import MessageInbox from "./MessageInbox";
 import CreditPoint from "./CreditPoint";
 import PromoProduct from "./Offers";
@@ -166,7 +166,7 @@ function Dashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("payments")}
                 >
-                  <i className="fas fa-credit-card"></i> Payments
+                  <i className="fas fa-credit-card"></i> Payments 
                 </Button>
               </div>
               <div>
