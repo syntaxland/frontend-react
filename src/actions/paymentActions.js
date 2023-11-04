@@ -93,7 +93,7 @@ export const createPaysofterPayment =
         payload: data,
       });
       // window.location.reload();
-      // window.location.href = "/dashboard";
+      window.location.href = "/dashboard";
     } catch (error) {
       dispatch({
         type: PAYSOFTER_PAYMENT_CREATE_FAIL,
