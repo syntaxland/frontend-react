@@ -79,9 +79,9 @@ const PaysofterAccountFund = ({
       dispatch(createPayment(paymentData));
       dispatch(clearCart());
       const timer = setTimeout(() => {
-        history.push("/dashboard");
+        // history.push("/dashboard");
         // window.location.href = "/dashboard";
-        window.location.reload();
+        // window.location.reload();
       }, 5000);
       return () => clearTimeout(timer);
     }

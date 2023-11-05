@@ -15,6 +15,7 @@ function RegisterScreen({ location, history }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -28,6 +29,7 @@ function RegisterScreen({ location, history }) {
   const [isValid, setIsValid] = useState({
     firstName: false,
     lastName: false,
+    username: false,
     email: false,
     phoneNumber: false,
     password: false,
@@ -59,34 +61,47 @@ function RegisterScreen({ location, history }) {
         ...prevIsValid,
         [field]: value === password,
       }));
-    } else {
+    } 
+    
+    else if (field === "username") {
+      const containsSpecialChars = /[^a-zA-Z0-9_]/.test(value);
+      setIsValid((prevIsValid) => ({
+        ...prevIsValid,
+        [field]: !containsSpecialChars,
+      }));
+      if (containsSpecialChars) {
+        setMessage("Username must not contain special characters.");
+      } else {
+        setMessage("");
+      }
+    } 
+    
+    else {
       setIsValid((prevIsValid) => ({ ...prevIsValid, [field]: !!value }));
     }
   };
 
   const lowerCaseEmail = email.toLowerCase();
 
-  // const formData = {
-  //   first_name: firstName,
-  //   last_name: lastName,
-  //   username: lowerCaseEmail,
-  //   email: lowerCaseEmail,
-  //   password,
-  //   phone_number: phoneNumber,
-  //   referral_code: referralCode,
-  // };
-
   const formData = useMemo(() => {
     return {
       first_name: firstName,
       last_name: lastName,
-      username: lowerCaseEmail,
+      username: username,
       email: lowerCaseEmail,
       password,
       phone_number: phoneNumber,
       referral_code: referralCode,
     };
-  }, [firstName, lastName, lowerCaseEmail, password, phoneNumber, referralCode]);
+  }, [
+    firstName,
+    lastName,
+    lowerCaseEmail,
+    username,
+    password,
+    phoneNumber,
+    referralCode,
+  ]);
 
   console.log("formData:", formData);
 
@@ -94,9 +109,13 @@ function RegisterScreen({ location, history }) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
+      setMessage("Passwords do not match.");
     } else if (password.length < 8) {
-      setMessage("Password must be at least 8 characters");
+      setMessage("Password must be at least 8 characters.");
+    } else if (username.length < 6) {
+      setMessage("Username must be at least 6 characters.");
+    } else if (/[^a-zA-Z0-9_]/.test(username)) {
+      setMessage("Username must not contain special characters.");
     } else {
       console.log("Dispatching registration...");
 
@@ -141,6 +160,44 @@ function RegisterScreen({ location, history }) {
 
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
+          <Form.Group controlId="username">
+            <Form.Label>
+              <i className="fas fa-user"></i> Username
+            </Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              maxLength={20}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                handleInputChange("username", e.target.value);
+              }}
+              required
+              className={`rounded ${
+                error && error.username
+                  ? "is-invalid"
+                  : isValid.username
+                  ? "is-valid"
+                  : ""
+              }`}
+            />
+            {/* <div className="valid-feedback">
+              {isValid.username &&  (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div> */}
+            <div className="valid-feedback">
+              {isValid.username && username && (
+                <i className="bi bi-check2-circle text-success"></i>
+              )}
+            </div>
+
+            <Form.Control.Feedback type="invalid">
+              {error && error.username}
+            </Form.Control.Feedback>
+          </Form.Group>
+
           <Form.Group controlId="firstName">
             <Form.Label>
               <i className="fas fa-user-circle"></i> First Name
@@ -174,7 +231,9 @@ function RegisterScreen({ location, history }) {
           </Form.Group>
 
           <Form.Group controlId="lastName">
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label>
+              <i className="fas fa-user-circle"></i> Last Name
+            </Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter Last Name"
@@ -353,7 +412,7 @@ function RegisterScreen({ location, history }) {
         {/* <Row className="py-3">
           <Col className="text-center">
             <Button variant="danger" className="rounded w-100" block>
-            <i className="fab fa-google"></i> Continue with Google
+            <i className="fab fa-google"></i> Continue with Google 
             </Button> 
           </Col>
         </Row> */}

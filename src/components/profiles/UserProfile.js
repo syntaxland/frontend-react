@@ -210,6 +210,18 @@ function UserProfile() {
                       Verify Email
                     </Button>
                   )}
+
+                  <Form.Group>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="username"
+                      value={profile.username}
+                      readOnly
+                      onChange={handleInputChange}
+                    />
+                  </Form.Group>
+
                   <Form.Group>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
@@ -219,6 +231,7 @@ function UserProfile() {
                       onChange={handleInputChange}
                     />
                   </Form.Group>
+                  
                   <Form.Group>
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
