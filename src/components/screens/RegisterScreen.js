@@ -131,7 +131,7 @@ function RegisterScreen({ location, history }) {
 
   useEffect(() => {
     if (success) {
-      dispatch(sendEmailOtp(email, firstName));
+      dispatch(sendEmailOtp(lowerCaseEmail, firstName));
       // localStorage.setItem("registrationData", JSON.stringify(formData));
       const timer = setTimeout(() => {
         // history.push("/verify-email-otp");
