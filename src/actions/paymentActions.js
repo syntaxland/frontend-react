@@ -51,7 +51,7 @@ export const createPayment = (paymentData) => async (dispatch, getState) => {
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard"; 
+    // window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: PAYMENT_CREATE_FAIL,
@@ -63,89 +63,87 @@ export const createPayment = (paymentData) => async (dispatch, getState) => {
   }
 };
 
-export const createPaysofterPayment =
-  (paysofterPaymentData) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: PAYSOFTER_PAYMENT_CREATE_REQUEST,
-      });
+export const createPaysofterPayment = (paysofterPaymentData) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: PAYSOFTER_PAYMENT_CREATE_REQUEST,
+    });
 
-      // const {
-      //   userLogin: { userInfo },
-      // } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${userInfo.access}`,
-      //   },
-      // };
+    const { data } = await axios.post(
+      `${PAYSOFTER_URL}/api/initiate-transaction/`,
+      paysofterPaymentData,
+      config
+    );
 
-      const { data } = await axios.post(
-        // `http://localhost:8001/api/initiate-transaction/`,
-        `${PAYSOFTER_URL}/api/initiate-transaction/`,
-        paysofterPaymentData
-        // config
-      );
+    dispatch({
+      type: PAYSOFTER_PAYMENT_CREATE_SUCCESS,
+      payload: data,
+    });
+    // window.location.reload();
+    window.location.href = "/dashboard";
+  } catch (error) {
+    dispatch({
+      type: PAYSOFTER_PAYMENT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
-      dispatch({
-        type: PAYSOFTER_PAYMENT_CREATE_SUCCESS,
-        payload: data,
-      });
-      // window.location.reload();
-      window.location.href = "/dashboard";
-    } catch (error) {
-      dispatch({
-        type: PAYSOFTER_PAYMENT_CREATE_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };
+export const debitPaysofterAccountFund = (debitAccountData) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: DEBIT_PAYSOFTER_ACCOUNT_REQUEST,
+    });
 
-export const debitPaysofterAccountFund =
-  (debitAccountData) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: DEBIT_PAYSOFTER_ACCOUNT_REQUEST,
-      });
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState();
 
-      // const {
-      //   userLogin: { userInfo },
-      // } = getState();
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${userInfo.access}`,
+    //   },
+    // };
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${userInfo.access}`,
-      //   },
-      // };
+    const { data } = await axios.post(
+      // `http://localhost:8001/api/debit-user-account-balance/`,
+      `${PAYSOFTER_URL}/api/debit-user-account-balance/`,
+      debitAccountData
+      // config
+    );
 
-      const { data } = await axios.post(
-        // `http://localhost:8001/api/debit-user-account-balance/`,
-        `${PAYSOFTER_URL}/api/debit-user-account-balance/`,
-        debitAccountData
-        // config
-      );
-
-      dispatch({
-        type: DEBIT_PAYSOFTER_ACCOUNT_SUCCESS,
-        payload: data, 
-      });
-      // window.location.reload();
-      // window.location.href = "/dashboard";
-    } catch (error) {
-      dispatch({
-        type: DEBIT_PAYSOFTER_ACCOUNT_FAIL,
-        payload:
-          error.response && error.response.data.detail
-            ? error.response.data.detail
-            : error.message,
-      });
-    }
-  };
+    dispatch({
+      type: DEBIT_PAYSOFTER_ACCOUNT_SUCCESS,
+      payload: data,
+    });
+    // window.location.reload();
+    // window.location.href = "/dashboard";
+  } catch (error) {
+    dispatch({
+      type: DEBIT_PAYSOFTER_ACCOUNT_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const listPayments = () => async (dispatch, getState) => {
   try {

@@ -168,7 +168,7 @@ function RegisterScreen({ location, history }) {
               type="text"
               placeholder="Enter username"
               value={username}
-              maxLength={20}
+              maxLength={30}
               onChange={(e) => {
                 setUsername(e.target.value);
                 handleInputChange("username", e.target.value);

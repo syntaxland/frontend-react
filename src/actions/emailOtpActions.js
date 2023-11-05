@@ -49,15 +49,11 @@ export const sendEmailOtp =
     }
   };
 
-export const verifyEmailOtp = (otp) => async (dispatch, getState) => {
+export const verifyEmailOtp = (otp) => async (dispatch) => {
   try {
     dispatch({
       type: EMAIL_OTP_VERIFY_REQUEST,
     });
-
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState();
 
     const config = {
       headers: {
@@ -65,13 +61,14 @@ export const verifyEmailOtp = (otp) => async (dispatch, getState) => {
       },
     };
 
-    await axios.post(`${API_URL}/api/verify-email-otp/`, { otp }, config);
+    const { data } = await axios.post(`${API_URL}/api/verify-email-otp/`, { otp }, config);
 
     dispatch({
       type: EMAIL_OTP_VERIFY_SUCCESS,
+      payload: data,
     });
     // window.location.reload();
-    window.location.href = "/login";
+    window.location.href = "/login"; 
   } catch (error) {
     dispatch({
       type: EMAIL_OTP_VERIFY_FAIL,

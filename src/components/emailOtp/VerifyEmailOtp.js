@@ -9,7 +9,7 @@ import {
 } from "../../actions/emailOtpActions";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-// import { register } from "../../actions/userActions";
+import { logout } from "../../actions/userActions";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 
@@ -46,10 +46,11 @@ const VerifyEmailOtp = () => {
       localStorage.removeItem("registrationData");
       setShowSuccessMessage(true);
       setTimeout(() => {
-        history.push("/login");
-      }, 5000); 
+        dispatch(logout());
+        // history.push("/login");
+      }, 5000);
     }
-  }, [success, history]);
+  }, [dispatch, success, history]);
 
   useEffect(() => {
     let timer;
@@ -73,14 +74,14 @@ const VerifyEmailOtp = () => {
     setResendMessage("");
 
     try {
-     dispatch(
+      dispatch(
         sendEmailOtp(userRegisterData.email, userRegisterData.first_name)
       );
       setResendMessage(`OTP resent to ${userRegisterData.email} successfully.`);
       // setResendMessage("OTP Resent successfully!");
       setResendDisabled(true);
     } catch (error) {
-      setResendMessage("Error resending OTP. Please try again."); 
+      setResendMessage("Error resending OTP. Please try again.");
     }
 
     setResendLoading(false);
@@ -89,21 +90,21 @@ const VerifyEmailOtp = () => {
   return (
     <Container>
       <Row className="justify-content-center text-center mt-5">
-        {showSuccessMessage && (
-          <Message variant="success">
-            Email verified successfully! You can now log in.
-          </Message>
-        )}
-        {loading && <Loader />}
-        {error && <Message variant="danger">{error}</Message>}
-        {resendMessage && (
-          <Message variant={resendLoading ? "info" : "success"}>
-            {resendMessage}
-          </Message>
-        )}
         <Col lg={6}>
           <div className="border rounded p-4">
             <h1>Verify Email OTP</h1>
+            {showSuccessMessage && (
+              <Message variant="success">
+                Email verified successfully! You can now log in.
+              </Message>
+            )}
+            {loading && <Loader />}
+            {error && <Message variant="danger">{error}</Message>}
+            {resendMessage && (
+              <Message variant={resendLoading ? "info" : "success"}>
+                {resendMessage}
+              </Message>
+            )}
             <Form>
               <Form.Group controlId="otp">
                 <Form.Control

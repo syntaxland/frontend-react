@@ -9,7 +9,7 @@ import {
   updateUserProfile, 
   updateUserAvatar,
 } from "../../actions/userProfileActions";
-import { resendEmailOtp } from "../../actions/emailOtpActions";
+import { sendEmailOtp } from "../../actions/emailOtpActions";
 import { Form, Button, Row, Col, Container, Accordion } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
@@ -119,7 +119,7 @@ function UserProfile() {
   // };
 
   const handleResendEmailOtp = () => {
-    dispatch(resendEmailOtp(userInfo.email, userInfo.first_name));
+    dispatch(sendEmailOtp(userInfo.email, userInfo.first_name));
     history.push("/verify-email-otp");
   };
 
