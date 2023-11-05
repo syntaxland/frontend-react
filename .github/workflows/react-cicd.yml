@@ -28,11 +28,6 @@
         - uses: actions/setup-node@v2
           with:
             node-version: '16'
-    
-        # - name: Install Dependencies
-        #   run: |
-        #     node --version
-        #     # npm ci --production
 
         - name: Install Dependencies
           run: |
@@ -41,10 +36,11 @@
     
         - name: Build Static Website
           run: npm run build
-    
+
         - name: Copy files to the production website with the AWS CLI
           run: |
-            aws s3 sync --delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+            aws s3 sync --no-delete ${{ env.DIST }} s3://${{ env.BUCKET }}
+
     
         - name: Copy files to the production website with the AWS CLI
           run: |
