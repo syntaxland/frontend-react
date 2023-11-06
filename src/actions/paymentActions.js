@@ -103,7 +103,7 @@ export const createPaysofterPayment = (paysofterPaymentData) => async (
 
 export const debitPaysofterAccountFund = (debitAccountData) => async (
   dispatch,
-  getState
+  // getState
 ) => {
   try {
     dispatch({
@@ -114,18 +114,17 @@ export const debitPaysofterAccountFund = (debitAccountData) => async (
     //   userLogin: { userInfo },
     // } = getState();
 
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${userInfo.access}`,
-    //   },
-    // };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
 
     const { data } = await axios.post(
-      // `http://localhost:8001/api/debit-user-account-balance/`,
       `${PAYSOFTER_URL}/api/debit-user-account-balance/`,
-      debitAccountData
-      // config
+      debitAccountData,
+      config,
     );
 
     dispatch({
