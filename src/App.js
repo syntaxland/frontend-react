@@ -33,7 +33,9 @@ import DarkModeScreen from "./components/screens/DarkModeScreen";
 
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
-import ResendEmailOtp from "./components/emailOtp/ResendEmailOtp";
+
+// import VerifyAccountFundOtp from "./components/payment/VerifyAccountFundOtp";
+
 import UserProfile from "./components/profiles/UserProfile";
 import DeleteAccount from "./components/profiles/DeleteAccount";
 import ChangePassword from "./components/profiles/ChangePassword";
@@ -76,7 +78,7 @@ function App() {
           {/* <Route path="/favourites" component={FavouritesScreen} /> */}  
           <Route path="/send-email-otp" component={SendEmailOtp} />
           <Route path="/verify-email-otp" component={VerifyEmailOtp} />
-          <Route path="/resend-email-otp" component={ResendEmailOtp} />
+          {/* <Route path="/verify-account-fund-otp" component={VerifyAccountFundOtp} /> */}
           <Route
             path="/order-success/:reference"
             component={OrderSuccessPage}

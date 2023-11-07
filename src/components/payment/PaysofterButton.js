@@ -71,8 +71,33 @@ function PaysofterButton({
                     onClick={() => handlePaymentOptionChange("card")}
                     className={selectedPaymentOption === "card" ? "active" : ""}
                   >
-                    <i className="fas fa-credit-card"></i> Card
+                    <i className="fas fa-credit-card"></i> Debit Card
                   </Button>{" "}
+                </div>
+
+                <div className="py-1">
+                  <Button
+                    variant="primary"
+                    onClick={() => handlePaymentOptionChange("account-fund")}
+                    className={
+                      selectedPaymentOption === "account-fund" ? "active" : ""
+                    }
+                  >
+                    <i className="fas fa-money-bill-alt"></i> Paysofter Account
+                    Fund
+                  </Button>
+                </div>
+
+                <div className="py-1">
+                  <Button
+                    variant="primary"
+                    onClick={() => handlePaymentOptionChange("promise")}
+                    className={
+                      selectedPaymentOption === "promise" ? "active" : ""
+                    }
+                  >
+                    <i className="fas fa-money-bill-wave"></i> Paysofter Promise
+                  </Button>
                 </div>
 
                 <div className="py-1">
@@ -116,31 +141,6 @@ function PaysofterButton({
                     <i className="fa fa-qrcode"></i> Visa QR
                   </Button>{" "}
                 </div>
-
-                <div className="py-1">
-                  <Button
-                    variant="primary"
-                    onClick={() => handlePaymentOptionChange("account-fund")}
-                    className={
-                      selectedPaymentOption === "account-fund" ? "active" : ""
-                    }
-                  >
-                    <i className="fas fa-money-bill-alt"></i> Paysofter Account Fund
-                  </Button>
-                </div>
-
-                <div className="py-1">
-                  <Button
-                    variant="primary"
-                    onClick={() => handlePaymentOptionChange("promise")}
-                    className={
-                      selectedPaymentOption === "promise" ? "active" : ""
-                    }
-                  >
-                    <i className="fas fa-money-bill-wave"></i> Paysofter Promise
-                  </Button>
-                </div>
-
               </div>
             </Col>
             {/* Right column with selected payment option component */}
@@ -182,8 +182,6 @@ function PaysofterButton({
                   publicApiKey={publicApiKey}
                 />
               )}
-
-              
             </Col>
           </Row>
         </Modal.Body>

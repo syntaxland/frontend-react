@@ -18,6 +18,8 @@ import {
   DEBIT_PAYSOFTER_ACCOUNT_FAIL,
 } from "../constants/paymentConstants";
 
+
+
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
 // const PAYSOFTER_URL = "http://localhost:8001";
@@ -102,7 +104,7 @@ export const createPaysofterPayment = (paysofterPaymentData) => async (
 };
 
 export const debitPaysofterAccountFund = (debitAccountData) => async (
-  dispatch,
+  dispatch
   // getState
 ) => {
   try {
@@ -124,7 +126,7 @@ export const debitPaysofterAccountFund = (debitAccountData) => async (
     const { data } = await axios.post(
       `${PAYSOFTER_URL}/api/debit-user-account-balance/`,
       debitAccountData,
-      config,
+      config
     );
 
     dispatch({
@@ -132,7 +134,7 @@ export const debitPaysofterAccountFund = (debitAccountData) => async (
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/verify-account-fund-otp";
   } catch (error) {
     dispatch({
       type: DEBIT_PAYSOFTER_ACCOUNT_FAIL,

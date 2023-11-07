@@ -17,7 +17,7 @@ import {
     success: false,
     error: null,
   };
-  
+   
   export const emailOtpSendReducer = (state = initialState, action) => {
     switch (action.type) {
       case EMAIL_OTP_SEND_REQUEST:

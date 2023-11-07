@@ -74,6 +74,11 @@ import {
 } from "./reducers/emailOtpReducers";
 
 import {
+  otpSendReducer,
+  otpVerifyReducer,
+} from "./reducers/accountFundOtpReducers";
+
+import {
   creditPointRequestCreateReducer,
   creditPointListReducer,
   creditPointAllListReducer,
@@ -164,7 +169,7 @@ const reducer = combineReducers({
 
   paymentCreate: paymentCreateReducer,
   paysofterPayment: paysofterPaymentCreateReducer,
-  debitPaysofterAccountState: debitPaysofterAccountReducer, 
+  debitPaysofterAccountState: debitPaysofterAccountReducer,
   paymentList: paymentListReducer,
   listAllPayments: listAllPaymentsReducer,
 
@@ -173,6 +178,9 @@ const reducer = combineReducers({
   emailOtpSend: emailOtpSendReducer,
   emailOtpVerify: emailOtpVerifyReducer,
   emailOtpResend: emailOtpResendReducer,
+
+  otpSendState: otpSendReducer,
+  otpVerifyState: otpVerifyReducer,
 
   userProfile: getUserProfileReducer,
   updateProfile: updateUserProfileReducer,
@@ -197,10 +205,10 @@ const reducer = combineReducers({
   listSupportTicketReplyState: listSupportTicketReplyReducer,
   ticketDetailList: ticketDetailListReducer,
   allTicketList: allTicketListReducer,
-  allTicketResponse: allTicketResponseReducer, 
+  allTicketResponse: allTicketResponseReducer,
   feedbackCreate: feedbackCreateReducer,
   feedbackList: feedbackListReducer,
- 
+
   referral: referralReducer,
   referralButton: referralButtonReducer,
   userReferralState: getUserReferralsReducer,

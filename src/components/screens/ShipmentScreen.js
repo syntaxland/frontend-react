@@ -59,7 +59,7 @@ const ShipmentScreen = ({ history, match }) => {
       localStorage.setItem("shipmentData", JSON.stringify(shipmentData));
       const timer = setTimeout(() => {
         history.push(`/payment/${order_id}`);
-      }, 3000);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [dispatch, success, history, order_id, shipmentData]);

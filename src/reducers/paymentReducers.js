@@ -19,6 +19,8 @@ DEBIT_PAYSOFTER_ACCOUNT_FAIL,
 
 const initialState = {
   payments: [],
+  formattedPayerEmail: [],
+  payerEmail: [],
   loading: false,
   success: false,
   error: null,
@@ -46,7 +48,7 @@ export const paymentCreateReducer = (state = initialState, action) => {
   }
 };
 
-export const paysofterPaymentCreateReducer = (state = initialState, action) => {
+export const paysofterPaymentCreateReducer = (state = initialState, action) => { 
   switch (action.type) {
     case PAYSOFTER_PAYMENT_CREATE_REQUEST:
       return {
@@ -79,6 +81,8 @@ export const debitPaysofterAccountReducer = (state = initialState, action) => {
       return {
         loading: false,
         success: true,
+        formattedPayerEmail: action.payload.formattedPayerEmail,
+        payerEmail: action.payload.payerEmail,
       };
     case DEBIT_PAYSOFTER_ACCOUNT_FAIL:
       return {

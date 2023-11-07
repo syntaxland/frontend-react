@@ -97,7 +97,7 @@ function CardPayment({
 
   return (
     <div>
-      <h2 className="py-2 text-center">Card</h2>
+      <h2 className="py-2 text-center">Debit Card</h2>
       {success && (
         <Message variant="success">Payment made successfully.</Message>
       )}
