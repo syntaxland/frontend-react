@@ -1,12 +1,12 @@
 // VerifyAccountFundOtp.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyOtp, sendOtp } from "../../actions/accountFundOtpActions";
+import { verifyOtp } from "../../actions/accountFundOtpActions";
 import { clearCart } from "../../actions/cartActions";
 import {
   createPayment,
   createPaysofterPayment,
-  // debitPaysofterAccountFund,
+  debitPaysofterAccountFund,
 } from "../../actions/paymentActions";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
@@ -21,7 +21,6 @@ const VerifyAccountFundOtp = ({
   currency,
   publicApiKey,
   formattedPayerEmail,
-  accountId,
 }) => {
   const [otp, setOtp] = useState("");
   const [resendDisabled, setResendDisabled] = useState(false);
@@ -40,14 +39,10 @@ const VerifyAccountFundOtp = ({
   console.log(
     "formattedPayerEmail:",
     formattedPayerEmail,
-    "promoTotalPrice",
-    promoTotalPrice,
-    paymentData,
-    reference,
-    userEmail,
-    publicApiKey,
-    accountId
   );
+
+  const accountId = JSON.parse(localStorage.getItem("accountId")) || [];
+  console.log("accountId:", accountId);
 
   const paysofterPaymentData = {
     payment_id: reference,
@@ -64,6 +59,10 @@ const VerifyAccountFundOtp = ({
     currency: currency,
   };
 
+  const debitAccountData = {
+    account_id: accountId,
+  };
+
   const handleVerifyEmailOtp = () => {
     dispatch(verifyOtp(otpData));
   };
@@ -72,7 +71,7 @@ const VerifyAccountFundOtp = ({
     setResendLoading(true);
     setResendMessage("");
     try {
-      dispatch(sendOtp(accountId));
+      dispatch(debitPaysofterAccountFund(JSON.stringify(debitAccountData)));
       setResendMessage(`OTP resent to ${formattedPayerEmail} successfully.`);
       setResendDisabled(true);
     } catch (error) {
@@ -81,9 +80,35 @@ const VerifyAccountFundOtp = ({
     setResendLoading(false);
   };
 
+  // useEffect(() => {
+  //   let timer;
+  //   if (countdown > 0 && resendDisabled) {
+  //     timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+  //   } else if (!resendDisabled) {
+  //     setCountdown(60);
+  //   }
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [countdown, resendDisabled]);
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0 && resendDisabled) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    } else if (countdown === 0 && resendDisabled) {
+      setResendDisabled(false); 
+    } else if (!resendDisabled) {
+      setCountdown(60);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [countdown, resendDisabled])
+
   useEffect(() => {
     if (success) {
-      // dispatch(debitPaysofterAccountFund(debitAccountData));
+      localStorage.removeItem("accountId");
       dispatch(createPaysofterPayment(paysofterPaymentData));
       dispatch(createPayment(paymentData));
       dispatch(clearCart());
@@ -94,18 +119,6 @@ const VerifyAccountFundOtp = ({
     }
     // eslint-disable-next-line
   }, [dispatch, success, history]);
-
-  useEffect(() => {
-    let timer;
-    if (countdown > 0 && resendDisabled) {
-      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    } else if (!resendDisabled) {
-      setCountdown(60);
-    }
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [countdown, resendDisabled]);
 
   return (
     <Container>
@@ -145,23 +158,22 @@ const VerifyAccountFundOtp = ({
                 </Button>
               </div>
             </Form>
-            <Form onSubmit={handleResendEmailOtp}>
-              <p>
-                OTP has been sent to email: {formattedPayerEmail} for Paysofter
-                Account ID: {accountId}. It might take a few seconds to deliver.
-              </p>
-              <Button
-                variant="link"
-                type="submit"
-                disabled={resendDisabled || resendLoading}
-              >
-                {resendLoading
-                  ? "Resending OTP..."
-                  : resendDisabled
-                  ? `Resend OTP (${countdown}sec)`
-                  : "Resend OTP"}
-              </Button>
-            </Form>
+            <p>
+              OTP has been sent to email: {formattedPayerEmail} for Paysofter
+              Account ID: {accountId}. It might take a few seconds to deliver.
+            </p>
+            <Button
+              variant="link"
+              type="submit"
+              disabled={resendDisabled || resendLoading}
+              onClick={handleResendEmailOtp}
+            >
+              {resendLoading
+                ? "Resending OTP..."
+                : resendDisabled
+                ? `Resend OTP (${countdown}sec)`
+                : "Resend OTP"}
+            </Button>
           </div>
         </Col>
       </Row>

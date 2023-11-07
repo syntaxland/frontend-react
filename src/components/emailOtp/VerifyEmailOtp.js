@@ -18,7 +18,7 @@ const VerifyEmailOtp = () => {
   const [resendDisabled, setResendDisabled] = useState(false);
   const [resendLoading, setResendLoading] = useState(false);
   const [resendMessage, setResendMessage] = useState("");
-  const [countdown, setCountdown] = useState(60);
+  const [countdown, setCountdown] = useState(60); 
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,18 +52,32 @@ const VerifyEmailOtp = () => {
     }
   }, [dispatch, success, history]);
 
+  // useEffect(() => {
+  //   let timer;
+  //   if (countdown > 0 && resendDisabled) {
+  //     timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+  //   } else if (!resendDisabled) {
+  //     setCountdown(60);
+  //   }
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [countdown, resendDisabled]);
+
   useEffect(() => {
     let timer;
     if (countdown > 0 && resendDisabled) {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    } else if (countdown === 0 && resendDisabled) {
+      setResendDisabled(false); 
     } else if (!resendDisabled) {
       setCountdown(60);
     }
-
     return () => {
       clearTimeout(timer);
     };
-  }, [countdown, resendDisabled]);
+  }, [countdown, resendDisabled])
 
   const handleVerifyEmailOtp = () => {
     dispatch(verifyEmailOtp(otp));
@@ -127,11 +141,11 @@ const VerifyEmailOtp = () => {
                 </Button>
               </div>
             </Form>
-            <Form onSubmit={handleResendEmailOtp}>
               <Button
                 variant="link"
                 type="submit"
                 disabled={resendDisabled || resendLoading}
+                onClick={handleResendEmailOtp}
               >
                 {resendLoading
                   ? "Resending OTP..."
@@ -139,7 +153,6 @@ const VerifyEmailOtp = () => {
                   ? `Resend OTP (${countdown}sec)`
                   : "Resend OTP"}
               </Button>
-            </Form>
           </div>
         </Col>
       </Row>

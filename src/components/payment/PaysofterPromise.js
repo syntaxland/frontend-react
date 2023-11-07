@@ -202,7 +202,7 @@ const PaysofterPromise = ({
                     onClick={handleAccountInfoModalShow}
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="A unqiuely assigned Paysofter Account ID. Don't have a Paysofter account? Click here."
+                    title="A unqiuely assigned 12-digit Paysofter Account ID. Don't have a Paysofter account? Click here."
                   >
                     <i className="fa fa-info-circle"> </i>
                   </Button>
@@ -218,7 +218,7 @@ const PaysofterPromise = ({
                     </Modal.Header>
                     <Modal.Body>
                       <p className="text-center">
-                        A unqiuely assigned Paysofter Account ID. Don't have a
+                        A unqiuely assigned 12-digit Paysofter Account ID. Don't have a
                         Paysofter account? You're just about 3 minutes away!{" "}
                         <a
                           href="https://paysofter.com/"

@@ -54,14 +54,15 @@ const PaysofterAccountFund = ({
   };
 
   const debitAccountData = {
-    currency: currency,
-    amount: promoTotalPrice,
+    // currency: currency,
+    // amount: promoTotalPrice,
     account_id: accountId,
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     try {
+      localStorage.setItem("accountId", JSON.stringify(accountId));
       dispatch(debitPaysofterAccountFund(debitAccountData));
     } catch (error) {
       console.log(error);
@@ -160,6 +161,7 @@ const PaysofterAccountFund = ({
                   as="select"
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
+                  disabled
                 >
                   <option value="NGN">NGN</option>
                   <option value="USD">USD</option>
@@ -186,7 +188,7 @@ const PaysofterAccountFund = ({
                       onClick={handleInfoModalShow}
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="A unqiuely assigned Paysofter Account ID. Don't have a Paysofter account? Click here."
+                      title="A unqiuely assigned 12-digit Paysofter Account ID. Don't have a Paysofter account? Click here."
                     >
                       <i className="fa fa-info-circle"> </i>
                     </Button>
@@ -199,7 +201,7 @@ const PaysofterAccountFund = ({
                       </Modal.Header>
                       <Modal.Body>
                         <p className="text-center">
-                          A unqiuely assigned Paysofter Account ID. Don't have a
+                          A unqiuely assigned 12-digit Paysofter Account ID. Don't have a
                           Paysofter account? You're just about 3 minutes away!{" "}
                           <a
                             href="https://paysofter.com/"
@@ -242,18 +244,7 @@ const PaysofterAccountFund = ({
                 </Button>
               </div>
             </Form>
-            {/* {showVerifyAccountFundOtp && (
-            <VerifyAccountFundOtp
-              promoTotalPrice={promoTotalPrice}
-              paymentData={paymentData}
-              reference={reference}
-              currency={currency}
-              userEmail={userEmail}
-              publicApiKey={publicApiKey}
-              accountId={accountId}
-              formattedPayerEmail={formattedPayerEmail}
-            />
-          )} */}
+            
           </Col>
         </Row>
       )}
