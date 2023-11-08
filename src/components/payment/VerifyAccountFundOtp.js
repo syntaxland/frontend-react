@@ -36,13 +36,11 @@ const VerifyAccountFundOtp = ({
   const otpVerifyState = useSelector((state) => state.otpVerifyState);
   const { loading, success, error } = otpVerifyState;
 
-  console.log(
-    "formattedPayerEmail:",
-    formattedPayerEmail,
-  );
+  console.log("formattedPayerEmail:", formattedPayerEmail);
 
-  const accountId = JSON.parse(localStorage.getItem("accountId")) || [];
-  console.log("accountId:", accountId);
+  const sendOtpData =
+    JSON.parse(localStorage.getItem("debitAccountData")) || [];
+  console.log("sendOtpData:", sendOtpData, sendOtpData.account_id);
 
   const paysofterPaymentData = {
     payment_id: reference,
@@ -54,13 +52,14 @@ const VerifyAccountFundOtp = ({
 
   const otpData = {
     otp: otp,
-    account_id: accountId,
+    account_id: sendOtpData.account_id,
     amount: promoTotalPrice,
     currency: currency,
   };
 
   const debitAccountData = {
-    account_id: accountId,
+    account_id: sendOtpData.account_id,
+    security_code: sendOtpData.security_code,
   };
 
   const handleVerifyEmailOtp = () => {
@@ -80,35 +79,23 @@ const VerifyAccountFundOtp = ({
     setResendLoading(false);
   };
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (countdown > 0 && resendDisabled) {
-  //     timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-  //   } else if (!resendDisabled) {
-  //     setCountdown(60);
-  //   }
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [countdown, resendDisabled]);
-
   useEffect(() => {
     let timer;
     if (countdown > 0 && resendDisabled) {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
     } else if (countdown === 0 && resendDisabled) {
-      setResendDisabled(false); 
+      setResendDisabled(false);
     } else if (!resendDisabled) {
       setCountdown(60);
     }
     return () => {
       clearTimeout(timer);
     };
-  }, [countdown, resendDisabled])
+  }, [countdown, resendDisabled]);
 
   useEffect(() => {
     if (success) {
-      localStorage.removeItem("accountId");
+      localStorage.removeItem("debitAccountData");
       dispatch(createPaysofterPayment(paysofterPaymentData));
       dispatch(createPayment(paymentData));
       dispatch(clearCart());
@@ -160,7 +147,8 @@ const VerifyAccountFundOtp = ({
             </Form>
             <p>
               OTP has been sent to email: {formattedPayerEmail} for Paysofter
-              Account ID: {accountId}. It might take a few seconds to deliver.
+              Account ID: {sendOtpData.account_id} and expires in 10 minutes. It might take a few seconds
+              to deliver.
             </p>
             <Button
               variant="link"
