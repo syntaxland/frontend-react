@@ -59,7 +59,7 @@ function FeedbackScreen({ history }) {
             <Message variant="success">Feedback sents successfully.</Message>
           )}
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId="category">
+            <Form.Group controlId="category"> 
               <Form.Label>Category</Form.Label>
               <Form.Control
                 as="select"

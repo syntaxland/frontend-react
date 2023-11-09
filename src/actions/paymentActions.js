@@ -18,8 +18,6 @@ import {
   DEBIT_PAYSOFTER_ACCOUNT_FAIL,
 } from "../constants/paymentConstants";
 
-
-
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
 // const PAYSOFTER_URL = "http://localhost:8001";

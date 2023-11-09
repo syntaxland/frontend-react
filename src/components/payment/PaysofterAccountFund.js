@@ -30,7 +30,7 @@ const PaysofterAccountFund = ({
 
   const [accountId, setAccountId] = useState("");
   const [securityCode, setSecurityCode] = useState("");
-  const [currency, setCurrency] = useState("");
+  // const [currency, setCurrency] = useState("");
 
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
@@ -51,14 +51,16 @@ const PaysofterAccountFund = ({
   const handleSecurityCodeModalShow = () => {
     setShowSecurityCodeModal(true);
   };
+  
+  const handleSecurityCodeModalClose = () => {
+    setShowSecurityCodeModal(false);
+  };
 
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible(!securityCodeVisible);
   };
 
-  const handleSecurityCodeModalClose = () => {
-    setShowSecurityCodeModal(false);
-  };
+  
 
   const handleInfoModalShow = () => {
     setShowInfoModal(true);
@@ -71,12 +73,16 @@ const PaysofterAccountFund = ({
   const debitAccountData = {
     account_id: accountId,
     security_code: securityCode,
+    amount: promoTotalPrice,
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     try {
-      localStorage.setItem("debitAccountData", JSON.stringify(debitAccountData));
+      localStorage.setItem(
+        "debitAccountData",
+        JSON.stringify(debitAccountData)
+      );
       dispatch(debitPaysofterAccountFund(debitAccountData));
     } catch (error) {
       console.log(error);
@@ -100,7 +106,7 @@ const PaysofterAccountFund = ({
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
-          currency={currency}
+          // currency={currency}
           userEmail={userEmail}
           publicApiKey={publicApiKey}
           securityCode={securityCode}
@@ -170,7 +176,7 @@ const PaysofterAccountFund = ({
             {loading && <Loader />}
 
             <Form onSubmit={submitHandler}>
-              <Form.Group controlId="currency">
+              {/* <Form.Group controlId="currency">
                 <Form.Label>Currency</Form.Label>
                 <Form.Control
                   as="select"
@@ -181,7 +187,7 @@ const PaysofterAccountFund = ({
                   <option value="NGN">NGN</option>
                   <option value="USD">USD</option>
                 </Form.Control>
-              </Form.Group>
+              </Form.Group> */}
 
               <Form.Group controlId="accountId">
                 <Form.Label>Account ID</Form.Label>
@@ -246,7 +252,6 @@ const PaysofterAccountFund = ({
                 <Form.Label>Security Code</Form.Label>
                 <Row className="text-center py-2">
                   <Col md={10}>
-
                     <Form.Control
                       // type="password"
                       type={securityCodeVisible ? "text" : "password"}
@@ -256,7 +261,6 @@ const PaysofterAccountFund = ({
                       required
                       maxLength={4}
                     />
-                    
                   </Col>
                   <Col md={2}>
                     <Button
@@ -264,11 +268,11 @@ const PaysofterAccountFund = ({
                       onClick={handleSecurityCodeModalShow}
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="A 4-digit Paysofter Account Security Code that expires at a given time."
+                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every hour). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
                     >
                       <i className="fa fa-info-circle"> </i>
                     </Button>
-                    
+
                     <Modal
                       show={showSecurityCodeModal}
                       onHide={handleSecurityCodeModalClose}
@@ -280,8 +284,10 @@ const PaysofterAccountFund = ({
                       </Modal.Header>
                       <Modal.Body>
                         <p className="text-center">
-                          A 4-digit Paysofter Account Security Code that expires
-                          at a given time.{" "}
+                          A 4-digit randomly generated Paysofter Account Security Code that expires
+                          at a given time (e.g. every hour). Having issue
+                          applying the security code? Refresh your paysofter
+                          account page, logout and login or clear browsing data.{" "}
                           <a
                             href="https://paysofter.com/"
                             target="_blank"
@@ -303,23 +309,23 @@ const PaysofterAccountFund = ({
                     </Modal>
                   </Col>
                   <span className="d-flex justify-content-left">
-                      <Button
-                        variant="outline"
-                        className="rounded"
-                        size="sm"
-                        onClick={toggleSecurityCodeVisibility}
-                      >
-                        {securityCodeVisible ? (
-                          <span>
-                            <i className="fa fa-eye-slash"></i> Hide 
-                          </span>
-                        ) : (
-                          <span>
-                            <i className="fa fa-eye"></i> Show
-                          </span>
-                        )}
-                      </Button>
-                    </span>
+                    <Button
+                      variant="outline"
+                      className="rounded"
+                      size="sm"
+                      onClick={toggleSecurityCodeVisibility}
+                    >
+                      {securityCodeVisible ? (
+                        <span>
+                          <i className="fa fa-eye-slash"></i> Hide
+                        </span>
+                      ) : (
+                        <span>
+                          <i className="fa fa-eye"></i> Show
+                        </span>
+                      )}
+                    </Button>
+                  </span>
                 </Row>
               </Form.Group>
 

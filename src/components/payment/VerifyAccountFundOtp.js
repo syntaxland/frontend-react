@@ -60,6 +60,7 @@ const VerifyAccountFundOtp = ({
   const debitAccountData = {
     account_id: sendOtpData.account_id,
     security_code: sendOtpData.security_code,
+    amount: promoTotalPrice,
   };
 
   const handleVerifyEmailOtp = () => {
