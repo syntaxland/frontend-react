@@ -16,7 +16,16 @@ import {
   DEBIT_PAYSOFTER_ACCOUNT_REQUEST,
   DEBIT_PAYSOFTER_ACCOUNT_SUCCESS,
   DEBIT_PAYSOFTER_ACCOUNT_FAIL,
+  CREATE_PAYSOFTER_PROMISE_REQUEST,
+  CREATE_PAYSOFTER_PROMISE_SUCCESS,
+  CREATE_PAYSOFTER_PROMISE_FAIL,
 } from "../constants/paymentConstants";
+
+import {
+  VERIFY_OTP_REQUEST,
+  VERIFY_OTP_SUCCESS,
+  VERIFY_OTP_FAIL,
+} from "../constants/accountFundOtpConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
@@ -89,10 +98,48 @@ export const createPaysofterPayment = (paysofterPaymentData) => async (
       payload: data,
     });
     // window.location.reload();
-    window.location.href = "/dashboard";
+    // window.location.href = "/dashboard";
   } catch (error) {
     dispatch({
       type: PAYSOFTER_PAYMENT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const createPaysofterPromise = (paysofterPromiseData) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: CREATE_PAYSOFTER_PROMISE_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${PAYSOFTER_URL}/api/create-promise/`,
+      paysofterPromiseData,
+      config
+    );
+
+    dispatch({
+      type: CREATE_PAYSOFTER_PROMISE_SUCCESS,
+      payload: data,
+    });
+    // window.location.reload();
+    // window.location.href = "/dashboard";
+  } catch (error) {
+    dispatch({
+      type: CREATE_PAYSOFTER_PROMISE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
@@ -136,6 +183,41 @@ export const debitPaysofterAccountFund = (debitAccountData) => async (
   } catch (error) {
     dispatch({
       type: DEBIT_PAYSOFTER_ACCOUNT_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const verifyOtp = (otpData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VERIFY_OTP_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      `${PAYSOFTER_URL}/api/verify-otp/`,
+      { otpData },
+      config
+    );
+
+    dispatch({
+      type: VERIFY_OTP_SUCCESS,
+      payload: data,
+    });
+    // window.location.reload();
+    // window.location.href = "/dashboard";
+  } catch (error) {
+    dispatch({
+      type: VERIFY_OTP_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

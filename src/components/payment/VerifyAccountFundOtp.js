@@ -1,12 +1,12 @@
 // VerifyAccountFundOtp.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { verifyOtp } from "../../actions/accountFundOtpActions";
 import { clearCart } from "../../actions/cartActions";
 import {
   createPayment,
   createPaysofterPayment,
   debitPaysofterAccountFund,
+  verifyOtp,
 } from "../../actions/paymentActions";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";

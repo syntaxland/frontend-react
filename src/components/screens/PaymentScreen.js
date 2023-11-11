@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Paystack from "../payment/Paystack";
 import Paysofter from "../payment/Paysofter";
-import Stripe from "../payment/Stripe";
+import PaysofterPromise from "../payment/PaysofterPromise";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -174,8 +174,6 @@ function PaymentScreen() {
                   </Button>
                 </Col>
                 <Col md={1}>
-                  
-
                   <Button
                     variant="outline"
                     onClick={handleInfoModalShow}
@@ -186,10 +184,10 @@ function PaymentScreen() {
                     <i className="fa fa-info-circle"> </i>
                   </Button>
 
-                  <Modal show={showInfoModal} onHide={handleInfoModalClose} >
+                  <Modal show={showInfoModal} onHide={handleInfoModalClose}>
                     <Modal.Header closeButton>
                       <Modal.Title className="text-center w-100 py-2">
-                      Paysofter Account
+                        Paysofter Account
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -218,6 +216,61 @@ function PaymentScreen() {
                   </Modal>
                 </Col>
               </Row>
+
+              {/* <Row className="text-center py-2">
+                <Col md={11}>
+                  <Button
+                    variant="primary"
+                    onClick={() => handlePaymentGatewaySelection("paysofter-promise")}
+                    className="mr-2 rounded w-100"
+                  >
+                    Pay with Paysofter Promise
+                  </Button>
+                </Col>
+                <Col md={1}>
+                  <Button
+                    variant="outline"
+                    onClick={handleInfoModalShow}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Don't have a Paysofter account? Click here."
+                  >
+                    <i className="fa fa-info-circle"> </i>
+                  </Button>
+
+                  <Modal show={showInfoModal} onHide={handleInfoModalClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title className="text-center w-100 py-2">
+                        Paysofter Account
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p className="text-center">
+                        Don't have a Paysofter account? You're just about 3
+                        minutes away! Sign up for a much softer payment
+                        experience.{" "}
+                        <a
+                          href="https://paysofter.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {" "}
+                          <span>
+                            <Button
+                              variant="primary"
+                              size="sm"
+                              className="text-center py-2"
+                            >
+                              Create A Free Account
+                            </Button>
+                          </span>
+                        </a>
+                      </p>
+                    </Modal.Body>
+                  </Modal>
+                </Col>
+              </Row> */}
+
             </div>
 
             {selectedPaymentGateway === "paystack" && (
@@ -241,8 +294,8 @@ function PaymentScreen() {
                 shipmentSave={shipmentSave}
               />
             )}
-            {selectedPaymentGateway === "stripe" && (
-              <Stripe paymentData={paymentData} />
+            {selectedPaymentGateway === "paysofter-promise" && (
+              <PaysofterPromise paymentData={paymentData} />
             )}
           </Col>
         </div>

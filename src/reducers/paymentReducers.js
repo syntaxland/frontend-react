@@ -15,6 +15,9 @@ import {
   DEBIT_PAYSOFTER_ACCOUNT_REQUEST,
 DEBIT_PAYSOFTER_ACCOUNT_SUCCESS,
 DEBIT_PAYSOFTER_ACCOUNT_FAIL,
+CREATE_PAYSOFTER_PROMISE_REQUEST,
+CREATE_PAYSOFTER_PROMISE_SUCCESS,
+CREATE_PAYSOFTER_PROMISE_FAIL,
 } from "../constants/paymentConstants";
 
 const initialState = {
@@ -81,10 +84,32 @@ export const debitPaysofterAccountReducer = (state = initialState, action) => {
       return {
         loading: false,
         success: true,
-        formattedPayerEmail: action.payload.formattedPayerEmail,
-        payerEmail: action.payload.payerEmail,
       };
     case DEBIT_PAYSOFTER_ACCOUNT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const createPaysofterPromiseReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_PAYSOFTER_PROMISE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CREATE_PAYSOFTER_PROMISE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        formattedPayerEmail: action.payload.formattedPayerEmail, 
+        payerEmail: action.payload.payerEmail,
+      };
+    case CREATE_PAYSOFTER_PROMISE_FAIL:
       return {
         loading: false,
         error: action.payload,

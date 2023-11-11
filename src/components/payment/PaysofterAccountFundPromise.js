@@ -1,14 +1,13 @@
-// PaysofterAccountFund.js
+// PaysofterAccountFundPromise.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { debitPaysofterAccountFund } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import VerifyAccountFundOtp from "./VerifyAccountFundOtp";
+import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp";
 
-const PaysofterAccountFund = ({
-  history,
+const PaysofterAccountFundPromise = ({
   promoTotalPrice,
   paymentData,
   reference,
@@ -38,7 +37,7 @@ currency
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
   const [showSecurityCodeModal, setShowSecurityCodeModal] = useState(false);
-  const [showVerifyAccountFundOtp, setShowVerifyAccountFundOtp] = useState(
+  const [showVerifyAccountFundPromiseOtp, setShowVerifyAccountFundPromiseOtp] = useState(
     false
   );
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
@@ -76,7 +75,7 @@ currency
   const debitAccountData = {
     account_id: accountId,
     security_code: securityCode,
-    amount: promoTotalPrice, 
+    amount: promoTotalPrice,
   };
 
   const submitHandler = (e) => {
@@ -95,22 +94,22 @@ currency
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        setShowVerifyAccountFundOtp(true);
+        setShowVerifyAccountFundPromiseOtp(true);
       }, 1000);
       return () => clearTimeout(timer);
     }
     // eslint-disable-next-line
-  }, [dispatch, success, history]);
+  }, [dispatch, success]);
 
   return (
     <>
-      {showVerifyAccountFundOtp ? (
-        <VerifyAccountFundOtp
+      {showVerifyAccountFundPromiseOtp ? ( 
+        <VerifyAccountFundPromiseOtp
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
           currency={currency}
-          userEmail={userEmail}
+          buyerEmail={userEmail}
           publicApiKey={publicApiKey}
           securityCode={securityCode}
           accountId={accountId}
@@ -359,4 +358,4 @@ currency
   );
 };
 
-export default PaysofterAccountFund;
+export default PaysofterAccountFundPromise;

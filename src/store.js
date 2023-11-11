@@ -39,6 +39,7 @@ import {
   paymentCreateReducer,
   paysofterPaymentCreateReducer,
   debitPaysofterAccountReducer,
+  createPaysofterPromiseReducer,
   paymentListReducer,
   listAllPaymentsReducer,
 } from "./reducers/paymentReducers";
@@ -170,6 +171,7 @@ const reducer = combineReducers({
   paymentCreate: paymentCreateReducer,
   paysofterPayment: paysofterPaymentCreateReducer,
   debitPaysofterAccountState: debitPaysofterAccountReducer,
+  createPaysofterPromiseState: createPaysofterPromiseReducer,
   paymentList: paymentListReducer,
   listAllPayments: listAllPaymentsReducer,
 
