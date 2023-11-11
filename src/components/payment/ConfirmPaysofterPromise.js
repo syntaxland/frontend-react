@@ -14,7 +14,7 @@ import Message from "../Message";
 import Loader from "../Loader";
 // import PaysofterAccountFund from "./PaysofterAccountFund";
 
-const PAYSOFTER_URL = "http://localhost:3001";
+// const PAYSOFTER_URL = "http://localhost:3001";
 // const PAYSOFTER_URL = "https://api.paysofter.com";
 
 const ConfirmPaysofterPromise = ({
