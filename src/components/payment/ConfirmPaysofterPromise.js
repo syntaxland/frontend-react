@@ -248,7 +248,7 @@ const ConfirmPaysofterPromise = ({
             <a
               // href="${PAYSOFTER_URL}/buyer-confirm-promise/"
               // href="http://localhost:3001/buyer-confirm-promise/"
-              href="https://paysofter.com/buyer-confirm-promise/"
+              href="https://paysofter.com/promise/"
               target="_blank"
               rel="noopener noreferrer"
             >

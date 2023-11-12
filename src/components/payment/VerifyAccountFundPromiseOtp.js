@@ -183,7 +183,7 @@ const VerifyAccountFundPromiseOtp = ({
                 </div>
               </Form>
               <p>
-                OTP has been sent to email: {formattedPayerEmail} for Paysofter
+                OTP has been sent to your email {formattedPayerEmail} for Paysofter
                 Account ID: {sendOtpData.account_id} and expires in 10 minutes.
                 It might take a few seconds to deliver.
               </p>

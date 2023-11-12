@@ -14,8 +14,8 @@ const PaysofterAccountFundPromise = ({
   userEmail,
   publicApiKey,
   duration,
-paymenthMethod,
-currency
+  paymenthMethod,
+  currency,
 }) => {
   const dispatch = useDispatch();
 
@@ -37,9 +37,10 @@ currency
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
   const [showSecurityCodeModal, setShowSecurityCodeModal] = useState(false);
-  const [showVerifyAccountFundPromiseOtp, setShowVerifyAccountFundPromiseOtp] = useState(
-    false
-  );
+  const [
+    showVerifyAccountFundPromiseOtp,
+    setShowVerifyAccountFundPromiseOtp,
+  ] = useState(false);
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
 
   const handleAccountInfoModalShow = () => {
@@ -53,7 +54,7 @@ currency
   const handleSecurityCodeModalShow = () => {
     setShowSecurityCodeModal(true);
   };
-  
+
   const handleSecurityCodeModalClose = () => {
     setShowSecurityCodeModal(false);
   };
@@ -61,8 +62,6 @@ currency
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible(!securityCodeVisible);
   };
-
-  
 
   const handleInfoModalShow = () => {
     setShowInfoModal(true);
@@ -103,7 +102,7 @@ currency
 
   return (
     <>
-      {showVerifyAccountFundPromiseOtp ? ( 
+      {showVerifyAccountFundPromiseOtp ? (
         <VerifyAccountFundPromiseOtp
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
@@ -172,7 +171,7 @@ currency
 
             {success && (
               <Message variant="success">
-                OTP sent to: {formattedPayerEmail} successfully.
+                OTP sent to your email {formattedPayerEmail} successfully.
               </Message>
             )}
 
@@ -288,10 +287,11 @@ currency
                       </Modal.Header>
                       <Modal.Body>
                         <p className="text-center">
-                          A 4-digit randomly generated Paysofter Account Security Code that expires
-                          at a given time (e.g. every hour). Having issue
-                          applying the security code? Refresh your paysofter
-                          account page, logout and login or clear browsing data.{" "}
+                          A 4-digit randomly generated Paysofter Account
+                          Security Code that expires at a given time (e.g. every
+                          hour). Having issue applying the security code?
+                          Refresh your paysofter account page, logout and login
+                          or clear browsing data.{" "}
                           <a
                             href="https://paysofter.com/"
                             target="_blank"

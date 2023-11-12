@@ -13,7 +13,7 @@ function SupportTicketScreen({ history }) {
   const dispatch = useDispatch();
 
   const [subject, setSubject] = useState("");
-  const [category, setCategory] = useState("support");
+  const [category, setCategory] = useState("support"); 
   const [message, setMessage] = useState("");
 
 //   const location = useLocation();

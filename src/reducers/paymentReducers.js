@@ -80,10 +80,11 @@ export const debitPaysofterAccountReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
-    case DEBIT_PAYSOFTER_ACCOUNT_SUCCESS:
+    case DEBIT_PAYSOFTER_ACCOUNT_SUCCESS: 
       return {
         loading: false,
         success: true,
+        formattedPayerEmail: action.payload.formattedPayerEmail, 
       };
     case DEBIT_PAYSOFTER_ACCOUNT_FAIL:
       return {

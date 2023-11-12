@@ -9,7 +9,7 @@ import {
   replySupportTicket,
   getTicketDetail, 
   listSupportTicketReply,
-} from "../../actions/supportActions";
+} from "../../actions/supportActions"; 
 import Loader from "../Loader";
 import Message from "../Message";
 
@@ -90,9 +90,9 @@ function SupportTicketDetails() {
 
             <h2>Ticket ID: {id}</h2>
 
-            <ul>
+            <ul className="border rounded p-4 py-2">
               {ticketsFormatted.map((message) => (
-                <li key={message.id}>
+                <li key={message.id} className="border rounded p-4 py-2">
                   <p>Subject: {message.subject}</p>
                   <p>
                     User:{" "}
@@ -108,7 +108,8 @@ function SupportTicketDetails() {
 
             <ul>
               {ticketRepliesFormatted.map((message) => (
-                <li key={message.id}>
+                <div className="py-2">
+                <li key={message.id} className="border rounded p-4 py-2">
                   <p>
                     User:{" "}
                     {message.first_name.charAt(0).toUpperCase() +
@@ -120,6 +121,7 @@ function SupportTicketDetails() {
                   </p>
                   {/* <p>Rating: {message.rating}</p> */}
                 </li>
+                </div>
               ))}
             </ul>
 
