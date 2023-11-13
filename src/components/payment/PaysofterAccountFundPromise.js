@@ -15,6 +15,7 @@ const PaysofterAccountFundPromise = ({
   publicApiKey,
   duration,
   paymenthMethod,
+  paymentProvider,
   currency,
 }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const PaysofterAccountFundPromise = ({
     formattedPayerEmail,
     error,
   } = debitPaysofterAccountState;
-  console.log("formattedPayerEmail:", formattedPayerEmail);
+  console.log("formattedPayerEmail:", formattedPayerEmail, 'paymenthMethod:', paymenthMethod);
 
   const [accountId, setAccountId] = useState("");
   const [securityCode, setSecurityCode] = useState("");
@@ -107,14 +108,15 @@ const PaysofterAccountFundPromise = ({
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
-          currency={currency}
           buyerEmail={userEmail}
           publicApiKey={publicApiKey}
           securityCode={securityCode}
           accountId={accountId}
           formattedPayerEmail={formattedPayerEmail}
+          currency={currency}
           duration={duration}
           paymenthMethod={paymenthMethod}
+          paymentProvider={paymentProvider}
         />
       ) : (
         <Row className="justify-content-center">

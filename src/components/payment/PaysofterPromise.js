@@ -27,10 +27,13 @@ const PaysofterPromise = ({
   );
   const { loading, success, error } = debitPaysofterAccountState;
 
-  const [duration, setDuration] = useState("1day");
+  const [duration, setDuration] = useState("Within 1 day");
   const [currency, setCurrency] = useState("NGN");
   const [paymenthMethod, setPaymenthMethod] = useState(
-    "paysofter_promise"
+    "Paysofter Promise"
+  );
+  const [paymentProvider, setPaymentProvider] = useState(
+    "Paysofter"
   );
   // const createdAt = new Date().toISOString();
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -101,6 +104,7 @@ const PaysofterPromise = ({
           currency={currency}
           duration={duration}
           paymenthMethod={paymenthMethod}
+          paymentProvider={paymentProvider}
         />
       ) : (
         <Row className="justify-content-center">
@@ -205,15 +209,33 @@ const PaysofterPromise = ({
                   value={paymenthMethod}
                   onChange={(e) => setPaymenthMethod(e.target.value)}
                 >
-                  <option value="paysofter_promise">Paysofter Promise</option>
-                  <option value="paysofter_account_fund">
+                  <option value="Paysofter Promise">Paysofter Promise</option>
+                  <option value="Paysofter Account Fund">
                     Paysofter Account Fund
                   </option>
-                  <option value="debit_card">Debit Card</option>
-                  <option value="bank">Bank</option>
-                  <option value="transfer">Transfer</option>
-                  <option value="qrcode">QR COde</option>
+                  <option value="Debit Card">Debit Card</option>
+                  <option value="Bank">Bank</option>
+                  <option value="Transfer">Transfer</option>
+                  <option value="QR COde">QR COde</option>
                   <option value="USSD">USSD</option>
+                </Form.Control>
+              </Form.Group>
+
+              <Form.Group controlId="paymentProvider">
+                <Form.Label>Payment Provider</Form.Label>
+                <Form.Control
+                  disabled
+                  as="select"
+                  value={paymentProvider}
+                  onChange={(e) => setPaymentProvider(e.target.value)}
+                >
+                  <option value="Paysofter">Paysofter</option>
+                  
+                  <option value="Mastercard">Mastercard</option>
+                  <option value="Verve">Verve</option>
+                  <option value="Visa">Visa</option>
+                  <option value="GTB">GTB</option>
+                  <option value="Fidelity">Fidelity</option>
                 </Form.Control>
               </Form.Group>
 
@@ -225,76 +247,16 @@ const PaysofterPromise = ({
                   value={duration}
                   onChange={(e) => setDuration(e.target.value)}
                 >
-                  <option value="1day">Within 1 day</option>
-                  <option value="2days">Less than 2 days</option>
-                  <option value="3days">Less than 3 days</option>
-                  <option value="1week">Less than 1 week</option>
-                  <option value="2week">Less than 2 weeks</option>
-                  <option value="1month">Less than 1 month</option>
+                  <option value="Within 1 day">Within 1 day</option>
+                  <option value="Less than 2 days">Less than 2 days</option>
+                  <option value="Less than 3 days">Less than 3 days</option>
+                  <option value="Less than 1 week">Less than 1 week</option>
+                  <option value="Less than 2 weeks">Less than 2 weeks</option>
+                  <option value="Less than 1 month">Less than 1 month</option>
                 </Form.Control>
               </Form.Group>
 
-              {/* <Form.Group controlId="accountId">
-              <Form.Label>Payer Paysofter Account ID</Form.Label>
-
-              <Row className="text-center py-2">
-                <Col md={10}>
-                  <Form.Control
-                    type="number"
-                    placeholder="Enter Paysofter Account ID"
-                    value={accountId}
-                    onChange={(e) => setAccountId(e.target.value)}
-                    required
-                    maxLength={11}
-                  />
-                </Col>
-                <Col md={2}>
-                  <Button
-                    variant="outline"
-                    onClick={handleAccountInfoModalShow}
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="A unqiuely assigned 12-digit Paysofter Account ID. Don't have a Paysofter account? Click here."
-                  >
-                    <i className="fa fa-info-circle"> </i>
-                  </Button>
-
-                  <Modal
-                    show={showAccountInfoModal}
-                    onHide={handleAccountInfoModalClose}
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title className="text-center w-100 py-2">
-                        Paysofter Account ID
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p className="text-center">
-                        A unqiuely assigned 12-digit Paysofter Account ID. Don't
-                        have a Paysofter account? You're just about 3 minutes
-                        away!{" "}
-                        <a
-                          href="https://paysofter.com/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {" "}
-                          <span>
-                            <Button
-                              variant="primary"
-                              size="sm"
-                              className="text-center py-2"
-                            >
-                              Create A Free Account
-                            </Button>
-                          </span>
-                        </a>
-                      </p>
-                    </Modal.Body>
-                  </Modal>
-                </Col>
-              </Row>
-            </Form.Group> */}
+              
 
               <div className="py-3 text-center">
                 <Button
@@ -304,24 +266,11 @@ const PaysofterPromise = ({
                   onClick={handleShowPaysofterAccountFundPromise}
                 >
                   Submit{" "}
-                  {/* <span>
-                  (NGN{" "}
-                  {promoTotalPrice.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                  )
-                </span> */}
+                 
                 </Button>
               </div>
             </Form>
-            {/* {showPaysofterAccountFundPromise && (
-            <PaysofterAccountFundPromise
-              duration={duration}
-              currency={currency}
-              paymenthMethod={paymenthMethod}
-            />
-          )} */}
+            
           </Col>
         </Row>
       )}

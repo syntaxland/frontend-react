@@ -26,9 +26,14 @@ function PaysofterButton({
   paysofterPaymentData,
 }) {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState("card");
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const handlePaymentOptionChange = (option) => {
     setSelectedPaymentOption(option);
+  };
+
+  const handleMoreOptions = () => {
+    setShowMoreOptions(!showMoreOptions);
   };
 
   return (
@@ -36,7 +41,7 @@ function PaysofterButton({
       <div className="text-center">
         <Button
           className="text-center rounded py-2"
-          variant="primary"
+          variant="outline-primary"
           onClick={() => setShowPaymentModal(true)}
         >
           <span>Pay Now</span>
@@ -67,7 +72,7 @@ function PaysofterButton({
 
                 <div className="py-1">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("card")}
                     className={selectedPaymentOption === "card" ? "active" : ""}
                   >
@@ -77,7 +82,7 @@ function PaysofterButton({
 
                 <div className="py-1">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("account-fund")}
                     className={
                       selectedPaymentOption === "account-fund" ? "active" : ""
@@ -90,7 +95,7 @@ function PaysofterButton({
 
                 <div className="py-1">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("promise")}
                     className={
                       selectedPaymentOption === "promise" ? "active" : ""
@@ -100,9 +105,19 @@ function PaysofterButton({
                   </Button>
                 </div>
 
-                <div className="py-1">
+                <div className="text-center py-2">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
+                    onClick={handleMoreOptions}
+                    className="rounded"
+                  >
+                    <i className="fas fa-bars"></i> More Options
+                  </Button>
+                </div>
+
+                {/* <div className="py-1">
+                  <Button
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("transfer")}
                     className={
                       selectedPaymentOption === "transfer" ? "active" : ""
@@ -114,7 +129,7 @@ function PaysofterButton({
 
                 <div className="py-1">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("bank")}
                     className={selectedPaymentOption === "bank" ? "active" : ""}
                   >
@@ -124,7 +139,7 @@ function PaysofterButton({
 
                 <div className="py-1">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("ussd")}
                     className={selectedPaymentOption === "ussd" ? "active" : ""}
                   >
@@ -134,18 +149,68 @@ function PaysofterButton({
 
                 <div className="py-1">
                   <Button
-                    variant="primary"
+                    variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("qr")}
                     className={selectedPaymentOption === "qr" ? "active" : ""}
                   >
                     <i className="fa fa-qrcode"></i> Visa QR
                   </Button>{" "}
-                </div>
+                </div> */}
+
+                {showMoreOptions && (
+                  <>
+                    <div className="py-1">
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => handlePaymentOptionChange("transfer")}
+                        className={
+                          selectedPaymentOption === "transfer" ? "active" : ""
+                        }
+                      >
+                        <i className="fa fa-exchange"></i> Transfer
+                      </Button>
+                    </div>
+
+                    <div className="py-1">
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => handlePaymentOptionChange("bank")}
+                        className={
+                          selectedPaymentOption === "bank" ? "active" : ""
+                        }
+                      >
+                        <i className="fas fa-bank"></i> Bank
+                      </Button>
+                    </div>
+
+                    <div className="py-1">
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => handlePaymentOptionChange("ussd")}
+                        className={
+                          selectedPaymentOption === "ussd" ? "active" : ""
+                        }
+                      >
+                        <i className="fa fa-mobile"></i> USSD
+                      </Button>{" "}
+                    </div>
+
+                    <div className="py-1">
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => handlePaymentOptionChange("qr")}
+                        className={
+                          selectedPaymentOption === "qr" ? "active" : ""
+                        }
+                      >
+                        <i className="fa fa-qrcode"></i> Visa QR
+                      </Button>{" "}
+                    </div>
+                  </>
+                )}
               </div>
             </Col>
-            {/* Right column with selected payment option component */}
             <Col md={9}>
-              {/* Conditionally render the selected payment option component */}
               {selectedPaymentOption === "card" && (
                 <CardPayment
                   paymentDetails={paymentDetails}
@@ -158,10 +223,6 @@ function PaysofterButton({
                   paysofterPaymentData={paysofterPaymentData}
                 />
               )}
-              {selectedPaymentOption === "bank" && <BankPayment />}
-              {selectedPaymentOption === "transfer" && <TransferPayment />}
-              {selectedPaymentOption === "ussd" && <UssdPayment />}
-              {selectedPaymentOption === "qr" && <QrPayment />}
 
               {selectedPaymentOption === "account-fund" && (
                 <PaysofterAccountFund
@@ -182,6 +243,11 @@ function PaysofterButton({
                   publicApiKey={publicApiKey}
                 />
               )}
+
+              {selectedPaymentOption === "bank" && <BankPayment />}
+              {selectedPaymentOption === "transfer" && <TransferPayment />}
+              {selectedPaymentOption === "ussd" && <UssdPayment />}
+              {selectedPaymentOption === "qr" && <QrPayment />}
             </Col>
           </Row>
         </Modal.Body>

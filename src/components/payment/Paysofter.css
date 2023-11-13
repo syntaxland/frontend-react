@@ -1,7 +1,8 @@
 /* Paysofter.css */
 
 .rounded-select {
-    border-radius: 25px;  
+    border-radius: 5px;  
+    /* border-radius: 25px;   */
     width: 150px; 
 
     /* background-image: url('path_to_arrow_icon.png'); 

@@ -1,13 +1,12 @@
 // VerifyAccountFundPromiseOtp.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { clearCart } from "../../actions/cartActions";
+import { clearCart } from "../../actions/cartActions";
 import {
-  // createPayment,
+  createPayment,
   // createPaysofterPayment,
   debitPaysofterAccountFund,
   verifyOtp,
-  // sendPromiseAlert,
   createPaysofterPromise,
 } from "../../actions/paymentActions";
 import { useHistory } from "react-router-dom";
@@ -21,9 +20,12 @@ const VerifyAccountFundPromiseOtp = ({
   paymentData,
   reference,
   buyerEmail,
-  currency,
   publicApiKey,
   formattedPayerEmail,
+  currency,
+  duration,
+  paymenthMethod,
+  paymentProvider,
 }) => {
   const [otp, setOtp] = useState("");
   const [resendDisabled, setResendDisabled] = useState(false);
@@ -79,8 +81,13 @@ const VerifyAccountFundPromiseOtp = ({
     amount: promoTotalPrice,
     public_api_key: publicApiKey,
     account_id: sendOtpData.account_id,
+    currency: currency,
+    duration: duration,
+    payment_method: paymenthMethod,
+    payment_provider: paymentProvider,
     created_at: createdAt,
   };
+  console.log("paysofterPromiseData:", paysofterPromiseData);
 
   const handleVerifyEmailOtp = () => {
     dispatch(verifyOtp(otpData));
@@ -115,12 +122,11 @@ const VerifyAccountFundPromiseOtp = ({
 
   useEffect(() => {
     if (success) {
-      localStorage.removeItem("debitAccountData");
       dispatch(createPaysofterPromise(paysofterPromiseData));
       setShowConfirmPaysofterPromise(true);
-
-      // dispatch(clearCart());
-      // dispatch(sendPromiseAlert(promiseAlertData));
+      dispatch(createPayment(paymentData));
+      localStorage.removeItem("debitAccountData");
+      dispatch(clearCart());
       setShowSuccessMessage(true);
       setTimeout(() => {
         // history.push("/login");
@@ -136,14 +142,11 @@ const VerifyAccountFundPromiseOtp = ({
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
-          currency={currency}
           buyerEmail={buyerEmail}
           publicApiKey={publicApiKey}
-          // securityCode={securityCode}
-          // accountId={accountId}
-          // formattedPayerEmail={formattedPayerEmail}
-          // duration={duration}
-          // paymenthMethod={paymenthMethod}
+          currency={currency}
+          duration={duration}
+          paymenthMethod={paymenthMethod}
         />
       ) : (
         <Row className="justify-content-center text-center mt-5">
@@ -183,9 +186,9 @@ const VerifyAccountFundPromiseOtp = ({
                 </div>
               </Form>
               <p>
-                OTP has been sent to your email {formattedPayerEmail} for Paysofter
-                Account ID: {sendOtpData.account_id} and expires in 10 minutes.
-                It might take a few seconds to deliver.
+                OTP has been sent to your email {formattedPayerEmail} for
+                Paysofter Account ID: {sendOtpData.account_id} and expires in 10
+                minutes. It might take a few seconds to deliver.
               </p>
               <Button
                 variant="link"

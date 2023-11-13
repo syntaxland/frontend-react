@@ -115,7 +115,7 @@ export const createPaysofterPromise = (paysofterPromiseData) => async (
 ) => {
   try {
     dispatch({
-      type: CREATE_PAYSOFTER_PROMISE_REQUEST,
+      type: CREATE_PAYSOFTER_PROMISE_REQUEST, 
     });
 
     const config = {
