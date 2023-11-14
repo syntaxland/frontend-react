@@ -140,7 +140,7 @@ function SupportTicket() {
               totalItems={tickets.length}
               currentPage={currentPage}
               paginate={paginate}
-            />
+            /> 
           </div>
         </>
       )}
@@ -154,7 +154,7 @@ function SupportTicket() {
         </Button>
       </div>
     </div>
-  );
+  ); 
 }
 
 export default SupportTicket;

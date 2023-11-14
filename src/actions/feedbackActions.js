@@ -12,7 +12,7 @@ import {
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const createFeedback = (feedbackData) => async (dispatch, getState) => {
+export const createFeedback = (feedbackData) => async (dispatch, getState) => { 
   try {
     dispatch({
       type: CREATE_FEEDBACK_REQUEST,

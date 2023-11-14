@@ -8,7 +8,7 @@ import {
   listSupportMessage,
 } from "../../actions/supportActions";
 import Message from "../Message";
-import Loader from "../Loader";
+import Loader from "../Loader";  
 import Pagination from "../Pagination";
 
 function SupportMessage() {
