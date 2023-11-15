@@ -102,7 +102,9 @@ const VerifyAccountFundOtp = ({
       dispatch(clearCart());
       setShowSuccessMessage(true);
       setTimeout(() => {
-        // history.push("/login");
+        // history.push("/dashboard");
+        window.location.reload();
+        window.location.href = "/dashboard";
       }, 5000);
     }
     // eslint-disable-next-line
