@@ -25,9 +25,8 @@ const ConfirmPaysofterPromise = () => {
           <div className="py-2 text-center">
             <h5 className="py-2 mb-2">Promise successfully created! </h5>
             <p>
-              Is Promise fulfilled? Login to your Paysofter account to check out
-              the Promise status before confirming as this action is
-              irreversible.
+              Is Promise fulfilled? Check your email or login to your Paysofter account to check out
+              the Promise status to confirm.
             </p>{" "}
             <span>
               <Button
