@@ -86,8 +86,8 @@ function CardPayment({
       dispatch(clearCart());
       const timer = setTimeout(() => {
         // history.push("/dashboard");
-        // window.location.href = "/dashboard";
-        // window.location.reload();
+        window.location.href = "/dashboard";
+        window.location.reload();
       }, 5000);
       return () => clearTimeout(timer);
     }
