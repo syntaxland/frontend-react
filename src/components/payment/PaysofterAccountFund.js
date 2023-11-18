@@ -99,8 +99,11 @@ currency
       }, 1000);
       return () => clearTimeout(timer);
     }
+    else {
+      console.error("Error verifying account")
+    }
     // eslint-disable-next-line
-  }, [dispatch, success, history]);
+  }, [dispatch, success, history, error]);
 
   return (
     <>
@@ -173,7 +176,7 @@ currency
 
             {success && (
               <Message variant="success">
-                OTP sent to: {formattedPayerEmail} successfully.
+                OTP sent to your email {formattedPayerEmail} successfully.
               </Message>
             )}
 
@@ -273,7 +276,7 @@ currency
                       onClick={handleSecurityCodeModalShow}
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every hour). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
+                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every minute, hour or day). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
                     >
                       <i className="fa fa-info-circle"> </i>
                     </Button>

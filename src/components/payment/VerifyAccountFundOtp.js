@@ -114,10 +114,10 @@ const VerifyAccountFundOtp = ({
     <Container>
       <Row className="justify-content-center text-center mt-5">
         <Col>
-          <div className="border rounded p-4">
-            <h1>Verify OTP</h1>
+          <div className="border rounded p-4 py-2">
+            <h1 className="py-2">Verify OTP</h1>
             {showSuccessMessage && (
-              <Message variant="success">Payment made successfully!</Message>
+              <Message variant="success">Payment made successfully!</Message> 
             )}
             {loading && <Loader />}
             {error && <Message variant="danger">{error}</Message>}
@@ -126,7 +126,7 @@ const VerifyAccountFundOtp = ({
                 {resendMessage}
               </Message>
             )}
-            <Form>
+            <Form className="py-2">
               <Form.Group controlId="otp">
                 <Form.Control
                   type="text"

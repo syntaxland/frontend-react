@@ -12,6 +12,7 @@ function PostAds({ history }) {
 
   const [subject, setSubject] = useState("");
   const [category, setCategory] = useState("");
+  const [type, setType] = useState("");
   const [message, setMessage] = useState("");
 
   // const userLogin = useSelector((state) => state.userLogin);
@@ -76,6 +77,33 @@ function PostAds({ history }) {
                 as="select"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="support">Home Appliances</option>
+                <option value="billing">Properties</option>
+                <option value="abuse">Electronics</option>
+                <option value="otp">Fashion</option>
+                <option value="payment">Vehicles</option>
+                <option value="services">Services</option>
+                <option value="credit_points">Mobile Phones</option>
+                <option value="referrals">Health & Beauty</option>
+                <option value="others">Sports</option>
+                <option value="others">Jobs</option>
+                <option value="others">Babies and Kids</option>
+                <option value="others">Agric & Food</option>
+                <option value="others">Repairs</option>
+                <option value="others">Equipment & Tools</option>
+                <option value="others">CVs</option>
+                <option value="others">Pets</option>
+                <option value="others">Others</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="type">
+              <Form.Label>Type</Form.Label>
+              <Form.Control
+                as="select"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
               >
                 <option value="support">Home Appliances</option>
                 <option value="billing">Properties</option>
@@ -178,7 +206,11 @@ function PostAds({ history }) {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="support">1 day</option>
+                <option value="support">2 days</option>
+                <option value="support">3 days</option>
+                <option value="support">5 day</option>
                 <option value="billing">1 week</option>
+                <option value="billing">2 week</option>
                 <option value="abuse">1 month</option>
               </Form.Control>
             </Form.Group>

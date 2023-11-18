@@ -151,8 +151,8 @@ const VerifyAccountFundPromiseOtp = ({
       ) : (
         <Row className="justify-content-center text-center mt-5">
           <Col>
-            <div className="border rounded p-4">
-              <h1>Verify OTP</h1>
+            <div className="border rounded p-4 py-2">
+            <h1 className="py-2">Verify OTP</h1>
               {showSuccessMessage && (
                 <Message variant="success">Promise sent successfully!</Message>
               )}
@@ -163,7 +163,7 @@ const VerifyAccountFundPromiseOtp = ({
                   {resendMessage}
                 </Message>
               )}
-              <Form>
+              <Form className="py-2">
                 <Form.Group controlId="otp">
                   <Form.Control
                     type="text"

@@ -10,6 +10,7 @@ const ConfirmPaysofterPromise = () => {
   const handleConfirmPromise = () => {
     dispatch(clearCart());
     window.location.href = "https://paysofter.com/promise/buyer";
+    window.location.reload();
   };
 
   return (
@@ -18,12 +19,12 @@ const ConfirmPaysofterPromise = () => {
         <Col>
           <Row className="text-center py-2">
             <Col>
-              <h2 className="py-2 text-center">Confirm Paysofter Promise</h2>
+              {/* <h2 className="py-2 text-center">Confirm Paysofter Promise</h2> */}
             </Col>
           </Row>
 
           <div className="py-2 text-center">
-            <h5 className="py-2 mb-2">Promise successfully created! </h5>
+            <h3 className="py-2 mb-2">Promise successfully created! </h3>
             <p>
               Is Promise fulfilled? Check your email or login to your Paysofter account to check out
               the Promise status to confirm.

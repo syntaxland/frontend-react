@@ -248,11 +248,12 @@ const PaysofterPromise = ({
                   onChange={(e) => setDuration(e.target.value)}
                 >
                   <option value="Within 1 day">Within 1 day</option>
-                  <option value="Less than 2 days">Less than 2 days</option>
-                  <option value="Less than 3 days">Less than 3 days</option>
-                  <option value="Less than 1 week">Less than 1 week</option>
-                  <option value="Less than 2 weeks">Less than 2 weeks</option>
-                  <option value="Less than 1 month">Less than 1 month</option>
+                  <option value="2 days">Less than 2 days</option>
+                  <option value="3 days">Less than 3 days</option> 
+                  <option value="5 days">Less than 5 days</option> 
+                  <option value="1 week">Less than 1 week</option>
+                  <option value="2 weeks">Less than 2 weeks</option>
+                  <option value="1 month">Less than 1 month</option>
                 </Form.Control>
               </Form.Group>
 
