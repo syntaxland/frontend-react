@@ -10,7 +10,7 @@ const ConfirmPaysofterPromise = () => {
   const handleConfirmPromise = () => {
     dispatch(clearCart());
     window.location.href = "https://paysofter.com/promise/buyer";
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
