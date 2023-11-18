@@ -209,8 +209,8 @@ function PostAds({ history }) {
                 <option value="support">2 days</option>
                 <option value="support">3 days</option>
                 <option value="support">5 day</option>
-                <option value="billing">1 week</option>
-                <option value="billing">2 week</option>
+                <option value="billing">1 week</option> 
+                <option value="billing">2 week</option> 
                 <option value="abuse">1 month</option>
               </Form.Control>
             </Form.Group>
