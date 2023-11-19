@@ -129,7 +129,12 @@ const CreditPointScreen = ({ history }) => {
               />
             </Form.Group>
             <div className="py-3 text-center">
-              <Button className="w-100 rounded" type="submit" variant="success">
+              <Button
+                className="w-100 rounded"
+                type="submit"
+                variant="success"
+                disabled={loading || success}
+              >
                 Submit
               </Button>
             </div>

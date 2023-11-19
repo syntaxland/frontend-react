@@ -114,6 +114,7 @@ function LoginScreen({ location }) {
                 type="submit"
                 variant="success"
                 block
+                disabled={password === "" || email === ""}
               >
                 Login <i className="fa fa-sign-in"></i>
               </Button>

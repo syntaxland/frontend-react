@@ -116,7 +116,19 @@ const ShipmentScreen = ({ history, match }) => {
               />
             </Form.Group>
             <div className="text-center py-2">
-              <Button type="submit" className="w-100 rounded" variant="success">
+              <Button
+                type="submit"
+                className="w-100 rounded"
+                variant="success"
+                disabled={
+                  address === "" ||
+                  city === "" ||
+                  postalCode === "" ||
+                  country === "" ||
+                  loading ||
+                  success
+                }
+              >
                 Proceed to Payment
               </Button>
             </div>

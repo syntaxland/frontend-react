@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import {
   createSupportTicket,
-  // createSupportMessage, 
+  // createSupportMessage,
 } from "../../actions/supportActions";
 import Loader from "../Loader";
 import Message from "../Message";
@@ -13,12 +13,12 @@ function SupportTicketScreen({ history }) {
   const dispatch = useDispatch();
 
   const [subject, setSubject] = useState("");
-  const [category, setCategory] = useState("support"); 
+  const [category, setCategory] = useState("support");
   const [message, setMessage] = useState("");
 
-//   const location = useLocation();
-//   const query = new URLSearchParams(location.search);
-//   const orderItemId = query.get("orderItemId");
+  //   const location = useLocation();
+  //   const query = new URLSearchParams(location.search);
+  //   const orderItemId = query.get("orderItemId");
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -27,8 +27,6 @@ function SupportTicketScreen({ history }) {
     (state) => state.createSupportTicketState
   );
   const { loading, success, error } = createSupportTicketState;
-
-
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -64,7 +62,7 @@ function SupportTicketScreen({ history }) {
         <Col xs={12} md={6}>
           <h2 className="text-center">Create A New Support Ticket</h2>
           {loading && <Loader />}
-          {error  && <Message variant="danger">{error}</Message>}
+          {error && <Message variant="danger">{error}</Message>}
           {success && (
             <Message variant="success">Ticket created successfully.</Message>
           )}
@@ -72,7 +70,7 @@ function SupportTicketScreen({ history }) {
             <Form.Group controlId="category">
               <Form.Label>Category</Form.Label>
               <Form.Control
-                as="select" 
+                as="select"
                 required
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -97,7 +95,6 @@ function SupportTicketScreen({ history }) {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 maxLength={80}
-                
               ></Form.Control>
             </Form.Group>
 
@@ -114,7 +111,14 @@ function SupportTicketScreen({ history }) {
             </Form.Group>
 
             <div className="py-2">
-              <Button className="w-100 rounded" type="submit" variant="success">
+              <Button
+                className="w-100 rounded"
+                type="submit"
+                variant="success"
+                disabled={
+                  message === "" || subject === "" || loading || success
+                }
+              >
                 Submit
               </Button>
             </div>

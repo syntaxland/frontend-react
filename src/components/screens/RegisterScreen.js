@@ -61,9 +61,7 @@ function RegisterScreen({ location, history }) {
         ...prevIsValid,
         [field]: value === password,
       }));
-    } 
-    
-    else if (field === "username") {
+    } else if (field === "username") {
       const containsSpecialChars = /[^a-zA-Z0-9_]/.test(value);
       setIsValid((prevIsValid) => ({
         ...prevIsValid,
@@ -74,9 +72,7 @@ function RegisterScreen({ location, history }) {
       } else {
         setMessage("");
       }
-    } 
-    
-    else {
+    } else {
       setIsValid((prevIsValid) => ({ ...prevIsValid, [field]: !!value }));
     }
   };
@@ -401,6 +397,14 @@ function RegisterScreen({ location, history }) {
                 type="submit"
                 variant="success"
                 block
+                disabled={
+                  password === "" ||
+                  email === "" ||
+                  username === "" ||
+                  phoneNumber === "" ||
+                  loading ||
+                  success
+                }
               >
                 {loading && <Loader />}
                 <i className="fas fa-registered"></i> Register
