@@ -1,6 +1,7 @@
 // PaysofterButton.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Modal, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import CardPayment from "./CardPayment";
 import UssdPayment from "./UssdPayment";
@@ -25,12 +26,23 @@ function PaysofterButton({
   paymentData,
   paysofterPaymentData,
 }) {
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
   const [selectedPaymentOption, setSelectedPaymentOption] = useState("card");
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const handlePaymentOptionChange = (option) => {
     setSelectedPaymentOption(option);
   };
+
 
   const handleMoreOptions = () => {
     setShowMoreOptions(!showMoreOptions);

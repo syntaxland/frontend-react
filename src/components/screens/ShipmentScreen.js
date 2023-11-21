@@ -10,6 +10,15 @@ import Loader from "../Loader";
 const ShipmentScreen = ({ history, match }) => {
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
   const { loading, success, error } = useSelector(
     (state) => state.shipmentSave
   );

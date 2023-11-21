@@ -1,11 +1,20 @@
 // ConfirmPaysofterPromise.js
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { clearCart } from "../../actions/cartActions";
 
 const ConfirmPaysofterPromise = () => {
   const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
 
   const handleConfirmPromise = () => {
     dispatch(clearCart());
@@ -26,8 +35,8 @@ const ConfirmPaysofterPromise = () => {
           <div className="py-2 text-center">
             <h3 className="py-2 mb-2">Promise successfully created! </h3>
             <p>
-              Is Promise fulfilled? Check your email or login to your Paysofter account to check out
-              the Promise status to confirm.
+              Is Promise fulfilled? Check your email or login to your Paysofter
+              account to check out the Promise status to confirm.
             </p>{" "}
             <span>
               <Button

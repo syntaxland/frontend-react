@@ -14,6 +14,12 @@ function PaymentScreen() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
   // const history = useHistory();
 
   // const [publicKey, setPublicKey] = useState("");

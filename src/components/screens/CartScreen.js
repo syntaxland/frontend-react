@@ -22,23 +22,6 @@ function CartScreen({ match, location, history }) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  // const item = match.params.id;
-  // console.log('item:', item)
-  
-  // const priceToUse = item.promo_price || item.price;
-  // const totalItemCost = priceToUse * item.qty;
-
-  // const subtotal = cartItems.reduce(
-  //   (acc, item) => (item.promo_price || item.price) * item.qty + acc,
-  //   0
-  // );
-  
-
-
-//   const totalItemPrice = item.price * item.qty;
-// const priceToUse = item.promo_price || item.price;
-// const totalItemCost = totalItemPrice * priceToUse;
-
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -77,10 +60,7 @@ function CartScreen({ match, location, history }) {
                   <Col md={3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>
-                    NGN{" "}
-                    {item.price}
-                  </Col>
+                  <Col md={2}>NGN {item.price}</Col>
                   <Col md={3}>
                     <Form.Control
                       as="select"
@@ -123,9 +103,7 @@ function CartScreen({ match, location, history }) {
                 items
               </h2>
               NGN{" "}
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                }
+              {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
             </ListGroup.Item>
           </ListGroup>
 

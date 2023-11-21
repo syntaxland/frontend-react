@@ -12,6 +12,15 @@ function EditReviewScreen({ history, match }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
   // const reviewId = match.params.reviewId;
 
   const location = useLocation();

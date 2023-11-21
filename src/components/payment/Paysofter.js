@@ -1,5 +1,5 @@
 // Paysofter.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, ListGroup } from "react-bootstrap";
 // import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -34,6 +34,15 @@ function Paysofter({
 
   const paymentCreate = useSelector((state) => state.paymentCreate);
   const { loading, error } = paymentCreate;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
 
   // const paysofterPayment = useSelector((state) => state.paysofterPayment);
   // const {

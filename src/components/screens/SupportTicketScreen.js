@@ -23,6 +23,12 @@ function SupportTicketScreen({ history }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
   const createSupportTicketState = useSelector(
     (state) => state.createSupportTicketState
   );

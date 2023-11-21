@@ -178,11 +178,7 @@ function RegisterScreen({ location, history }) {
                   : ""
               }`}
             />
-            {/* <div className="valid-feedback">
-              {isValid.username &&  (
-                <i className="bi bi-check2-circle text-success"></i>
-              )}
-            </div> */}
+            
             <div className="valid-feedback">
               {isValid.username && username && (
                 <i className="bi bi-check2-circle text-success"></i>
@@ -401,7 +397,7 @@ function RegisterScreen({ location, history }) {
                   password === "" ||
                   email === "" ||
                   username === "" ||
-                  phoneNumber === "" ||
+                  phoneNumber === "" || 
                   loading ||
                   success
                 }

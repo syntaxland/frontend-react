@@ -14,8 +14,14 @@ function FeedbackScreen({ history }) {
   const [category, setCategory] = useState("");
   const [message, setMessage] = useState("");
 
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
 
   const feedbackCreate = useSelector((state) => state.feedbackCreate);
   const { loading, success, error } = feedbackCreate;
@@ -31,12 +37,6 @@ function FeedbackScreen({ history }) {
 
     dispatch(createFeedback(feedbackData));
   };
-
-  // useEffect(() => {
-  //   if (!userInfo) {
-  //     // Redirect to login or handle unauthorized access
-  //   }
-  // }, [dispatch, userInfo]);
 
   useEffect(() => {
     if (success) {
