@@ -37,7 +37,7 @@ export const sendMessage = (messageData) => async (dispatch, getState) => {
 
     dispatch({ type: SEND_MESSAGE_SUCCESS });
     window.location.reload();
-    window.location.href = "/admin-dashboard";
+    window.location.href = "/dashboard/admin";
   } catch (error) {
     dispatch({
       type: SEND_MESSAGE_FAIL,
@@ -95,7 +95,7 @@ export const sendEmail = (emailData) => async (dispatch, getState) => {
 
     dispatch({ type: EMAIL_SEND_SUCCESS });
     window.location.reload();
-    window.location.href = "/admin-dashboard";
+    window.location.href = "/dashboard/admin";
   } catch (error) {
     dispatch({
       type: EMAIL_SEND_FAIL,

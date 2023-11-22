@@ -40,7 +40,7 @@ export const createFeedback = (feedbackData) => async (dispatch, getState) => {
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: CREATE_FEEDBACK_FAIL,

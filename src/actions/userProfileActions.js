@@ -74,7 +74,7 @@ export const updateUserProfile = (userData) => async (dispatch, getState) => {
       payload: response.data,
     });
     window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: UPDATE_USER_PROFILE_FAIL,
@@ -110,7 +110,7 @@ export const updateUserAvatar = (avatarData) => async (dispatch, getState) => {
       payload: data,
     });
     window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: UPDATE_USER_AVATAR_FAIL,

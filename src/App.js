@@ -96,10 +96,10 @@ function App() {
           <Route path="/reset-password/:token" component={ResetPassword} />
           <Route path="/orders" component={Orders} />
           <Route path="/payments" component={Payments} />
-          
+
           <Route path="/dashboard/users" component={UserDashboard} />
-          <Route path="/dashboard/marketplace" component={MarketplaceDashboard} />
-          <Route path="/dashboard/ecommerce" component={EcommerceDashboard} />
+          <Route path="/dashboard/marketplace/sellers" component={MarketplaceDashboard} />
+          <Route path="/dashboard/ecommerce/sellers" component={EcommerceDashboard} />
           <Route path="/dashboard/admin" component={AdminDashboard} />
 
           <Route path="/review-list/:productId" component={ReviewScreen} />

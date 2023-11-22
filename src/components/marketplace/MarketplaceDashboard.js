@@ -41,9 +41,9 @@ function MarketplaceDashboard({ history }) {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const handleAdminDashboard = () => {
-    history.push("/admin-dashboard");
-  };
+  // const handleAdminDashboard = () => {
+  //   history.push("/admin-dashboard");
+  // };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -137,10 +137,10 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("profile")}
                 >
-                  <i className="fas fa-user"></i> Profile
+                  <i className="fas fa-user"></i> Seller Account
                 </Button>
               </div>
-              <div>
+              {/* <div>
                 <Button
                   variant={activeTab === "orders" ? "info" : "outline-info"}
                   className="sidebar-link"
@@ -159,17 +159,17 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fa fas fa-cart-plus"></i> Purchased Items
                 </Button>
-              </div>
+              </div> */}
               <div>
                 <Button
                   variant={activeTab === "payments" ? "info" : "outline-info"}
                   className="sidebar-link"
                   onClick={() => handleTabChange("payments")}
                 >
-                  <i className="fas fa-credit-card"></i> Payments 
+                  <i className="fas fa-credit-card"></i> Transactions 
                 </Button>
               </div>
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "order-shipment" ? "info" : "outline-info"
@@ -188,9 +188,9 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fas fa-star"></i> Reviews
                 </Button>
-              </div>
+              </div> */}
 
-              <div>
+              {/* <div>
                 <Button
                   variant={activeTab === "referrals" ? "info" : "outline-info"}
                   className="sidebar-link"
@@ -198,7 +198,7 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fa fa-user-plus"></i> Referrals
                 </Button>
-              </div>
+              </div> */}
 
               <div>
                 <Button
@@ -212,7 +212,7 @@ function MarketplaceDashboard({ history }) {
                 </Button>
               </div>
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "message-inbox" ? "info" : "outline-info"
@@ -222,7 +222,7 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fa fa-message"></i> Inbox
                 </Button>
-              </div>
+              </div> */}
 
               <div>
                 <Button
@@ -246,7 +246,7 @@ function MarketplaceDashboard({ history }) {
                 </Button>
               </div>
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "recommended-products"
@@ -288,9 +288,9 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fa fa-ticket"></i> Support Ticket
                 </Button>
-              </div>
+              </div> */}
 
-              <div>
+              {/* <div>
                 <Button
                   variant={activeTab === "live-chat" ? "info" : "outline-info"}
                   className="sidebar-link"
@@ -308,7 +308,7 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fas fa-gear"></i> Settings
                 </Button>
-              </div>
+              </div> */}
 
               {/* <div>
                 {userInfo.is_superuser ? (
@@ -330,7 +330,7 @@ function MarketplaceDashboard({ history }) {
                 )}
               </div> */}
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "admin-dashboard" ? "info" : "outline-info"
@@ -340,7 +340,8 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fas fa-user-tag"></i> Admin Dashboard
                 </Button>
-              </div>
+              </div> */}
+
             </div>
           )}
         </Col>

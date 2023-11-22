@@ -31,7 +31,7 @@ function AdminDashboard({ history }) {
   };
 
   const handleUserDashboard = () => {
-    history.push("/dashboard");
+    history.push("/dashboard/users");
   };
 
   const renderTabContent = () => {

@@ -1,6 +1,6 @@
 // Headers.js
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom"; 
+import { Link, useHistory } from "react-router-dom";
 import {
   Navbar,
   Nav,
@@ -62,7 +62,7 @@ function Header() {
             <Form
               className="searchBarContainer d-flex flex-grow-1 mt-2"
               onSubmit={searchHandler}
-              inline={!userInfo} 
+              inline={!userInfo}
             >
               <Form.Control
                 type="search"
@@ -113,9 +113,21 @@ function Header() {
                   id="username"
                   className="profile-dropdown"
                 >
-                  <Nav.Link as={Link} to="/dashboard">
-                    {" "}
-                    Go to Dashboard
+                  <Nav.Link as={Link} to="/dashboard/users">
+                    <i
+                      className="fas fa-dashboard"
+                      style={{ fontSize: "16px" }}
+                    ></i>{" "}
+                    User Dashboard
+                  </Nav.Link>
+                  <NavDropdown.Divider />
+
+                  <Nav.Link as={Link} to="/dashboard/marketplace/sellers">
+                    <i
+                      className="fas fa-dashboard"
+                      style={{ fontSize: "16px" }}
+                    ></i>{" "}
+                    Marketplace Dashboard
                   </Nav.Link>
                   <NavDropdown.Divider />
 

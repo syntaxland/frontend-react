@@ -60,7 +60,7 @@ export const createPayment = (paymentData) => async (dispatch, getState) => {
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: PAYMENT_CREATE_FAIL,
@@ -98,7 +98,7 @@ export const createPaysofterPayment = (paysofterPaymentData) => async (
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: PAYSOFTER_PAYMENT_CREATE_FAIL,
@@ -136,7 +136,7 @@ export const createPaysofterPromise = (paysofterPromiseData) => async (
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: CREATE_PAYSOFTER_PROMISE_FAIL,
@@ -214,7 +214,7 @@ export const verifyOtp = (otpData) => async (dispatch) => {
       payload: data,
     });
     // window.location.reload();
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: VERIFY_OTP_FAIL,

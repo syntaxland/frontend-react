@@ -41,9 +41,9 @@ function UserDashboard({ history }) {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const handleAdminDashboard = () => {
-    history.push("/admin-dashboard");
-  };
+  // const handleAdminDashboard = () => {
+  //   history.push("/dashboard/admin");
+  // };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -330,7 +330,7 @@ function UserDashboard({ history }) {
                 )}
               </div> */}
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "admin-dashboard" ? "info" : "outline-info"
@@ -340,7 +340,8 @@ function UserDashboard({ history }) {
                 >
                   <i className="fas fa-user-tag"></i> Admin Dashboard
                 </Button>
-              </div>
+              </div> */}
+              
             </div>
           )}
         </Col>

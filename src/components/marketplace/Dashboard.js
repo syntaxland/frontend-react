@@ -1,8 +1,8 @@
 // Dashboard.js
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { Col, Row, Button } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
 import { getCreditPointBalance } from "../../actions/creditPointActions";
@@ -123,29 +123,29 @@ function Dashboard() {
     return totalPayment;
   };
 
-  const creditPoints = creditPointBalance.balance;
-  const creditPointsFormatted = creditPoints ? creditPoints : [];
+  // const creditPoints = creditPointBalance.balance;
+  // const creditPointsFormatted = creditPoints ? creditPoints : [];
 
 
-  const withdrawCreditPoints =
-    creditPoints >= 5000 ? (
-      <Link
-        to={{
-          pathname: "/credit-point",
-          search: `?creditPoints=${creditPoints}`,
-        }}
-      >
-        <Button variant="success" className="rounded" size="sm">
-          Withdraw Points
-        </Button>
-      </Link>
-    ) : (
-      <p>
-        <Button variant="danger" className="rounded" size="sm" readOnly>
-          Earned points mature from NGN 5,000
-        </Button>
-      </p>
-    );
+  // const withdrawCreditPoints =
+  //   creditPoints >= 5000 ? (
+  //     <Link
+  //       to={{
+  //         pathname: "/credit-point",
+  //         search: `?creditPoints=${creditPoints}`,
+  //       }}
+  //     >
+  //       <Button variant="success" className="rounded" size="sm">
+  //         Withdraw Points
+  //       </Button>
+  //     </Link>
+  //   ) : (
+  //     <p>
+  //       <Button variant="danger" className="rounded" size="sm" readOnly>
+  //         Earned points mature from NGN 5,000
+  //       </Button>
+  //     </p>
+  //   );
 
   const paidOrderRateData = {
     labels: [
@@ -211,7 +211,7 @@ function Dashboard() {
               <Col>
                 <div>
                   <div className="bar-chart">
-                    <h2 className="pt-4">Total Payment</h2>
+                    <h2 className="pt-4">Total Transaction</h2>
                     <div className="bar">
                       <div
                         className="bar-fill"
@@ -264,7 +264,7 @@ function Dashboard() {
                 </Row>
               </div>
               <hr />
-              <Col>
+              {/* <Col>
                 <h2 className="py-3">
                    Credit Point Wallet <i className="fas fa-wallet"></i>
                 </h2>
@@ -281,7 +281,7 @@ function Dashboard() {
                 <div className="py-3">{withdrawCreditPoints}</div>
               </Col>
 
-              <hr />
+              <hr /> */}
             </Row>
           </div>
         )}

@@ -475,7 +475,7 @@ export const addReview =
         payload: data,
       });
       window.location.reload();
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/users";
     } catch (error) {
       dispatch({
         type: ORDER_ADD_REVIEW_FAIL,
@@ -516,7 +516,7 @@ export const editReview =
         payload: data,
       });
       window.location.reload();
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/users";
     } catch (error) {
       dispatch({
         type: ORDER_EDIT_REVIEW_FAIL,

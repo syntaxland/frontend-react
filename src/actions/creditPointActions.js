@@ -50,7 +50,7 @@ export const createCreditPointRequest =
 
       dispatch({ type: CREDIT_POINT_REQUEST_CREATE_SUCCESS, payload: data });
       window.location.reload();
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/users";
     } catch (error) {
       dispatch({
         type: CREDIT_POINT_REQUEST_CREATE_FAIL,

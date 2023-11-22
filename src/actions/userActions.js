@@ -50,7 +50,7 @@ export const login = (email, password) => async (dispatch) => {
       dispatch(refreshToken(data.refresh));
     }, refreshTokenTime);
 
-    // window.location.href = "/dashboard";
+    // window.location.href = "/dashboard/users";
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
