@@ -118,7 +118,7 @@ function Header() {
                       className="fas fa-dashboard"
                       style={{ fontSize: "16px" }}
                     ></i>{" "}
-                    User Dashboard
+                     Dashboard (User)
                   </Nav.Link>
                   <NavDropdown.Divider />
 
@@ -127,7 +127,7 @@ function Header() {
                       className="fas fa-dashboard"
                       style={{ fontSize: "16px" }}
                     ></i>{" "}
-                    Marketplace Dashboard
+                     Dashboard (Marketplace)
                   </Nav.Link>
                   <NavDropdown.Divider />
 
