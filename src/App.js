@@ -44,7 +44,10 @@ import ResetPassword from "./components/profiles/ResetPassword";
 import Orders from "./components/profiles/Orders";
 import Payments from "./components/profiles/Payments";
 import SupportTicketDetails from "./components/profiles/SupportTicketDetails";
-import Dashboard from "./components/profiles/Dashboard";
+
+import UserDashboard from "./components/profiles/UserDashboard";
+import MarketplaceDashboard from "./components/marketplace/MarketplaceDashboard";
+import EcommerceDashboard from "./components/ecommerce/EcommerceDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 import Marketplace from "./components/marketplace/Marketplace";
@@ -93,10 +96,13 @@ function App() {
           <Route path="/reset-password/:token" component={ResetPassword} />
           <Route path="/orders" component={Orders} />
           <Route path="/payments" component={Payments} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/admin-dashboard" component={AdminDashboard} />
-          <Route path="/review-list/:productId" component={ReviewScreen} />
+          
+          <Route path="/dashboard/users" component={UserDashboard} />
+          <Route path="/dashboard/marketplace" component={MarketplaceDashboard} />
+          <Route path="/dashboard/ecommerce" component={EcommerceDashboard} />
+          <Route path="/dashboard/admin" component={AdminDashboard} />
 
+          <Route path="/review-list/:productId" component={ReviewScreen} />
           <Route path="/add-review/" component={AddReviewScreen} />
           {/* <Route path="/add-review/:orderItemId" component={AddReviewScreen} /> */} 
           <Route path="/edit-review/" component={EditReviewScreen} />

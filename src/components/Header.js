@@ -1,6 +1,6 @@
 // Headers.js
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom"; 
 import {
   Navbar,
   Nav,
@@ -62,7 +62,7 @@ function Header() {
             <Form
               className="searchBarContainer d-flex flex-grow-1 mt-2"
               onSubmit={searchHandler}
-              inline={!userInfo}
+              inline={!userInfo} 
             >
               <Form.Control
                 type="search"

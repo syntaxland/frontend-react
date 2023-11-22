@@ -1,31 +1,31 @@
-// UserDashboard.js
+// MarketplaceDashboard.js
 import React, { useState } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 // import { Link} from "react-router-dom";
 // import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-// import { login } from "../../actions/userActions";
-import UserProfile from "./UserProfile";
-import Orders from "./Orders";
-import Payments from "./Payments";
-import Favorites from "./SavedItems"; 
-import OrderShipment from "./OrderShipment";
-import OrderItem from "./OrderItem";
-import Reviews from "./Reviews";
 import Dashboard from "./Dashboard"; 
-import MessageInbox from "./MessageInbox";
-import CreditPoint from "./CreditPoint";
-import PromoProduct from "./Offers";
-import RecommendedProducts from "./RecommendedProducts";
-import ViewedItems from "./ViewedItems";
-import LiveChat from "./LiveChat";
-import Referrals from "./Referrals";
-import SupportTicket from "./SupportTicket";
-import Feedback from "./Feedback";
-import Settings from "./Settings";
+// import { login } from "../../actions/userActions";
+// import UserProfile from "./UserProfile";
+// import Orders from "./Orders";
+// import Payments from "./Payments";
+// import Favorites from "./SavedItems"; 
+// import OrderShipment from "./OrderShipment";
+// import OrderItem from "./OrderItem";
+// import Reviews from "./Reviews";
+// import MessageInbox from "./MessageInbox";
+// import CreditPoint from "./CreditPoint";
+// import PromoProduct from "./Offers";
+// import RecommendedProducts from "./RecommendedProducts";
+// import ViewedItems from "./ViewedItems";
+// import LiveChat from "./LiveChat";
+// import Referrals from "./Referrals";
+// import SupportTicket from "./SupportTicket";
+// import Feedback from "./Feedback";
+// import Settings from "./Settings";
 
-function UserDashboard({ history }) {
+function MarketplaceDashboard({ history }) {
   // const userLogin = useSelector((state) => state.userLogin);
   // const { userInfo } = userLogin;
   // const dispatch = useDispatch();
@@ -47,56 +47,56 @@ function UserDashboard({ history }) {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case "profile":
-        return <UserProfile />;
+      // case "profile":
+      //   return <UserProfile />;
 
-      case "orders":
-        return <Orders />;
+      // case "orders":
+      //   return <Orders />;
 
-      case "payments":
-        return <Payments />;
+      // case "payments":
+      //   return <Payments />;
 
-      case "favorites":
-        return <Favorites />;
+      // case "favorites":
+      //   return <Favorites />;
 
-      case "order-shipment":
-        return <OrderShipment />;
+      // case "order-shipment":
+      //   return <OrderShipment />;
 
-      case "order-items":
-        return <OrderItem />;
+      // case "order-items":
+      //   return <OrderItem />;
 
-      case "reviews":
-        return <Reviews />;
+      // case "reviews":
+      //   return <Reviews />;
 
-      case "message-inbox":
-        return <MessageInbox />;
+      // case "message-inbox":
+      //   return <MessageInbox />;
 
-      case "credit-point":
-        return <CreditPoint />;
+      // case "credit-point":
+      //   return <CreditPoint />;
 
-      case "recommended-products":
-        return <RecommendedProducts />;
+      // case "recommended-products":
+      //   return <RecommendedProducts />;
 
-      case "offers":
-        return <PromoProduct />;
+      // case "offers":
+      //   return <PromoProduct />;
 
-      case "viewed-products":
-        return <ViewedItems />;
+      // case "viewed-products":
+      //   return <ViewedItems />;
 
-      case "referrals":
-        return <Referrals />;
+      // case "referrals":
+      //   return <Referrals />;
         
-      case "live-chat":
-        return <LiveChat />;
+      // case "live-chat":
+      //   return <LiveChat />;
 
-      case "support-ticket":
-        return <SupportTicket />;
+      // case "support-ticket":
+      //   return <SupportTicket />;
 
-      case "feedback":
-        return <Feedback />;
+      // case "feedback":
+      //   return <Feedback />;
 
-      case "settings":
-        return <Settings />;
+      // case "settings":
+      //   return <Settings />;
 
       default:
         return <Dashboard />; 
@@ -352,4 +352,4 @@ function UserDashboard({ history }) {
   );
 }
 
-export default UserDashboard;
+export default MarketplaceDashboard;

@@ -83,7 +83,7 @@ const VerifyEmailOtp = () => {
       <Row className="justify-content-center text-center mt-5">
         <Col lg={6}>
           <div className="border rounded p-4">
-            <h1 className="py-2">Verify Email OTP</h1>
+            <h1 className="py-2">Verify OTP</h1>
             {showSuccessMessage && (
               <Message variant="success">
                 Email verified successfully! You can now log in.
