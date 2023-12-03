@@ -10,6 +10,9 @@ import {
   Form,
 } from "react-bootstrap";
 import { logout } from "../actions/userActions";
+
+import { getUserProfile } from "../actions/userProfileActions";
+
 import { useDispatch, useSelector } from "react-redux";
 import "./Header.css";
 
@@ -20,6 +23,9 @@ function Header() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const userProfile = useSelector((state) => state.userProfile);
+  const { profile } = userProfile;
+
   const [keyword, setKeyword] = useState("");
   const [greeting, setGreeting] = useState("");
   const history = useHistory();
@@ -28,6 +34,12 @@ function Header() {
   const logoutHandler = () => {
     dispatch(logout());
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(getUserProfile());
+    }
+  }, [dispatch, userInfo]);
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -104,6 +116,7 @@ function Header() {
               </Nav.Link>
               {userInfo ? (
                 <NavDropdown
+                  align="end"
                   title={
                     userInfo.first_name
                       ? userInfo.first_name.charAt(0).toUpperCase() +
@@ -118,17 +131,36 @@ function Header() {
                       className="fas fa-dashboard"
                       style={{ fontSize: "16px" }}
                     ></i>{" "}
-                     Dashboard (User)
+                    Dashboard (User)
                   </Nav.Link>
                   <NavDropdown.Divider />
 
-                  <Nav.Link as={Link} to="/dashboard/marketplace/sellers">
-                    <i
-                      className="fas fa-dashboard"
-                      style={{ fontSize: "16px" }}
-                    ></i>{" "}
-                     Dashboard (Marketplace)
-                  </Nav.Link>
+                  <div>
+                    {profile.is_marketplace_seller ? (
+                      <>
+                        <Nav.Link as={Link} to="/dashboard/marketplace/sellers">
+                          <i
+                            className="fas fa-dashboard"
+                            style={{ fontSize: "16px" }}
+                          ></i>{" "}
+                          Dashboard (Marketplace)
+                        </Nav.Link>
+                      </>
+                    ) : (
+                      <>
+                        <div>
+                          <Nav.Link as={Link} to="/create-marketplace-seller">
+                            <i
+                              className="fas fa-user"
+                              style={{ fontSize: "16px" }}
+                            ></i>{" "}
+                            Create Seller Account 
+                          </Nav.Link>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
                   <NavDropdown.Divider />
 
                   <NavDropdown.Item onClick={logoutHandler}>

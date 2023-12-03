@@ -1,21 +1,21 @@
 // MarketplaceDashboard.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 // import { Link} from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import Dashboard from "./Dashboard"; 
+import Dashboard from "./Dashboard";
 // import { login } from "../../actions/userActions";
 // import UserProfile from "./UserProfile";
 // import Orders from "./Orders";
 // import Payments from "./Payments";
-// import Favorites from "./SavedItems"; 
+// import Favorites from "./SavedItems";
 // import OrderShipment from "./OrderShipment";
 // import OrderItem from "./OrderItem";
 // import Reviews from "./Reviews";
 // import MessageInbox from "./MessageInbox";
-// import CreditPoint from "./CreditPoint";
+import PostAds from "./PostFreeAd";
 // import PromoProduct from "./Offers";
 // import RecommendedProducts from "./RecommendedProducts";
 // import ViewedItems from "./ViewedItems";
@@ -26,9 +26,16 @@ import Dashboard from "./Dashboard";
 // import Settings from "./Settings";
 
 function MarketplaceDashboard({ history }) {
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
   // const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
 
   const [activeTab, setActiveTab] = useState("user-dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -71,8 +78,8 @@ function MarketplaceDashboard({ history }) {
       // case "message-inbox":
       //   return <MessageInbox />;
 
-      // case "credit-point":
-      //   return <CreditPoint />;
+      case "post-ads":
+        return <PostAds />;
 
       // case "recommended-products":
       //   return <RecommendedProducts />;
@@ -85,7 +92,7 @@ function MarketplaceDashboard({ history }) {
 
       // case "referrals":
       //   return <Referrals />;
-        
+
       // case "live-chat":
       //   return <LiveChat />;
 
@@ -99,8 +106,20 @@ function MarketplaceDashboard({ history }) {
       //   return <Settings />;
 
       default:
-        return <Dashboard />; 
+        return <Dashboard />;
     }
+  };
+
+  // const handleAddbusiness = () => {
+  //   history.push("/create-marketplace-seller");
+  // };
+
+  const handlePostFreeAd = () => {
+    history.push("/ad/free");
+  };
+
+  const handlePostPaidAd = () => {
+    history.push("/ad/paid");
   };
 
   return (
@@ -166,7 +185,7 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("payments")}
                 >
-                  <i className="fas fa-credit-card"></i> Transactions 
+                  <i className="fas fa-credit-card"></i> Transactions
                 </Button>
               </div>
               {/* <div>
@@ -200,15 +219,61 @@ function MarketplaceDashboard({ history }) {
                 </Button>
               </div> */}
 
+              {/* <div>
+                <Button
+                  variant={
+                    activeTab === "post-ads" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("post-ads")}
+                >
+                  <i className="fas fa-sack-dollar"></i> Post Free Ads
+                </Button>
+              </div>
+
               <div>
                 <Button
                   variant={
-                    activeTab === "credit-point" ? "info" : "outline-info"
+                    activeTab === "post-ads" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
-                  onClick={() => handleTabChange("credit-point")}
+                  onClick={() => handleTabChange("post-ads")}
                 >
-                  <i className="fas fa-sack-dollar"></i> Credit Point
+                  <i className="fas fa-sack-dollar"></i> Post Paid Ads
+                </Button>
+              </div> */}
+
+              <div>
+                <Button
+                  variant={
+                    activeTab === "post-free-ads" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={handlePostFreeAd}
+                >
+                  <i className="fas fa-user-tag"></i> Post Free Ads
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={
+                    activeTab === "post-paid-ads" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={handlePostPaidAd}
+                >
+                  <i className="fas fa-user-tag"></i> Post Paid Ads
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={activeTab === "ads" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("ads")}
+                >
+                  <i className="fas fa-sack-dollar"></i> Active Ads
                 </Button>
               </div>
 
@@ -245,6 +310,19 @@ function MarketplaceDashboard({ history }) {
                   <i className="fa fa-eye"></i> Viewed Items
                 </Button>
               </div>
+
+              {/* <div>
+                <Button
+                  
+                    
+                  size="sm"
+                  className="sidebar-link py-2"
+                  variant="outline-danger"
+                  onClick={handleAddbusiness}
+                >
+                  <i className="fa fa-user-alt"></i> Create MarketPlace Seller Account
+                </Button>
+              </div> */}
 
               {/* <div>
                 <Button
@@ -341,7 +419,6 @@ function MarketplaceDashboard({ history }) {
                   <i className="fas fa-user-tag"></i> Admin Dashboard
                 </Button>
               </div> */}
-
             </div>
           )}
         </Col>

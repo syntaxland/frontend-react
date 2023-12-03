@@ -13,7 +13,7 @@ import "react-phone-number-input/style.css";
 
 function RegisterScreen({ location, history }) {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [lastName, setLastName] = useState(""); 
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -403,7 +403,7 @@ function RegisterScreen({ location, history }) {
                 }
               >
                 {loading && <Loader />}
-                <i className="fas fa-registered"></i> Register
+                <i className="fas fa-registered"></i> Register  
               </Button>
             </Col>
           </Row>

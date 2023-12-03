@@ -18,6 +18,12 @@ import {
 import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducers } from "./reducers/userReducers";
 import { userRegisterReducers } from "./reducers/userReducers";
+import {
+  marketplaceSellerAccountReducer,
+  marketplaceSellerPhotoReducer,
+  postFreeAdReducer,
+  postPaidAdReducer,
+} from "./reducers/marketplaceSellerReducers";
 
 import {
   orderCreateReducer,
@@ -217,6 +223,11 @@ const reducer = combineReducers({
   applyPomoCodeState: applyPomoCodeReducer,
   createPromoCodeState: createPromoCodeReducer,
   promoProductList: promoProductListReducer,
+
+  marketplaceSellerState: marketplaceSellerAccountReducer,
+  marketplaceSellerPhotoState: marketplaceSellerPhotoReducer,
+  postFreeAdState: postFreeAdReducer,
+  postPaidAdState: postPaidAdReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

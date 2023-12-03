@@ -1,13 +1,13 @@
-// PromoTimer.js
+// Timer.js
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 
-const PromoTimer = ({ expirationDate }) => {
+const Timer = ({ expirationDate }) => {
   const calculateTimeRemaining = () => {
     const now = moment();
     const expirationDateObj = moment(expirationDate);
 
-    if (expirationDateObj > now) { 
+    if (expirationDateObj > now) {
       const duration = moment.duration(expirationDateObj.diff(now));
       const days = duration.days();
       const hours = duration.hours();
@@ -21,7 +21,7 @@ const PromoTimer = ({ expirationDate }) => {
     // return "Expired";
   };
 
-  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining());
+  const [timeRemaining, setTimeRemaining] = useState(calculateTimeRemaining()); 
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -35,4 +35,4 @@ const PromoTimer = ({ expirationDate }) => {
   return <span>{timeRemaining}</span>;
 };
 
-export default PromoTimer;
+export default Timer;

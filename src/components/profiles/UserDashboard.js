@@ -1,19 +1,20 @@
 // UserDashboard.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 // import { Link} from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 // import { login } from "../../actions/userActions";
+import { getUserProfile } from "../../actions/userProfileActions";
 import UserProfile from "./UserProfile";
 import Orders from "./Orders";
 import Payments from "./Payments";
-import Favorites from "./SavedItems"; 
+import Favorites from "./SavedItems";
 import OrderShipment from "./OrderShipment";
 import OrderItem from "./OrderItem";
 import Reviews from "./Reviews";
-import Dashboard from "./Dashboard"; 
+import Dashboard from "./Dashboard";
 import MessageInbox from "./MessageInbox";
 import CreditPoint from "./CreditPoint";
 import PromoProduct from "./Offers";
@@ -26,9 +27,27 @@ import Feedback from "./Feedback";
 import Settings from "./Settings";
 
 function UserDashboard({ history }) {
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const userProfile = useSelector((state) => state.userProfile);
+  const { profile } = userProfile;
+  console.log("profile:", profile);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  console.log("userInfo:", userInfo);
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(getUserProfile());
+    }
+  }, [dispatch, userInfo]);
 
   const [activeTab, setActiveTab] = useState("user-dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -41,9 +60,17 @@ function UserDashboard({ history }) {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // const handleAdminDashboard = () => {
-  //   history.push("/dashboard/admin");
-  // };
+  const handleAdminDashboard = () => {
+    history.push("/dashboard/admin");
+  };
+
+  const handleAddbusiness = () => {
+    history.push("/create-marketplace-seller");
+  };
+
+  const handleMarketplaceDashboard = () => {
+    history.push("/dashboard/marketplace/sellers"); 
+  };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -85,7 +112,7 @@ function UserDashboard({ history }) {
 
       case "referrals":
         return <Referrals />;
-        
+
       case "live-chat":
         return <LiveChat />;
 
@@ -99,7 +126,7 @@ function UserDashboard({ history }) {
         return <Settings />;
 
       default:
-        return <Dashboard />; 
+        return <Dashboard />;
     }
   };
 
@@ -166,7 +193,7 @@ function UserDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("payments")}
                 >
-                  <i className="fas fa-credit-card"></i> Payments 
+                  <i className="fas fa-credit-card"></i> Payments
                 </Button>
               </div>
               <div>
@@ -282,7 +309,9 @@ function UserDashboard({ history }) {
 
               <div>
                 <Button
-                  variant={activeTab === "support-ticket" ? "info" : "outline-info"}
+                  variant={
+                    activeTab === "support-ticket" ? "info" : "outline-info"
+                  }
                   className="sidebar-link"
                   onClick={() => handleTabChange("support-ticket")}
                 >
@@ -310,8 +339,10 @@ function UserDashboard({ history }) {
                 </Button>
               </div>
 
-              {/* <div>
-                {userInfo.is_superuser ? (
+              
+
+              <div>
+                {profile?.is_superuser || profile?.is_staff ? (
                   <div>
                     <Button
                       variant={
@@ -322,25 +353,43 @@ function UserDashboard({ history }) {
                       className="sidebar-link"
                       onClick={() => handleAdminDashboard()}
                     >
-                     <i className="fas fa-user-check"></i> Admin 
+                     <i className="fas fa-user-check"></i> Go to Admin Dashboard
                     </Button>
                   </div>
                 ) : (
-                  <span>Not Admin</span>
+                  <></>
                 )}
-              </div> */}
+              </div>
 
-              {/* <div>
-                <Button
-                  variant={
-                    activeTab === "admin-dashboard" ? "info" : "outline-info"
-                  }
-                  className="sidebar-link"
-                  onClick={() => handleAdminDashboard()}
-                >
-                  <i className="fas fa-user-tag"></i> Admin Dashboard
-                </Button>
-              </div> */}
+              <div className="mt-50 py-4 text-center">
+                {!profile?.is_marketplace_seller ? (
+                  <div>
+                    <span>Don't have a Seller account? </span> 
+                    <Button
+                      size="sm"
+                      className="py-2"
+                      variant="outline-success"
+                      onClick={handleAddbusiness}
+                    >
+                      <i className="fa fa-user-alt"></i> Create
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                  <div>
+                    <Button
+                      size="sm"
+                      className="py-2"
+                      variant="outline-success"
+                      onClick={handleMarketplaceDashboard}
+                    >
+                      <i className="fa fa-user-alt"></i> Go to Marketplace Dashboard
+                    </Button>
+                  </div>
+                  </>
+                )}
+              </div>
+
               
             </div>
           )}

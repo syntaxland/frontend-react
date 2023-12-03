@@ -4,7 +4,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 // import { ToastContainer, toast } from "react-toastify";
 // import React, { useContext } from "react";
-import { Container } from "react-bootstrap"; 
+import { Container } from "react-bootstrap";
 // This is a react-router-dom@5.3.4 app
 // import { useHistory  } from 'react-router'
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -30,6 +30,7 @@ import SupportTicketScreen from "./components/screens/SupportTicketScreen";
 import LiveChatScreen from "./components/screens/LiveChatScreen";
 import FeedbackScreen from "./components/screens/FeedbackScreen";
 import DarkModeScreen from "./components/screens/DarkModeScreen";
+import TermsAndConditionScreen from "./components/screens/TermsAndConditionScreen";
 
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
@@ -51,11 +52,12 @@ import EcommerceDashboard from "./components/ecommerce/EcommerceDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 import Marketplace from "./components/marketplace/Marketplace";
-import PostAds from "./components/marketplace/PostAds";
+import PostFreeAd from "./components/marketplace/PostFreeAd";
+import PostPaidAd from "./components/marketplace/PostPaidAd";
+import CreateMarketplaceSeller from "./components/marketplace/CreateMarketplaceSeller";
+import SellerPhoto from "./components/marketplace/SellerPhoto";
 // import Marketplace from "./components/marketplace/Marketplace";
 // import Marketplace from "./components/marketplace/Marketplace";
-// import Marketplace from "./components/marketplace/Marketplace";
-
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -70,7 +72,7 @@ function App() {
         <main className=" py-3">
           <Route exact path="/" component={HomeScreen} />
           <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/login" component={LoginScreen} /> 
+          <Route path="/login" component={LoginScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/products/search/:keyword" component={SearchScreen} />
@@ -78,7 +80,7 @@ function App() {
           <Route path="/payment" component={PaymentScreen} />
 
           <Route path="/shipment/:id" component={ShipmentScreen} />
-          {/* <Route path="/favourites" component={FavouritesScreen} /> */}  
+          {/* <Route path="/favourites" component={FavouritesScreen} /> */}
           <Route path="/send-email-otp" component={SendEmailOtp} />
           <Route path="/verify-email-otp" component={VerifyEmailOtp} />
           {/* <Route path="/verify-account-fund-otp" component={VerifyAccountFundOtp} /> */}
@@ -86,6 +88,11 @@ function App() {
             path="/order-success/:reference"
             component={OrderSuccessPage}
           />
+          <Route
+            path="/terms-and-conditions"
+            component={TermsAndConditionScreen}
+          />
+
           <Route path="/user/profile" component={UserProfile} />
           <Route path="/delete-account" component={DeleteAccount} />
           <Route path="/change-password" component={ChangePassword} />
@@ -98,25 +105,41 @@ function App() {
           <Route path="/payments" component={Payments} />
 
           <Route path="/dashboard/users" component={UserDashboard} />
-          <Route path="/dashboard/marketplace/sellers" component={MarketplaceDashboard} />
-          <Route path="/dashboard/ecommerce/sellers" component={EcommerceDashboard} />
+          <Route
+            path="/dashboard/marketplace/sellers"
+            component={MarketplaceDashboard}
+          />
+          <Route
+            path="/dashboard/ecommerce/sellers"
+            component={EcommerceDashboard}
+          />
           <Route path="/dashboard/admin" component={AdminDashboard} />
 
           <Route path="/review-list/:productId" component={ReviewScreen} />
           <Route path="/add-review/" component={AddReviewScreen} />
-          {/* <Route path="/add-review/:orderItemId" component={AddReviewScreen} /> */} 
+          {/* <Route path="/add-review/:orderItemId" component={AddReviewScreen} /> */}
           <Route path="/edit-review/" component={EditReviewScreen} />
           <Route path="/credit-point/" component={CreditPointScreen} />
-          <Route path="/create-support-ticket" component={SupportTicketScreen} />
+          <Route
+            path="/create-support-ticket"
+            component={SupportTicketScreen}
+          />
           <Route path="/support/ticket/:id" component={SupportTicketDetails} />
           <Route path="/live-chat" component={LiveChatScreen} />
           <Route path="/feedback" component={FeedbackScreen} />
           <Route path="/dark-mode" component={DarkModeScreen} />
 
           <Route path="/marketplace" component={Marketplace} />
-          <Route path="/post-ads" component={PostAds} />
-          {/* <Route path="/marketplace" component={PostAds} />
-          <Route path="/marketplace" component={PostAds} /> */}
+          <Route path="/ad/free" component={PostFreeAd} />
+          <Route path="/ad/paid" component={PostPaidAd} />
+          <Route
+            path="/create-marketplace-seller"
+            component={CreateMarketplaceSeller}
+          />
+          <Route path="/seller/photo/" component={SellerPhoto} />
+          {/* <Route path="/marketplace" component={PostPaidAd} /> */}
+          {/*
+           */}
           {/* <Route path="/message-inbox" component={MessageInboxScreen} /> */}
         </main>
         <Footer />

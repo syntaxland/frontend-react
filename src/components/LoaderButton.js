@@ -1,32 +1,33 @@
+// LoaderButton.js
 import React from "react";
-// import { Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import {
-  //   BeatLoader,
-  //   CircleLoader,
+    // BeatLoader,
+    // CircleLoader,
   //   BounceLoader,
   //   ClipLoader,
-  FadeLoader,
+  // FadeLoader,
   //   GridLoader,
   //   HashLoader, 
   //   PropagateLoader,
   //   PulseLoader,
-  //   RingLoader,
+    // RingLoader,
   //   RiseLoader,
   //   ScaleLoader,
-  //   SyncLoader,
+    // SyncLoader,
   //   RotateLoader,
 } from "react-spinners";
-function Loader() {
+function LoaderButton() {
   return (
     <>
       <div className="d-flex justify-content-center align-items-center vh-5">
         <span className="visually-hidden">Loading...</span>
 
         {/* from react-bootstrap */}
-        {/* <Spinner annimation='border' variant='primary' size='lg' />  */}
+        <Spinner annimation='border' variant='primary' size='sm' /> 
 
         {/* from react-spinners */}
-        <FadeLoader color="blue" size={50} />
+        {/* <FadeLoader color="blue" size={2} /> */}
 
         {/* 
       <p>BeatLoader...<BeatLoader color="#ff0000" size={20} /></p><br />
@@ -48,4 +49,4 @@ function Loader() {
   );
 }
 
-export default Loader;
+export default LoaderButton;

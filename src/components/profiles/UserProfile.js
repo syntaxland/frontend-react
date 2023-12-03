@@ -26,6 +26,13 @@ function UserProfile() {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  console.log("userInfo:", userInfo);
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
 
   const [successMessage, setSuccessMessage] = useState("");
   const history = useHistory();
