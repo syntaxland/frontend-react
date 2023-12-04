@@ -21,6 +21,10 @@ import { userRegisterReducers } from "./reducers/userReducers";
 import {
   marketplaceSellerAccountReducer,
   marketplaceSellerPhotoReducer,
+  getSellerAccountReducer,
+  updateSellerAccountReducer,
+  getSellerPhotoReducer,
+  updateSellerPhotoReducer,
   postFreeAdReducer,
   postPaidAdReducer,
 } from "./reducers/marketplaceSellerReducers";
@@ -226,6 +230,10 @@ const reducer = combineReducers({
 
   marketplaceSellerState: marketplaceSellerAccountReducer,
   marketplaceSellerPhotoState: marketplaceSellerPhotoReducer,
+  getSellerAccountState: getSellerAccountReducer,
+  updateSellerAccountState: updateSellerAccountReducer,
+  getSellerPhotoState: getSellerPhotoReducer,
+  updateSellerPhotoState: updateSellerPhotoReducer,
   postFreeAdState: postFreeAdReducer,
   postPaidAdState: postPaidAdReducer,
 });

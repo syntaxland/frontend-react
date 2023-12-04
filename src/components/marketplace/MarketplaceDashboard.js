@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Dashboard from "./Dashboard";
 // import { login } from "../../actions/userActions";
-// import UserProfile from "./UserProfile";
+import SellerProfile from "./SellerProfile";
 // import Orders from "./Orders";
 // import Payments from "./Payments";
 // import Favorites from "./SavedItems";
@@ -54,8 +54,8 @@ function MarketplaceDashboard({ history }) {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      // case "profile":
-      //   return <UserProfile />;
+      case "seller-profile":
+        return <SellerProfile />;
 
       // case "orders":
       //   return <Orders />;
@@ -152,9 +152,9 @@ function MarketplaceDashboard({ history }) {
 
               <div>
                 <Button
-                  variant={activeTab === "profile" ? "info" : "outline-info"}
+                  variant={activeTab === "seller-profile" ? "info" : "outline-info"}
                   className="sidebar-link"
-                  onClick={() => handleTabChange("profile")}
+                  onClick={() => handleTabChange("seller-profile")}
                 >
                   <i className="fas fa-user"></i> Seller Account
                 </Button>
