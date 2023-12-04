@@ -150,7 +150,7 @@ export const deleteFreeAd = (businessFormData) => async (
       },
     };
 
-    const { data } = await axios.put(
+    const { data } = await axios.delete(
       `${API_URL}/api/delete-free-ad/`,
       businessFormData,
       config
@@ -225,7 +225,7 @@ export const getAllFreeAd = (sellerData) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await axios.get(
       `${API_URL}/api/get-all-free-ad/`,
       sellerData,
       config
@@ -384,7 +384,7 @@ export const deletePaidAd = (businessFormData) => async (
       },
     };
 
-    const { data } = await axios.put(
+    const { data } = await axios.delete(
       `${API_URL}/api/delete-paid-ad/`,
       businessFormData,
       config
@@ -420,7 +420,7 @@ export const getAllPaidAd = (sellerData) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
+    const { data } = await axios.get(
       `${API_URL}/api/get-all-paid-ad/`,
       sellerData,
       config

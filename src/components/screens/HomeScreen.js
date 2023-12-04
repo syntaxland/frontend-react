@@ -9,7 +9,7 @@ import Loader from "../Loader";
 import Message from "../Message";
 import PromoProductScroll from "../PromoProductScroll";
 import RecommendedProducts from "../profiles/RecommendedProducts";
- 
+import AllPaidAdScreen from "../marketplace/AllPaidAdScreen";
 function HomeScreen({ history }) {
   const dispatch = useDispatch();
 
@@ -58,12 +58,10 @@ function HomeScreen({ history }) {
             )} */}
           </div>
 
-          <div className="text-center">
-            <hr />
-            <h1 className="py-3">MarketPlace Hot Deals</h1>
-            <hr />
-            <PromoProductScroll />
-            <span>
+          <div >
+            {/* <h1 className="py-3 text-center">MarketPlace Hot Deals</h1> */}
+            <AllPaidAdScreen />
+            <span className="text-center">
               Checkout more currently running deals at the market place and/or
               post your ads.{" "}
             </span>

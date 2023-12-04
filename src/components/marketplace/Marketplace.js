@@ -8,7 +8,8 @@ import { Row, Col, Button } from "react-bootstrap";
 // import Loader from "../Loader";
 // import Message from "../Message";
 import PromoProductScroll from "../PromoProductScroll";
-import PaidAdScreen from "./PaidAdScreen";
+import AllPaidAdScreen from "./AllPaidAdScreen";
+import AllFreeAdScreen from "./AllFreeAdScreen";
 
 function Marketplace({ history }) {
   // const dispatch = useDispatch(); 
@@ -18,10 +19,15 @@ function Marketplace({ history }) {
       <Row>
         <Col>
           <div>
-            <hr />
-            <h1 className="text-center py-3">MarketPlace Hot Deals</h1>
-            <hr />
-            <PaidAdScreen />
+            {/* <h1 className="text-center py-3">Promoted Hot Deals</h1> */}
+            <AllPaidAdScreen />
+          </div>
+
+          <div>
+            {/* <hr /> */}
+            {/* <h1 className="text-center py-3">Hot Deals</h1> */}
+            {/* <hr /> */}
+            <AllFreeAdScreen />
           </div>
 
           <div className="text-center">

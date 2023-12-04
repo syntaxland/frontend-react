@@ -1,31 +1,22 @@
-// PaidAdScreen.js
+// AllPaidAdScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import {
-  //  getFreeAd,
-  //  deleteFreeAd,
-  //  updateFreeAd,
-  //  getAllFreeAd,
-  getPaidAd,
-  //  updatePaidAd,
-  //  deletePaidAd,
-  //  getAllPaidAd,
-} from "../../actions/marketplaceSellerActions";
+import { getAllPaidAd } from "../../actions/marketplaceSellerActions";
 
 import PaidAdProduct from "./PaidAdProduct";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function PaidAdScreen() {
+function AllPaidAdScreen() {
   const dispatch = useDispatch();
 
-  const getPaidAdState = useSelector((state) => state.getPaidAdState);
-  const { loading, error, ads } = getPaidAdState;
+  const getAllPaidAdState = useSelector((state) => state.getAllPaidAdState);
+  const { loading, error, ads } = getAllPaidAdState;
   console.log("PaidAds:", ads);
 
   useEffect(() => {
-    dispatch(getPaidAd());
+    dispatch(getAllPaidAd());
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +37,11 @@ function PaidAdScreen() {
     <div>
       <Row>
         <Col>
-          <h1 className="text-center">Paid Ads</h1>
+          <hr />
+
+          <h1 className="text-center">Promoted Ads</h1>
+          <hr />
+
           {loading ? (
             <Loader />
           ) : error ? (
@@ -116,4 +111,4 @@ function PaidAdScreen() {
   );
 }
 
-export default PaidAdScreen;
+export default AllPaidAdScreen;
