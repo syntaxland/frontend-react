@@ -14,7 +14,6 @@ import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productAction";
-// import { productDetailsReducers } from "../../reducers/productReducers";
 import ProductPrice from "../ProductPrice";
 
 function ProductScreen({ match, history }) {
@@ -101,7 +100,7 @@ function ProductScreen({ match, history }) {
                   <ListGroup.Item>
                     <Row>
                       <Col>Qty</Col>
-                      <Col xs="auto" className="my-1">
+                      <Col xs="auto" className="my-1"> 
                         <Form.Control
                           as="select"
                           value={qty}

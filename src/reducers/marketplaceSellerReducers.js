@@ -24,6 +24,39 @@ import {
   UPDATE_SELLER_PHOTO_REQUEST,
   UPDATE_SELLER_PHOTO_SUCCESS,
   UPDATE_SELLER_PHOTO_FAIL,
+
+  GET_FREE_AD_REQUEST,
+GET_FREE_AD_SUCCESS,
+GET_FREE_AD_FAIL,
+UPDATE_FREE_AD_REQUEST,
+UPDATE_FREE_AD_SUCCESS,
+UPDATE_FREE_AD_FAIL,
+GET_ALL_FREE_AD_REQUEST,
+GET_ALL_FREE_AD_SUCCESS,
+GET_ALL_FREE_AD_FAIL,
+GET_PAID_AD_REQUEST,
+GET_PAID_AD_SUCCESS,
+GET_PAID_AD_FAIL,
+UPDATE_PAID_AD_REQUEST,
+UPDATE_PAID_AD_SUCCESS,
+UPDATE_PAID_AD_FAIL,
+GET_ALL_PAID_AD_REQUEST,
+GET_ALL_PAID_AD_SUCCESS,
+GET_ALL_PAID_AD_FAIL,
+
+DELETE_FREE_AD_REQUEST,
+DELETE_FREE_AD_SUCCESS,
+DELETE_FREE_AD_FAIL,
+DELETE_PAID_AD_REQUEST,
+DELETE_PAID_AD_SUCCESS,
+DELETE_PAID_AD_FAIL,
+
+GET_FREE_AD_DETAIL_REQUEST,
+GET_FREE_AD_DETAIL_SUCCESS,
+GET_FREE_AD_DETAIL_FAIL,
+GET_PAID_AD_DETAIL_REQUEST,
+GET_PAID_AD_DETAIL_SUCCESS,
+GET_PAID_AD_DETAIL_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -32,6 +65,137 @@ const initialState = {
   error: null,
   sellerAccount: [],
   sellerPhoto: [],
+  ads: [],
+};
+
+export const getFreeAdDetailReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_FREE_AD_DETAIL_REQUEST:
+      return { loading: true };
+    case GET_FREE_AD_DETAIL_SUCCESS:
+      return { loading: false, success: true, ads: action.payload };
+    case GET_FREE_AD_DETAIL_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getPaidAdDetailReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PAID_AD_DETAIL_REQUEST:
+      return { loading: true };
+    case GET_PAID_AD_DETAIL_SUCCESS:
+      return { loading: false, success: true, ads: action.payload };
+    case GET_PAID_AD_DETAIL_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getFreeAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_FREE_AD_REQUEST:
+      return { loading: true };
+    case GET_FREE_AD_SUCCESS:
+      return { loading: false, success: true, ads: action.payload };
+    case GET_FREE_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const updateFreeAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case UPDATE_FREE_AD_REQUEST:
+      return { loading: true };
+    case UPDATE_FREE_AD_SUCCESS:
+      return { loading: false, success: true };
+    case UPDATE_FREE_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const deleteFreeAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case DELETE_FREE_AD_REQUEST:
+      return { loading: true };
+    case DELETE_FREE_AD_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_FREE_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getAllFreeAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_FREE_AD_REQUEST:
+      return { loading: true };
+    case GET_ALL_FREE_AD_SUCCESS:
+      return { loading: false, success: true, ads: action.payload };
+    case GET_ALL_FREE_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getPaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_PAID_AD_REQUEST:
+      return { loading: true };
+    case GET_PAID_AD_SUCCESS:
+      return { loading: false, success: true, ads: action.payload };
+    case GET_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const updatePaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case UPDATE_PAID_AD_REQUEST:
+      return { loading: true };
+    case UPDATE_PAID_AD_SUCCESS:
+      return { loading: false, success: true };
+    case UPDATE_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const deletePaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case DELETE_PAID_AD_REQUEST:
+      return { loading: true };
+    case DELETE_PAID_AD_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getAllPaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_ALL_PAID_AD_REQUEST:
+      return { loading: true };
+    case GET_ALL_PAID_AD_SUCCESS:
+      return { loading: false, success: true, ads: action.payload };
+    case GET_ALL_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const postPaidAdReducer = (state = initialState, action) => {
@@ -59,6 +223,7 @@ export const postFreeAdReducer = (state = initialState, action) => {
       return state;
   }
 };
+
 export const getSellerAccountReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SELLER_ACCOUNT_REQUEST:

@@ -362,26 +362,6 @@ function SellerProfile() {
                   </Form.Group>
 
                   <Form.Group>
-                    <Form.Label>Business Registration Number</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="business_reg_num"
-                      value={businessData.business_reg_num}
-                      onChange={handleBusinessDataChanges}
-                    />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label>Business Address</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="business_address"
-                      value={businessData.business_address}
-                      onChange={handleBusinessDataChanges}
-                    />
-                  </Form.Group>
-
-                  <Form.Group>
                     <Form.Label>Business Status</Form.Label>
                     <Form.Control
                       as="select"
@@ -396,6 +376,16 @@ function SellerProfile() {
                         </option>
                       ))}
                     </Form.Control>
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label>Business Registration Number</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="business_reg_num"
+                      value={businessData.business_reg_num}
+                      onChange={handleBusinessDataChanges}
+                    />
                   </Form.Group>
 
                   <Form.Group>
@@ -493,6 +483,16 @@ function SellerProfile() {
                       type="text"
                       name="business_website"
                       value={businessData.business_website}
+                      onChange={handleBusinessDataChanges}
+                    />
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label>Business Address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="business_address"
+                      value={businessData.business_address}
                       onChange={handleBusinessDataChanges}
                     />
                   </Form.Group>

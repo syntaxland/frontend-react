@@ -27,6 +27,17 @@ import {
   updateSellerPhotoReducer,
   postFreeAdReducer,
   postPaidAdReducer,
+  getFreeAdReducer,
+  updateFreeAdReducer,
+  getAllFreeAdReducer,
+  getPaidAdReducer,
+  updatePaidAdReducer,
+  getAllPaidAdReducer,
+  deleteFreeAdReducer,
+  deletePaidAdReducer,
+
+  getFreeAdDetailReducer,
+getPaidAdDetailReducer,
 } from "./reducers/marketplaceSellerReducers";
 
 import {
@@ -236,6 +247,18 @@ const reducer = combineReducers({
   updateSellerPhotoState: updateSellerPhotoReducer,
   postFreeAdState: postFreeAdReducer,
   postPaidAdState: postPaidAdReducer,
+
+  getFreeAdState: getFreeAdReducer,
+  updateFreeAdState: updateFreeAdReducer,
+  getAllFreeAdState: getAllFreeAdReducer,
+  getPaidAdState: getPaidAdReducer,
+  updatePaidAdState: updatePaidAdReducer,
+  getAllPaidAdState: getAllPaidAdReducer,
+  deleteFreeAdState: deleteFreeAdReducer,
+  deletePaidAdState: deletePaidAdReducer, 
+
+  getFreeAdDetailState: getFreeAdDetailReducer,
+getPaidAdDetailState: getPaidAdDetailReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

@@ -10,7 +10,7 @@ import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
-  trackProductView,
+  trackProductView, 
 } from "../actions/productAction";
 import Message from "./Message";
 import Loader from "./Loader";

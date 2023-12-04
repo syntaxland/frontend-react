@@ -9,7 +9,7 @@ import Loader from "../Loader";
 import Message from "../Message";
 import PromoProductScroll from "../PromoProductScroll";
 import RecommendedProducts from "../profiles/RecommendedProducts";
-
+ 
 function HomeScreen({ history }) {
   const dispatch = useDispatch();
 

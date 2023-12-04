@@ -1,28 +1,41 @@
-// PaidAds.js
+// PaidAdScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import { fetchPaidAds } from "../../actions/productAction";
-import Product from "../Product";
+import { 
+  //  getFreeAd,
+//  deleteFreeAd,
+//  updateFreeAd,
+//  getAllFreeAd,
+ getPaidAd,
+//  updatePaidAd,
+//  deletePaidAd,
+//  getAllPaidAd,
+ } from "../../actions/marketplaceSellerActions";
+
+import PaidAdProduct from "./PaidAdProduct";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function PaidAds() {
+function PaidAdScreen() {
   const dispatch = useDispatch();
 
+  const getPaidAdState = useSelector((state) => state.getPaidAdState);
+  const { loading, error,  ads } = getPaidAdState; 
+  console.log('PaidAds:', ads)
+
   useEffect(() => {
-    dispatch(fetchPaidAds());
+    dispatch(getPaidAd());
   }, [dispatch]);
 
-  const recommendedProducts = useSelector((state) => state.recommendedProducts);
-  const { loading, error, productsRecommended } = recommendedProducts;
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = productsRecommended.slice(
+  const currentItems = ads?.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -32,7 +45,7 @@ function PaidAds() {
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(productsRecommended.length / itemsPerPage);
+    i <= Math.ceil(ads?.length / itemsPerPage);
     i++
   ) {
     pageNumbers.push(i);
@@ -42,7 +55,7 @@ function PaidAds() {
     <div>
       <Row>
         <Col>
-          <h1 className="text-center">Recommended Products</h1>
+          <h1 className="text-center">Paid Ads</h1>
           {loading ? (
             <Loader />
           ) : error ? (
@@ -51,13 +64,13 @@ function PaidAds() {
             <>
               {currentItems.length === 0 ? (
                 <div className="text-center">
-                  Recommended products appear here.
+                  Paid ads appear here.
                 </div>
               ) : (
                 <Row>
                   {currentItems.map((product) => (
-                    <Col key={product._id} xs={12} sm={12} md={6} lg={4} xl={4}>  
-                      <Product product={product} />
+                    <Col key={product.id} xs={12} sm={12} md={6} lg={4} xl={4}>  
+                      <PaidAdProduct product={product} />
                     </Col>
                   ))}
                 </Row>
@@ -115,4 +128,4 @@ function PaidAds() {
   );
 }
 
-export default PaidAds;
+export default PaidAdScreen;

@@ -8,9 +8,10 @@ import { Row, Col, Button } from "react-bootstrap";
 // import Loader from "../Loader";
 // import Message from "../Message";
 import PromoProductScroll from "../PromoProductScroll";
+import PaidAdScreen from "./PaidAdScreen";
 
 function Marketplace({ history }) {
-  // const dispatch = useDispatch();
+  // const dispatch = useDispatch(); 
 
   return (
     <div>
@@ -20,7 +21,7 @@ function Marketplace({ history }) {
             <hr />
             <h1 className="text-center py-3">MarketPlace Hot Deals</h1>
             <hr />
-            <PromoProductScroll />
+            <PaidAdScreen />
           </div>
 
           <div className="text-center">

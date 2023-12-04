@@ -8,14 +8,15 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import Dashboard from "./Dashboard";
 // import { login } from "../../actions/userActions";
 import SellerProfile from "./SellerProfile";
-// import Orders from "./Orders";
+import PostFreeAd from "./PostFreeAd";
+import PostPaidAd from "./PostPaidAd";
 // import Payments from "./Payments";
 // import Favorites from "./SavedItems";
 // import OrderShipment from "./OrderShipment";
 // import OrderItem from "./OrderItem";
 // import Reviews from "./Reviews";
 // import MessageInbox from "./MessageInbox";
-import PostAds from "./PostFreeAd";
+// import PostAds from "./PostFreeAd";
 // import PromoProduct from "./Offers";
 // import RecommendedProducts from "./RecommendedProducts";
 // import ViewedItems from "./ViewedItems";
@@ -69,8 +70,7 @@ function MarketplaceDashboard({ history }) {
       // case "order-shipment":
       //   return <OrderShipment />;
 
-      // case "order-items":
-      //   return <OrderItem />;
+      
 
       // case "reviews":
       //   return <Reviews />;
@@ -78,8 +78,11 @@ function MarketplaceDashboard({ history }) {
       // case "message-inbox":
       //   return <MessageInbox />;
 
-      case "post-ads":
-        return <PostAds />;
+      case "post-free-ad":
+        return <PostFreeAd />;
+
+      case "post-paid-ad":
+        return <PostPaidAd />;
 
       // case "recommended-products":
       //   return <RecommendedProducts />;
@@ -114,13 +117,13 @@ function MarketplaceDashboard({ history }) {
   //   history.push("/create-marketplace-seller");
   // };
 
-  const handlePostFreeAd = () => {
-    history.push("/ad/free");
-  };
+  // const handlePostFreeAd = () => {
+  //   history.push("/ad/free");
+  // };
 
-  const handlePostPaidAd = () => {
-    history.push("/ad/paid");
-  };
+  // const handlePostPaidAd = () => {
+  //   history.push("/ad/paid");
+  // };
 
   return (
     <Container fluid>
@@ -219,13 +222,13 @@ function MarketplaceDashboard({ history }) {
                 </Button>
               </div> */}
 
-              {/* <div>
+              <div>
                 <Button
                   variant={
-                    activeTab === "post-ads" ? "info" : "outline-info"
+                    activeTab === "post-free-ads" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
-                  onClick={() => handleTabChange("post-ads")}
+                  onClick={() => handleTabChange("post-free-ads")}
                 >
                   <i className="fas fa-sack-dollar"></i> Post Free Ads
                 </Button>
@@ -234,16 +237,16 @@ function MarketplaceDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "post-ads" ? "info" : "outline-info"
+                    activeTab === "post-paid-ads" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
-                  onClick={() => handleTabChange("post-ads")}
+                  onClick={() => handleTabChange("post-paid-ads")}
                 >
                   <i className="fas fa-sack-dollar"></i> Post Paid Ads
                 </Button>
-              </div> */}
+              </div> 
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "post-free-ads" ? "info" : "outline-info"
@@ -265,7 +268,7 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fas fa-user-tag"></i> Post Paid Ads
                 </Button>
-              </div>
+              </div> */}
 
               <div>
                 <Button
@@ -273,7 +276,7 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("ads")}
                 >
-                  <i className="fas fa-sack-dollar"></i> Active Ads
+                  <i className="fas fa-sack-dollar"></i> Current Ads
                 </Button>
               </div>
 

@@ -1,3 +1,4 @@
+// PaidAdProductDetail.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -13,29 +14,51 @@ import Rating from "../Rating";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails } from "../../actions/productAction";
-// import { productDetailsReducers } from "../../reducers/productReducers";
+// import { listProductDetails } from "../../actions/adsAction";
+import { 
+  //  getFreeAd,
+//  deleteFreeAd,
+//  updateFreeAd,
+//  getAllFreeAd,
+//  getPaidAd,
+//  updatePaidAd,
+//  deletePaidAd,
+//  getAllPaidAd,
+// getFreeAdDetail
+getPaidAdDetail
+ } from "../../actions/marketplaceSellerActions";
+
 import ProductPrice from "../ProductPrice";
 
-function ProductScreen({ match, history }) {
+function PaidAdProductDetail({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
-  const productDetails = useSelector((state) => state.productDetails);
-  const { loading, error, product } = productDetails;
-  console.log('product:', product)
+
+//   getFreeAdState
+// updateFreeAdState
+// getAllFreeAdState
+// getPaidAdState
+// updatePaidAdState
+// getAllPaidAdState
+// deleteFreeAdState
+// deletePaidAdState
+// getFreeAdDetailState
+// getPaidAdDetailState
+
+const getPaidAdDetailState = useSelector((state) => state.getPaidAdDetailState);
+  const { loading, error,  ads } = getPaidAdDetailState; 
+  console.log('PaidAds:', ads,'description:', ads?.description)
+
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
+    dispatch(getPaidAdDetail(match.params.id)); 
+    // dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
 
-  // const addToCartHandler = () => {
-  //   const priceToUse = product.promo_price || product.price;
-  //   history.push(`/cart/${match.params.id}?qty=${qty}&price=${priceToUse}`);
-  // };
 
   return (
     <div>
@@ -51,29 +74,31 @@ function ProductScreen({ match, history }) {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={product.image} alt={product.name} fluid />
+            <Image src={ads?.image1} alt={ads.ad_name} fluid />
+            <Image src={ads?.image2} alt={ads.ad_name} fluid />
+            <Image src={ads?.image3} alt={ads.ad_name} fluid />
           </Col>
 
           <Col md={3}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h3>{product.name}</h3>
+                <h3>{ads?.ad_name}</h3>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Rating
-                  value={product.rating}
-                  text={`${product.numReviews} reviews`}
+                  value={ads?.ad_rating}
+                  // text={`${ads.numReviews} reviews`}
                   color={"#f8e825"}
                 />
               </ListGroup.Item>
-              {/* <ListGroup.Item>Price: NGN {product.price}</ListGroup.Item> */}
+              <ListGroup.Item>Price: NGN {ads?.price}</ListGroup.Item>
 
               <ListGroup.Item>
-                <ProductPrice price={product.price} promoPrice={product.promo_price} />
+                <ProductPrice price={ads?.price} promoPrice={ads?.promo_price} />
               </ListGroup.Item>
 
               <ListGroup.Item>
-                Description: {product.description}
+                Description: {ads?.description}
               </ListGroup.Item>
             </ListGroup>
           </Col>
@@ -84,7 +109,7 @@ function ProductScreen({ match, history }) {
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>NGN {product.price}</strong>
+                      <strong>NGN {ads.price}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -92,12 +117,12 @@ function ProductScreen({ match, history }) {
                   <Row>
                     <Col>Status:</Col> 
                     <Col>
-                      {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+                      {ads?.count_in_stock > 0 ? "In Stock" : "Out of Stock"}
                     </Col>
                   </Row>
                 </ListGroup.Item>
  
-                {product.countInStock > 0 && (
+                {ads?.count_in_stock > 0 && (
                   <ListGroup.Item>
                     <Row>
                       <Col>Qty</Col>
@@ -107,7 +132,7 @@ function ProductScreen({ match, history }) {
                           value={qty}
                           onChange={(e) => setQty(e.target.value)}
                         >
-                          {[...Array(product.countInStock).keys()].map((x) => (
+                          {[...Array(ads?.count_in_stock).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
                             </option>
@@ -123,11 +148,11 @@ function ProductScreen({ match, history }) {
                     // className="btn-block"
                     className="w-100 rounded"
                     variant="success"
-                    disabled={product.countInStock === 0}
+                    disabled={ads?.count_in_stock === 0}
                     type="button"
                     onClick={addToCartHandler}
                   > 
-                    Add to Cart
+                    Pay With Paysofter Promise
                   </Button>
                 </ListGroup.Item>
               </ListGroup>
@@ -139,4 +164,4 @@ function ProductScreen({ match, history }) {
   );
 }
 
-export default ProductScreen;
+export default PaidAdProductDetail;

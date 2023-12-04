@@ -56,8 +56,8 @@ import PostFreeAd from "./components/marketplace/PostFreeAd";
 import PostPaidAd from "./components/marketplace/PostPaidAd";
 import CreateMarketplaceSeller from "./components/marketplace/CreateMarketplaceSeller";
 import SellerPhoto from "./components/marketplace/SellerPhoto";
-// import Marketplace from "./components/marketplace/Marketplace";
-// import Marketplace from "./components/marketplace/Marketplace";
+import PaidAdProductDetail from "./components/marketplace/PaidAdProductDetail";
+import PaidAdScreen from "./components/marketplace/PaidAdScreen";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -132,15 +132,15 @@ function App() {
           <Route path="/marketplace" component={Marketplace} />
           <Route path="/ad/free" component={PostFreeAd} />
           <Route path="/ad/paid" component={PostPaidAd} />
+          <Route path="/paid-ad-detail/:id" component={PaidAdProductDetail} />
+          <Route path="/paid-ad-screen" component={PaidAdScreen} />
           <Route
             path="/create-marketplace-seller"
             component={CreateMarketplaceSeller}
           />
           <Route path="/seller/photo/" component={SellerPhoto} />
-          {/* <Route path="/marketplace" component={PostPaidAd} /> */}
           {/*
            */}
-          {/* <Route path="/message-inbox" component={MessageInboxScreen} /> */}
         </main>
         <Footer />
         {/* </section> */}
