@@ -19,7 +19,7 @@ function PaidAdProduct({ product }) {
   const dispatch = useDispatch();
 
   const [productSaved, setProductSaved] = useState(false);
-  const [totalSaves, setTotalSaves] = useState(product.save_count);
+  const [totalSaves, setTotalSaves] = useState(product?.ad_save_count);
 
   const [productMessages, setProductMessages] = useState({
     productSaveSuccess: false,
@@ -67,8 +67,7 @@ function PaidAdProduct({ product }) {
             }));
             setProductSaved(false);
             setTotalSaves((prevSaves) => prevSaves - 1); // Decrement totalSaves
-            // Update product.save_count in the database
-            const updatedSaveCount = product.save_count - 1;
+            const updatedSaveCount = product?.ad_save_count - 1;
             dispatch(updateProductSaveCount(product.id, updatedSaveCount));
           })
           .catch((error) => {
@@ -100,7 +99,7 @@ function PaidAdProduct({ product }) {
             }));
             setProductSaved(true);
             setTotalSaves((prevSaves) => prevSaves + 1);
-            const updatedSaveCount = product.save_count + 1;
+            const updatedSaveCount = product?.ad_save_count + 1;
             dispatch(updateProductSaveCount(product.id, updatedSaveCount));
           })
           .catch((error) => {
@@ -174,45 +173,75 @@ function PaidAdProduct({ product }) {
       </Link>
 
       <Card.Body>
-        <Link onClick={viewProductHandler}>
-          <Card.Title as="div">
-            <strong>{product.ad_name}</strong>
-          </Card.Title>
-        </Link>
+        <div className="d-flex justify-content-between">
+          <Link onClick={viewProductHandler}>
+            <Card.Title as="div">
+              <strong>{product.ad_name}</strong>
+            </Card.Title>
+          </Link>
 
-        <Card.Text as="div">
-          <span className="text-right" onClick={viewProductHandler}>
-            <i className="fas fa-eye"></i> {formatCount(product?.ad_view_count)}{" "}
-            views
+          <span>
+            <Button
+              variant="outline-success"
+              size="sm"
+              className="rounded"
+              disabled
+            >
+              <i>Promoted</i>
+            </Button>
           </span>
-        </Card.Text>
-
-        <div as="div">
-          <div className="my-3">
-            <Rating
-              value={product.rating}
-              text={`${formatCount(product?.num_reviews)} reviews `}
-              color={"yellow"}
-            />
-
-            {userInfo ? (
-              <Link to={`/review-list/${product.id}`}>(Verified Ratings)</Link>
-            ) : (
-              <Link onClick={() => history.push("/login")}>
-                (Verified Ratings)
-              </Link>
-            )}
-          </div>
         </div>
 
-        <Card.Text as="h5">
-          <span>
-            <ProductPrice
-              price={product.price}
-              promoPrice={product.promo_price}
-            />
+        <div className="d-flex justify-content-between">
+          <div as="div">
+            <div className="py-2">
+              <Rating
+                value={product.rating}
+                text={`${formatCount(product?.num_reviews)} reviews `}
+                color={"yellow"}
+              />
+
+              {userInfo ? (
+                <Link to={`/review-list/${product.id}`}>
+                  (Verified Ratings)
+                </Link>
+              ) : (
+                <Link onClick={() => history.push("/login")}>
+                  (Verified Ratings)
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <Card.Text as="div" className="py-2">
+            <span className="text-right" onClick={viewProductHandler}>
+              <i className="fas fa-eye"></i>{" "}
+              {formatCount(product?.ad_view_count)} views
+            </span>
+          </Card.Text>
+        </div>
+
+        <div className="d-flex justify-content-between py-2">
+          <Card.Text as="h5" className="py-2">
+            <span>
+              <ProductPrice
+                price={product.price}
+                promoPrice={product.promo_price}
+              />
+            </span>
+          </Card.Text>
+
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+              disabled
+            >
+              <i>Promo Code: NEW0223</i>
+            </Button>
           </span>
-        </Card.Text>
+        </div>
 
         <div className="d-flex justify-content-between">
           <span className="py-2">
@@ -240,6 +269,38 @@ function PaidAdProduct({ product }) {
                 {productSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
+            </Button>
+          </span>
+        </div>
+
+        <div className="d-flex justify-content-between py-2">
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+            >
+              <i>Edit</i>
+            </Button>
+          </span>
+
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+            >
+              <i>Delete</i>
+            </Button>
+          </span>
+
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+            >
+              <i>Deactivate</i>
             </Button>
           </span>
         </div>

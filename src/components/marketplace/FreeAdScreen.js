@@ -1,13 +1,13 @@
-// PaidAdScreen.js
+// FreeAdScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import {
-  //  getFreeAd,
+   getFreeAd,
   //  deleteFreeAd,
   //  updateFreeAd,
   //  getAllFreeAd,
-  getPaidAd,
+  // getPaidAd,
   //  updatePaidAd,
   //  deletePaidAd,
   //  getAllPaidAd,
@@ -17,15 +17,15 @@ import PaidAdProduct from "./PaidAdProduct";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function PaidAdScreen() {
+function FreeAdScreen() {
   const dispatch = useDispatch();
 
-  const getPaidAdState = useSelector((state) => state.getPaidAdState);
-  const { loading, error, ads } = getPaidAdState;
+  const getFreeAdState = useSelector((state) => state.getFreeAdState);
+  const { loading, error, ads } = getFreeAdState;
   console.log("PaidAds:", ads);
 
   useEffect(() => {
-    dispatch(getPaidAd());
+    dispatch(getFreeAd());
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +47,7 @@ function PaidAdScreen() {
       <Row>
         <Col>
             <hr />
-          <h1 className="text-center">Promoted Ads</h1>
+          <h1 className="text-center">Running Ads</h1>
             <hr />
           {loading ? (
             <Loader />
@@ -56,7 +56,7 @@ function PaidAdScreen() {
           ) : (
             <>
               {currentItems.length === 0 ? (
-                <div className="text-center">Promoted ads appear here.</div>
+                <div className="text-center">Running ads appear here.</div>
               ) : (
                 <Row>
                   {currentItems.map((product) => (
@@ -111,11 +111,10 @@ function PaidAdScreen() {
               </nav>
             </>
           )}
-          <hr />
         </Col>
       </Row>
     </div>
   );
 }
 
-export default PaidAdScreen;
+export default FreeAdScreen;

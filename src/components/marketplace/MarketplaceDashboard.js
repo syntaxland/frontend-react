@@ -10,7 +10,7 @@ import Dashboard from "./Dashboard";
 import SellerProfile from "./SellerProfile";
 import PostFreeAd from "./PostFreeAd";
 import PostPaidAd from "./PostPaidAd";
-// import Payments from "./Payments";
+import CurrentAds from "./CurrentAds";
 // import Favorites from "./SavedItems";
 // import OrderShipment from "./OrderShipment";
 // import OrderItem from "./OrderItem";
@@ -61,8 +61,8 @@ function MarketplaceDashboard({ history }) {
       // case "orders":
       //   return <Orders />;
 
-      // case "payments":
-      //   return <Payments />;
+      case "ads":
+        return <CurrentAds />;
 
       // case "favorites":
       //   return <Favorites />;

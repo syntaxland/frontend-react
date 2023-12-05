@@ -60,7 +60,7 @@ GET_PAID_AD_DETAIL_FAIL,
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getFreeAd = (sellerData) => async (dispatch, getState) => {
+export const getFreeAd = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_FREE_AD_REQUEST });
 
@@ -75,9 +75,8 @@ export const getFreeAd = (sellerData) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
-      `${API_URL}/api/get-free-ad/`,
-      sellerData,
+    const { data } = await axios.get(
+      `${API_URL}/api/get-seller-free-ad/`,
       config
     );
 
