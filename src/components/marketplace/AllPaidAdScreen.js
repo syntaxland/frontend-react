@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import { getAllPaidAd } from "../../actions/marketplaceSellerActions";
 
-import PaidAdProduct from "./PaidAdProduct";
+import AllPaidAdCard from "./AllPaidAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
@@ -38,10 +38,8 @@ function AllPaidAdScreen() {
       <Row>
         <Col>
           <hr />
-
           <h1 className="text-center">Promoted Ads</h1>
           <hr />
-
           {loading ? (
             <Loader />
           ) : error ? (
@@ -54,7 +52,7 @@ function AllPaidAdScreen() {
                 <Row>
                   {currentItems.map((product) => (
                     <Col key={product.id} xs={12} sm={12} md={6} lg={4} xl={4}>
-                      <PaidAdProduct product={product} />
+                      <AllPaidAdCard product={product} />
                     </Col>
                   ))}
                 </Row>

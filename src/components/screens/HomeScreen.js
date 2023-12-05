@@ -44,8 +44,8 @@ function HomeScreen({ history }) {
 
   return (
     <div>
-      <Row>
-        <Col>
+      <Row className="d-flex justify-content-center py-2">
+        <Col >
           <div>
             <hr />
             <h1 className="text-center py-3">Current Offers</h1>
@@ -61,10 +61,9 @@ function HomeScreen({ history }) {
           <div >
             {/* <h1 className="py-3 text-center">MarketPlace Hot Deals</h1> */}
             <AllPaidAdScreen />
-            <span className="text-center">
+            <span className="d-flex justify-content-center text-center">
               Checkout more currently running deals at the market place and/or
               post your ads.{" "}
-            </span>
             <Button
               variant="primary"
               className="rounded"
@@ -73,6 +72,7 @@ function HomeScreen({ history }) {
             >
               Go to MarketPlace <i className="fa fa-shopping-cart"></i>
             </Button>
+            </span>
           </div>
 
           <div>

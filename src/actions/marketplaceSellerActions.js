@@ -213,14 +213,14 @@ export const getAllFreeAd = (sellerData) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_FREE_AD_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState();
 
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${userInfo.access}`,
+        // Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
@@ -408,14 +408,14 @@ export const getAllPaidAd = (sellerData) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_PAID_AD_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState();
 
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${userInfo.access}`,
+        // Authorization: `Bearer ${userInfo.access}`,
       },
     };
 

@@ -1,4 +1,4 @@
-// PaidAdProduct.js
+// AllFreeAdCard.js
 import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -12,10 +12,10 @@ import {
 } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
-import ProductPrice from "../ProductPrice";
+// import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
 
-function PaidAdProduct({ product }) {
+function AllFreeAdCard({ product }) {
   const dispatch = useDispatch();
 
   const [productSaved, setProductSaved] = useState(false);
@@ -180,7 +180,7 @@ function PaidAdProduct({ product }) {
             </Card.Title>
           </Link>
 
-          <span>
+          {/* <span>
             <Button
               variant="outline-success"
               size="sm"
@@ -189,7 +189,7 @@ function PaidAdProduct({ product }) {
             >
               <i>Promoted</i>
             </Button>
-          </span>
+          </span> */}
         </div>
 
         <div className="d-flex justify-content-between">
@@ -203,11 +203,11 @@ function PaidAdProduct({ product }) {
 
               {userInfo ? (
                 <Link to={`/review-list/${product.id}`}>
-                  (Verified Ratings)
+                  (Seller Ratings)
                 </Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
-                  (Verified Ratings)
+                  (Seller Ratings)
                 </Link>
               )}
             </div>
@@ -224,14 +224,15 @@ function PaidAdProduct({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-              <ProductPrice
-                price={product.price}
-                promoPrice={product.promo_price}
-              />
+                NGN {product.price}
+              {/* <ProductPrice
+                // price={product.price}
+                // promoPrice={product.promo_price}
+              /> */}
             </span>
           </Card.Text>
 
-          <span className="py-2">
+          {/* <span className="py-2">
             <Button
               variant="outline-primary"
               size="sm"
@@ -240,7 +241,7 @@ function PaidAdProduct({ product }) {
             >
               <i>Promo Code: NEW0223</i>
             </Button>
-          </span>
+          </span> */}
         </div>
 
         <div className="d-flex justify-content-between">
@@ -284,7 +285,7 @@ function PaidAdProduct({ product }) {
             </Button>
           </span>
 
-          <span className="py-2">
+          {/* <span className="py-2">
             <Button
               variant="outline-primary"
               size="sm"
@@ -312,11 +313,11 @@ function PaidAdProduct({ product }) {
             >
             Deactivate
             </Button>
-          </span>
+          </span> */}
         </div>
       </Card.Body>
     </Card>
   );
 }
 
-export default PaidAdProduct;
+export default AllFreeAdCard;

@@ -6,7 +6,7 @@ import {
    getAllFreeAd,
 } from "../../actions/marketplaceSellerActions";
 
-import PaidAdProduct from "./PaidAdProduct";
+import AllFreeAdCard from "./AllFreeAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
@@ -54,7 +54,7 @@ function AllFreeAdScreen() {
                 <Row>
                   {currentItems.map((product) => (
                     <Col key={product.id} xs={12} sm={12} md={6} lg={4} xl={4}>
-                      <PaidAdProduct product={product} />
+                      <AllFreeAdCard product={product} />
                     </Col>
                   ))}
                 </Row>

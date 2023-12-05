@@ -225,10 +225,10 @@ function MarketplaceDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "post-free-ads" ? "info" : "outline-info"
+                    activeTab === "post-free-ad" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
-                  onClick={() => handleTabChange("post-free-ads")}
+                  onClick={() => handleTabChange("post-free-ad")}
                 >
                   <i className="fas fa-sack-dollar"></i> Post Free Ads
                 </Button>
@@ -237,10 +237,10 @@ function MarketplaceDashboard({ history }) {
               <div>
                 <Button
                   variant={
-                    activeTab === "post-paid-ads" ? "info" : "outline-info"
+                    activeTab === "post-paid-ad" ? "info" : "outline-info"
                   }
                   className="sidebar-link"
-                  onClick={() => handleTabChange("post-paid-ads")}
+                  onClick={() => handleTabChange("post-paid-ad")}
                 >
                   <i className="fas fa-sack-dollar"></i> Post Paid Ads
                 </Button>

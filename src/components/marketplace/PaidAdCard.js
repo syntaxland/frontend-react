@@ -1,4 +1,4 @@
-// PaidAdProduct.js
+// PaidAdCard.js
 import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -12,10 +12,10 @@ import {
 } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
-import ProductPrice from "../ProductPrice";
+// import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
 
-function PaidAdProduct({ product }) {
+function PaidAdCard({ product }) {
   const dispatch = useDispatch();
 
   const [productSaved, setProductSaved] = useState(false);
@@ -224,10 +224,11 @@ function PaidAdProduct({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-              <ProductPrice
+                NGN {product.price}
+              {/* <ProductPrice
                 price={product.price}
-                promoPrice={product.promo_price}
-              />
+                // promoPrice={product.promo_price}
+              /> */}
             </span>
           </Card.Text>
 
@@ -274,7 +275,7 @@ function PaidAdProduct({ product }) {
         </div>
 
         <div className="d-flex justify-content-between py-2">
-        <span className="py-2">
+        {/* <span className="py-2">
             <Button
               variant="outline-primary"
               size="sm"
@@ -282,7 +283,7 @@ function PaidAdProduct({ product }) {
             >
             Message Seller
             </Button>
-          </span>
+          </span> */}
 
           <span className="py-2">
             <Button
@@ -319,4 +320,4 @@ function PaidAdProduct({ product }) {
   );
 }
 
-export default PaidAdProduct;
+export default PaidAdCard;
