@@ -1,4 +1,4 @@
-// PaidAdProductDetail.js
+// FreeAdProductDetail.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -24,13 +24,13 @@ import {
 //  updatePaidAd,
 //  deletePaidAd,
 //  getAllPaidAd,
-// getFreeAdDetail
-getPaidAdDetail
+getFreeAdDetail
+// getPaidAdDetail
  } from "../../actions/marketplaceSellerActions";
 
 // import ProductPrice from "../ProductPrice";
 
-function PaidAdProductDetail({ match, history }) {
+function FreeAdProductDetail({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
@@ -45,13 +45,13 @@ function PaidAdProductDetail({ match, history }) {
 // getFreeAdDetailState
 // getPaidAdDetailState
 
-const getPaidAdDetailState = useSelector((state) => state.getPaidAdDetailState);
-  const { loading, error,  ads } = getPaidAdDetailState; 
+const getFreeAdDetailState = useSelector((state) => state.getFreeAdDetailState);
+  const { loading, error,  ads } = getFreeAdDetailState; 
   console.log('PaidAds:', ads,'description:', ads?.description)
 
 
   useEffect(() => {
-    dispatch(getPaidAdDetail(match.params.id)); 
+    dispatch(getFreeAdDetail(match.params.id)); 
     // dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
@@ -164,4 +164,4 @@ const getPaidAdDetailState = useSelector((state) => state.getPaidAdDetailState);
   );
 }
 
-export default PaidAdProductDetail;
+export default FreeAdProductDetail;

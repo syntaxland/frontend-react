@@ -135,7 +135,7 @@ function AllFreeAdCard({ product }) {
     }
     dispatch(trackProductView(userInfo.id, product.id));
 
-    history.push(`/paid-ad-detail/${product.id}`);
+    history.push(`/free-ad-detail/${product.id}`);
   };
 
   function formatCount(viewCount) {

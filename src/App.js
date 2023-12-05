@@ -57,6 +57,7 @@ import PostPaidAd from "./components/marketplace/PostPaidAd";
 import CreateMarketplaceSeller from "./components/marketplace/CreateMarketplaceSeller";
 import SellerPhoto from "./components/marketplace/SellerPhoto";
 import PaidAdProductDetail from "./components/marketplace/PaidAdProductDetail";
+import FreeAdProductDetail from "./components/marketplace/FreeAdProductDetail";
 import PaidAdScreen from "./components/marketplace/PaidAdScreen";
 
 function App() {
@@ -133,6 +134,7 @@ function App() {
           <Route path="/ad/free" component={PostFreeAd} />
           <Route path="/ad/paid" component={PostPaidAd} />
           <Route path="/paid-ad-detail/:id" component={PaidAdProductDetail} />
+          <Route path="/free-ad-detail/:id" component={FreeAdProductDetail} />
           <Route path="/paid-ad-screen" component={PaidAdScreen} />
           <Route
             path="/create-marketplace-seller"
