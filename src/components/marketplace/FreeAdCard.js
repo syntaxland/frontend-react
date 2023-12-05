@@ -180,7 +180,7 @@ function FreeAdCard({ product }) {
             </Card.Title>
           </Link>
 
-          <span>
+          {/* <span>
             <Button
               variant="outline-success"
               size="sm"
@@ -189,7 +189,7 @@ function FreeAdCard({ product }) {
             >
               <i>Promoted</i>
             </Button>
-          </span>
+          </span> */}
         </div>
 
         <div className="d-flex justify-content-between">
