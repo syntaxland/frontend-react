@@ -8,7 +8,7 @@ import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
-  trackProductView,
+  // trackProductView, 
 } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
@@ -128,15 +128,15 @@ function FreeAdCard({ product }) {
     }, 3000);
   };
 
-  const viewProductHandler = () => {
-    if (!userInfo) {
-      history.push("/login");
-      // dispatch(trackProductView(userInfo.id, product.id));
-    }
-    dispatch(trackProductView(userInfo.id, product.id));
+  // const viewProductHandler = () => {
+  //   if (!userInfo) {
+  //     history.push("/login");
+  //     // dispatch(trackProductView(userInfo.id, product.id));
+  //   }
+  //   dispatch(trackProductView(userInfo.id, product.id));
 
-    history.push(`/paid-ad-detail/${product.id}`);
-  };
+  //   history.push(`/paid-ad-detail/${product.id}`);
+  // };
 
   function formatCount(viewCount) {
     if (viewCount >= 1000000) {
@@ -168,13 +168,13 @@ function FreeAdCard({ product }) {
       {productLoading.productSaveLoading && <Loader />}
       {productLoading.productRemoveLoading && <Loader />}
 
-      <Link onClick={viewProductHandler}>
+      <Link >
         <Card.Img src={product.image1} />
       </Link>
 
       <Card.Body>
         <div className="d-flex justify-content-between">
-          <Link onClick={viewProductHandler}>
+          <Link >
             <Card.Title as="div">
               <strong>{product.ad_name}</strong>
             </Card.Title>
@@ -214,7 +214,7 @@ function FreeAdCard({ product }) {
           </div>
 
           <Card.Text as="div" className="py-2">
-            <span className="text-right" onClick={viewProductHandler}>
+            <span className="text-right" >
               <i className="fas fa-eye"></i>{" "}
               {formatCount(product?.ad_view_count)} views
             </span>
