@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Rating from "../Rating";
+import RatingSeller from "../RatingSeller";
 import {
   saveProduct,
   removeProduct,
@@ -195,19 +195,19 @@ function PaidAdCard({ product }) {
         <div className="d-flex justify-content-between">
           <div as="div">
             <div className="py-2">
-              <Rating
+              <RatingSeller
                 value={product.rating}
                 text={`${formatCount(product?.num_reviews)} reviews `}
-                color={"yellow"}
+                color={"green"}
               />
 
               {userInfo ? (
                 <Link to={`/review-list/${product.id}`}>
-                  (Verified Ratings)
+                  (Seller Ratings)
                 </Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
-                  (Verified Ratings)
+                  (Seller Ratings)
                 </Link>
               )}
             </div>
@@ -223,12 +223,13 @@ function PaidAdCard({ product }) {
 
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
-            <span>
-                NGN {product.price}
-              {/* <ProductPrice
-                price={product.price}
-                // promoPrice={product.promo_price}
-              /> */}
+          <span>
+              NGN {product?.price}{" "}
+              {product?.is_price_negotiable ? (
+                <i>(Negotiable)</i>
+              ) : (
+                <></>
+              )}
             </span>
           </Card.Text>
 
@@ -247,12 +248,12 @@ function PaidAdCard({ product }) {
         <div className="d-flex justify-content-between">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="outline-danger"
               size="sm"
               className="py-2 rounded"
               disabled
             >
-              Timer: <PromoTimer expirationDate={product?.expiration_date} />
+              Expires in: <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
 
@@ -314,6 +315,11 @@ function PaidAdCard({ product }) {
             Deactivate
             </Button>
           </span>
+        </div>
+        <div className="py-2 text-center">
+          <Button variant="outline-primary" size="sm" className="py-2 rounded">
+            Due Ad Charges: NGN {product?.ad_charges}
+          </Button>
         </div>
       </Card.Body>
     </Card>

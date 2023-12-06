@@ -182,7 +182,8 @@ function MarketplaceDashboard({ history }) {
                   <i className="fa fas fa-cart-plus"></i> Purchased Items
                 </Button>
               </div> */}
-              <div>
+
+              {/* <div>
                 <Button
                   variant={activeTab === "payments" ? "info" : "outline-info"}
                   className="sidebar-link"
@@ -190,7 +191,8 @@ function MarketplaceDashboard({ history }) {
                 >
                   <i className="fas fa-credit-card"></i> Transactions
                 </Button>
-              </div>
+              </div> */}
+
               {/* <div>
                 <Button
                   variant={

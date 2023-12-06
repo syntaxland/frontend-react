@@ -15,48 +15,50 @@ import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 // import { listProductDetails } from "../../actions/adsAction";
-import {
+import { 
   //  getFreeAd,
-  //  deleteFreeAd,
-  //  updateFreeAd,
-  //  getAllFreeAd,
-  //  getPaidAd,
-  //  updatePaidAd,
-  //  deletePaidAd,
-  //  getAllPaidAd,
-  // getFreeAdDetail
-  getPaidAdDetail,
-} from "../../actions/marketplaceSellerActions";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+//  deleteFreeAd,
+//  updateFreeAd,
+//  getAllFreeAd,
+//  getPaidAd,
+//  updatePaidAd,
+//  deletePaidAd,
+//  getAllPaidAd,
+// getFreeAdDetail
+getPaidAdDetail
+ } from "../../actions/marketplaceSellerActions";
+
+// import ProductPrice from "../ProductPrice";
 
 function PaidAdProductDetail({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
-  //   getFreeAdState
-  // updateFreeAdState
-  // getAllFreeAdState
-  // getPaidAdState
-  // updatePaidAdState
-  // getAllPaidAdState
-  // deleteFreeAdState
-  // deletePaidAdState
-  // getFreeAdDetailState
-  // getPaidAdDetailState
+//   getFreeAdState
+// updateFreeAdState
+// getAllFreeAdState
+// getPaidAdState
+// updatePaidAdState
+// getAllPaidAdState
+// deleteFreeAdState
+// deletePaidAdState
+// getFreeAdDetailState
+// getPaidAdDetailState
 
-  const getPaidAdDetailState = useSelector(
-    (state) => state.getPaidAdDetailState
-  );
-  const { loading, error, ads } = getPaidAdDetailState;
-  console.log("PaidAds:", ads, "description:", ads?.description);
+const getPaidAdDetailState = useSelector((state) => state.getPaidAdDetailState);
+  const { loading, error,  ads } = getPaidAdDetailState; 
+  console.log('PaidAds:', ads,'description:', ads?.description)
+
 
   useEffect(() => {
-    dispatch(getPaidAdDetail(match.params.id));
+    dispatch(getPaidAdDetail(match.params.id)); 
     // dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
-  const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
+  // const addToCartHandler = () => {
+  //   history.push(`/cart/${match.params.id}?qty=${qty}`);
+  // };
+
 
   return (
     <div>
@@ -72,23 +74,9 @@ function PaidAdProductDetail({ match, history }) {
       ) : (
         <Row>
           <Col md={6}>
-            {images.length > 0 ? (
-              <Carousel
-                showArrows={true}
-                showIndicators={true}
-                showThumbs={true}
-                useKeyboardArrows={true}
-                dynamicHeight={false}
-              >
-                {images.map((image, index) => (
-                  <div className="slide" key={index}>
-                    <Image src={image} alt={`Slide ${index + 1}`} fluid />
-                  </div>
-                ))}
-              </Carousel>
-            ) : (
-              <></>
-            )}
+            <Image src={ads?.image1} alt={ads.ad_name} fluid />
+            <Image src={ads?.image2} alt={ads.ad_name} fluid />
+            <Image src={ads?.image3} alt={ads.ad_name} fluid />
           </Col>
 
           <Col md={3}>
@@ -99,20 +87,24 @@ function PaidAdProductDetail({ match, history }) {
               <ListGroup.Item>
                 <Rating
                   value={ads?.ad_rating}
-                  // text={`${ads.numReviews} reviews`
+                  // text={`${ads.numReviews} reviews`}
                   color={"#f8e825"}
                 />
               </ListGroup.Item>
               <ListGroup.Item>Price: NGN {ads?.price}</ListGroup.Item>
 
-              
+              {/* <ListGroup.Item>
+                <ProductPrice price={ads?.price} promoPrice={ads?.promo_price} />
+              </ListGroup.Item> */}
 
-              <ListGroup.Item>Description: {ads?.description}</ListGroup.Item>
+              <ListGroup.Item>
+                Description: {ads?.description}
+              </ListGroup.Item>
             </ListGroup>
           </Col>
           <Col md={3}>
-            <Card>
-              <ListGroup variant="flush">
+            <Card> 
+              <ListGroup variant="flush"> 
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
@@ -122,9 +114,14 @@ function PaidAdProductDetail({ match, history }) {
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  
+                  {/* <Row>
+                    <Col>Status:</Col> 
+                    <Col>
+                      {ads?.count_in_stock > 0 ? "In Stock" : "Out of Stock"}
+                    </Col>
+                  </Row> */}
                 </ListGroup.Item>
-
+ 
                 {ads?.count_in_stock > 0 && (
                   <ListGroup.Item>
                     <Row>
@@ -148,11 +145,13 @@ function PaidAdProductDetail({ match, history }) {
 
                 <ListGroup.Item>
                   <Button
+                    // className="btn-block"
                     className="w-100 rounded"
                     variant="success"
+                    // disabled={ads?.count_in_stock === 0}
                     type="button"
                     // onClick={addToCartHandler}
-                  >
+                  > 
                     Pay With Paysofter Promise
                   </Button>
                 </ListGroup.Item>

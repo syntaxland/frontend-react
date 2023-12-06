@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Rating from "../Rating";
+import RatingSeller from "../RatingSeller";
 import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
   trackProductView,
 } from "../../actions/productAction";
+import { getSellerAccount } from "../../actions/marketplaceSellerActions";
+
 import Message from "../Message";
 import Loader from "../Loader";
 // import ProductPrice from "../ProductPrice";
@@ -37,6 +39,16 @@ function AllFreeAdCard({ product }) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const getSellerAccountState = useSelector(
+    (state) => state.getSellerAccountState
+  );
+  const { sellerAccount } = getSellerAccountState;
+  console.log("is_seller_verified", sellerAccount?.is_seller_verified);
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(getSellerAccount());
+    }
+  }, [dispatch, userInfo]);
 
   useEffect(() => {
     if (
@@ -179,32 +191,41 @@ function AllFreeAdCard({ product }) {
               <strong>{product.ad_name}</strong>
             </Card.Title>
           </Link>
-
-          {/* <span>
-            <Button
-              variant="outline-success"
-              size="sm"
-              className="rounded"
-              disabled
-            >
-              <i>Promoted</i>
-            </Button>
-          </span> */}
+          <div>
+            <span>
+              {sellerAccount?.is_seller_verified ? (
+                <>
+                  <Button
+                    variant="outline-success"
+                    size="sm"
+                    className="rounded"
+                    disabled
+                  >
+                    <i>Verified ID</i>{" "}
+                    <i
+                      className="fas fa-check-circle"
+                      style={{ fontSize: "18px", color: "blue" }}
+                    ></i>
+                  </Button>
+                </>
+              ) : (
+                <></>
+              )}
+            </span>
+          </div>
         </div>
 
         <div className="d-flex justify-content-between">
           <div as="div">
             <div className="py-2">
-              <Rating
+              <RatingSeller
                 value={product.rating}
                 text={`${formatCount(product?.num_reviews)} reviews `}
-                color={"yellow"}
+                color={"green"}
               />
 
               {userInfo ? (
-                <Link to={`/review-list/${product.id}`}>
-                  (Seller Ratings)
-                </Link>
+                <Link to={`/review-list/${product.id}`}>(Seller Ratings)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
                   (Seller Ratings)
@@ -224,35 +245,24 @@ function AllFreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-                NGN {product.price}
-              {/* <ProductPrice
-                // price={product.price}
-                // promoPrice={product.promo_price}
-              /> */}
+              NGN {product?.price}{" "}
+              {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
 
-          {/* <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-              disabled
-            >
-              <i>Promo Code: NEW0223</i>
-            </Button>
-          </span> */}
+         
         </div>
 
         <div className="d-flex justify-content-between">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="outline-danger"
               size="sm"
               className="py-2 rounded"
               disabled
             >
-              Timer: <PromoTimer expirationDate={product?.expiration_date} />
+              Expires in:{" "}
+              <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
 
@@ -275,13 +285,13 @@ function AllFreeAdCard({ product }) {
         </div>
 
         <div className="d-flex justify-content-between py-2">
-        <span className="py-2">
+          <span className="py-2">
             <Button
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
             >
-            Message Seller
+              Message Seller
             </Button>
           </span>
 

@@ -15,50 +15,25 @@ import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 // import { listProductDetails } from "../../actions/adsAction";
-import { 
-  //  getFreeAd,
-//  deleteFreeAd,
-//  updateFreeAd,
-//  getAllFreeAd,
-//  getPaidAd,
-//  updatePaidAd,
-//  deletePaidAd,
-//  getAllPaidAd,
-getFreeAdDetail
-// getPaidAdDetail
- } from "../../actions/marketplaceSellerActions";
-
-// import ProductPrice from "../ProductPrice";
+import { getFreeAdDetail } from "../../actions/marketplaceSellerActions";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function FreeAdProductDetail({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
-//   getFreeAdState
-// updateFreeAdState
-// getAllFreeAdState
-// getPaidAdState
-// updatePaidAdState
-// getAllPaidAdState
-// deleteFreeAdState
-// deletePaidAdState
-// getFreeAdDetailState
-// getPaidAdDetailState
-
-const getFreeAdDetailState = useSelector((state) => state.getFreeAdDetailState);
-  const { loading, error,  ads } = getFreeAdDetailState; 
-  console.log('PaidAds:', ads,'description:', ads?.description)
-
+  const getFreeAdDetailState = useSelector(
+    (state) => state.getFreeAdDetailState
+  );
+  const { loading, error, ads } = getFreeAdDetailState;
+  console.log("PaidAds:", ads, "description:", ads?.description);
 
   useEffect(() => {
-    dispatch(getFreeAdDetail(match.params.id)); 
-    // dispatch(listProductDetails(match.params.id));
+    dispatch(getFreeAdDetail(match.params.id));
   }, [dispatch, match]);
 
-  // const addToCartHandler = () => {
-  //   history.push(`/cart/${match.params.id}?qty=${qty}`);
-  // };
-
+  const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
 
   return (
     <div>
@@ -74,9 +49,23 @@ const getFreeAdDetailState = useSelector((state) => state.getFreeAdDetailState);
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={ads?.image1} alt={ads.ad_name} fluid />
-            <Image src={ads?.image2} alt={ads.ad_name} fluid />
-            <Image src={ads?.image3} alt={ads.ad_name} fluid />
+            {images.length > 0 ? (
+              <Carousel 
+              showArrows={true}
+              showIndicators={true} 
+              showThumbs={true} 
+              useKeyboardArrows={true}
+              dynamicHeight={false}
+              >
+                {images.map((image, index) => (
+                  <div className="slide" key={index}>
+                    <Image src={image} alt={`Slide ${index + 1}`} fluid />
+                  </div>
+                ))}
+              </Carousel>
+            ) : (
+              <></>
+            )}
           </Col>
 
           <Col md={3}>
@@ -87,24 +76,17 @@ const getFreeAdDetailState = useSelector((state) => state.getFreeAdDetailState);
               <ListGroup.Item>
                 <Rating
                   value={ads?.ad_rating}
-                  // text={`${ads.numReviews} reviews`}
                   color={"#f8e825"}
                 />
               </ListGroup.Item>
               <ListGroup.Item>Price: NGN {ads?.price}</ListGroup.Item>
 
-              {/* <ListGroup.Item>
-                <ProductPrice price={ads?.price} promoPrice={ads?.promo_price} />
-              </ListGroup.Item> */}
-
-              <ListGroup.Item>
-                Description: {ads?.description}
-              </ListGroup.Item>
+              <ListGroup.Item>Description: {ads?.description}</ListGroup.Item>
             </ListGroup>
           </Col>
           <Col md={3}>
-            <Card> 
-              <ListGroup variant="flush"> 
+            <Card>
+              <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
@@ -114,14 +96,9 @@ const getFreeAdDetailState = useSelector((state) => state.getFreeAdDetailState);
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  {/* <Row>
-                    <Col>Status:</Col> 
-                    <Col>
-                      {ads?.count_in_stock > 0 ? "In Stock" : "Out of Stock"}
-                    </Col>
-                  </Row> */}
+                  
                 </ListGroup.Item>
- 
+
                 {ads?.count_in_stock > 0 && (
                   <ListGroup.Item>
                     <Row>
@@ -151,7 +128,7 @@ const getFreeAdDetailState = useSelector((state) => state.getFreeAdDetailState);
                     // disabled={ads?.count_in_stock === 0}
                     type="button"
                     // onClick={addToCartHandler}
-                  > 
+                  >
                     Pay With Paysofter Promise
                   </Button>
                 </ListGroup.Item>

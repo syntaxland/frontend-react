@@ -331,7 +331,7 @@ function SellerProfile() {
           )}
         </div>
         <p className="d-flex justify-content-left">
-          <i> Verified </i>
+          <i> Verified ID </i>
           {sellerAccount?.is_seller_verified ? (
             <i
               className="fas fa-check-circle"

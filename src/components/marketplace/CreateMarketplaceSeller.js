@@ -337,7 +337,7 @@ function CreateMarketplaceSeller({ history }) {
 
           <Form>
             <Form.Group>
-              <Form.Label>Business Name</Form.Label>
+              <Form.Label>Business Name*</Form.Label>
               <Form.Control
                 type="text"
                 value={businessName}
@@ -353,7 +353,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Business Status</Form.Label>
+              <Form.Label>Business Status*</Form.Label>
               <Form.Control
                 as="select"
                 value={businessType}
@@ -389,7 +389,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Business Industry</Form.Label>
+              <Form.Label>Business Industry*</Form.Label>
               <Form.Control
                 as="select"
                 value={businessIndustry}
@@ -412,7 +412,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Business Category</Form.Label>
+              <Form.Label>Business Category*</Form.Label>
               <Form.Control
                 as="select"
                 value={businessCategory}
@@ -435,7 +435,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Staff Size</Form.Label>
+              <Form.Label>Staff Size*</Form.Label>
               <Form.Control
                 as="select"
                 value={staffSize}
@@ -493,7 +493,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Business Address</Form.Label>
+              <Form.Label>Business Address*</Form.Label>
               <Form.Control
                 type="text"
                 value={businessAddress}
@@ -511,7 +511,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Home Address</Form.Label>
+              <Form.Label>Home Address*</Form.Label>
               <Form.Control
                 type="text"
                 value={address}
@@ -525,7 +525,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Country</Form.Label>
+              <Form.Label>Country*</Form.Label>
               <Form.Control
                 type="text"
                 value={country}
@@ -539,7 +539,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Personal ID Type</Form.Label>
+              <Form.Label>Personal ID Type*</Form.Label>
               <Form.Control
                 as="select"
                 value={idType}
@@ -558,7 +558,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Personal ID Number</Form.Label>
+              <Form.Label>Personal ID Number*</Form.Label>
               <Form.Control
                 type="text"
                 value={idNumber}
@@ -572,7 +572,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Personal ID Card Photo </Form.Label>
+              <Form.Label>Personal ID Card Photo* </Form.Label>
               <Form.Control
                 type="file"
                 onChange={(e) =>
@@ -587,7 +587,7 @@ function CreateMarketplaceSeller({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Date Of Birth</Form.Label>
+              <Form.Label>Date Of Birth*</Form.Label>
               <Form.Control
                 type="text"
                 value={dob}

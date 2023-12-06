@@ -3,16 +3,15 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Rating from "../Rating";
+import RatingSeller from "../RatingSeller";
 import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
-  // trackProductView, 
+  // trackProductView,
 } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
-// import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
 
 function FreeAdCard({ product }) {
@@ -168,13 +167,13 @@ function FreeAdCard({ product }) {
       {productLoading.productSaveLoading && <Loader />}
       {productLoading.productRemoveLoading && <Loader />}
 
-      <Link >
+      <Link>
         <Card.Img src={product.image1} />
       </Link>
 
       <Card.Body>
         <div className="d-flex justify-content-between">
-          <Link >
+          <Link>
             <Card.Title as="div">
               <strong>{product.ad_name}</strong>
             </Card.Title>
@@ -195,26 +194,24 @@ function FreeAdCard({ product }) {
         <div className="d-flex justify-content-between">
           <div as="div">
             <div className="py-2">
-              <Rating
+              <RatingSeller
                 value={product.rating}
                 text={`${formatCount(product?.num_reviews)} reviews `}
-                color={"yellow"}
+                color={"green"}
               />
 
               {userInfo ? (
-                <Link to={`/review-list/${product.id}`}>
-                  (Verified Ratings)
-                </Link>
+                <Link to={`/review-list/${product.id}`}>(Seller Ratings)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
-                  (Verified Ratings)
+                  (Seller Ratings)
                 </Link>
               )}
             </div>
           </div>
 
           <Card.Text as="div" className="py-2">
-            <span className="text-right" >
+            <span className="text-right">
               <i className="fas fa-eye"></i>{" "}
               {formatCount(product?.ad_view_count)} views
             </span>
@@ -223,17 +220,19 @@ function FreeAdCard({ product }) {
 
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
-            <span>
-                NGN {product.price}
-              {/* <ProductPrice
-                price={product?.price}
-                // promoPrice={product.promo_price}
-              /> */}
+          <span>
+              NGN {product?.price}{" "}
+              {product?.is_price_negotiable ? (
+                <i>(Negotiable)</i>
+              ) : (
+                <></>
+              )}
             </span>
           </Card.Text>
 
           {/* <span className="py-2">
-            <Button
+            <Button ad_charges
+
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
@@ -247,12 +246,12 @@ function FreeAdCard({ product }) {
         <div className="d-flex justify-content-between">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="outline-danger"
               size="sm"
               className="py-2 rounded"
               disabled
             >
-              Timer: <PromoTimer expirationDate={product?.expiration_date} />
+              Expires in: <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
 
@@ -275,23 +274,13 @@ function FreeAdCard({ product }) {
         </div>
 
         <div className="d-flex justify-content-between py-2">
-        {/* <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Message Seller
-            </Button>
-          </span> */}
-
           <span className="py-2">
             <Button
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
             >
-            Edit
+              Edit
             </Button>
           </span>
 
@@ -301,7 +290,7 @@ function FreeAdCard({ product }) {
               size="sm"
               className="py-2 rounded"
             >
-            Delete
+              Delete
             </Button>
           </span>
 
@@ -311,9 +300,14 @@ function FreeAdCard({ product }) {
               size="sm"
               className="py-2 rounded"
             >
-            Deactivate
+              Deactivate
             </Button>
           </span>
+        </div>
+        <div className="py-2 text-center">
+          <Button variant="outline-primary" size="sm" className="py-2 rounded">
+            Due Ad Charges: Free
+          </Button>
         </div>
       </Card.Body>
     </Card>
