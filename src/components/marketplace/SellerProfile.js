@@ -409,7 +409,7 @@ function SellerProfile() {
         <Col>
           <Accordion defaultActiveKey={["0"]} alwaysOpen>
             <Accordion.Item eventKey="0">
-              <Accordion.Header>Business Account</Accordion.Header>
+              <Accordion.Header>Seller Account</Accordion.Header>
               <Accordion.Body>
                 <Form>
                   <Form.Group>

@@ -752,7 +752,7 @@ export const getSellerPaysofterApiKey = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${userInfo.access}`,
       },
     };
@@ -790,7 +790,7 @@ export const updateSellerPaysofterApiKey = (apiKeyFormData) => async (
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${userInfo.access}`,
       },
     };

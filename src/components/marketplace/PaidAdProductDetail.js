@@ -66,7 +66,7 @@ function PaidAdProductDetail({ match, history }) {
     (state) => state.getPaidAdDetailState
   );
   const { loading, error, ads, sellerApiKey } = getPaidAdDetailState;
-  console.log("PaidAds:", ads, 'sellerApiKey', sellerApiKey); 
+  // console.log("PaidAds:", ads, 'sellerApiKey', sellerApiKey); 
 
   useEffect(() => {
     dispatch(getPaidAdDetail(match.params.id));
