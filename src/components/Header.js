@@ -154,13 +154,29 @@ function Header() {
                               className="fas fa-user"
                               style={{ fontSize: "16px" }}
                             ></i>{" "}
-                            Create Seller Account 
+                            Create Seller Account
                           </Nav.Link>
                         </div>
                       </>
                     )}
                   </div>
+                  <NavDropdown.Divider />
 
+                  <div>
+                    {profile.is_marketplace_seller ? (
+                      <>
+                        <Nav.Link as={Link} to="/ad/free">
+                          <i
+                            className="fas fa-plus"
+                            style={{ fontSize: "16px" }}
+                          ></i>{" "}
+                          Post Free Ad
+                        </Nav.Link>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                   <NavDropdown.Divider />
 
                   <NavDropdown.Item onClick={logoutHandler}>

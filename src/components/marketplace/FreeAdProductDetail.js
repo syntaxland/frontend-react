@@ -10,7 +10,7 @@ import {
   Card,
   Form,
 } from "react-bootstrap";
-import Rating from "../Rating";
+import RatingSeller from "../RatingSeller";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +23,15 @@ function FreeAdProductDetail({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
   const getFreeAdDetailState = useSelector(
     (state) => state.getFreeAdDetailState
   );
@@ -33,11 +42,23 @@ function FreeAdProductDetail({ match, history }) {
     dispatch(getFreeAdDetail(match.params.id));
   }, [dispatch, match]);
 
+   function formatCount(viewCount) {
+    if (viewCount >= 1000000) {
+      // Format as million
+      return (viewCount / 1000000).toFixed(1) + "m";
+    } else if (viewCount >= 1000) {
+      // Format as thousand
+      return (viewCount / 1000).toFixed(1) + "k";
+    } else {
+      return viewCount?.toString();
+    }
+  }
+
   const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
 
   return (
     <div>
-      <Link to="/" className="btn btn-dark my-3">
+      <Link to="/marketplace" className="btn btn-dark my-3">
         {" "}
         Go Back
       </Link>
@@ -74,10 +95,22 @@ function FreeAdProductDetail({ match, history }) {
                 <h3>{ads?.ad_name}</h3>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Rating
-                  value={ads?.ad_rating}
-                  color={"#f8e825"}
-                />
+                <span>
+                  <RatingSeller
+                    value={ads?.ad_rating}
+                    text={`${formatCount(ads?.num_reviews)} reviews `} 
+                    color={"green"}
+                  />
+                </span>
+                <span>
+                  {userInfo ? (
+                    <Link to={`/review-list/${ads.id}`}>(Seller Reviews)</Link>
+                  ) : (
+                    <Link onClick={() => history.push("/login")}>
+                      (Seller Reviews)
+                    </Link>
+                  )}
+                </span>
               </ListGroup.Item>
               <ListGroup.Item>Price: NGN {ads?.price}</ListGroup.Item>
 

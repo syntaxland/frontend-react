@@ -5,14 +5,15 @@ import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { debitPaysofterAccountFund } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp"; 
+import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp";
 
 const PaysofterAccountFundPromise = ({
-  promoTotalPrice,
+  buyerEmail,
+  amount,
+  sellerApiKey,
+
   paymentData,
   reference,
-  userEmail,
-  publicApiKey,
   duration,
   paymenthMethod,
   paymentProvider,
@@ -38,7 +39,12 @@ const PaysofterAccountFundPromise = ({
     formattedPayerEmail,
     error,
   } = debitPaysofterAccountState;
-  console.log("formattedPayerEmail:", formattedPayerEmail, 'paymenthMethod:', paymenthMethod);
+  console.log(
+    "formattedPayerEmail:",
+    formattedPayerEmail,
+    "paymenthMethod:",
+    paymenthMethod
+  );
 
   const [accountId, setAccountId] = useState("");
   const [securityCode, setSecurityCode] = useState("");
@@ -84,7 +90,7 @@ const PaysofterAccountFundPromise = ({
   const debitAccountData = {
     account_id: accountId,
     security_code: securityCode,
-    amount: promoTotalPrice,
+    amount: amount,
   };
 
   const submitHandler = (e) => {
@@ -114,11 +120,12 @@ const PaysofterAccountFundPromise = ({
     <>
       {showVerifyAccountFundPromiseOtp ? (
         <VerifyAccountFundPromiseOtp
-          promoTotalPrice={promoTotalPrice}
+          amount={amount}
+          sellerApiKey={sellerApiKey}
+          buyerEmail={buyerEmail}
+
           paymentData={paymentData}
           reference={reference}
-          buyerEmail={userEmail}
-          publicApiKey={publicApiKey}
           securityCode={securityCode}
           accountId={accountId}
           formattedPayerEmail={formattedPayerEmail}
@@ -353,7 +360,7 @@ const PaysofterAccountFundPromise = ({
                   Pay{" "}
                   <span>
                     (NGN{" "}
-                    {promoTotalPrice?.toLocaleString(undefined, {
+                    {amount?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}

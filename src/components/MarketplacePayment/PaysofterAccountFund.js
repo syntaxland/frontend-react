@@ -1,22 +1,22 @@
-// PaysofterAccountFundPromise.js
+// PaysofterAccountFund.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { debitPaysofterAccountFund } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp"; 
+import VerifyAccountFundOtp from "./VerifyAccountFundOtp";
 
-const PaysofterAccountFundPromise = ({
+const PaysofterAccountFund = ({
+  history,
   promoTotalPrice,
   paymentData,
   reference,
   userEmail,
   publicApiKey,
   duration,
-  paymenthMethod,
-  paymentProvider,
-  currency,
+paymenthMethod,
+currency
 }) => {
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ const PaysofterAccountFundPromise = ({
     formattedPayerEmail,
     error,
   } = debitPaysofterAccountState;
-  console.log("formattedPayerEmail:", formattedPayerEmail, 'paymenthMethod:', paymenthMethod);
+  console.log("formattedPayerEmail:", formattedPayerEmail);
 
   const [accountId, setAccountId] = useState("");
   const [securityCode, setSecurityCode] = useState("");
@@ -47,10 +47,9 @@ const PaysofterAccountFundPromise = ({
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
   const [showSecurityCodeModal, setShowSecurityCodeModal] = useState(false);
-  const [
-    showVerifyAccountFundPromiseOtp,
-    setShowVerifyAccountFundPromiseOtp,
-  ] = useState(false);
+  const [showVerifyAccountFundOtp, setShowVerifyAccountFundOtp] = useState(
+    false
+  );
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
 
   const handleAccountInfoModalShow = () => {
@@ -64,7 +63,7 @@ const PaysofterAccountFundPromise = ({
   const handleSecurityCodeModalShow = () => {
     setShowSecurityCodeModal(true);
   };
-
+  
   const handleSecurityCodeModalClose = () => {
     setShowSecurityCodeModal(false);
   };
@@ -72,6 +71,8 @@ const PaysofterAccountFundPromise = ({
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible(!securityCodeVisible);
   };
+
+  
 
   const handleInfoModalShow = () => {
     setShowInfoModal(true);
@@ -84,7 +85,7 @@ const PaysofterAccountFundPromise = ({
   const debitAccountData = {
     account_id: accountId,
     security_code: securityCode,
-    amount: promoTotalPrice,
+    amount: promoTotalPrice, 
   };
 
   const submitHandler = (e) => {
@@ -103,29 +104,31 @@ const PaysofterAccountFundPromise = ({
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        setShowVerifyAccountFundPromiseOtp(true);
+        setShowVerifyAccountFundOtp(true);
       }, 1000);
       return () => clearTimeout(timer);
     }
+    else {
+      console.error("Error verifying account")
+    }
     // eslint-disable-next-line
-  }, [dispatch, success]);
+  }, [dispatch, success, history, error]);
 
   return (
     <>
-      {showVerifyAccountFundPromiseOtp ? (
-        <VerifyAccountFundPromiseOtp
+      {showVerifyAccountFundOtp ? (
+        <VerifyAccountFundOtp
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
-          buyerEmail={userEmail}
+          currency={currency}
+          userEmail={userEmail}
           publicApiKey={publicApiKey}
           securityCode={securityCode}
           accountId={accountId}
           formattedPayerEmail={formattedPayerEmail}
-          currency={currency}
           duration={duration}
           paymenthMethod={paymenthMethod}
-          paymentProvider={paymentProvider}
         />
       ) : (
         <Row className="justify-content-center">
@@ -282,7 +285,7 @@ const PaysofterAccountFundPromise = ({
                       onClick={handleSecurityCodeModalShow}
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every hour). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
+                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every minute, hour or day). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
                     >
                       <i className="fa fa-info-circle"> </i>
                     </Button>
@@ -298,11 +301,10 @@ const PaysofterAccountFundPromise = ({
                       </Modal.Header>
                       <Modal.Body>
                         <p className="text-center">
-                          A 4-digit randomly generated Paysofter Account
-                          Security Code that expires at a given time (e.g. every
-                          hour). Having issue applying the security code?
-                          Refresh your paysofter account page, logout and login
-                          or clear browsing data.{" "}
+                          A 4-digit randomly generated Paysofter Account Security Code that expires
+                          at a given time (e.g. every hour). Having issue
+                          applying the security code? Refresh your paysofter
+                          account page, logout and login or clear browsing data.{" "}
                           <a
                             href="https://paysofter.com/"
                             target="_blank"
@@ -369,4 +371,4 @@ const PaysofterAccountFundPromise = ({
   );
 };
 
-export default PaysofterAccountFundPromise;
+export default PaysofterAccountFund;

@@ -1,15 +1,17 @@
 // PostFreeAd.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { postFreeAd } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
 
-function PostFreeAd({ history }) {
+function PostFreeAd() {
   const dispatch = useDispatch();
 
+    const history = useHistory();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -306,6 +308,11 @@ function PostFreeAd({ history }) {
     }
   }, [dispatch, success, history]);
 
+  const handlePostPaidAd = () => {
+      history.push("/ad/paid");
+      // window.location.href = "/ad/paid";
+  };
+
   const handlePostFreeAd = (e) => {
     e.preventDefault(e);
 
@@ -595,7 +602,7 @@ function PostFreeAd({ history }) {
           <Button
             variant="success"
             onClick={handlePostFreeAd}
-            className="rounded py-2 mb-2 text-center w-100" 
+            className="rounded py-2 mb-2 text-center w-100"
             disabled={loading || success}
           >
             <div className="d-flex justify-content-center">
@@ -604,9 +611,20 @@ function PostFreeAd({ history }) {
             </div>
           </Button>
         </Col>
+        <div className="d-flex justify-content-end py-2 mt-2">
+          <Button
+            variant="outline-success"
+            onClick={handlePostPaidAd}
+            className="rounded"
+            size="sm"
+            disabled={loading || success}
+          >
+            Post Promoted Ad
+          </Button>
+        </div>
       </Row>
     </Container>
   );
 }
- 
+
 export default PostFreeAd;

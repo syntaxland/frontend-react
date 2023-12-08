@@ -378,7 +378,7 @@ function PostPaidAd({ history }) {
     <Container>
       <Row className="justify-content-center py-2">
         <Col xs={12} md={6}>
-          <h2 className="text-center py-2">Post Paid Ad</h2>
+          <h2 className="text-center py-2">Promoted Ad</h2>
           {loading && <Loader />}
 
           {success && (
@@ -599,7 +599,7 @@ function PostPaidAd({ history }) {
             disabled={loading || success}
           >
             <div className="d-flex justify-content-center">
-              <span className="py-1">Post Paid Ad</span>
+              <span className="py-1">Post Ad</span>
               {loading && <LoaderButton />}
             </div>
           </Button>

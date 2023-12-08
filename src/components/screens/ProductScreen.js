@@ -62,7 +62,7 @@ function ProductScreen({ match, history }) {
                 <Rating
                   value={product.rating}
                   text={`${product.numReviews} reviews`}
-                  color={"#f8e825"}
+                  color={"blue"}
                 />
               </ListGroup.Item>
               {/* <ListGroup.Item>Price: NGN {product.price}</ListGroup.Item> */}

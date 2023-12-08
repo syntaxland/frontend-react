@@ -10,15 +10,17 @@ import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
 // } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import PaysofterAccountFundPromise from "./PaysofterAccountFundPromise";  
+import PaysofterAccountFundPromise from "./PaysofterAccountFundPromise";
 
 const PaysofterPromise = ({
   history,
-  promoTotalPrice,
+
+  buyerEmail,
+  amount,
+  sellerApiKey,
+
   paymentData,
   reference,
-  userEmail,
-  publicApiKey,
 }) => {
   const dispatch = useDispatch();
 
@@ -38,17 +40,14 @@ const PaysofterPromise = ({
 
   const [duration, setDuration] = useState("Within 1 day");
   const [currency, setCurrency] = useState("NGN");
-  const [paymenthMethod, setPaymenthMethod] = useState(
-    "Paysofter Promise"
-  );
-  const [paymentProvider, setPaymentProvider] = useState(
-    "Paysofter"
-  );
+  const [paymenthMethod, setPaymenthMethod] = useState("Paysofter Promise");
+  const [paymentProvider, setPaymentProvider] = useState("Paysofter");
   // const createdAt = new Date().toISOString();
   const [showInfoModal, setShowInfoModal] = useState(false);
-  const [showPaysofterAccountFundPromise, setShowPaysofterAccountFundPromise] = useState(
-    false
-  );
+  const [
+    showPaysofterAccountFundPromise,
+    setShowPaysofterAccountFundPromise,
+  ] = useState(false);
 
   const handleShowPaysofterAccountFundPromise = () => {
     setShowPaysofterAccountFundPromise(true);
@@ -64,15 +63,15 @@ const PaysofterPromise = ({
 
   // const paysofterPaymentData = {
   //   payment_id: reference,
-  //   email: userEmail,
-  //   amount: promoTotalPrice,
-  //   public_api_key: publicApiKey,
+  //   email: buyerEmail,
+  //   amount: amount,
+  //   public_api_key: sellerApiKey,
   //   created_at: createdAt,
   // };
 
   // const debitAccountData = {
   //   currency: currency,
-  //   amount: promoTotalPrice,
+  //   amount: amount,
   //   // account_id: accountId,
   // };
 
@@ -105,9 +104,9 @@ const PaysofterPromise = ({
     <Container>
       {showPaysofterAccountFundPromise ? (
         <PaysofterAccountFundPromise
-          promoTotalPrice={promoTotalPrice}
-          userEmail={userEmail}
-          publicApiKey={publicApiKey}
+          amount={amount}
+          buyerEmail={buyerEmail}
+          sellerApiKey={sellerApiKey}
           
           paymentData={paymentData}
           reference={reference}
@@ -240,7 +239,7 @@ const PaysofterPromise = ({
                   onChange={(e) => setPaymentProvider(e.target.value)}
                 >
                   <option value="Paysofter">Paysofter</option>
-                  
+
                   <option value="Mastercard">Mastercard</option>
                   <option value="Verve">Verve</option>
                   <option value="Visa">Visa</option>
@@ -259,15 +258,13 @@ const PaysofterPromise = ({
                 >
                   <option value="Within 1 day">Within 1 day</option>
                   <option value="2 days">Less than 2 days</option>
-                  <option value="3 days">Less than 3 days</option> 
-                  <option value="5 days">Less than 5 days</option> 
+                  <option value="3 days">Less than 3 days</option>
+                  <option value="5 days">Less than 5 days</option>
                   <option value="1 week">Less than 1 week</option>
                   <option value="2 weeks">Less than 2 weeks</option>
                   <option value="1 month">Less than 1 month</option>
                 </Form.Control>
               </Form.Group>
-
-              
 
               <div className="py-3 text-center">
                 <Button
@@ -277,11 +274,9 @@ const PaysofterPromise = ({
                   onClick={handleShowPaysofterAccountFundPromise}
                 >
                   Submit{" "}
-                 
                 </Button>
               </div>
             </Form>
-            
           </Col>
         </Row>
       )}

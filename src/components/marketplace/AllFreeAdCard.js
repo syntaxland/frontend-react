@@ -209,7 +209,20 @@ function AllFreeAdCard({ product }) {
                   </Button>
                 </>
               ) : (
-                <></>
+                <>
+                <Button
+                    variant="outline-danger"
+                    size="sm"
+                    className="rounded"
+                    disabled
+                  >
+                    <i>ID Not Verified</i>{" "}
+                    <i
+                      // className="fas fa-times"
+                      style={{ fontSize: "18px", color: "red" }}
+                    ></i>
+                  </Button>
+                </>
               )}
             </span>
           </div>
@@ -225,10 +238,10 @@ function AllFreeAdCard({ product }) {
               />
 
               {userInfo ? (
-                <Link to={`/review-list/${product.id}`}>(Seller Ratings)</Link>
+                <Link to={`/review-list/${product.id}`}>(Seller Reviews)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
-                  (Seller Ratings)
+                  (Seller Reviews)
                 </Link>
               )}
             </div>

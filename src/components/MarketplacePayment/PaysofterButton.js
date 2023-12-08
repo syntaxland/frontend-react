@@ -8,25 +8,26 @@ import UssdPayment from "./UssdPayment";
 import BankPayment from "./BankPayment";
 import TransferPayment from "./TransferPayment";
 import PaysofterAccountFund from "./PaysofterAccountFund";
-import PaysofterPromise from "./PaysofterPromise"; 
+import PaysofterPromise from "./PaysofterPromise";
 import QrPayment from "./QrPayment";
 
 import "./Paysofter.css";
 
 function PaysofterButton({
   showPaymentModal,
+  buyerEmail,
+  amount,
+  sellerApiKey,
   setShowPaymentModal,
+
   reference,
-  userEmail,
-  promoTotalPrice,
-  publicApiKey,
+
   paymentDetails,
   handlePaymentDetailsChange,
   // handlePaymentSubmit,
   paymentData,
   paysofterPaymentData,
 }) {
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -36,13 +37,12 @@ function PaysofterButton({
     }
   }, [userInfo]);
 
-  const [selectedPaymentOption, setSelectedPaymentOption] = useState("card");
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState("promise");
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const handlePaymentOptionChange = (option) => {
     setSelectedPaymentOption(option);
   };
-
 
   const handleMoreOptions = () => {
     setShowMoreOptions(!showMoreOptions);
@@ -64,10 +64,10 @@ function PaysofterButton({
         <Modal.Header closeButton>
           <div className="text-center w-100 py-2">
             <Modal.Title>Mock Payment (Test)</Modal.Title>
-            <div>{userEmail}</div>
+            <div>{buyerEmail}</div>
             <div>
               NGN{" "}
-              {promoTotalPrice.toLocaleString(undefined, {
+              {amount?.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
@@ -87,6 +87,7 @@ function PaysofterButton({
                     variant="outline-primary"
                     onClick={() => handlePaymentOptionChange("card")}
                     className={selectedPaymentOption === "card" ? "active" : ""}
+                    disabled
                   >
                     <i className="fas fa-credit-card"></i> Debit Card
                   </Button>{" "}
@@ -99,6 +100,7 @@ function PaysofterButton({
                     className={
                       selectedPaymentOption === "account-fund" ? "active" : ""
                     }
+                    disabled
                   >
                     <i className="fas fa-money-bill-alt"></i> Paysofter Account
                     Fund
@@ -122,52 +124,11 @@ function PaysofterButton({
                     variant="outline-primary"
                     onClick={handleMoreOptions}
                     className="rounded"
+                    disabled
                   >
                     <i className="fas fa-bars"></i> More Options
                   </Button>
                 </div>
-
-                {/* <div className="py-1">
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => handlePaymentOptionChange("transfer")}
-                    className={
-                      selectedPaymentOption === "transfer" ? "active" : ""
-                    }
-                  >
-                    <i className="fa fa-exchange"></i> Transfer
-                  </Button>
-                </div>
-
-                <div className="py-1">
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => handlePaymentOptionChange("bank")}
-                    className={selectedPaymentOption === "bank" ? "active" : ""}
-                  >
-                    <i className="fas fa-bank"></i> Bank
-                  </Button>
-                </div>
-
-                <div className="py-1">
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => handlePaymentOptionChange("ussd")}
-                    className={selectedPaymentOption === "ussd" ? "active" : ""}
-                  >
-                    <i className="fa fa-mobile"></i> USSD
-                  </Button>{" "}
-                </div>
-
-                <div className="py-1">
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => handlePaymentOptionChange("qr")}
-                    className={selectedPaymentOption === "qr" ? "active" : ""}
-                  >
-                    <i className="fa fa-qrcode"></i> Visa QR
-                  </Button>{" "}
-                </div> */}
 
                 {showMoreOptions && (
                   <>
@@ -227,33 +188,30 @@ function PaysofterButton({
                 <CardPayment
                   paymentDetails={paymentDetails}
                   handlePaymentDetailsChange={handlePaymentDetailsChange}
-                  promoTotalPrice={promoTotalPrice}
+                  amount={amount}
                   paymentData={paymentData}
                   reference={reference}
-                  userEmail={userEmail}
-                  publicApiKey={publicApiKey}
+                  buyerEmail={buyerEmail}
+                  sellerApiKey={sellerApiKey}
                   paysofterPaymentData={paysofterPaymentData}
                 />
               )}
 
               {selectedPaymentOption === "account-fund" && (
                 <PaysofterAccountFund
-                  promoTotalPrice={promoTotalPrice}
+                  amount={amount}
                   paymentData={paymentData}
                   reference={reference}
-                  userEmail={userEmail}
-                  publicApiKey={publicApiKey}
+                  buyerEmail={buyerEmail}
+                  sellerApiKey={sellerApiKey}
                 />
               )}
 
               {selectedPaymentOption === "promise" && (
                 <PaysofterPromise
-                  promoTotalPrice={promoTotalPrice}
-                  userEmail={userEmail}
-                  publicApiKey={publicApiKey}
-                  
-                  paymentData={paymentData}
-                  reference={reference}
+                  buyerEmail={buyerEmail}
+                  amount={amount}
+                  sellerApiKey={sellerApiKey}
                 />
               )}
 

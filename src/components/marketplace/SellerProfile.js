@@ -8,6 +8,8 @@ import {
   updateSellerAccount,
   getSellerPhoto,
   updateSellerPhoto,
+  getSellerPaysofterApiKey,
+  updateSellerPaysofterApiKey,
 } from "../../actions/marketplaceSellerActions";
 import { Form, Button, Row, Col, Container, Accordion } from "react-bootstrap";
 import Message from "../Message";
@@ -48,6 +50,21 @@ function SellerProfile() {
     success: updateSellerPhotoSuccess,
     error: updateSellerPhotoError,
   } = updateSellerPhotoState;
+
+  const getSellerApiKeyState = useSelector(
+    (state) => state.getSellerApiKeyState
+  );
+  const { sellerApiKey } = getSellerApiKeyState;
+  console.log("sellerApiKey:", sellerApiKey);
+
+  const updateSellerApiKeyState = useSelector(
+    (state) => state.updateSellerApiKeyState
+  );
+  const {
+    loading: updateSellerApiKeyLoading,
+    success: updateSellerApiKeySuccess,
+    error: updateSellerApiKeyError,
+  } = updateSellerApiKeyState;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -133,8 +150,8 @@ function SellerProfile() {
   ];
 
   const [businessDataChanges, setBusinessDataChanges] = useState(false);
-
   const [photoDataChanges, setPhotoDataChanges] = useState(false);
+  const [sellerApiKeyDataChanges, setSellerApiKeyDataChanges] = useState(false);
 
   const [successMessage, setSuccessMessage] = useState("");
   const [businessData, setBusinessData] = useState({
@@ -159,6 +176,10 @@ function SellerProfile() {
 
   const [photoData, setPhotoData] = useState({
     photo: "",
+  });
+
+  const [apiKeyData, setapiKeyData] = useState({
+    live_api_key: "",
   });
 
   useEffect(() => {
@@ -271,8 +292,35 @@ function SellerProfile() {
   };
 
   useEffect(() => {
+    if (sellerApiKey) {
+      setapiKeyData({
+        live_api_key: sellerApiKey?.live_api_key,
+      });
+      setSellerApiKeyDataChanges(false);
+    }
+  }, [sellerApiKey]);
+
+  const handleSellerApiKeyDataChanges = (e) => {
+    const { name, value, files } = e.target;
+    if (files) {
+      setapiKeyData({ ...apiKeyData, [name]: files[0] });
+    } else {
+      setapiKeyData({ ...apiKeyData, [name]: value });
+    }
+    setSellerApiKeyDataChanges(true);
+  };
+
+  const handleSellerApiKey = () => {
+    const apiKeyFormData = new FormData();
+    apiKeyFormData.append("live_api_key", apiKeyData.live_api_key);
+
+    dispatch(updateSellerPaysofterApiKey(apiKeyFormData));
+  };
+
+  useEffect(() => {
     if (userInfo) {
       dispatch(getSellerAccount());
+      dispatch(getSellerPaysofterApiKey());
       dispatch(getSellerPhoto());
     }
   }, [dispatch, userInfo]);
@@ -284,6 +332,8 @@ function SellerProfile() {
       successMessage = "Seller account updated successfully.";
     } else if (updateSellerPhotoSuccess) {
       successMessage = "Seller photo updated successfully.";
+    } else if (updateSellerApiKeySuccess) {
+      successMessage = "Seller API Key updated successfully.";
     }
 
     if (successMessage) {
@@ -293,7 +343,11 @@ function SellerProfile() {
         window.location.reload();
       }, 3000);
     }
-  }, [updateSellerAccountSuccess, updateSellerPhotoSuccess]);
+  }, [
+    updateSellerAccountSuccess,
+    updateSellerPhotoSuccess,
+    updateSellerApiKeySuccess,
+  ]);
 
   return (
     <Container Fluid>
@@ -327,6 +381,13 @@ function SellerProfile() {
           {updateSellerPhotoError && (
             <Message variant="danger" fixed>
               {updateSellerPhotoError}
+            </Message>
+          )}
+
+          {updateSellerApiKeyLoading && <Loader />}
+          {updateSellerApiKeyError && (
+            <Message variant="danger" fixed>
+              {updateSellerApiKeyError}
             </Message>
           )}
         </div>
@@ -617,6 +678,7 @@ function SellerProfile() {
                     />
                   </Form.Group>
                 </Form>
+
                 <div className="d-flex justify-content-end py-2">
                   <Button
                     className="rounded"
@@ -631,6 +693,40 @@ function SellerProfile() {
                     <span className="d-flex justify-content-between">
                       {updateSellerPhotoLoading && <LoaderButton />}
                       Update Photo
+                    </span>
+                  </Button>
+                </div>
+              </Accordion.Body>
+            </Accordion.Item>
+
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>Paysofter API Key</Accordion.Header>
+              <Accordion.Body>
+                <Form>
+                  <Form.Group>
+                    <Form.Label>API Key</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="live_api_key"
+                      value={apiKeyData.live_api_key}
+                      onChange={handleSellerApiKeyDataChanges}
+                    />
+                  </Form.Group>
+                </Form>
+                <div className="d-flex justify-content-end py-2">
+                  <Button
+                    className="rounded"
+                    variant="primary"
+                    onClick={handleSellerApiKey}
+                    disabled={
+                      !sellerApiKeyDataChanges ||
+                      updateSellerApiKeyLoading ||
+                      updateSellerApiKeySuccess
+                    }
+                  >
+                    <span className="d-flex justify-content-between">
+                      {updateSellerApiKeyLoading && <LoaderButton />}
+                      Save API Key
                     </span>
                   </Button>
                 </div>

@@ -175,7 +175,7 @@ function PaymentScreen() {
                     variant="primary"
                     onClick={() => handlePaymentGatewaySelection("paysofter")}
                     className="mr-2 rounded w-100"
-                  >
+                  > 
                     Pay with Paysofter
                   </Button>
                 </Col>

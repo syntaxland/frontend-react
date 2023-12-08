@@ -10,7 +10,7 @@ import {
   Card,
   Form,
 } from "react-bootstrap";
-import Rating from "../Rating";
+import RatingSeller from "../RatingSeller";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,10 +29,27 @@ import {
 } from "../../actions/marketplaceSellerActions";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Paysofter from "../MarketplacePayment/Paysofter";
+import PromoTimer from "../PromoTimer";
 
 function PaidAdProductDetail({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const [showPaysofterOption, setShowPaysofterOption] = useState(false);
+
+  const handlePaysofterOption = () => {
+    setShowPaysofterOption(!showPaysofterOption);
+  };
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
 
   //   getFreeAdState
   // updateFreeAdState
@@ -48,19 +65,30 @@ function PaidAdProductDetail({ match, history }) {
   const getPaidAdDetailState = useSelector(
     (state) => state.getPaidAdDetailState
   );
-  const { loading, error, ads } = getPaidAdDetailState;
-  console.log("PaidAds:", ads, "description:", ads?.description);
+  const { loading, error, ads, sellerApiKey } = getPaidAdDetailState;
+  console.log("PaidAds:", ads, 'sellerApiKey', sellerApiKey); 
 
   useEffect(() => {
     dispatch(getPaidAdDetail(match.params.id));
-    // dispatch(listProductDetails(match.params.id));
   }, [dispatch, match]);
 
   const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
 
+  function formatCount(viewCount) {
+    if (viewCount >= 1000000) {
+      // Format as million
+      return (viewCount / 1000000).toFixed(1) + "m";
+    } else if (viewCount >= 1000) {
+      // Format as thousand
+      return (viewCount / 1000).toFixed(1) + "k";
+    } else {
+      return viewCount?.toString();
+    }
+  }
+
   return (
     <div>
-      <Link to="/" className="btn btn-dark my-3">
+      <Link to="/marketplace" className="btn btn-dark my-3">
         {" "}
         Go Back
       </Link>
@@ -97,15 +125,35 @@ function PaidAdProductDetail({ match, history }) {
                 <h3>{ads?.ad_name}</h3>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Rating
-                  value={ads?.ad_rating}
-                  // text={`${ads.numReviews} reviews`
-                  color={"#f8e825"}
-                />
+                <span>
+                  <RatingSeller
+                    value={ads?.ad_rating}
+                    text={`${formatCount(ads?.num_reviews)} reviews `}
+                    color={"green"}
+                  />
+                </span>
+                <span>
+                  {userInfo ? (
+                    <Link to={`/review-list/${ads.id}`}>(Seller Reviews)</Link>
+                  ) : (
+                    <Link onClick={() => history.push("/login")}>
+                      (Seller Reviews)
+                    </Link>
+                  )}
+                </span>
               </ListGroup.Item>
-              <ListGroup.Item>Price: NGN {ads?.price}</ListGroup.Item>
-
-              
+              <ListGroup.Item>
+                {" "}
+                Promo Code:
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  className="py-2 rounded"
+                  disabled
+                >
+                  <i>{ads?.promo_code} NEWCOM0124</i>
+                </Button>
+              </ListGroup.Item>
 
               <ListGroup.Item>Description: {ads?.description}</ListGroup.Item>
             </ListGroup>
@@ -117,12 +165,21 @@ function PaidAdProductDetail({ match, history }) {
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>NGN {ads.price}</strong>
+                      <strong>NGN {ads?.price}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
                 <ListGroup.Item>
-                  
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    className="py-2 rounded"
+                    disabled
+                  >
+                    Expires in:{" "}
+                    <PromoTimer expirationDate={ads?.expiration_date} />
+                  </Button>
                 </ListGroup.Item>
 
                 {ads?.count_in_stock > 0 && (
@@ -151,7 +208,7 @@ function PaidAdProductDetail({ match, history }) {
                     className="w-100 rounded"
                     variant="success"
                     type="button"
-                    // onClick={addToCartHandler}
+                    onClick={handlePaysofterOption}
                   >
                     Pay With Paysofter Promise
                   </Button>
@@ -161,6 +218,18 @@ function PaidAdProductDetail({ match, history }) {
           </Col>
         </Row>
       )}
+      <Row className="d-flex justify-content-center">
+        <Col>
+          {showPaysofterOption && (
+            <Paysofter
+              ads={ads}
+              buyerEmail={userInfo.email}
+              amount={ads?.price}
+              sellerApiKey={sellerApiKey}
+            />
+          )}
+        </Col>
+      </Row>
     </div>
   );
 }

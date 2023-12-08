@@ -24,39 +24,42 @@ import {
   UPDATE_SELLER_PHOTO_REQUEST,
   UPDATE_SELLER_PHOTO_SUCCESS,
   UPDATE_SELLER_PHOTO_FAIL,
-
   GET_FREE_AD_REQUEST,
-GET_FREE_AD_SUCCESS,
-GET_FREE_AD_FAIL,
-UPDATE_FREE_AD_REQUEST,
-UPDATE_FREE_AD_SUCCESS,
-UPDATE_FREE_AD_FAIL,
-GET_ALL_FREE_AD_REQUEST,
-GET_ALL_FREE_AD_SUCCESS,
-GET_ALL_FREE_AD_FAIL,
-GET_PAID_AD_REQUEST,
-GET_PAID_AD_SUCCESS,
-GET_PAID_AD_FAIL,
-UPDATE_PAID_AD_REQUEST,
-UPDATE_PAID_AD_SUCCESS,
-UPDATE_PAID_AD_FAIL,
-GET_ALL_PAID_AD_REQUEST,
-GET_ALL_PAID_AD_SUCCESS,
-GET_ALL_PAID_AD_FAIL,
-
-DELETE_FREE_AD_REQUEST,
-DELETE_FREE_AD_SUCCESS,
-DELETE_FREE_AD_FAIL,
-DELETE_PAID_AD_REQUEST,
-DELETE_PAID_AD_SUCCESS,
-DELETE_PAID_AD_FAIL,
-
-GET_FREE_AD_DETAIL_REQUEST,
-GET_FREE_AD_DETAIL_SUCCESS,
-GET_FREE_AD_DETAIL_FAIL,
-GET_PAID_AD_DETAIL_REQUEST,
-GET_PAID_AD_DETAIL_SUCCESS,
-GET_PAID_AD_DETAIL_FAIL,
+  GET_FREE_AD_SUCCESS,
+  GET_FREE_AD_FAIL,
+  UPDATE_FREE_AD_REQUEST,
+  UPDATE_FREE_AD_SUCCESS,
+  UPDATE_FREE_AD_FAIL,
+  GET_ALL_FREE_AD_REQUEST,
+  GET_ALL_FREE_AD_SUCCESS,
+  GET_ALL_FREE_AD_FAIL,
+  GET_PAID_AD_REQUEST,
+  GET_PAID_AD_SUCCESS,
+  GET_PAID_AD_FAIL,
+  UPDATE_PAID_AD_REQUEST,
+  UPDATE_PAID_AD_SUCCESS,
+  UPDATE_PAID_AD_FAIL,
+  GET_ALL_PAID_AD_REQUEST,
+  GET_ALL_PAID_AD_SUCCESS,
+  GET_ALL_PAID_AD_FAIL,
+  DELETE_FREE_AD_REQUEST,
+  DELETE_FREE_AD_SUCCESS,
+  DELETE_FREE_AD_FAIL,
+  DELETE_PAID_AD_REQUEST,
+  DELETE_PAID_AD_SUCCESS,
+  DELETE_PAID_AD_FAIL,
+  GET_FREE_AD_DETAIL_REQUEST,
+  GET_FREE_AD_DETAIL_SUCCESS,
+  GET_FREE_AD_DETAIL_FAIL,
+  GET_PAID_AD_DETAIL_REQUEST,
+  GET_PAID_AD_DETAIL_SUCCESS,
+  GET_PAID_AD_DETAIL_FAIL,
+  GET_SELLER_API_KEY_REQUEST,
+  GET_SELLER_API_KEY_SUCCESS,
+  GET_SELLER_API_KEY_FAIL,
+  UPDATE_SELLER_API_KEY_REQUEST,
+  UPDATE_SELLER_API_KEY_SUCCESS,
+  UPDATE_SELLER_API_KEY_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -66,6 +69,36 @@ const initialState = {
   sellerAccount: [],
   sellerPhoto: [],
   ads: [],
+  sellerApiKey: [],
+};
+
+export const getSellerApiKeyReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SELLER_API_KEY_REQUEST:
+      return { loading: true };
+    case GET_SELLER_API_KEY_SUCCESS:
+      return { loading: false, success: true, sellerApiKey: action.payload };
+    case GET_SELLER_API_KEY_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const updateSellerApiKeyReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case UPDATE_SELLER_API_KEY_REQUEST:
+      return { loading: true };
+    case UPDATE_SELLER_API_KEY_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case UPDATE_SELLER_API_KEY_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const getFreeAdDetailReducer = (state = initialState, action) => {
@@ -86,7 +119,12 @@ export const getPaidAdDetailReducer = (state = initialState, action) => {
     case GET_PAID_AD_DETAIL_REQUEST:
       return { loading: true };
     case GET_PAID_AD_DETAIL_SUCCESS:
-      return { loading: false, success: true, ads: action.payload };
+      return {
+        loading: false,
+        success: true,
+        ads: action.payload.data,
+        sellerApiKey: action.payload.sellerApiKey,
+      };
     case GET_PAID_AD_DETAIL_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -99,7 +137,13 @@ export const getFreeAdReducer = (state = initialState, action) => {
     case GET_FREE_AD_REQUEST:
       return { loading: true };
     case GET_FREE_AD_SUCCESS:
-      return { loading: false, success: true, ads: action.payload };
+      return {
+        loading: false,
+        success: true,
+        ads: action.payload.data,
+        sellerApiKey: action.payload.sellerApiKey,
+      };
+
     case GET_FREE_AD_FAIL:
       return { loading: false, error: action.payload };
     default:

@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //   createPayment,
 //   createPaysofterPayment,
 // } from "../../actions/paymentActions";
-import PaysofterButton from "./PaysofterButton";
+import PaysofterButton from "./PaysofterButton"; 
 import ApplyPromoCode from "../ApplyPromoCode";
 import LoaderPaysofter from "../LoaderPaysofter";
 import Message from "../Message";
@@ -304,7 +304,7 @@ function Paysofter({
                 reference={reference}
                 userEmail={userEmail}
                 promoTotalPrice={promoTotalPrice}
-                publicApiKey={paysofterPublicKey}
+                publicApiKey={paysofterPublicKey} 
               />
             </div>
           </Col>

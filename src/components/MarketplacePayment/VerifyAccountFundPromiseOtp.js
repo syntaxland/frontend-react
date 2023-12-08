@@ -16,11 +16,12 @@ import Message from "../Message";
 import ConfirmPaysofterPromise from "./ConfirmPaysofterPromise"; 
 
 const VerifyAccountFundPromiseOtp = ({
-  promoTotalPrice,
+  buyerEmail,
+  amount,
+  sellerApiKey,
+
   paymentData,
   reference,
-  buyerEmail,
-  publicApiKey,
   formattedPayerEmail,
   currency,
   duration,
@@ -66,29 +67,29 @@ const VerifyAccountFundPromiseOtp = ({
   // const paysofterPaymentData = {
   //   payment_id: reference,
   //   email: buyerEmail,
-  //   amount: promoTotalPrice,
-  //   public_api_key: publicApiKey,
+  //   amount: amount,
+  //   public_api_key: sellerApiKey,
   //   created_at: createdAt,
   // };
 
   const otpData = {
     otp: otp,
     account_id: sendOtpData.account_id,
-    amount: promoTotalPrice,
+    amount: amount,
     currency: currency,
   };
 
   const debitAccountData = {
     account_id: sendOtpData.account_id,
     security_code: sendOtpData.security_code,
-    amount: promoTotalPrice,
+    amount: amount,
   };
 
   const paysofterPromiseData = {
     payment_id: reference,
     email: buyerEmail,
-    amount: promoTotalPrice,
-    public_api_key: publicApiKey,
+    amount: amount,
+    public_api_key: sellerApiKey,
     account_id: sendOtpData.account_id,
     currency: currency,
     duration: duration,
@@ -148,11 +149,11 @@ const VerifyAccountFundPromiseOtp = ({
     <Container>
       {showConfirmPaysofterPromise ? (
         <ConfirmPaysofterPromise
-          promoTotalPrice={promoTotalPrice}
+          amount={amount}
           paymentData={paymentData}
           reference={reference}
           buyerEmail={buyerEmail}
-          publicApiKey={publicApiKey}
+          sellerApiKey={sellerApiKey}
           currency={currency}
           duration={duration}
           paymenthMethod={paymenthMethod}

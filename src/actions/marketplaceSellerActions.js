@@ -56,6 +56,13 @@ GET_FREE_AD_DETAIL_FAIL,
 GET_PAID_AD_DETAIL_REQUEST,
 GET_PAID_AD_DETAIL_SUCCESS,
 GET_PAID_AD_DETAIL_FAIL,
+
+GET_SELLER_API_KEY_REQUEST,
+GET_SELLER_API_KEY_SUCCESS,
+GET_SELLER_API_KEY_FAIL,
+UPDATE_SELLER_API_KEY_REQUEST,
+UPDATE_SELLER_API_KEY_SUCCESS,
+UPDATE_SELLER_API_KEY_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -727,6 +734,80 @@ export const updateSellerPhoto = (photoFormData) => async (
   } catch (error) {
     dispatch({
       type: UPDATE_SELLER_PHOTO_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getSellerPaysofterApiKey = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: GET_SELLER_API_KEY_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/get-seller-api-key/`,
+      config
+    );
+
+    dispatch({
+      type: GET_SELLER_API_KEY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SELLER_API_KEY_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const updateSellerPaysofterApiKey = (apiKeyFormData) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: UPDATE_SELLER_API_KEY_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `${API_URL}/api/save-seller-api-key/`,
+      apiKeyFormData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_SELLER_API_KEY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_SELLER_API_KEY_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

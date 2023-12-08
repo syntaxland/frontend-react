@@ -296,7 +296,7 @@ function Product({ product }) {
             <Rating
               value={product.rating}
               text={`${formatCount(product.numReviews)} reviews `}
-              color={"yellow"}
+              color={"blue"}
             />
 
             {userInfo ? (
