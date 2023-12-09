@@ -275,20 +275,24 @@ function PaidAdProductDetail({ match, history }) {
                 <ListGroup.Item>
                   <ListGroup.Item>Seller Details</ListGroup.Item>
                   <ListGroup.Item>
-                    <span className="d-flex justify-content-between py-2">
-                      {sellerAvatarUrl && (
-                        <img
-                          src={sellerAvatarUrl}
-                          alt="Seller"
-                          style={{
-                            maxWidth: "80px",
-                            maxHeight: "80px",
-                            borderRadius: "50%",
-                          }}
-                        />
-                      )}
-                      {ads?.seller_username}
-                    </span>
+                    <Row>
+                      <Col md={4}>
+                        <span className="d-flex justify-content-between py-2">
+                          {sellerAvatarUrl && (
+                            <img
+                              src={sellerAvatarUrl}
+                              alt="Seller"
+                              style={{
+                                maxWidth: "80px",
+                                maxHeight: "80px",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          )}
+                          {ads?.seller_username}
+                        </span>
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <div>
