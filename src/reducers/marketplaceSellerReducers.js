@@ -70,6 +70,7 @@ const initialState = {
   sellerPhoto: [],
   ads: [],
   sellerApiKey: [],
+  sellerAvatarUrl: [],
 };
 
 export const getSellerApiKeyReducer = (state = initialState, action) => {
@@ -106,7 +107,11 @@ export const getFreeAdDetailReducer = (state = initialState, action) => {
     case GET_FREE_AD_DETAIL_REQUEST:
       return { loading: true };
     case GET_FREE_AD_DETAIL_SUCCESS:
-      return { loading: false, success: true, ads: action.payload };
+      return { loading: false, success: true, 
+        ads: action.payload.data,
+        sellerApiKey: action.payload.sellerApiKey,
+        sellerAvatarUrl: action.payload.seller_avatar_url,
+       };
     case GET_FREE_AD_DETAIL_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -124,6 +129,7 @@ export const getPaidAdDetailReducer = (state = initialState, action) => {
         success: true,
         ads: action.payload.data,
         sellerApiKey: action.payload.sellerApiKey,
+        sellerAvatarUrl: action.payload.seller_avatar_url,
       };
     case GET_PAID_AD_DETAIL_FAIL:
       return { loading: false, error: action.payload };

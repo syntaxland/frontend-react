@@ -213,7 +213,7 @@ function AllPaidAdCard({ product }) {
                     className="rounded"
                     disabled
                   >
-                    <i>Verified ID</i>{" "}
+                   <i className="fas fa-user"></i>  <i>Verified ID</i>{" "}
                     <i
                       className="fas fa-check-circle"
                       style={{ fontSize: "18px", color: "blue" }}
@@ -228,7 +228,7 @@ function AllPaidAdCard({ product }) {
                     className="rounded"
                     disabled
                   >
-                    <i>ID Not Verified</i>{" "}
+                   <i className="fas fa-user"></i> <i>ID Not Verified</i>{" "}
                     <i
                       // className="fas fa-check-circle"
                       style={{ fontSize: "18px", color: "red" }}
@@ -295,7 +295,7 @@ function AllPaidAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-              Expires in:{" "}
+             <i className="fas fa-clock"></i>  Expires in:{" "}
               <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
@@ -325,7 +325,7 @@ function AllPaidAdCard({ product }) {
               size="sm"
               className="py-2 rounded"
             >
-              Message Seller
+             <i className="fa fa-message"></i>  Message Seller
             </Button>
           </span>
 

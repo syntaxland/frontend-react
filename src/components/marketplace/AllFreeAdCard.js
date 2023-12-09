@@ -274,7 +274,7 @@ function AllFreeAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-              Expires in:{" "}
+             <i className="fas fa-clock"></i>  Expires in:{" "}
               <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
@@ -304,7 +304,7 @@ function AllFreeAdCard({ product }) {
               size="sm"
               className="py-2 rounded"
             >
-              Message Seller
+             <i className="fa fa-message"></i> Message Seller
             </Button>
           </span>
 

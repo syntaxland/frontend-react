@@ -106,14 +106,14 @@ export const getFreeAdDetail = (pk) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_FREE_AD_DETAIL_REQUEST });
 
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        // Authorization: `Bearer ${userInfo.access}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
@@ -301,14 +301,14 @@ export const getPaidAdDetail = (pk) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_PAID_AD_DETAIL_REQUEST });
 
-    // const {
-    //   userLogin: { userInfo },
-    // } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        // Authorization: `Bearer ${userInfo.access}`,
+        Authorization: `Bearer ${userInfo.access}`,
       },
     };
 

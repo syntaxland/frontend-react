@@ -296,6 +296,12 @@ function PostPaidAd({ history }) {
   sellerData.append("image3", image3);
   sellerData.append("duration", duration);
 
+  // sellerData.append("promo_code", promo_code);
+  // sellerData.append("discount_percentage", discount_percentage);
+  // sellerData.append("count_in_stock", count_in_stock);
+  
+  // sellerData.append("discount_percentage", duration);
+
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {

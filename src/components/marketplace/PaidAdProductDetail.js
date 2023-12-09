@@ -8,13 +8,15 @@ import {
   ListGroup,
   Button,
   Card,
-  Form,
+  // Form,
 } from "react-bootstrap";
 import RatingSeller from "../RatingSeller";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 // import { listProductDetails } from "../../actions/adsAction";
+
+import { getSellerAccount } from "../../actions/marketplaceSellerActions";
 import {
   //  getFreeAd,
   //  deleteFreeAd,
@@ -33,16 +35,26 @@ import Paysofter from "../MarketplacePayment/Paysofter";
 import PromoTimer from "../PromoTimer";
 
 function PaidAdProductDetail({ match, history }) {
-  const [qty, setQty] = useState(1);
+  // const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const getSellerAccountState = useSelector(
+    (state) => state.getSellerAccountState
+  );
+  const { sellerAccount } = getSellerAccountState;
   const [showPaysofterOption, setShowPaysofterOption] = useState(false);
 
   const handlePaysofterOption = () => {
     setShowPaysofterOption(!showPaysofterOption);
+  };
+
+  const [showPhoneNumber, setShowPhoneNumber] = useState(false);
+
+  const handleShowPhoneNumber = () => {
+    setShowPhoneNumber(!showPhoneNumber);
   };
 
   useEffect(() => {
@@ -65,11 +77,12 @@ function PaidAdProductDetail({ match, history }) {
   const getPaidAdDetailState = useSelector(
     (state) => state.getPaidAdDetailState
   );
-  const { loading, error, ads, sellerApiKey } = getPaidAdDetailState;
-  // console.log("PaidAds:", ads, 'sellerApiKey', sellerApiKey); 
+  const { loading, error, ads, sellerApiKey, sellerAvatarUrl } = getPaidAdDetailState;
+  console.log('sellerAvatarUrl', sellerAvatarUrl);
 
   useEffect(() => {
     dispatch(getPaidAdDetail(match.params.id));
+    dispatch(getSellerAccount());
   }, [dispatch, match]);
 
   const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
@@ -84,6 +97,39 @@ function PaidAdProductDetail({ match, history }) {
     } else {
       return viewCount?.toString();
     }
+  }
+
+  function calculateDuration(joinedTimestamp) {
+    const now = new Date();
+    const joinedDate = new Date(joinedTimestamp);
+    const duration = now - joinedDate;
+
+    const days = Math.floor(duration / (24 * 60 * 60 * 1000));
+    const hours = Math.floor(
+      (duration % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)
+    );
+    const minutes = Math.floor((duration % (60 * 60 * 1000)) / (60 * 1000));
+    const seconds = Math.floor((duration % (60 * 1000)) / 1000);
+
+    const parts = [];
+
+    if (days > 0) {
+      parts.push(`${days} days`);
+    }
+
+    if (hours > 0) {
+      parts.push(`${hours} hours`);
+    }
+
+    if (minutes > 0) {
+      parts.push(`${minutes} minutes`);
+    }
+
+    if (seconds > 0) {
+      parts.push(`${seconds} seconds`);
+    }
+
+    return parts.join(", ");
   }
 
   return (
@@ -124,22 +170,17 @@ function PaidAdProductDetail({ match, history }) {
               <ListGroup.Item>
                 <h3>{ads?.ad_name}</h3>
               </ListGroup.Item>
+
               <ListGroup.Item>
                 <span>
-                  <RatingSeller
-                    value={ads?.ad_rating}
-                    text={`${formatCount(ads?.num_reviews)} reviews `}
-                    color={"green"}
-                  />
-                </span>
-                <span>
-                  {userInfo ? (
-                    <Link to={`/review-list/${ads.id}`}>(Seller Reviews)</Link>
-                  ) : (
-                    <Link onClick={() => history.push("/login")}>
-                      (Seller Reviews)
-                    </Link>
-                  )}
+                  <Button
+                    variant="outline-success"
+                    size="sm"
+                    className="rounded"
+                    disabled
+                  >
+                    <i>Promoted</i>
+                  </Button>
                 </span>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -151,11 +192,11 @@ function PaidAdProductDetail({ match, history }) {
                   className="py-2 rounded"
                   disabled
                 >
-                  <i>{ads?.promo_code} NEWCOM0124</i>
+                  <i>
+                    {ads?.promo_code} {ads?.discount_percentage}% off
+                  </i>
                 </Button>
               </ListGroup.Item>
-
-              <ListGroup.Item>Description: {ads?.description}</ListGroup.Item>
             </ListGroup>
           </Col>
           <Col md={3}>
@@ -177,15 +218,16 @@ function PaidAdProductDetail({ match, history }) {
                     className="py-2 rounded"
                     disabled
                   >
-                    Expires in:{" "}
+                    <i className="fas fa-clock"></i> Expires in:{" "}
                     <PromoTimer expirationDate={ads?.expiration_date} />
                   </Button>
                 </ListGroup.Item>
 
                 {ads?.count_in_stock > 0 && (
                   <ListGroup.Item>
-                    <Row>
-                      <Col>Qty</Col>
+                    Quantity in Stock: {ads?.count_in_stock}
+                    {/* <Row>
+                      <Col>Quantity in Stock</Col>
                       <Col xs="auto" className="my-1">
                         <Form.Control
                           as="select"
@@ -199,7 +241,7 @@ function PaidAdProductDetail({ match, history }) {
                           ))}
                         </Form.Control>
                       </Col>
-                    </Row>
+                    </Row> */}
                   </ListGroup.Item>
                 )}
 
@@ -216,6 +258,111 @@ function PaidAdProductDetail({ match, history }) {
               </ListGroup>
             </Card>
           </Col>
+          <ListGroup className="py-2">
+            <ListGroup.Item>Ad Description: {ads?.description}</ListGroup.Item>
+
+            <ListGroup.Item>
+              <ListGroup.Item>Seller Details</ListGroup.Item>
+              <ListGroup.Item>
+                <span className="d-flex justify-content-between py-2">
+                  {sellerAvatarUrl && (
+                    <img
+                      src={sellerAvatarUrl}
+                      alt="Seller"
+                      style={{
+                        maxWidth: "80px",
+                        maxHeight: "80px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  )}
+                  {ads?.seller_username}
+                </span>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <div>
+                  <span>
+                    {sellerAccount?.is_seller_verified ? (
+                      <>
+                        <Button
+                          variant="outline-success"
+                          size="sm"
+                          className="rounded"
+                          disabled
+                        >
+                          <i className="fas fa-user"></i> <i>Verified ID</i>{" "}
+                          <i
+                            className="fas fa-check-circle"
+                            style={{ fontSize: "18px", color: "blue" }}
+                          ></i>
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          variant="outline-danger"
+                          size="sm"
+                          className="rounded"
+                          disabled
+                        >
+                          <i className="fas fa-user"></i> <i>ID Not Verified</i>{" "}
+                          <i
+                            style={{ fontSize: "18px", color: "red" }}
+                          ></i>
+                        </Button>
+                      </>
+                    )}
+                  </span>
+                </div>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <span>
+                  <RatingSeller
+                    value={ads?.ad_rating}
+                    text={`${formatCount(ads?.num_reviews)} reviews `}
+                    color={"green"}
+                  />
+                </span>
+                <span>
+                  {userInfo ? (
+                    <Link to={`/review-list/${ads.id}`}>(Seller Reviews)</Link>
+                  ) : (
+                    <Link onClick={() => history.push("/login")}>
+                      (Seller Reviews)
+                    </Link>
+                  )}
+                </span>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  className="py-2 rounded"
+                  onClick={handleShowPhoneNumber}
+                >
+                  <i className="fa fa-phone"></i>{" "}
+                  {showPhoneNumber ? "Hide" : "Show"} Seller Phone Number
+                </Button>
+                {showPhoneNumber && <p>{ads?.seller_phone}</p>}
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  className="py-2 rounded"
+                >
+                  <i className="fa fa-message"></i> Message Seller
+                </Button>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                Joined since {calculateDuration(ads?.seller_joined_since)}
+              </ListGroup.Item>
+            </ListGroup.Item>
+          </ListGroup>
         </Row>
       )}
       <Row className="d-flex justify-content-center">
@@ -230,6 +377,15 @@ function PaidAdProductDetail({ match, history }) {
           )}
         </Col>
       </Row>
+
+      <div className="text-center mt-4 mb-2 text-muted">
+        <p style={{ color: "red" }}>
+          <strong>Disclaimer:</strong> Buyers are advised to exercise caution
+          and conduct thorough verification when dealing with sellers. Ensure
+          the authenticity of both the product and the seller before proceeding
+          with any transactions.
+        </p>
+      </div>
     </div>
   );
 }
