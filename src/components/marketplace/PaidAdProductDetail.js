@@ -254,7 +254,7 @@ function PaidAdProductDetail({ match, history }) {
                       </ListGroup.Item>
                     )}
 
-                    <ListGroup.Item>
+                    {/* <ListGroup.Item>
                       <Button
                         className="w-100 rounded"
                         variant="success"
@@ -263,7 +263,7 @@ function PaidAdProductDetail({ match, history }) {
                       >
                         Pay With Paysofter Promise
                       </Button>
-                    </ListGroup.Item>
+                    </ListGroup.Item> */}
                   </ListGroup>
                 </Card>
               </Col>
@@ -374,9 +374,24 @@ function PaidAdProductDetail({ match, history }) {
                     Joined since {calculateDuration(ads?.seller_joined_since)}
                   </ListGroup.Item>
                 </ListGroup.Item>
+                <Row className="d-flex justify-content-center py-2">
+                  <Col md={6}>
+                    <ListGroup.Item>
+                      <Button
+                        className="w-100 rounded"
+                        variant="success"
+                        type="button"
+                        onClick={handlePaysofterOption}
+                      >
+                        Pay With Paysofter Promise
+                      </Button>
+                    </ListGroup.Item>
+                  </Col>
+                </Row>
               </ListGroup>
             </Row>
           )}
+
           <Row className="d-flex justify-content-center">
             <Col>
               {showPaysofterOption && (
