@@ -41,7 +41,7 @@ function FreeAdProductDetail({ match, history }) {
     (state) => state.getFreeAdDetailState
   );
   const { loading, error, ads, sellerAvatarUrl } = getFreeAdDetailState;
-  console.log("Free Ads:", ads, sellerAvatarUrl);
+  // console.log("Free Ads:", ads, sellerAvatarUrl);
 
   const getSellerAccountState = useSelector(
     (state) => state.getSellerAccountState
