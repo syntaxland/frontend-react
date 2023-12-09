@@ -125,11 +125,11 @@ function FreeAdProductDetail({ match, history }) {
               <Col md={6}>
                 {images.length > 0 ? (
                   <Carousel
-                    showArrows={true}
-                    showIndicators={true}
-                    showThumbs={true}
+                    // showArrows={true}
+                    // showIndicators={true}
+                    // showThumbs={true}
                     useKeyboardArrows={true}
-                    dynamicHeight={false}
+                    // dynamicHeight={false}
                   >
                     {images.map((image, index) => (
                       <div className="slide" key={index}>
