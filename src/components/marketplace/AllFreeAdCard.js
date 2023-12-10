@@ -49,12 +49,12 @@ function AllFreeAdCard({ product }) {
   const { sellerAccount } = getSellerAccountState;
   console.log("is_seller_verified", sellerAccount?.is_seller_verified);
   useEffect(() => {
-    const pk = product.id; 
+    const pk = product.id;
     if (userInfo) {
       dispatch(getSellerAccount());
       dispatch(getPaidAdDetail(pk));
     }
-  }, [dispatch, userInfo, product.id]); 
+  }, [dispatch, userInfo, product.id]);
 
   useEffect(() => {
     if (
@@ -304,6 +304,19 @@ function AllFreeAdCard({ product }) {
               <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
+        </div>
+
+        <div className="d-flex justify-content-between py-2">
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+              onClick={handleClickMessageSeller}
+            >
+              <i className="fa fa-message"></i> Message Seller
+            </Button>
+          </span>
 
           <span className="py-2">
             <Button
@@ -319,20 +332,7 @@ function AllFreeAdCard({ product }) {
                 {productSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
-            </Button>
-          </span>
-        </div>
-
-        <div className="d-flex justify-content-between py-2">
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-              onClick={handleClickMessageSeller}
-            >
-              <i className="fa fa-message"></i> Message Seller
-            </Button>
+            </Button> 
           </span>
         </div>
       </Card.Body>

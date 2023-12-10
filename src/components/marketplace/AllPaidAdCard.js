@@ -64,7 +64,7 @@ function AllPaidAdCard({ product }) {
   }, [userInfo, product.id]);
 
   useEffect(() => {
-    const pk = product.id; 
+    const pk = product.id;
     if (userInfo) {
       dispatch(getSellerAccount());
       dispatch(getPaidAdDetail(pk));
@@ -330,6 +330,19 @@ function AllPaidAdCard({ product }) {
               <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
+        </div>
+
+        <div className="d-flex justify-content-between py-2">
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+              onClick={handleClickMessageSeller}
+            >
+              <i className="fa fa-message"></i> Message Seller
+            </Button>
+          </span>
 
           <span className="py-2">
             <Button
@@ -347,49 +360,6 @@ function AllPaidAdCard({ product }) {
               </div>
             </Button>
           </span>
-        </div>
-
-        <div className="d-flex justify-content-between py-2">
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-              onClick={handleClickMessageSeller}
-            >
-              <i className="fa fa-message"></i> Message Seller
-            </Button>
-          </span>
-
-          {/* <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Edit
-            </Button>
-          </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Delete
-            </Button>
-          </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Deactivate
-            </Button>
-          </span> */}
         </div>
       </Card.Body>
     </Card>
