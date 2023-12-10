@@ -91,6 +91,7 @@ const PaysofterAccountFundPromise = ({
     account_id: accountId,
     security_code: securityCode,
     amount: amount,
+    public_api_key: sellerApiKey,
   };
 
   const submitHandler = (e) => {

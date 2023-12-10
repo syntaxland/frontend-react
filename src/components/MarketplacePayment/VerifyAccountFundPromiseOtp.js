@@ -9,11 +9,12 @@ import {
   verifyOtp,
   createPaysofterPromise,
 } from "../../actions/paymentActions";
+
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Loader from "../Loader";
 import Message from "../Message";
-import ConfirmPaysofterPromise from "./ConfirmPaysofterPromise"; 
+import ConfirmPaysofterPromise from "./ConfirmPaysofterPromise";
 
 const VerifyAccountFundPromiseOtp = ({
   buyerEmail,
@@ -55,8 +56,14 @@ const VerifyAccountFundPromiseOtp = ({
   const otpVerifyState = useSelector((state) => state.otpVerifyState);
   const { loading, success, error } = otpVerifyState;
 
-  // const createPaysofterPromiseState = useSelector((state) => state.createPaysofterPromiseState);
-  // const { loading: promiseLoading, success: promiseSuccess, error: promiseError } = createPaysofterPromiseState;
+  const createPaysofterPromiseState = useSelector(
+    (state) => state.createPaysofterPromiseState
+  );
+  const {
+    loading: promiseLoading,
+    // success: promiseSuccess,
+    error: promiseError,
+  } = createPaysofterPromiseState;
 
   console.log("formattedPayerEmail:", formattedPayerEmail);
 
@@ -77,6 +84,7 @@ const VerifyAccountFundPromiseOtp = ({
     account_id: sendOtpData.account_id,
     amount: amount,
     currency: currency,
+    public_api_key: sellerApiKey,
   };
 
   const debitAccountData = {
@@ -101,6 +109,8 @@ const VerifyAccountFundPromiseOtp = ({
 
   const handleVerifyEmailOtp = () => {
     dispatch(verifyOtp(otpData));
+
+    // dispatch(createPaysofterPromise(paysofterPromiseData));
   };
 
   const handleResendEmailOtp = () => {
@@ -133,6 +143,8 @@ const VerifyAccountFundPromiseOtp = ({
   useEffect(() => {
     if (success) {
       dispatch(createPaysofterPromise(paysofterPromiseData));
+      // dispatch(verifyOtp(otpData));
+
       setShowConfirmPaysofterPromise(true);
       dispatch(createPayment(paymentData));
       localStorage.removeItem("debitAccountData");
@@ -162,12 +174,19 @@ const VerifyAccountFundPromiseOtp = ({
         <Row className="justify-content-center text-center mt-5">
           <Col>
             <div className="border rounded p-4 py-2">
-            <h1 className="py-2">Verify OTP</h1>
+              <h1 className="py-2">Verify OTP</h1>
               {showSuccessMessage && (
                 <Message variant="success">Promise sent successfully!</Message>
               )}
+
               {loading && <Loader />}
               {error && <Message variant="danger">{error}</Message>}
+
+              {promiseLoading && <Loader />}
+              {promiseError && (
+                <Message variant="danger">{promiseError}</Message>
+              )}
+
               {resendMessage && (
                 <Message variant={resendLoading ? "info" : "success"}>
                   {resendMessage}

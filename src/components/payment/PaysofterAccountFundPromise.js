@@ -85,6 +85,8 @@ const PaysofterAccountFundPromise = ({
     account_id: accountId,
     security_code: securityCode,
     amount: promoTotalPrice,
+    public_api_key: publicApiKey,
+
   };
 
   const submitHandler = (e) => {

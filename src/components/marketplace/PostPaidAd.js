@@ -299,8 +299,7 @@ function PostPaidAd({ history }) {
   // sellerData.append("promo_code", promo_code);
   // sellerData.append("discount_percentage", discount_percentage);
   // sellerData.append("count_in_stock", count_in_stock);
-  
-  // sellerData.append("discount_percentage", duration);
+  // sellerData.append("is_price_negotiable", is_price_negotiable);
 
   useEffect(() => {
     if (success) {
