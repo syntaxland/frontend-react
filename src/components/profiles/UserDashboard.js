@@ -361,13 +361,13 @@ function UserDashboard({ history }) {
                 )}
               </div>
 
-              <div className="mt-50 py-4 text-center">
+              <div className="mt-50 ">
                 {!profile?.is_marketplace_seller ? (
-                  <div>
+                  <div className="text-center">
                     <span>Don't have a Seller account? </span> 
                     <Button
                       size="sm"
-                      className="py-2"
+                      className="sidebar-link py-2"
                       variant="outline-success"
                       onClick={handleAddbusiness}
                     >
@@ -379,7 +379,7 @@ function UserDashboard({ history }) {
                   <div>
                     <Button
                       size="sm"
-                      className="py-2"
+                      className="sidebar-link py-2"
                       variant="outline-success"
                       onClick={handleMarketplaceDashboard}
                     >
