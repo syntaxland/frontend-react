@@ -5,7 +5,7 @@ import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { debitPaysofterAccountFund } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp"; 
+import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp";
 
 const PaysofterAccountFundPromise = ({
   promoTotalPrice,
@@ -38,10 +38,22 @@ const PaysofterAccountFundPromise = ({
     formattedPayerEmail,
     error,
   } = debitPaysofterAccountState;
-  console.log("formattedPayerEmail:", formattedPayerEmail, 'paymenthMethod:', paymenthMethod);
+  console.log(
+    "formattedPayerEmail:",
+    formattedPayerEmail,
+    "paymenthMethod:",
+    paymenthMethod
+  );
 
   const [accountId, setAccountId] = useState("");
+
+  const [accountIdError, setAccountIdError] = useState("");
+
   const [securityCode, setSecurityCode] = useState("");
+
+  const [securityCodeError, setSecurityCodeError] = useState("");
+
+  const [formError, setFormError] = useState("");
   // const [currency, setCurrency] = useState("");
 
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -85,21 +97,63 @@ const PaysofterAccountFundPromise = ({
     account_id: accountId,
     security_code: securityCode,
     amount: promoTotalPrice,
-    public_api_key: publicApiKey,
-
+    // public_api_key: publicApiKey,
   };
 
+  const handleFieldChange = (fieldName, value) => {
+    switch (fieldName) {
+      case "accountId":
+        setAccountId(value);
+        setAccountIdError("");
+        break;
+
+      case "securityCode":
+        setSecurityCode(value);
+        setSecurityCodeError("");
+        break;
+
+      default:
+        break;
+    }
+  };
   const submitHandler = (e) => {
     e.preventDefault();
-    try {
+
+    if (!accountId) {
+      setAccountIdError("Please enter Account ID.");
+    } else {
+      setAccountIdError("");
+    }
+
+    if (!securityCode) {
+      setSecurityCodeError("Please enter Security Code.");
+    } else {
+      setSecurityCodeError("");
+    }
+
+    if (!accountId || !securityCode) {
+      setFormError("Please attend to the errors within the form.");
+      return;
+    } else {
+      dispatch(debitPaysofterAccountFund(debitAccountData));
       localStorage.setItem(
         "debitAccountData",
         JSON.stringify(debitAccountData)
       );
-      dispatch(debitPaysofterAccountFund(debitAccountData));
-    } catch (error) {
-      console.log(error);
     }
+
+
+
+    
+    // try {
+    //   localStorage.setItem(
+    //     "debitAccountData",
+    //     JSON.stringify(debitAccountData)
+    //   );
+    //   dispatch(debitPaysofterAccountFund(debitAccountData));
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   useEffect(() => {
@@ -191,7 +245,9 @@ const PaysofterAccountFundPromise = ({
             {error && <Message variant="danger">{error}</Message>}
             {loading && <Loader />}
 
-            <Form onSubmit={submitHandler}>
+            {formError && <Message variant="danger">{formError}</Message>}
+
+            <Form>
               {/* <Form.Group controlId="currency">
                 <Form.Label>Currency</Form.Label>
                 <Form.Control
@@ -214,8 +270,12 @@ const PaysofterAccountFundPromise = ({
                       type="text"
                       placeholder="Enter Paysofter Account ID"
                       value={accountId}
-                      onChange={(e) => setAccountId(e.target.value)}
-                      required
+                      // onChange={(e) => setAccountId(e.target.value)}
+
+                      onChange={(e) =>
+                        handleFieldChange("accountId", e.target.value)
+                      }
+                      // required
                       maxLength={12}
                     />
                   </Col>
@@ -262,6 +322,7 @@ const PaysofterAccountFundPromise = ({
                     </Modal>
                   </Col>
                 </Row>
+                <Form.Text className="text-danger">{accountIdError}</Form.Text>
               </Form.Group>
 
               <Form.Group controlId="securityCode">
@@ -273,8 +334,11 @@ const PaysofterAccountFundPromise = ({
                       type={securityCodeVisible ? "text" : "password"}
                       placeholder="Enter Account Security Code"
                       value={securityCode}
-                      onChange={(e) => setSecurityCode(e.target.value)}
-                      required
+                      // onChange={(e) => setSecurityCode(e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("securityCode", e.target.value)
+                      }
+                      // required
                       maxLength={4}
                     />
                   </Col>
@@ -344,6 +408,9 @@ const PaysofterAccountFundPromise = ({
                     </Button>
                   </span>
                 </Row>
+                <Form.Text className="text-danger">
+                  {securityCodeError}
+                </Form.Text>
               </Form.Group>
 
               <div className="py-3 text-center">
@@ -351,6 +418,7 @@ const PaysofterAccountFundPromise = ({
                   className="w-100 rounded"
                   type="submit"
                   variant="primary"
+                  onClick={submitHandler}
                 >
                   Pay{" "}
                   <span>
@@ -362,6 +430,9 @@ const PaysofterAccountFundPromise = ({
                     )
                   </span>
                 </Button>
+              </div>
+              <div className="py-2 d-flex justify-content-center">
+                <Form.Text className="text-danger">{error}</Form.Text>
               </div>
             </Form>
           </Col>
