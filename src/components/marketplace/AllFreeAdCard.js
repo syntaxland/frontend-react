@@ -11,14 +11,18 @@ import {
   trackProductView,
 } from "../../actions/productAction";
 import { getSellerAccount } from "../../actions/marketplaceSellerActions";
-
+import { getPaidAdDetail } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
-// import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
 
 function AllFreeAdCard({ product }) {
   const dispatch = useDispatch();
+
+  const getFreeAdDetailState = useSelector(
+    (state) => state.getFreeAdDetailState
+  );
+  const { sellerAvatarUrl } = getFreeAdDetailState;
 
   const [productSaved, setProductSaved] = useState(false);
   const [totalSaves, setTotalSaves] = useState(product?.ad_save_count);
@@ -45,10 +49,12 @@ function AllFreeAdCard({ product }) {
   const { sellerAccount } = getSellerAccountState;
   console.log("is_seller_verified", sellerAccount?.is_seller_verified);
   useEffect(() => {
+    const pk = product.id; 
     if (userInfo) {
       dispatch(getSellerAccount());
+      dispatch(getPaidAdDetail(pk));
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, product.id]); 
 
   useEffect(() => {
     if (
@@ -162,6 +168,28 @@ function AllFreeAdCard({ product }) {
     }
   }
 
+  const handleClickMessageSeller = () => {
+    if (!userInfo) {
+      history.push("/login");
+    } else {
+      const queryParams = {
+        id: product.id,
+        image1: product.image1,
+        ad_name: product.ad_name,
+        price: product.price,
+        sellerAvatarUrl,
+        seller_username: product.seller_username,
+        expiration_date: product.expiration_date,
+        ad_rating: product.ad_rating,
+      };
+
+      history.push({
+        pathname: `/free/ad/message/${product.id}`,
+        search: `?${new URLSearchParams(queryParams).toString()}`,
+      });
+    }
+  };
+
   return (
     <Card className="my-3 p-3 rounded">
       {productMessages.productSaveSuccess && (
@@ -210,7 +238,7 @@ function AllFreeAdCard({ product }) {
                 </>
               ) : (
                 <>
-                <Button
+                  <Button
                     variant="outline-danger"
                     size="sm"
                     className="rounded"
@@ -262,8 +290,6 @@ function AllFreeAdCard({ product }) {
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
-
-         
         </div>
 
         <div className="d-flex justify-content-between">
@@ -274,7 +300,7 @@ function AllFreeAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-             <i className="fas fa-clock"></i>  Expires in:{" "}
+              <i className="fas fa-clock"></i> Expires in:{" "}
               <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
@@ -303,40 +329,11 @@ function AllFreeAdCard({ product }) {
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
+              onClick={handleClickMessageSeller}
             >
-             <i className="fa fa-message"></i> Message Seller
+              <i className="fa fa-message"></i> Message Seller
             </Button>
           </span>
-
-          {/* <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Edit
-            </Button>
-          </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Delete
-            </Button>
-          </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Deactivate
-            </Button>
-          </span> */}
         </div>
       </Card.Body>
     </Card>

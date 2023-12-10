@@ -107,6 +107,24 @@ function FreeAdProductDetail({ match, history }) {
 
   const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
 
+const handleClickMessageSeller = () => {
+    const queryParams = {
+      id: ads.id,
+      image1: ads.image1,
+      ad_name: ads.ad_name,
+      price: ads.price,
+      sellerAvatarUrl,
+      seller_username: ads.seller_username,
+      expiration_date: ads.expiration_date,
+      ad_rating: ads.ad_rating,
+    };
+
+    history.push({
+      pathname: `/free/ad/message/${ads.id}`,
+      search: `?${new URLSearchParams(queryParams).toString()}`,
+    });
+  };
+
   return (
     <Container>
       <Row>
@@ -317,6 +335,7 @@ function FreeAdProductDetail({ match, history }) {
                       variant="outline-primary"
                       size="sm"
                       className="py-2 rounded"
+                      onClick={handleClickMessageSeller}
                     >
                       <i className="fa fa-message"></i> Message Seller
                     </Button>

@@ -179,6 +179,40 @@ function Header() {
                   </div>
                   <NavDropdown.Divider />
 
+                  <div>
+                    {userInfo ? (
+                      <>
+                        <Nav.Link as={Link} to="/message/inbox">
+                          <i
+                            className="fas fa-message"
+                            style={{ fontSize: "16px" }}
+                          ></i>{" "}
+                          Inbox
+                        </Nav.Link>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <NavDropdown.Divider />
+
+                  <div>
+                    {userInfo ? (
+                      <>
+                        <Nav.Link as={Link} to="/create-support-ticket">
+                          <i
+                            className="fas fa-question-circle"
+                            style={{ fontSize: "16px" }}
+                          ></i>{" "}
+                          Contact Support
+                        </Nav.Link>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <NavDropdown.Divider />
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>

@@ -60,6 +60,18 @@ import {
   UPDATE_SELLER_API_KEY_REQUEST,
   UPDATE_SELLER_API_KEY_SUCCESS,
   UPDATE_SELLER_API_KEY_FAIL,
+  CREATE_PAID_AD_MESSAGE_REQUEST,
+  CREATE_PAID_AD_MESSAGE_SUCCESS,
+  CREATE_PAID_AD_MESSAGE_FAIL,
+  LIST_PAID_AD_MESSAGE_REQUEST,
+  LIST_PAID_AD_MESSAGE_SUCCESS,
+  LIST_PAID_AD_MESSAGE_FAIL,
+  CREATE_FREE_AD_MESSAGE_REQUEST,
+  CREATE_FREE_AD_MESSAGE_SUCCESS,
+  CREATE_FREE_AD_MESSAGE_FAIL,
+  LIST_FREE_AD_MESSAGE_REQUEST,
+  LIST_FREE_AD_MESSAGE_SUCCESS,
+  LIST_FREE_AD_MESSAGE_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -69,8 +81,67 @@ const initialState = {
   sellerAccount: [],
   sellerPhoto: [],
   ads: [],
+  adMessages: [],
   sellerApiKey: [],
   sellerAvatarUrl: [],
+};
+
+export const createPaidAdMessageReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_PAID_AD_MESSAGE_REQUEST:
+      return { loading: true };
+    case CREATE_PAID_AD_MESSAGE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case CREATE_PAID_AD_MESSAGE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const listPaidAdMessageReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LIST_PAID_AD_MESSAGE_REQUEST:
+      return { loading: true };
+    case LIST_PAID_AD_MESSAGE_SUCCESS:
+      return { loading: false, success: true, adMessages: action.payload };
+    case LIST_PAID_AD_MESSAGE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const createFreeAdMessageReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case CREATE_FREE_AD_MESSAGE_REQUEST:
+      return { loading: true };
+    case CREATE_FREE_AD_MESSAGE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case CREATE_FREE_AD_MESSAGE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const listFreeAdMessageReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LIST_FREE_AD_MESSAGE_REQUEST:
+      return { loading: true };
+    case LIST_FREE_AD_MESSAGE_SUCCESS:
+      return { loading: false, success: true, adMessages: action.payload };
+    case LIST_FREE_AD_MESSAGE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const getSellerApiKeyReducer = (state = initialState, action) => {
@@ -107,11 +178,13 @@ export const getFreeAdDetailReducer = (state = initialState, action) => {
     case GET_FREE_AD_DETAIL_REQUEST:
       return { loading: true };
     case GET_FREE_AD_DETAIL_SUCCESS:
-      return { loading: false, success: true, 
+      return {
+        loading: false,
+        success: true,
         ads: action.payload.data,
         sellerApiKey: action.payload.sellerApiKey,
         sellerAvatarUrl: action.payload.seller_avatar_url,
-       };
+      };
     case GET_FREE_AD_DETAIL_FAIL:
       return { loading: false, error: action.payload };
     default:

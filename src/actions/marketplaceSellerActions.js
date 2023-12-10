@@ -49,23 +49,185 @@ import {
   DELETE_PAID_AD_REQUEST,
   DELETE_PAID_AD_SUCCESS,
   DELETE_PAID_AD_FAIL,
-
   GET_FREE_AD_DETAIL_REQUEST,
-GET_FREE_AD_DETAIL_SUCCESS,
-GET_FREE_AD_DETAIL_FAIL,
-GET_PAID_AD_DETAIL_REQUEST,
-GET_PAID_AD_DETAIL_SUCCESS,
-GET_PAID_AD_DETAIL_FAIL,
-
-GET_SELLER_API_KEY_REQUEST,
-GET_SELLER_API_KEY_SUCCESS,
-GET_SELLER_API_KEY_FAIL,
-UPDATE_SELLER_API_KEY_REQUEST,
-UPDATE_SELLER_API_KEY_SUCCESS,
-UPDATE_SELLER_API_KEY_FAIL,
+  GET_FREE_AD_DETAIL_SUCCESS,
+  GET_FREE_AD_DETAIL_FAIL,
+  GET_PAID_AD_DETAIL_REQUEST,
+  GET_PAID_AD_DETAIL_SUCCESS,
+  GET_PAID_AD_DETAIL_FAIL,
+  GET_SELLER_API_KEY_REQUEST,
+  GET_SELLER_API_KEY_SUCCESS,
+  GET_SELLER_API_KEY_FAIL,
+  UPDATE_SELLER_API_KEY_REQUEST,
+  UPDATE_SELLER_API_KEY_SUCCESS,
+  UPDATE_SELLER_API_KEY_FAIL,
+  CREATE_PAID_AD_MESSAGE_REQUEST,
+  CREATE_PAID_AD_MESSAGE_SUCCESS,
+  CREATE_PAID_AD_MESSAGE_FAIL,
+  LIST_PAID_AD_MESSAGE_REQUEST,
+  LIST_PAID_AD_MESSAGE_SUCCESS,
+  LIST_PAID_AD_MESSAGE_FAIL,
+  CREATE_FREE_AD_MESSAGE_REQUEST,
+  CREATE_FREE_AD_MESSAGE_SUCCESS,
+  CREATE_FREE_AD_MESSAGE_FAIL,
+  LIST_FREE_AD_MESSAGE_REQUEST,
+  LIST_FREE_AD_MESSAGE_SUCCESS,
+  LIST_FREE_AD_MESSAGE_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
+
+export const createPaidAdMessage = (messageData) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: CREATE_PAID_AD_MESSAGE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API_URL}/api/create-paid-ad-message/`,
+      messageData,
+
+      config
+    );
+
+    dispatch({
+      type: CREATE_PAID_AD_MESSAGE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_PAID_AD_MESSAGE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const listPaidAdMessages = (pk) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: LIST_PAID_AD_MESSAGE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/list-paid-ad-messages/${pk}`,
+
+      config
+    );
+
+    dispatch({
+      type: LIST_PAID_AD_MESSAGE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_PAID_AD_MESSAGE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const createFreeAdMessage = (messageData) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: CREATE_FREE_AD_MESSAGE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API_URL}/api/create-free-ad-message/`,
+      messageData,
+
+      config
+    );
+
+    dispatch({
+      type: CREATE_FREE_AD_MESSAGE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_FREE_AD_MESSAGE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const listFreeAdMessages = (pk) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: LIST_FREE_AD_MESSAGE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/list-free-ad-messages/${pk}`,
+
+      config
+    );
+
+    dispatch({
+      type: LIST_FREE_AD_MESSAGE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_FREE_AD_MESSAGE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const getFreeAd = () => async (dispatch, getState) => {
   try {
@@ -119,7 +281,7 @@ export const getFreeAdDetail = (pk) => async (dispatch, getState) => {
 
     const { data } = await axios.get(
       `${API_URL}/api/get-free-ad-detail/${pk}`,
-      
+
       config
     );
 
@@ -278,7 +440,7 @@ export const getPaidAd = () => async (dispatch, getState) => {
 
     const { data } = await axios.get(
       `${API_URL}/api/get-seller-paid-ad/`,
-      
+
       config
     );
 
@@ -314,7 +476,7 @@ export const getPaidAdDetail = (pk) => async (dispatch, getState) => {
 
     const { data } = await axios.get(
       `${API_URL}/api/get-paid-ad-detail/${pk}`,
-      
+
       config
     );
 

@@ -11,6 +11,8 @@ import {
   trackProductView,
 } from "../../actions/productAction";
 import { getSellerAccount } from "../../actions/marketplaceSellerActions";
+
+import { getPaidAdDetail } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
 // import ProductPrice from "../ProductPrice";
@@ -44,6 +46,11 @@ function AllPaidAdCard({ product }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const getFreeAdDetailState = useSelector(
+    (state) => state.getFreeAdDetailState
+  );
+  const { sellerAvatarUrl } = getFreeAdDetailState;
+
   useEffect(() => {
     if (
       userInfo &&
@@ -57,10 +64,12 @@ function AllPaidAdCard({ product }) {
   }, [userInfo, product.id]);
 
   useEffect(() => {
+    const pk = product.id; 
     if (userInfo) {
       dispatch(getSellerAccount());
+      dispatch(getPaidAdDetail(pk));
     }
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, product.id]);
 
   const toggleFavoriteHandler = () => {
     if (!userInfo) {
@@ -162,6 +171,28 @@ function AllPaidAdCard({ product }) {
     }
   }
 
+  const handleClickMessageSeller = () => {
+    if (!userInfo) {
+      history.push("/login");
+    } else {
+      const queryParams = {
+        id: product.id,
+        image1: product.image1,
+        ad_name: product.ad_name,
+        price: product.price,
+        sellerAvatarUrl,
+        seller_username: product.seller_username,
+        expiration_date: product.expiration_date,
+        ad_rating: product.ad_rating,
+      };
+
+      history.push({
+        pathname: `/paid/ad/message/${product.id}`,
+        search: `?${new URLSearchParams(queryParams).toString()}`,
+      });
+    }
+  };
+
   return (
     <Card className="my-3 p-3 rounded">
       {productMessages.productSaveSuccess && (
@@ -213,7 +244,7 @@ function AllPaidAdCard({ product }) {
                     className="rounded"
                     disabled
                   >
-                   <i className="fas fa-user"></i>  <i>Verified ID</i>{" "}
+                    <i className="fas fa-user"></i> <i>Verified ID</i>{" "}
                     <i
                       className="fas fa-check-circle"
                       style={{ fontSize: "18px", color: "blue" }}
@@ -222,13 +253,13 @@ function AllPaidAdCard({ product }) {
                 </>
               ) : (
                 <>
-                <Button
+                  <Button
                     variant="outline-danger"
                     size="sm"
                     className="rounded"
                     disabled
                   >
-                   <i className="fas fa-user"></i> <i>ID Not Verified</i>{" "}
+                    <i className="fas fa-user"></i> <i>ID Not Verified</i>{" "}
                     <i
                       // className="fas fa-check-circle"
                       style={{ fontSize: "18px", color: "red" }}
@@ -295,7 +326,7 @@ function AllPaidAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-             <i className="fas fa-clock"></i>  Expires in:{" "}
+              <i className="fas fa-clock"></i> Expires in:{" "}
               <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
@@ -324,8 +355,9 @@ function AllPaidAdCard({ product }) {
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
+              onClick={handleClickMessageSeller}
             >
-             <i className="fa fa-message"></i>  Message Seller
+              <i className="fa fa-message"></i> Message Seller
             </Button>
           </span>
 

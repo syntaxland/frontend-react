@@ -60,6 +60,13 @@ import PaidAdProductDetail from "./components/marketplace/PaidAdProductDetail";
 import FreeAdProductDetail from "./components/marketplace/FreeAdProductDetail";
 import PaidAdScreen from "./components/marketplace/PaidAdScreen";
 
+import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+import FreeAdMessage from "./components/marketplace/FreeAdMessage";
+// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -136,6 +143,14 @@ function App() {
           <Route path="/paid-ad-detail/:id" component={PaidAdProductDetail} />
           <Route path="/free-ad-detail/:id" component={FreeAdProductDetail} />
           <Route path="/paid-ad-screen" component={PaidAdScreen} />
+
+          <Route path="/paid/ad/message/:id" component={PaidAdMessage} />
+          <Route path="/free/ad/message/:id" component={FreeAdMessage} />
+          {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
+          {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
+          {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
+          {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
+
           <Route
             path="/create-marketplace-seller"
             component={CreateMarketplaceSeller}

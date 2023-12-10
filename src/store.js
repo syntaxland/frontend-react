@@ -39,6 +39,10 @@ import {
   getSellerApiKeyReducer,
   updateSellerApiKeyReducer,
   getPaidAdDetailReducer,
+  createPaidAdMessageReducer,
+  listPaidAdMessageReducer,
+  createFreeAdMessageReducer,
+  listFreeAdMessageReducer,
 } from "./reducers/marketplaceSellerReducers";
 
 import {
@@ -260,8 +264,13 @@ const reducer = combineReducers({
 
   getFreeAdDetailState: getFreeAdDetailReducer,
   getSellerApiKeyState: getSellerApiKeyReducer,
-  updateSellerApiKeyState: updateSellerApiKeyReducer, 
+  updateSellerApiKeyState: updateSellerApiKeyReducer,
   getPaidAdDetailState: getPaidAdDetailReducer,
+
+  createPaidAdMessageState: createPaidAdMessageReducer,
+  listPaidAdMessageState: listPaidAdMessageReducer,
+  createFreeAdMessageState: createFreeAdMessageReducer,
+  listFreeAdMessageState: listFreeAdMessageReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")

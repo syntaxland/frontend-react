@@ -139,7 +139,7 @@ function UserDashboard({ history }) {
             className="sidebar-toggle-button"
             onClick={handleSidebarToggle}
           >
-            {/* <FontAwesomeIcon icon={sidebarOpen ? faBars : faBars} /> */}
+            {/* <FontAwesomeIcon icon={sidebarOpen ? faBars : faBars} /> */} 
             <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} />
           </Button>
 

@@ -34,7 +34,7 @@ const CreditPointScreen = ({ history }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const location = useLocation();
-  const query = new URLSearchParams(location.search);
+  const query = new URLSearchParams(location.search); 
   const creditPoints = query.get("creditPoints");
   console.log("creditPoints from state:", creditPoints);
 

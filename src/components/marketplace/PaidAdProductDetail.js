@@ -9,14 +9,11 @@ import {
   Button,
   Card,
   Container,
-  // Form,
 } from "react-bootstrap";
 import RatingSeller from "../RatingSeller";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
-// import { listProductDetails } from "../../actions/adsAction";
-
 import { getSellerAccount } from "../../actions/marketplaceSellerActions";
 import {
   //  getFreeAd,
@@ -36,7 +33,6 @@ import Paysofter from "../MarketplacePayment/Paysofter";
 import PromoTimer from "../PromoTimer";
 
 function PaidAdProductDetail({ match, history }) {
-  // const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -139,6 +135,24 @@ function PaidAdProductDetail({ match, history }) {
     return parts.join(", ");
   }
 
+  const handleClickMessageSeller = () => {
+    const queryParams = {
+      id: ads.id,
+      image1: ads.image1,
+      ad_name: ads.ad_name,
+      price: ads.price,
+      sellerAvatarUrl,
+      seller_username: ads.seller_username,
+      expiration_date: ads.expiration_date,
+      ad_rating: ads.ad_rating,
+    };
+
+    history.push({
+      pathname: `/paid/ad/message/${ads.id}`,
+      search: `?${new URLSearchParams(queryParams).toString()}`,
+    });
+  };
+
   return (
     <Container>
       <Row>
@@ -202,7 +216,7 @@ function PaidAdProductDetail({ match, history }) {
                       disabled
                     >
                       <i>
-                        {ads?.promo_code} {ads?.discount_percentage}% off
+                        {ads?.promo_code} {ads?.discount_percentage}% Off
                       </i>
                     </Button>
                   </ListGroup.Item>
@@ -235,35 +249,8 @@ function PaidAdProductDetail({ match, history }) {
                     {ads?.count_in_stock > 0 && (
                       <ListGroup.Item>
                         Quantity in Stock: {ads?.count_in_stock}
-                        {/* <Row>
-                      <Col>Quantity in Stock</Col>
-                      <Col xs="auto" className="my-1">
-                        <Form.Control
-                          as="select"
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(ads?.count_in_stock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Col>
-                    </Row> */}
                       </ListGroup.Item>
                     )}
-
-                    {/* <ListGroup.Item>
-                      <Button
-                        className="w-100 rounded"
-                        variant="success"
-                        type="button"
-                        onClick={handlePaysofterOption}
-                      >
-                        Pay With Paysofter Promise
-                      </Button>
-                    </ListGroup.Item> */}
                   </ListGroup>
                 </Card>
               </Col>
@@ -369,6 +356,7 @@ function PaidAdProductDetail({ match, history }) {
                       variant="outline-primary"
                       size="sm"
                       className="py-2 rounded"
+                      onClick={handleClickMessageSeller}
                     >
                       <i className="fa fa-message"></i> Message Seller
                     </Button>
