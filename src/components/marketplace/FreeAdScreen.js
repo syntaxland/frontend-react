@@ -55,11 +55,11 @@ function FreeAdScreen() {
             <Message variant="danger">{error}</Message>
           ) : (
             <>
-              {currentItems.length === 0 ? (
+              {currentItems?.length === 0 ? (
                 <div className="text-center">Running ads appear here.</div>
               ) : (
                 <Row>
-                  {currentItems.map((product) => (
+                  {currentItems?.map((product) => (
                     <Col key={product.id} xs={12} sm={12} md={6} >
                       <FreeAdCard product={product} />
                     </Col>

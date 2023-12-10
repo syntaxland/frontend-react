@@ -55,7 +55,7 @@ function PaidAdScreen() {
             <Message variant="danger">{error}</Message>
           ) : (
             <>
-              {currentItems.length === 0 ? (
+              {currentItems?.length === 0 ? (
                 <div className="text-center">Promoted ads appear here.</div>
               ) : (
                 <Row>

@@ -46,11 +46,11 @@ function AllPaidAdScreen() {
             <Message variant="danger">{error}</Message>
           ) : (
             <>
-              {currentItems.length === 0 ? (
+              {currentItems?.length === 0 ? (
                 <div className="text-center">Promoted ads appear here.</div>
               ) : (
                 <Row>
-                  {currentItems.map((product) => (
+                  {currentItems?.map((product) => (
                     <Col key={product.id} xs={12} sm={12} md={6} lg={4} xl={4}>
                       <AllPaidAdCard product={product} />
                     </Col>

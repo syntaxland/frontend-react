@@ -268,7 +268,7 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={handlePostPaidAd}
                 >
-                  <i className="fas fa-user-tag"></i> Post Paid Ads
+                  <i className="fas fa-user-tag"></i> Post Paid Ads 
                 </Button>
               </div> */}
 

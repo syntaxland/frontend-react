@@ -199,7 +199,7 @@ function PaidAdCard({ product }) {
                 value={product.rating}
                 text={`${formatCount(product?.num_reviews)} reviews `}
                 color={"green"}
-              />
+              /> 
 
               {userInfo ? (
                 <Link to={`/review-list/${product.id}`}>

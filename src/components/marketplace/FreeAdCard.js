@@ -204,7 +204,7 @@ function FreeAdCard({ product }) {
                 <Link to={`/review-list/${product.id}`}>(Seller Ratings)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
-                  (Seller Ratings)
+                  (Seller Ratings) 
                 </Link>
               )}
             </div>
