@@ -38,6 +38,12 @@ function PaidAdProductDetail({ match, history }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+  
   const getSellerAccountState = useSelector(
     (state) => state.getSellerAccountState
   );
@@ -53,12 +59,6 @@ function PaidAdProductDetail({ match, history }) {
   const handleShowPhoneNumber = () => {
     setShowPhoneNumber(!showPhoneNumber);
   };
-
-  useEffect(() => {
-    if (!userInfo) {
-      window.location.href = "/login";
-    }
-  }, [userInfo]);
 
   //   getFreeAdState
   // updateFreeAdState

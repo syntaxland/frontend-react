@@ -1,6 +1,6 @@
 // FreeAdCard.js
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RatingSeller from "../RatingSeller";
@@ -13,6 +13,7 @@ import {
 import Message from "../Message";
 import Loader from "../Loader";
 import PromoTimer from "../PromoTimer";
+import DeleteFreeAd from "./DeleteFreeAd";
 
 function FreeAdCard({ product }) {
   const dispatch = useDispatch();
@@ -36,6 +37,22 @@ function FreeAdCard({ product }) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
+  const [deleteAdModal, setDeleteModal] = useState(false);
+
+  const handleDeleteAdOpen = () => {
+    setDeleteModal(true);
+  };
+
+  const handleDeleteAdClose = () => {
+    setDeleteModal(false);
+  };
 
   useEffect(() => {
     if (
@@ -178,17 +195,6 @@ function FreeAdCard({ product }) {
               <strong>{product.ad_name}</strong>
             </Card.Title>
           </Link>
-
-          {/* <span>
-            <Button
-              variant="outline-success"
-              size="sm"
-              className="rounded"
-              disabled
-            >
-              <i>Promoted</i>
-            </Button>
-          </span> */}
         </div>
 
         <div className="d-flex justify-content-between">
@@ -204,7 +210,7 @@ function FreeAdCard({ product }) {
                 <Link to={`/review-list/${product.id}`}>(Seller Ratings)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
-                  (Seller Ratings) 
+                  (Seller Ratings)
                 </Link>
               )}
             </div>
@@ -220,27 +226,11 @@ function FreeAdCard({ product }) {
 
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
-          <span>
+            <span>
               NGN {product?.price}{" "}
-              {product?.is_price_negotiable ? (
-                <i>(Negotiable)</i>
-              ) : (
-                <></>
-              )}
+              {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
-
-          {/* <span className="py-2">
-            <Button ad_charges
-
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-              disabled
-            >
-              <i>Promo Code: NEW0223</i>
-            </Button>
-          </span> */}
         </div>
 
         <div className="d-flex justify-content-between">
@@ -251,7 +241,8 @@ function FreeAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-              Expires in: <PromoTimer expirationDate={product?.expiration_date} />
+              Expires in:{" "}
+              <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
 
@@ -289,6 +280,7 @@ function FreeAdCard({ product }) {
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
+              onClick={handleDeleteAdOpen}
             >
               Delete
             </Button>
@@ -310,6 +302,17 @@ function FreeAdCard({ product }) {
           </Button>
         </div>
       </Card.Body>
+
+      <Modal show={deleteAdModal} onHide={handleDeleteAdClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Delete Ad
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {deleteAdModal && <DeleteFreeAd ad_id={product?.id} />}
+        </Modal.Body>
+      </Modal>
     </Card>
   );
 }

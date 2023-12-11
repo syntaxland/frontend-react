@@ -43,11 +43,13 @@ function AllFreeAdCard({ product }) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
   const getSellerAccountState = useSelector(
     (state) => state.getSellerAccountState
   );
   const { sellerAccount } = getSellerAccountState;
   console.log("is_seller_verified", sellerAccount?.is_seller_verified);
+  
   useEffect(() => {
     const pk = product.id;
     if (userInfo) {
@@ -318,7 +320,7 @@ function AllFreeAdCard({ product }) {
             </Button>
           </span>
 
-          <span className="py-2">
+          <span className="py-2"> 
             <Button
               onClick={toggleFavoriteHandler}
               className="py-2 rounded"

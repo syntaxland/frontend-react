@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import {
-   getFreeAd,
+   getSellerFreeAd,
   //  deleteFreeAd,
   //  updateFreeAd,
   //  getAllFreeAd,
@@ -22,10 +22,10 @@ function FreeAdScreen() {
 
   const getFreeAdState = useSelector((state) => state.getFreeAdState);
   const { loading, error, ads } = getFreeAdState;
-  console.log("PaidAds:", ads);
+  console.log("Free Ads:", ads);
 
   useEffect(() => {
-    dispatch(getFreeAd());
+    dispatch(getSellerFreeAd());
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);

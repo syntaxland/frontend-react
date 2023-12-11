@@ -15,7 +15,7 @@ function AllFreeAdScreen() {
 
   const getAllFreeAdState = useSelector((state) => state.getAllFreeAdState);
   const { loading, error, ads } = getAllFreeAdState;
-  console.log("PaidAds:", ads);
+  console.log("All Free Ads:", ads);
 
   useEffect(() => {
     dispatch(getAllFreeAd());

@@ -1,5 +1,5 @@
 // userProfileActions.js
-import axios from 'axios';
+import axios from "axios";
 import {
   GET_USER_PROFILE_REQUEST,
   GET_USER_PROFILE_SUCCESS,
@@ -22,25 +22,28 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
-} from '../constants/userProfileConstants';
-import { logout } from "../actions/userActions"; 
-
+} from "../constants/userProfileConstants";
+import { logout } from "../actions/userActions";
 
 const API_URL = process.env.REACT_APP_API_URL;
-
 
 export const getUserProfile = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_USER_PROFILE_REQUEST });
 
-    const { userLogin: { userInfo } } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const response = await axios.get(`${API_URL}/api/get-user-profile/`, config);
+    const response = await axios.get(
+      `${API_URL}/api/get-user-profile/`,
+      config
+    );
 
     dispatch({
       type: GET_USER_PROFILE_SUCCESS,
@@ -49,9 +52,10 @@ export const getUserProfile = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: GET_USER_PROFILE_FAIL,
-      payload: error.response && error.response.data.detail
-        ? error.response.data.detail
-        : error.message,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
@@ -60,14 +64,20 @@ export const updateUserProfile = (userData) => async (dispatch, getState) => {
   try {
     dispatch({ type: UPDATE_USER_PROFILE_REQUEST });
 
-    const { userLogin: { userInfo } } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const response = await axios.put(`${API_URL}/api/update-user-profile/`, userData, config);
+    const response = await axios.put(
+      `${API_URL}/api/update-user-profile/`,
+      userData,
+      config
+    );
 
     dispatch({
       type: UPDATE_USER_PROFILE_SUCCESS,
@@ -78,9 +88,10 @@ export const updateUserProfile = (userData) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: UPDATE_USER_PROFILE_FAIL,
-      payload: error.response && error.response.data.detail
-        ? error.response.data.detail
-        : error.message,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
@@ -103,7 +114,11 @@ export const updateUserAvatar = (avatarData) => async (dispatch, getState) => {
     const formData = new FormData();
     formData.append("avatar", avatarData);
 
-    const { data } = await axios.put(`${API_URL}/api/users/update-avatar/`, formData, config);
+    const { data } = await axios.put(
+      `${API_URL}/api/users/update-avatar/`,
+      formData,
+      config
+    );
 
     dispatch({
       type: UPDATE_USER_AVATAR_SUCCESS,
@@ -114,7 +129,10 @@ export const updateUserAvatar = (avatarData) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: UPDATE_USER_AVATAR_FAIL,
-      payload: error.response && error.response.data.detail ? error.response.data.detail : error.message,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
@@ -125,7 +143,7 @@ export const sendPasswordResetLink = (email) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
@@ -144,9 +162,10 @@ export const sendPasswordResetLink = (email) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SEND_PASSWORD_RESET_LINK_FAIL,
-      payload: error.response && error.response.data.detail
-        ? error.response.data.detail
-        : error.message,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
@@ -157,7 +176,7 @@ export const resetPassword = (token, newPassword) => async (dispatch) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
@@ -174,18 +193,24 @@ export const resetPassword = (token, newPassword) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: RESET_PASSWORD_FAIL,
-      payload: error.response && error.response.data.detail
-        ? error.response.data.detail
-        : error.message,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
 
-export const changePassword = (oldPassword, newPassword) => async (dispatch, getState) => {
+export const changePassword = (oldPassword, newPassword) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({ type: CHANGE_PASSWORD_REQUEST });
 
-    const { userLogin: { userInfo } } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.access}`,
@@ -202,48 +227,48 @@ export const changePassword = (oldPassword, newPassword) => async (dispatch, get
     dispatch(logout());
     window.location.reload();
     window.location.href = "/login";
-
   } catch (error) {
     dispatch({
       type: CHANGE_PASSWORD_FAIL,
-      payload: error.response && error.response.data.detail
-        ? error.response.data.detail
-        : error.message,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
     });
   }
 };
 
 export const deleteUserAccount = (password) => async (dispatch, getState) => {
-    try {
-      dispatch({ type: DELETE_USER_ACCOUNT_REQUEST });
-  
-      const { userLogin: { userInfo } } = getState();
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.access}`,
-        },
-      };
+  try {
+    dispatch({ type: DELETE_USER_ACCOUNT_REQUEST });
 
-      const data = { password };
-  
-      await axios.post(`${API_URL}/api/user-account-delete/`, data, config);
-  
-      dispatch({ type: DELETE_USER_ACCOUNT_SUCCESS });
-  
-      // Log user out after deleting the account
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const data = { password };
+
+    await axios.post(`${API_URL}/api/user-account-delete/`, data, config);
+
+    dispatch({ type: DELETE_USER_ACCOUNT_SUCCESS });
+
+    // Log user out after deleting the account
     //   dispatch({ type: USER_LOGOUT });
     dispatch(logout());
     window.location.reload();
     window.location.href = "/";
-    } catch (error) {
-      dispatch({
-        type: DELETE_USER_ACCOUNT_FAIL,
-        payload: error.response && error.response.data.detail
+  } catch (error) {
+    dispatch({
+      type: DELETE_USER_ACCOUNT_FAIL,
+      payload:
+        error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
-      });
-    }
-  };
-
-
-  
+    });
+  }
+};

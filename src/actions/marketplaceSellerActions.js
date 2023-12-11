@@ -229,7 +229,7 @@ export const listFreeAdMessages = (pk) => async (dispatch, getState) => {
   }
 };
 
-export const getFreeAd = () => async (dispatch, getState) => {
+export const getSellerFreeAd = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_FREE_AD_REQUEST });
 
@@ -300,7 +300,7 @@ export const getFreeAdDetail = (pk) => async (dispatch, getState) => {
   }
 };
 
-export const deleteFreeAd = (businessFormData) => async (
+export const deleteFreeAd = (adData) => async (
   dispatch,
   getState
 ) => {
@@ -318,9 +318,9 @@ export const deleteFreeAd = (businessFormData) => async (
       },
     };
 
-    const { data } = await axios.delete(
+    const { data } = await axios.post(
       `${API_URL}/api/delete-free-ad/`,
-      businessFormData,
+      adData,
       config
     );
 
@@ -413,15 +413,6 @@ export const getAllFreeAd = (sellerData) => async (dispatch, getState) => {
     });
   }
 };
-
-// get-seller-free-ad
-// update-seller-free-ad
-// delete-free-ad
-// get-all-free-ad
-// get-seller-paid-ad
-// update-seller-paid-ad
-// delete-paid-ad
-// get-all-paid-ad
 
 export const getPaidAd = () => async (dispatch, getState) => {
   try {
@@ -534,10 +525,7 @@ export const updatePaidAd = (businessFormData) => async (
   }
 };
 
-export const deletePaidAd = (businessFormData) => async (
-  dispatch,
-  getState
-) => {
+export const deletePaidAd = (adData) => async (dispatch, getState) => {
   try {
     dispatch({ type: DELETE_PAID_AD_REQUEST });
 
@@ -547,14 +535,14 @@ export const deletePaidAd = (businessFormData) => async (
 
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
-    const { data } = await axios.delete(
+    const { data } = await axios.post(
       `${API_URL}/api/delete-paid-ad/`,
-      businessFormData,
+      adData,
       config
     );
 

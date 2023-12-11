@@ -613,7 +613,7 @@ function PostFreeAd() {
         </Col>
         <div className="d-flex justify-content-end py-2 mt-2">
           <Button
-            variant="outline-success"
+            variant="outline-danger"
             onClick={handlePostPaidAd}
             className="rounded"
             size="sm"

@@ -1,6 +1,6 @@
 // PaidAdCard.js
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RatingSeller from "../RatingSeller";
@@ -8,12 +8,12 @@ import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
-  // trackProductView, 
+  // trackProductView,
 } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
-// import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
+import DeletePaidAd from "./DeletePaidAd";
 
 function PaidAdCard({ product }) {
   const dispatch = useDispatch();
@@ -37,6 +37,22 @@ function PaidAdCard({ product }) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (!userInfo) {
+      window.location.href = "/login";
+    }
+  }, [userInfo]);
+
+  const [deleteAdModal, setDeleteModal] = useState(false);
+
+  const handleDeleteAdOpen = () => {
+    setDeleteModal(true);
+  };
+
+  const handleDeleteAdClose = () => {
+    setDeleteModal(false);
+  };
 
   useEffect(() => {
     if (
@@ -168,13 +184,13 @@ function PaidAdCard({ product }) {
       {productLoading.productSaveLoading && <Loader />}
       {productLoading.productRemoveLoading && <Loader />}
 
-      <Link >
+      <Link>
         <Card.Img src={product.image1} />
       </Link>
 
       <Card.Body>
         <div className="d-flex justify-content-between">
-          <Link >
+          <Link>
             <Card.Title as="div">
               <strong>{product.ad_name}</strong>
             </Card.Title>
@@ -199,12 +215,10 @@ function PaidAdCard({ product }) {
                 value={product.rating}
                 text={`${formatCount(product?.num_reviews)} reviews `}
                 color={"green"}
-              /> 
+              />
 
               {userInfo ? (
-                <Link to={`/review-list/${product.id}`}>
-                  (Seller Ratings)
-                </Link>
+                <Link to={`/review-list/${product?.id}`}>(Seller Ratings)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
                   (Seller Ratings)
@@ -223,13 +237,9 @@ function PaidAdCard({ product }) {
 
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
-          <span>
+            <span>
               NGN {product?.price}{" "}
-              {product?.is_price_negotiable ? (
-                <i>(Negotiable)</i>
-              ) : (
-                <></>
-              )}
+              {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
 
@@ -253,7 +263,8 @@ function PaidAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-              Expires in: <PromoTimer expirationDate={product?.expiration_date} />
+              Expires in:{" "}
+              <PromoTimer expirationDate={product?.expiration_date} />
             </Button>
           </span>
 
@@ -276,23 +287,24 @@ function PaidAdCard({ product }) {
         </div>
 
         <div className="d-flex justify-content-between py-2">
-        {/* <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Message Seller
-            </Button>
-          </span> */}
-
           <span className="py-2">
             <Button
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
             >
-            Edit
+              Edit
+            </Button>
+          </span>
+
+          <span className="py-2">
+            <Button
+              variant="outline-primary"
+              size="sm"
+              className="py-2 rounded"
+              onClick={handleDeleteAdOpen}
+            >
+              Delete
             </Button>
           </span>
 
@@ -302,17 +314,7 @@ function PaidAdCard({ product }) {
               size="sm"
               className="py-2 rounded"
             >
-            Delete
-            </Button>
-          </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-            Deactivate
+              Deactivate
             </Button>
           </span>
         </div>
@@ -322,6 +324,16 @@ function PaidAdCard({ product }) {
           </Button>
         </div>
       </Card.Body>
+      <Modal show={deleteAdModal} onHide={handleDeleteAdClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Delete Ad
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {deleteAdModal && <DeletePaidAd ad_id={product?.id} />}
+        </Modal.Body>
+      </Modal>
     </Card>
   );
 }
