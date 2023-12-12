@@ -2,36 +2,23 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button, Modal } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import RatingSeller from "../RatingSeller";
-import {
-  saveProduct,
-  removeProduct,
-  updateProductSaveCount,
-  // trackProductView,
-} from "../../actions/productAction";
-import Message from "../Message";
-import Loader from "../Loader";
+// import {
+//   saveProduct,
+//   removeProduct,
+//   updateProductSaveCount,
+//   // trackProductView,
+// } from "../../actions/productAction";
+// import Message from "../Message";
+// import Loader from "../Loader";
 import PromoTimer from "../PromoTimer";
 import DeletePaidAd from "./DeletePaidAd";
+import DeactivatePaidAd from "./DeactivatePaidAd";
+import ReactivatePaidAd from "./ReactivatePaidAd";
 
 function PaidAdCard({ product }) {
-  const dispatch = useDispatch();
-
-  const [productSaved, setProductSaved] = useState(false);
-  const [totalSaves, setTotalSaves] = useState(product?.ad_save_count);
-
-  const [productMessages, setProductMessages] = useState({
-    productSaveSuccess: false,
-    productRemoveSuccess: false,
-    productSaveError: null,
-    productRemoveError: null,
-  });
-
-  const [productLoading, setProductLoading] = useState({
-    productSaveLoading: false,
-    productRemoveLoading: false,
-  });
+  // const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -44,104 +31,35 @@ function PaidAdCard({ product }) {
     }
   }, [userInfo]);
 
-  const [deleteAdModal, setDeleteModal] = useState(false);
+  const isAdExpired = new Date(product?.expiration_date) < new Date();
 
+  const [deleteAdModal, setDeleteModal] = useState(false);
   const handleDeleteAdOpen = () => {
     setDeleteModal(true);
   };
-
   const handleDeleteAdClose = () => {
     setDeleteModal(false);
   };
 
-  useEffect(() => {
-    if (
-      userInfo &&
-      userInfo.favorite_products &&
-      userInfo.favorite_products.includes(product.id)
-    ) {
-      setProductSaved(true);
-    } else {
-      setProductSaved(false);
-    }
-  }, [userInfo, product.id]);
+  const handleEditAd = () => {
+    const id = product.id;
+    history.push(`/edit/paid/ad/${id}`);
+  };
 
-  const toggleFavoriteHandler = () => {
-    if (!userInfo) {
-      history.push("/login");
-    } else {
-      if (productSaved) {
-        setProductLoading({ productRemoveLoading: true });
-        dispatch(removeProduct(userInfo.id, product.id))
-          .then(() => {
-            setProductMessages((prevState) => ({
-              ...prevState,
-              productRemoveSuccess: true,
-              productSaveSuccess: false,
-              productRemoveError: null,
-              productSaveError: null,
-            }));
-            setProductSaved(false);
-            setTotalSaves((prevSaves) => prevSaves - 1); // Decrement totalSaves
-            const updatedSaveCount = product?.ad_save_count - 1;
-            dispatch(updateProductSaveCount(product.id, updatedSaveCount));
-          })
-          .catch((error) => {
-            // Handle error
-            setProductMessages((prevState) => ({
-              ...prevState,
-              productRemoveError:
-                error.response && error.response.data.detail
-                  ? error.response.data.detail
-                  : error.message,
-              productRemoveSuccess: false,
-              productSaveSuccess: false,
-              productSaveError: null,
-            }));
-          })
-          .finally(() => {
-            setProductLoading({ productRemoveLoading: false });
-          });
-      } else {
-        setProductLoading({ productSaveLoading: true });
-        dispatch(saveProduct(userInfo.id, product.id))
-          .then(() => {
-            setProductMessages((prevState) => ({
-              ...prevState,
-              productSaveSuccess: true,
-              productRemoveSuccess: false,
-              productSaveError: null,
-              productRemoveError: null,
-            }));
-            setProductSaved(true);
-            setTotalSaves((prevSaves) => prevSaves + 1);
-            const updatedSaveCount = product?.ad_save_count + 1;
-            dispatch(updateProductSaveCount(product.id, updatedSaveCount));
-          })
-          .catch((error) => {
-            setProductMessages((prevState) => ({
-              ...prevState,
-              productSaveError:
-                error.response && error.response.data.detail
-                  ? error.response.data.detail
-                  : error.message,
-              productSaveSuccess: false,
-              productRemoveSuccess: false,
-              productRemoveError: null,
-            }));
-          })
-          .finally(() => {
-            setProductLoading({ productSaveLoading: false });
-          });
-      }
-    }
-    setTimeout(() => {
-      setProductMessages((prevState) => ({
-        ...prevState,
-        productSaveSuccess: false,
-        productRemoveSuccess: false,
-      }));
-    }, 3000);
+  const [deactivateAdModal, setDeactivateAdModal] = useState(false);
+  const handleDeactivateAdOpen = () => {
+    setDeactivateAdModal(true);
+  };
+  const handleDeactivateAdClose = () => {
+    setDeactivateAdModal(false);
+  };
+
+  const [reactivateAdModal, setReactivateAdModal] = useState(false);
+  const handleReactivateAdOpen = () => {
+    setReactivateAdModal(true);
+  };
+  const handleReleteAdClose = () => {
+    setReactivateAdModal(false);
   };
 
   // const viewProductHandler = () => {
@@ -168,21 +86,21 @@ function PaidAdCard({ product }) {
 
   return (
     <Card className="my-3 p-3 rounded">
-      {productMessages.productSaveSuccess && (
+      {/* {productMessages.productSaveSuccess && (
         <Message variant="success">Item added to favorites.</Message>
       )}
       {productMessages.productRemoveSuccess && (
         <Message variant="danger">Item removed from favorites.</Message>
-      )}
-      {productMessages.productSaveError && (
+      )} */}
+      {/* {productMessages.productSaveError && (
         <Message variant="danger">{productMessages.productSaveError}</Message>
-      )}
-      {productMessages.productRemoveError && (
+      )} */}
+      {/* {productMessages.productRemoveError && (
         <Message variant="danger">{productMessages.productRemoveError}</Message>
-      )}
+      )} */}
 
-      {productLoading.productSaveLoading && <Loader />}
-      {productLoading.productRemoveLoading && <Loader />}
+      {/* {productLoading.productSaveLoading && <Loader />} */}
+      {/* {productLoading.productRemoveLoading && <Loader />} */}
 
       <Link>
         <Card.Img src={product.image1} />
@@ -244,14 +162,21 @@ function PaidAdCard({ product }) {
           </Card.Text>
 
           <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-              disabled
-            >
-              <i>Promo Code: NEW0223</i>
-            </Button>
+            {product?.promo_code ? (
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="py-2 rounded"
+                disabled
+              >
+                <i>
+                  Promo Code: {product?.promo_code}{" "}
+                  {product?.discount_percentage}% Off
+                </i>
+              </Button>
+            ) : (
+              <></>
+            )}
           </span>
         </div>
 
@@ -268,7 +193,7 @@ function PaidAdCard({ product }) {
             </Button>
           </span>
 
-          <span className="py-2">
+          {/* <span className="py-2">
             <Button
               onClick={toggleFavoriteHandler}
               className="py-2 rounded"
@@ -283,7 +208,7 @@ function PaidAdCard({ product }) {
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
             </Button>
-          </span>
+          </span> */}
         </div>
 
         <div className="d-flex justify-content-between py-2">
@@ -292,14 +217,37 @@ function PaidAdCard({ product }) {
               variant="outline-primary"
               size="sm"
               className="py-2 rounded"
+              onClick={handleEditAd}
             >
               Edit
             </Button>
           </span>
 
           <span className="py-2">
+            {isAdExpired ? (
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="py-2 rounded"
+                onClick={handleReactivateAdOpen}
+              >
+                Reactivate Ad
+              </Button>
+            ) : (
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="py-2 rounded"
+                onClick={handleDeactivateAdOpen}
+              >
+                Deactivate Ad
+              </Button>
+            )}
+          </span>
+
+          <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="outline-danger"
               size="sm"
               className="py-2 rounded"
               onClick={handleDeleteAdOpen}
@@ -307,19 +255,14 @@ function PaidAdCard({ product }) {
               Delete
             </Button>
           </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-              Deactivate
-            </Button>
-          </span>
         </div>
         <div className="py-2 text-center">
-          <Button variant="outline-primary" size="sm" className="py-2 rounded">
+          <Button
+            variant="outline-transparent"
+            size="sm"
+            className="py-2 rounded"
+            disabled
+          >
             Due Ad Charges: NGN {product?.ad_charges}
           </Button>
         </div>
@@ -332,6 +275,30 @@ function PaidAdCard({ product }) {
         </Modal.Header>
         <Modal.Body>
           {deleteAdModal && <DeletePaidAd ad_id={product?.id} />}
+        </Modal.Body>
+      </Modal>
+
+      
+
+      <Modal show={deactivateAdModal} onHide={handleDeactivateAdClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Deactivate Ad
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {deactivateAdModal && <DeactivatePaidAd ad_id={product?.id} />}
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={reactivateAdModal} onHide={handleReleteAdClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Reactivate Ad
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {reactivateAdModal && <ReactivatePaidAd ad_id={product?.id} />}
         </Modal.Body>
       </Modal>
     </Card>

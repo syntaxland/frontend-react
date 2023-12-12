@@ -40,6 +40,9 @@ import {
   updateSellerApiKeyReducer,
   getPaidAdDetailReducer,
   createPaidAdMessageReducer,
+  editPaidAdReducer,
+deactivatePaidAdReducer,
+reactivatePaidAdReducer,
   listPaidAdMessageReducer,
   createFreeAdMessageReducer,
   listFreeAdMessageReducer,
@@ -266,6 +269,10 @@ const reducer = combineReducers({
   getSellerApiKeyState: getSellerApiKeyReducer,
   updateSellerApiKeyState: updateSellerApiKeyReducer,
   getPaidAdDetailState: getPaidAdDetailReducer,
+
+  editPaidAdState: editPaidAdReducer,
+deactivatePaidAdState: deactivatePaidAdReducer,
+reactivatePaidAdState: reactivatePaidAdReducer,
 
   createPaidAdMessageState: createPaidAdMessageReducer,
   listPaidAdMessageState: listPaidAdMessageReducer,

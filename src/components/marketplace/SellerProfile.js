@@ -320,7 +320,7 @@ function SellerProfile() {
   useEffect(() => {
     if (userInfo) {
       dispatch(getSellerAccount());
-      dispatch(getSellerPaysofterApiKey());
+      dispatch(getSellerPaysofterApiKey()); 
       dispatch(getSellerPhoto());
     }
   }, [dispatch, userInfo]);

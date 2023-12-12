@@ -307,14 +307,21 @@ function AllPaidAdCard({ product }) {
           </Card.Text>
 
           <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-              disabled
-            >
-              <i>Promo Code: NEWCOM0124</i>
-            </Button>
+            {product?.promo_code ? (
+              <Button
+                variant="outline-primary"
+                size="sm"
+                className="py-2 rounded"
+                disabled
+              >
+                <i>
+                  Promo Code: {product?.promo_code}{" "}
+                  {product?.discount_percentage}% Off
+                </i>
+              </Button>
+            ) : (
+              <></>
+            )}
           </span>
         </div>
 

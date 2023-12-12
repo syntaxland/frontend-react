@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import {
-  //  getFreeAd,
+  //  getFreeAd, 
   //  deleteFreeAd,
   //  updateFreeAd,
   //  getAllFreeAd,
@@ -97,7 +97,7 @@ function PaidAdScreen() {
                   ))}
                   <li
                     className={`page-item ${
-                      currentPage === pageNumbers.length ? "disabled" : ""
+                      currentPage === pageNumbers.length ? "disabled" : "" 
                     }`}
                   >
                     <button

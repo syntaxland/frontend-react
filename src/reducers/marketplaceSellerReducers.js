@@ -72,6 +72,16 @@ import {
   LIST_FREE_AD_MESSAGE_REQUEST,
   LIST_FREE_AD_MESSAGE_SUCCESS,
   LIST_FREE_AD_MESSAGE_FAIL,
+
+  EDIT_PAID_AD_REQUEST,
+  EDIT_PAID_AD_SUCCESS,
+  EDIT_PAID_AD_FAIL,
+  DEACTIVATE_PAID_AD_REQUEST,
+  DEACTIVATE_PAID_AD_SUCCESS,
+  DEACTIVATE_PAID_AD_FAIL,
+  REACTIVATE_PAID_AD_REQUEST,
+  REACTIVATE_PAID_AD_SUCCESS,
+  REACTIVATE_PAID_AD_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -84,6 +94,54 @@ const initialState = {
   adMessages: [],
   sellerApiKey: [],
   sellerAvatarUrl: [],
+};
+
+export const editPaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case EDIT_PAID_AD_REQUEST:
+      return { loading: true };
+    case EDIT_PAID_AD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case EDIT_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const deactivatePaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case DEACTIVATE_PAID_AD_REQUEST:
+      return { loading: true };
+    case DEACTIVATE_PAID_AD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case DEACTIVATE_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const reactivatePaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REACTIVATE_PAID_AD_REQUEST:
+      return { loading: true };
+    case REACTIVATE_PAID_AD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case REACTIVATE_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const createPaidAdMessageReducer = (state = initialState, action) => {

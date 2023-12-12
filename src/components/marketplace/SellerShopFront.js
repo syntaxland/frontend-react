@@ -1,167 +1,70 @@
-// PaidAdProductDetail.js
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Button,
-  Card,
-  Form,
-} from "react-bootstrap";
-import Rating from "../Rating";
-import Loader from "../Loader";
-import Message from "../Message";
+// SellerShopFront.js
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { listProductDetails } from "../../actions/adsAction";
-import { 
-  //  getFreeAd,
-//  deleteFreeAd,
-//  updateFreeAd,
-//  getAllFreeAd,
-//  getPaidAd,
-//  updatePaidAd,
-//  deletePaidAd,
-//  getAllPaidAd,
-// getFreeAdDetail
-getPaidAdDetail
- } from "../../actions/marketplaceSellerActions";
+import { Row, Col, Button } from "react-bootstrap";
+import { getUserProfile } from "../../actions/userProfileActions";
 
-// import ProductPrice from "../ProductPrice";
+import AllPaidAdScreen from "./AllPaidAdScreen";
+import AllFreeAdScreen from "./AllFreeAdScreen";
 
-function PaidAdProductDetail({ match, history }) {
-  const [qty, setQty] = useState(1);
+function SellerShopFront({ history }) {
   const dispatch = useDispatch();
 
-//   getFreeAdState
-// updateFreeAdState
-// getAllFreeAdState
-// getPaidAdState
-// updatePaidAdState
-// getAllPaidAdState
-// deleteFreeAdState
-// deletePaidAdState
-// getFreeAdDetailState
-// getPaidAdDetailState
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-const getPaidAdDetailState = useSelector((state) => state.getPaidAdDetailState);
-  const { loading, error,  ads } = getPaidAdDetailState; 
-  console.log('PaidAds:', ads,'description:', ads?.description)
-
+  const userProfile = useSelector((state) => state.userProfile);
+  const { profile } = userProfile;
 
   useEffect(() => {
-    dispatch(getPaidAdDetail(match.params.id)); 
-    // dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match]);
+    if (userInfo) {
+      dispatch(getUserProfile());
+    }
+  }, [dispatch, userInfo]);
 
-  // const addToCartHandler = () => {
-  //   history.push(`/cart/${match.params.id}?qty=${qty}`);
-  // };
-
+  const handlePostFreeAd = () => {
+    if (!userInfo) {
+      history.push("/login");
+    } else if (userInfo && !profile.is_marketplace_seller) {
+      history.push("/create-marketplace-seller");
+    } else {
+      history.push("/ad/free");
+    }
+  };
 
   return (
     <div>
-      <Link to="/" className="btn btn-dark my-3">
-        {" "}
-        Go Back
-      </Link>
+      <Row>
+        <Col>
+          <div>
+            <AllPaidAdScreen />
+          </div>
 
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant="danger">{error} </Message>
-      ) : (
-        <Row>
-          <Col md={6}>
-            <Image src={ads?.image1} alt={ads.ad_name} fluid />
-            <Image src={ads?.image2} alt={ads.ad_name} fluid />
-            <Image src={ads?.image3} alt={ads.ad_name} fluid />
-          </Col>
+          <div>
+            <AllFreeAdScreen />
+          </div>
 
-          <Col md={3}>
-            <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h3>{ads?.ad_name}</h3>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Rating
-                  value={ads?.ad_rating}
-                  // text={`${ads.numReviews} reviews`}
-                  color={"#f8e825"}
-                />
-              </ListGroup.Item>
-              <ListGroup.Item>Price: NGN {ads?.price}</ListGroup.Item>
+          <div className="text-center">
+            
+            <span>
+              Post your goods and services and start making more sell.{" "}
+            </span>
 
-              {/* <ListGroup.Item>
-                <ProductPrice price={ads?.price} promoPrice={ads?.promo_price} />
-              </ListGroup.Item> */}
+            <Button
+              variant="primary"
+              className="rounded"
+              size="sm"
+              onClick={handlePostFreeAd}
+            >
+              Post Free Ads <i className="fas fa-plus-square"></i>
+            </Button>
+          </div>
 
-              <ListGroup.Item>
-                Description: {ads?.description}
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}>
-            <Card> 
-              <ListGroup variant="flush"> 
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Price:</Col>
-                    <Col>
-                      <strong>NGN {ads.price}</strong>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  {/* <Row>
-                    <Col>Status:</Col> 
-                    <Col>
-                      {ads?.count_in_stock > 0 ? "In Stock" : "Out of Stock"}
-                    </Col>
-                  </Row> */}
-                </ListGroup.Item>
- 
-                {ads?.count_in_stock > 0 && (
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Qty</Col>
-                      <Col xs="auto" className="my-1">
-                        <Form.Control
-                          as="select"
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(ads?.count_in_stock).keys()].map((x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          ))}
-                        </Form.Control>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )}
-
-                <ListGroup.Item>
-                  <Button
-                    // className="btn-block"
-                    className="w-100 rounded"
-                    variant="success"
-                    // disabled={ads?.count_in_stock === 0}
-                    type="button"
-                    // onClick={addToCartHandler}
-                  > 
-                    Pay With Paysofter Promise
-                  </Button>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
-      )}
+          <hr />
+        </Col>
+      </Row>
     </div>
   );
 }
 
-export default PaidAdProductDetail;
+export default SellerShopFront;

@@ -73,9 +73,128 @@ import {
   LIST_FREE_AD_MESSAGE_REQUEST,
   LIST_FREE_AD_MESSAGE_SUCCESS,
   LIST_FREE_AD_MESSAGE_FAIL,
+  EDIT_PAID_AD_REQUEST,
+  EDIT_PAID_AD_SUCCESS,
+  EDIT_PAID_AD_FAIL,
+  DEACTIVATE_PAID_AD_REQUEST,
+  DEACTIVATE_PAID_AD_SUCCESS,
+  DEACTIVATE_PAID_AD_FAIL,
+  REACTIVATE_PAID_AD_REQUEST,
+  REACTIVATE_PAID_AD_SUCCESS,
+  REACTIVATE_PAID_AD_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
+
+export const editPaidAd = (adData) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: EDIT_PAID_AD_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `${API_URL}/api/edit-paid-ad/`,
+      adData,
+
+      config
+    );
+
+    dispatch({
+      type: EDIT_PAID_AD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EDIT_PAID_AD_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const deactivatePaidAd = (adData) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DEACTIVATE_PAID_AD_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API_URL}/api/deactivate-paid-ad/`,
+      adData,
+      config
+    );
+
+    dispatch({
+      type: DEACTIVATE_PAID_AD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DEACTIVATE_PAID_AD_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const reactivatePaidAd = (adData) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: REACTIVATE_PAID_AD_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${API_URL}/api/reactivate-paid-ad/`,
+      adData,
+
+      config
+    );
+
+    dispatch({
+      type: REACTIVATE_PAID_AD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: REACTIVATE_PAID_AD_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const createPaidAdMessage = (messageData) => async (
   dispatch,
@@ -300,10 +419,7 @@ export const getFreeAdDetail = (pk) => async (dispatch, getState) => {
   }
 };
 
-export const deleteFreeAd = (adData) => async (
-  dispatch,
-  getState
-) => {
+export const deleteFreeAd = (adData) => async (dispatch, getState) => {
   try {
     dispatch({ type: DELETE_FREE_AD_REQUEST });
 

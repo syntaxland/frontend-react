@@ -264,6 +264,7 @@ function PaidAdProductDetail({ match, history }) {
                   <ListGroup.Item>
                     <Row>
                       <Col md={4}>
+                      <Link to={`/seller-shop-front/${ads?.seller_username}/`}>
                         <span className="d-flex justify-content-between py-2">
                           {sellerAvatarUrl && (
                             <img
@@ -278,6 +279,7 @@ function PaidAdProductDetail({ match, history }) {
                           )}
                           {ads?.seller_username}
                         </span>
+                        </Link>
                       </Col>
                     </Row>
                   </ListGroup.Item>

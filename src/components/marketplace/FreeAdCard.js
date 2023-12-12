@@ -297,7 +297,12 @@ function FreeAdCard({ product }) {
           </span>
         </div>
         <div className="py-2 text-center">
-          <Button variant="outline-primary" size="sm" className="py-2 rounded">
+          <Button
+            variant="outline-primary"
+            size="sm"
+            className="py-2 rounded"
+            disabled
+          >
             Due Ad Charges: Free
           </Button>
         </div>

@@ -1,14 +1,25 @@
-// PostPaidAd.js
+// EditPaidAd.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { postPaidAd } from "../../actions/marketplaceSellerActions";
+import { useParams } from "react-router-dom";
+import {
+  editPaidAd,
+  getPaidAdDetail,
+} from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
 
-function PostPaidAd({ history }) {
+function EditPaidAd({ history, match }) {
   const dispatch = useDispatch();
+
+  const { id } = useParams();
+  const getPaidAdDetailState = useSelector(
+    (state) => state.getPaidAdDetailState
+  );
+  const { ads } = getPaidAdDetailState;
+  console.log("Paid Ads:", ads);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -19,148 +30,128 @@ function PostPaidAd({ history }) {
     }
   }, [userInfo, history]);
 
-  const postPaidAdState = useSelector((state) => state.postPaidAdState);
-  const { success, error, loading } = postPaidAdState;
+  useEffect(() => {
+    dispatch(getPaidAdDetail(match.params.id));
+  }, [dispatch, match]);
 
-  const [adName, setAdName] = useState("");
-  const [adNameError, setAdNameError] = useState("");
+  const editPaidAdState = useSelector((state) => state.editPaidAdState);
+  const { success, error, loading } = editPaidAdState;
 
-  const [adCategory, setAdCategory] = useState("");
-  const [adCategoryError, setAdCategoryError] = useState("");
+  const [editAdChanges, setEditAdChanges] = useState(false);
+  const [editAdData, setEditAdData] = useState({
+    ad_name: "",
+    ad_category: "",
+    ad_type: "",
+    location: "",
+    condition: "",
+    price: "",
+    brand: "",
+    description: "",
+    youtube_link: "",
+    image1: "",
+    image2: "",
+    image3: "",
+    duration: "",
+    promo_code: "",
+    discount_percentage: "",
+    count_in_stock: "",
+    is_price_negotiable: "",
+    is_auto_renewal: "",
+  });
 
-  const [adType, setAdType] = useState("");
-  const [adTypeError, setAdTypeError] = useState("");
-
-  const [location, setLocation] = useState("");
-  const [locationError, setLocationError] = useState("");
-
-  const [condition, setCondition] = useState("");
-  // const [conditionError, setConditionError] = useState("");
-
-  const [price, setPrice] = useState("");
-  const [priceError, setPriceError] = useState("");
-
-  const [brand, setBrand] = useState("");
-  // const [brandError, setBrandError] = useState("");
-
-  const [description, setDescription] = useState("");
-  const [descriptionError, setDescriptionError] = useState("");
-
-  const [youtubeLink, setYoutubeLink] = useState("");
-  // const [youtubeLinkError, setYoutubeLinkError] = useState("");
-
-  const [image1, setImage1] = useState("");
-  // const [image1Error, setImage1Error] = useState("");
-
-  const [image2, setImage2] = useState("");
-  // const [image2Error, setImage2Error] = useState("");
-
-  const [image3, setImage3] = useState("");
-  // const [image3Error, setImage3Error] = useState("");
-
-  const [duration, setDuration] = useState("");
-  const [durationError, setDurationError] = useState("");
-
-  const [promoCode, setPromoCode] = useState("");
-  const [promoCodeError, setPromoCodeError] = useState("");
-  const [discountPercentage, setDiscountPercentage] = useState("");
-  const [countInStock, setCountInStock] = useState("");
-  const [isPriceNegotiable, setIsPriceNegotiable] = useState("");
-  const [isAutoRenewal, setIsAutoRenewal] = useState("");
-
-  const [formError, setFormError] = useState("");
-
-  const handleFieldChange = (fieldName, value) => {
-    switch (fieldName) {
-      case "adName":
-        setAdName(value);
-        setAdNameError("");
-        break;
-
-      case "adCategory":
-        setAdCategory(value);
-        setAdCategoryError("");
-        break;
-
-      case "adType":
-        setAdType(value);
-        setAdTypeError("");
-        break;
-
-      case "location":
-        setLocation(value);
-        setLocationError("");
-        break;
-
-      case "condition":
-        setCondition(value);
-        // setConditionError("");
-        break;
-
-      case "price":
-        setPrice(value);
-        setPriceError("");
-        break;
-
-      case "brand":
-        setBrand(value);
-        // setBrandError("");
-        break;
-
-      case "description":
-        setDescription(value);
-        setDescriptionError("");
-        break;
-
-      case "youtubeLink":
-        setYoutubeLink(value);
-        // setYoutubeLinkError("");
-        break;
-
-      case "image1":
-        setImage1(value);
-        // setImage1Error("");
-        break;
-
-      case "image2":
-        setImage2(value);
-        // setImage2Error("");
-        break;
-
-      case "image3":
-        setImage3(value);
-        // setImage3Error("");
-        break;
-
-      case "promoCode":
-        setPromoCode(value);
-        setPromoCodeError("");
-        break;
-
-      case "discountPercentage":
-        setDiscountPercentage(value);
-        break;
-
-      case "countInStock":
-        setCountInStock(value);
-        break;
-
-      case "isPriceNegotiable":
-        setIsPriceNegotiable(value);
-        break;
-
-      case "isAutoRenewal":
-        setIsAutoRenewal(value);
-        break;
-
-      case "duration":
-        setDuration(value);
-        setDurationError("");
-        break;
-
-      default:
-        break;
+  useEffect(() => {
+    if (ads) {
+      setEditAdData({
+        ad_name: ads?.ad_name,
+        ad_category: ads?.ad_category,
+        ad_type: ads?.ad_type,
+        location: ads?.location,
+        condition: ads?.condition,
+        price: ads?.price,
+        brand: ads?.brand,
+        description: ads?.description,
+        youtube_link: ads?.youtube_link,
+        image1: ads?.image1,
+        image2: ads?.image2,
+        image3: ads?.image3,
+        duration: ads?.duration,
+        promo_code: ads?.promo_code,
+        discount_percentage: ads?.discount_percentage,
+        count_in_stock: ads?.count_in_stock,
+        is_price_negotiable: ads?.is_price_negotiable,
+        is_auto_renewal: ads?.is_auto_renewal,
+      });
+      setEditAdChanges(false);
     }
+  }, [ads]);
+
+  // const handleEditAdChanges = (e) => {
+  //   const { name, value, files, checked } = e.target;
+  //   if (files) {
+  //     setEditAdData({ ...editAdData, [name]: files[0] });
+  //   } else if (checked) {
+  //     setEditAdData({ ...editAdData, [name]: checked });
+  //   } else {
+  //     setEditAdData({ ...editAdData, [name]: value });
+  //   }
+  //   setEditAdChanges(true);
+  // };
+
+  const handleEditAdChanges = (e) => {
+    const { name, value, files, checked } = e.target;
+  
+    if (name === "is_price_negotiable" || name === "is_auto_renewal") {
+      setEditAdData({ ...editAdData, [name]: checked });
+    } else if (files) {
+      setEditAdData({ ...editAdData, [name]: files[0] });
+    } else {
+      setEditAdData({ ...editAdData, [name]: value });
+    }
+  
+    setEditAdChanges(true);
+  };
+
+  const handleEditAd = () => {
+    const editAdFormData = new FormData();
+
+    editAdFormData.append("ad_name", editAdData.ad_name);
+    editAdFormData.append("ad_category", editAdData.ad_category);
+    editAdFormData.append("ad_type", editAdData.ad_type);
+    editAdFormData.append("location", editAdData.location);
+    editAdFormData.append("condition", editAdData.condition);
+    editAdFormData.append("price", editAdData.price);
+    editAdFormData.append("brand", editAdData.brand);
+    editAdFormData.append("description", editAdData.description);
+    editAdFormData.append("youtube_link", editAdData.youtube_link);
+    editAdFormData.append("duration", editAdData.duration);
+    editAdFormData.append("promo_code", editAdData.promo_code);
+    editAdFormData.append(
+      "discount_percentage",
+      editAdData.discount_percentage
+    );
+    editAdFormData.append("count_in_stock", editAdData.count_in_stock);
+    editAdFormData.append(
+      "is_price_negotiable",
+      editAdData.is_price_negotiable
+    );
+    editAdFormData.append("is_auto_renewal", editAdData.is_auto_renewal);
+    editAdFormData.append("ad_id", id);
+
+    if (editAdFormData.image1 instanceof File) {
+      editAdFormData.append("image1", editAdFormData.image1);
+    }
+
+    if (editAdFormData.image2 instanceof File) {
+      editAdFormData.append("image2", editAdFormData.image2);
+    }
+
+    if (editAdFormData.image3 instanceof File) {
+      editAdFormData.append("image3", editAdFormData.image3);
+    }
+
+    console.log("editAdFormData:", editAdFormData);
+
+    dispatch(editPaidAd(editAdFormData));
   };
 
   const DURATION_CHOICES = [
@@ -309,26 +300,6 @@ function PostPaidAd({ history }) {
     ["Others", "Others"],
   ];
 
-  const sellerData = new FormData();
-  sellerData.append("ad_name", adName);
-  sellerData.append("ad_category", adCategory);
-  sellerData.append("ad_type", adType);
-  sellerData.append("location", location);
-  sellerData.append("condition", condition);
-  sellerData.append("price", price);
-  sellerData.append("brand", brand);
-  sellerData.append("description", description);
-  sellerData.append("youtube_link", youtubeLink);
-  sellerData.append("image1", image1);
-  sellerData.append("image2", image2);
-  sellerData.append("image3", image3);
-  sellerData.append("duration", duration);
-  sellerData.append("promo_code", promoCode);
-  sellerData.append("discount_percentage", discountPercentage);
-  sellerData.append("count_in_stock", countInStock);
-  sellerData.append("is_price_negotiable", isPriceNegotiable);
-  sellerData.append("is_auto_renewal", isAutoRenewal);
-
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
@@ -339,102 +310,21 @@ function PostPaidAd({ history }) {
     }
   }, [dispatch, success, history]);
 
-  const handlePostPaidAd = (e) => {
-    e.preventDefault(e);
-
-    if (!adName) {
-      setAdNameError("Please enter the ad name.");
-    } else {
-      setAdNameError("");
-    }
-
-    if (!adCategory) {
-      setAdCategoryError("Please select the ad category.");
-    } else {
-      setAdCategoryError("");
-    }
-
-    if (!adType) {
-      setAdTypeError("Please select the ad type.");
-    } else {
-      setAdTypeError("");
-    }
-
-    if (!location) {
-      setLocationError("Please enter ad location.");
-    } else {
-      setLocationError("");
-    }
-
-    if (/[^a-zA-Z0-9_]/.test(promoCode)) {
-      setPromoCodeError("Promo Code must not contain special characters.");
-    } else {
-      setPromoCodeError("");
-    }
-
-
-
-    // if (!condition) {
-    //   setConditionError("Please enter ad condtion.");
-    // } else {
-    //   setPriceError("");
-    // }
-
-    if (!price) {
-      setPriceError("Please enter ad price.");
-    } else {
-      setPriceError("");
-    }
-
-    if (!description) {
-      setDescriptionError("Please enter the description.");
-    } else {
-      setDescriptionError("");
-    }
-
-    if (!duration) {
-      setDurationError("Please select the ad duration.");
-    } else {
-      setDurationError("");
-    }
-
-    if (
-      !adName ||
-      !adCategory ||
-      !adType ||
-      !location ||
-      // !condition ||
-      !price ||
-      !description ||
-      !duration
-    ) {
-      setFormError("Please fix the errors in the form.");
-      return;
-    } else {
-      dispatch(postPaidAd(sellerData));
-    }
-  };
-
   return (
     <Container>
       <Row className="justify-content-center py-2">
         <Col xs={12} md={6}>
-          <h2 className="text-center py-2">Promoted Ad</h2>
+          <h2 className="text-center py-2">Edit Ad</h2>
           {loading && <Loader />}
 
           {success && (
             <Message variant="success" fixed>
-              Ad created successfully.
+              Ad updated successfully.
             </Message>
           )}
           {error && (
             <Message variant="danger" fixed>
               {error}
-            </Message>
-          )}
-          {formError && (
-            <Message variant="danger" fixed>
-              {formError}
             </Message>
           )}
 
@@ -443,24 +333,23 @@ function PostPaidAd({ history }) {
               <Form.Label>Ad Name</Form.Label>
               <Form.Control
                 type="text"
-                value={adName}
-                onChange={(e) => handleFieldChange("adName", e.target.value)}
+                name="ad_name"
+                value={editAdData.ad_name}
+                onChange={handleEditAdChanges}
                 placeholder="Enter the ad name"
                 className="rounded py-2 mb-2"
                 required
                 maxLength={100}
               />
-              <Form.Text className="text-danger">{adNameError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Ad Category</Form.Label>
               <Form.Control
                 as="select"
-                value={adCategory}
-                onChange={(e) =>
-                  handleFieldChange("adCategory", e.target.value)
-                }
+                name="ad_category"
+                value={editAdData.ad_category}
+                onChange={handleEditAdChanges}
                 className="rounded py-2 mb-2"
                 required
               >
@@ -471,15 +360,15 @@ function PostPaidAd({ history }) {
                   </option>
                 ))}
               </Form.Control>
-              <Form.Text className="text-danger">{adCategoryError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Ad Type</Form.Label>
               <Form.Control
                 as="select"
-                value={adType}
-                onChange={(e) => handleFieldChange("adType", e.target.value)}
+                name="ad_type"
+                value={editAdData.ad_type}
+                onChange={handleEditAdChanges}
                 className="rounded py-2 mb-2"
                 required
               >
@@ -490,29 +379,29 @@ function PostPaidAd({ history }) {
                   </option>
                 ))}
               </Form.Control>
-              <Form.Text className="text-danger">{adTypeError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Ad Location</Form.Label>
               <Form.Control
                 type="text"
-                value={location}
-                onChange={(e) => handleFieldChange("location", e.target.value)}
+                name="location"
+                value={editAdData.location}
+                onChange={handleEditAdChanges}
                 placeholder="Enter the ad location"
                 className="rounded py-2 mb-2"
                 required
                 maxLength={100}
               />
-              <Form.Text className="text-danger">{locationError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Ad Condition</Form.Label>
               <Form.Control
                 as="select"
-                value={condition}
-                onChange={(e) => handleFieldChange("condition", e.target.value)}
+                name="condition"
+                value={editAdData.condition}
+                onChange={handleEditAdChanges}
                 className="rounded py-2 mb-2"
                 required
               >
@@ -523,30 +412,28 @@ function PostPaidAd({ history }) {
                   </option>
                 ))}
               </Form.Control>
-              {/* <Form.Text className="text-danger">{conditionError}</Form.Text> */}
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Price</Form.Label>
               <Form.Control
                 type="number"
-                value={price}
-                onChange={(e) => handleFieldChange("price", e.target.value)}
+                name="price"
+                value={editAdData.price}
+                onChange={handleEditAdChanges}
                 placeholder="Enter price"
                 className="rounded py-2 mb-2"
                 required
               />
-              <Form.Text className="text-danger">{priceError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Check
                 type="checkbox"
                 label="Is Price Negotiable?"
-                checked={isPriceNegotiable}
-                onChange={(e) =>
-                  handleFieldChange("isPriceNegotiable", e.target.checked)
-                }
+                name="is_price_negotiable"
+                checked={editAdData.is_price_negotiable}
+                onChange={handleEditAdChanges}
                 className="rounded py-2 mb-2"
               />
             </Form.Group>
@@ -555,39 +442,36 @@ function PostPaidAd({ history }) {
               <Form.Label>Brand</Form.Label>
               <Form.Control
                 type="text"
-                value={brand}
-                onChange={(e) => handleFieldChange("brand", e.target.value)}
+                name="brand"
+                value={editAdData.brand}
+                onChange={handleEditAdChanges}
                 placeholder="Enter ad brand"
                 className="rounded py-2 mb-2"
                 maxLength={100}
               />
-              {/* <Form.Text className="text-danger">{brandError}</Form.Text> */}
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Description</Form.Label>
               <Form.Control
                 type="text"
-                value={description}
-                onChange={(e) =>
-                  handleFieldChange("description", e.target.value)
-                }
+                name="description"
+                value={editAdData.description}
+                onChange={handleEditAdChanges}
                 placeholder="Enter ad description"
                 className="rounded py-2 mb-2"
                 required
                 maxLength={100}
               />
-              <Form.Text className="text-danger">{descriptionError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Youtube Link</Form.Label>
               <Form.Control
                 type="text"
-                value={youtubeLink}
-                onChange={(e) =>
-                  handleFieldChange("youtubeLink", e.target.value)
-                }
+                name="youtube_link"
+                value={editAdData.youtube_link}
+                onChange={handleEditAdChanges}
                 placeholder="Enter ad Youtube link"
                 className="rounded py-2 mb-2"
                 maxLength={225}
@@ -598,23 +482,22 @@ function PostPaidAd({ history }) {
               <Form.Label>Promo Code</Form.Label>
               <Form.Control
                 type="text"
-                value={promoCode}
-                onChange={(e) => handleFieldChange("promoCode", e.target.value)}
+                name="promo_code"
+                value={editAdData.promo_code}
+                onChange={handleEditAdChanges}
                 placeholder="Enter ad promoCode"
                 className="rounded py-2 mb-2"
                 maxLength={10}
               />
-              <Form.Text className="text-danger">{promoCodeError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Discount Percentage</Form.Label>
               <Form.Control
                 type="number"
-                value={discountPercentage}
-                onChange={(e) =>
-                  handleFieldChange("discountPercentage", e.target.value)
-                }
+                name="discount_percentage"
+                value={editAdData.discount_percentage}
+                onChange={handleEditAdChanges}
                 placeholder="Enter ad discount percentage"
                 className="rounded py-2 mb-2"
                 maxLength={4}
@@ -625,10 +508,9 @@ function PostPaidAd({ history }) {
               <Form.Label>Number In Stock</Form.Label>
               <Form.Control
                 type="text"
-                value={countInStock}
-                onChange={(e) =>
-                  handleFieldChange("countInStock", e.target.value)
-                }
+                name="count_in_stock"
+                value={editAdData.count_in_stock}
+                onChange={handleEditAdChanges}
                 placeholder="Enter ad countInStock"
                 className="rounded py-2 mb-2"
                 maxLength={100}
@@ -637,19 +519,39 @@ function PostPaidAd({ history }) {
 
             <Form.Group>
               <Form.Label>Image 1</Form.Label>
+              <div className="py-2">
+                {ads?.image1 && (
+                  <img
+                    src={ads?.image1}
+                    alt="Image1"
+                    style={{ maxWidth: "100%", maxHeight: "100px" }}
+                  />
+                )}
+              </div>
               <Form.Control
                 type="file"
-                onChange={(e) => handleFieldChange("image1", e.target.files[0])}
-                placeholder="Upload the ID Card Photo"
+                name="image1"
+                onChange={handleEditAdChanges}
+                placeholder="Upload the ID Card Photoname"
                 className="rounded py-2 mb-2"
               />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Image 2</Form.Label>
+              <div className="py-2">
+                {ads?.image2 && (
+                  <img
+                    src={ads?.image2}
+                    alt="image2"
+                    style={{ maxWidth: "100%", maxHeight: "100px" }}
+                  />
+                )}
+              </div>
               <Form.Control
                 type="file"
-                onChange={(e) => handleFieldChange("image2", e.target.files[0])}
+                name="image2"
+                onChange={handleEditAdChanges}
                 placeholder="Upload the ID Card Photo"
                 className="rounded py-2 mb-2"
                 maxLength={100}
@@ -658,9 +560,19 @@ function PostPaidAd({ history }) {
 
             <Form.Group>
               <Form.Label>Image 3</Form.Label>
+              <div className="py-2">
+                {ads?.image3 && (
+                  <img
+                    src={ads?.image3}
+                    alt="image3"
+                    style={{ maxWidth: "100%", maxHeight: "100px" }}
+                  />
+                )}
+              </div>
               <Form.Control
                 type="file"
-                onChange={(e) => handleFieldChange("image3", e.target.files[0])}
+                name="image3"
+                onChange={handleEditAdChanges}
                 placeholder="Upload proof of address"
                 className="rounded py-2 mb-2"
                 maxLength={100}
@@ -671,8 +583,9 @@ function PostPaidAd({ history }) {
               <Form.Label>Duration</Form.Label>
               <Form.Control
                 as="select"
-                value={duration}
-                onChange={(e) => handleFieldChange("duration", e.target.value)}
+                name="duration"
+                value={editAdData.duration}
+                onChange={handleEditAdChanges}
                 className="rounded py-2 mb-2"
                 required
               >
@@ -683,29 +596,27 @@ function PostPaidAd({ history }) {
                   </option>
                 ))}
               </Form.Control>
-              <Form.Text className="text-danger">{durationError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Check
                 type="checkbox"
                 label="Renewal Automatically?"
-                checked={isAutoRenewal}
-                onChange={(e) =>
-                  handleFieldChange("isAutoRenewal", e.target.checked)
-                }
+                name="is_auto_renewal"
+                checked={editAdData.is_auto_renewal}
+                onChange={handleEditAdChanges}
                 className="rounded py-2 mb-2"
               />
             </Form.Group>
           </Form>
           <Button
             variant="success"
-            onClick={handlePostPaidAd}
+            onClick={handleEditAd}
             className="rounded py-2 mb-2 text-center w-100"
-            disabled={loading || success}
+            disabled={!editAdChanges || loading || success}
           >
             <div className="d-flex justify-content-center">
-              <span className="py-1">Post Ad</span>
+              <span className="py-1">Update Ad</span>
               {loading && <LoaderButton />}
             </div>
           </Button>
@@ -715,4 +626,4 @@ function PostPaidAd({ history }) {
   );
 }
 
-export default PostPaidAd;
+export default EditPaidAd;
