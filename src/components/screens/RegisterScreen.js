@@ -13,7 +13,7 @@ import "react-phone-number-input/style.css";
 
 function RegisterScreen({ location, history }) {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState(""); 
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +25,10 @@ function RegisterScreen({ location, history }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [referralCode, setReferralCode] = useState("");
+
+  const [isTermsConditionsRead, setIsTermsConditionsRead] = useState(false);
+
+  const [termsConditionsError, setTermsConditionsError] = useState("");
 
   const [isValid, setIsValid] = useState({
     firstName: false,
@@ -77,6 +81,18 @@ function RegisterScreen({ location, history }) {
     }
   };
 
+  const handleFieldChange = (fieldName, value) => {
+    switch (fieldName) {
+      case "isTermsConditionsRead":
+        setIsTermsConditionsRead(value);
+        setTermsConditionsError("");
+        break;
+
+      default:
+        break;
+    }
+  };
+
   const lowerCaseEmail = email.toLowerCase();
 
   const formData = useMemo(() => {
@@ -88,6 +104,7 @@ function RegisterScreen({ location, history }) {
       password,
       phone_number: phoneNumber,
       referral_code: referralCode,
+      is_terms_conditions_read: isTermsConditionsRead,
     };
   }, [
     firstName,
@@ -97,12 +114,20 @@ function RegisterScreen({ location, history }) {
     password,
     phoneNumber,
     referralCode,
+    isTermsConditionsRead
   ]);
 
   console.log("formData:", formData);
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (!isTermsConditionsRead) {
+      setTermsConditionsError("Please accept the terms and conditions.");
+      return;
+    } else {
+      setTermsConditionsError("");
+    }
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
@@ -138,6 +163,10 @@ function RegisterScreen({ location, history }) {
 
     // eslint-disable-next-line
   }, [dispatch, success, history, email, firstName, formData]);
+
+  const handleTermsAndConditions = () => {
+    window.location.href = "/terms-and-conditions";
+  };
 
   return (
     <Container>
@@ -178,7 +207,7 @@ function RegisterScreen({ location, history }) {
                   : ""
               }`}
             />
-            
+
             <div className="valid-feedback">
               {isValid.username && username && (
                 <i className="bi bi-check2-circle text-success"></i>
@@ -386,24 +415,49 @@ function RegisterScreen({ location, history }) {
             </Form.Control.Feedback>
           </Form.Group>
 
+          <Form.Group className="d-flex justify-content-between">
+          <Form.Check
+            type="checkbox"
+            label="Accept terms and conditions."
+            checked={isTermsConditionsRead}
+            onChange={(e) =>
+              handleFieldChange("isTermsConditionsRead", e.target.checked)
+            }
+            className="py-2 mb-2"
+          />
+          <Button
+            variant="outline-link"
+            size="sm"
+            style={{ color: "blue" }}
+            onClick={handleTermsAndConditions}
+            target="_blank"
+          >
+            Terms & Conditions
+          </Button>
+        </Form.Group>
+
+        {termsConditionsError && (
+          <Form.Text className="text-danger">{termsConditionsError}</Form.Text>
+        )}
+
           <Row className="py-3">
             <Col className="text-center">
               <Button
                 className="mt-3 rounded w-100"
-                type="submit"
+                type="submit" 
                 variant="success"
                 block
                 disabled={
                   password === "" ||
                   email === "" ||
                   username === "" ||
-                  phoneNumber === "" || 
+                  phoneNumber === "" ||
                   loading ||
                   success
                 }
               >
                 {loading && <Loader />}
-                <i className="fas fa-registered"></i> Register  
+                <i className="fas fa-registered"></i> Register
               </Button>
             </Col>
           </Row>
@@ -418,6 +472,8 @@ function RegisterScreen({ location, history }) {
         </Row> */}
 
         {/* <GoogleLoginScreen />  */}
+
+        
 
         <Row className="py-3">
           <Col className="text-center">

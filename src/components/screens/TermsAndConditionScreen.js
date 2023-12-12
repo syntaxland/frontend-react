@@ -5,9 +5,9 @@ import { Container, Row, Col } from "react-bootstrap";
 function TermsAndConditionScreen() {
   return (
     <Container>
-      <Row className="justify-content-center py-2">
+      <Row className="justify-content-center py-2 ">
         <Col>
-          <h2 className="py-2">Terms and Conditions</h2>
+          <h2 className="py-2 text-center">Terms and Conditions</h2>
 
           <p>
             Welcome to our eCommerce platform and marketplace! These terms and
