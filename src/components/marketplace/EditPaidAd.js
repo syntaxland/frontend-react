@@ -485,7 +485,7 @@ function EditPaidAd({ history, match }) {
                 name="promo_code"
                 value={editAdData.promo_code}
                 onChange={handleEditAdChanges}
-                placeholder="Enter ad promoCode"
+                placeholder="Enter ad promo code"
                 className="rounded py-2 mb-2"
                 maxLength={10}
               />
@@ -507,11 +507,11 @@ function EditPaidAd({ history, match }) {
             <Form.Group>
               <Form.Label>Number In Stock</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 name="count_in_stock"
                 value={editAdData.count_in_stock}
                 onChange={handleEditAdChanges}
-                placeholder="Enter ad countInStock"
+                placeholder="Enter number of ad in stock"
                 className="rounded py-2 mb-2"
                 maxLength={100}
               />
