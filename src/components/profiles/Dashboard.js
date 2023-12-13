@@ -1,14 +1,16 @@
 // Dashboard.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { Col, Row, Button } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+import { Col, Row, Button, Modal } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
 import { getCreditPointBalance } from "../../actions/creditPointActions";
 import { listPayments } from "../../actions/paymentActions";
 import { getOrders } from "../../actions/orderActions";
 import { Line, Pie } from "react-chartjs-2";
+import SellCreditPoint from "../CreditPoint/SellCreditPoint";
+import BuyCreditPoint from "../CreditPoint/BuyCreditPoint";
 
 import {
   Chart as ChartJS,
@@ -39,6 +41,22 @@ function Dashboard() {
   // const [creditPointEarning, setCreditPointEarning] = useState(0);
   const dispatch = useDispatch();
 
+  const [buyCreditPointModal, setBuyCreditPointModal] = useState(false);
+  const handleBuyCreditPointOpen = () => {
+    setBuyCreditPointModal(true);
+  };
+  const handleBuyCreditPointClose = () => {
+    setBuyCreditPointModal(false);
+  };
+
+  const [sellCreditPointModal, setSellCreditPointModal] = useState(false);
+  const handleSellCreditPointOpen = () => {
+    setSellCreditPointModal(true);
+  };
+  const handleSellCreditPointClose = () => {
+    setSellCreditPointModal(false);
+  };
+
   const creditPointBal = useSelector((state) => state.creditPointBal);
   const { loading, error, creditPointBalance } = creditPointBal;
   console.log("creditPointBalance:", creditPointBalance);
@@ -61,8 +79,6 @@ function Dashboard() {
     dispatch(getOrders());
   }, [dispatch]);
 
- 
-  
   const lineGraphData = {
     labels: payments.map((payment) =>
       new Date(payment.created_at).toLocaleString()
@@ -78,7 +94,7 @@ function Dashboard() {
       },
     ],
   };
-  
+
   const lineChartOptions = {
     // ...
     plugins: {
@@ -97,7 +113,6 @@ function Dashboard() {
       },
     },
   };
-  
 
   // const lineGraphData = {
   //   labels: payments.map((payment) =>
@@ -126,26 +141,25 @@ function Dashboard() {
   const creditPoints = creditPointBalance.balance;
   const creditPointsFormatted = creditPoints ? creditPoints : [];
 
-
-  const withdrawCreditPoints =
-    creditPoints >= 5000 ? (
-      <Link
-        to={{
-          pathname: "/credit-point",
-          search: `?creditPoints=${creditPoints}`,
-        }}
-      >
-        <Button variant="success" className="rounded" size="sm">
-          Withdraw Points
-        </Button>
-      </Link>
-    ) : (
-      <p>
-        <Button variant="danger" className="rounded" size="sm" readOnly>
-          Earned points mature from NGN 5,000
-        </Button>
-      </p>
-    );
+  // const withdrawCreditPoints =
+  //   creditPoints >= 5000 ? (
+  //     <Link
+  //       to={{
+  //         pathname: "/credit-point",
+  //         search: `?creditPoints=${creditPoints}`,
+  //       }}
+  //     >
+  //       <Button variant="success" className="rounded" size="sm">
+  //         Withdraw Points
+  //       </Button>
+  //     </Link>
+  //   ) : (
+  //     <p>
+  //       <Button variant="danger" className="rounded" size="sm" readOnly>
+  //         Earned points mature from NGN 5,000
+  //       </Button>
+  //     </p>
+  //   );
 
   const paidOrderRateData = {
     labels: [
@@ -172,11 +186,13 @@ function Dashboard() {
   const unfulfilledOrderRateData = {
     labels: [
       `Delivered Orders (${(
-        (orders?.filter((order) => order.is_delivered).length / orders?.length) *
+        (orders?.filter((order) => order.is_delivered).length /
+          orders?.length) *
         100
       ).toFixed(1)}%)`,
       `Undelivered Orders (${(
-        (orders?.filter((order) => !order.is_delivered).length / orders?.length) *
+        (orders?.filter((order) => !order.is_delivered).length /
+          orders?.length) *
         100
       ).toFixed(1)}%)`,
     ],
@@ -232,12 +248,14 @@ function Dashboard() {
                 <hr />
                 <div className="line-graph mt-4">
                   <h2 className="py-3">Payments</h2>
-                  <Line data={lineGraphData} options={lineChartOptions}/>
+                  <Line data={lineGraphData} options={lineChartOptions} />
                 </div>
               </Col>
               <hr />
               <div className="mt-4 py-3">
-                <h2 className="py-3">Orders <i className="fas fa-luggage-cart"></i></h2>
+                <h2 className="py-3">
+                  Orders <i className="fas fa-luggage-cart"></i>
+                </h2>
                 <Row>
                   <Col>
                     <h5 className="py-3">Paid Order Rate</h5>
@@ -264,21 +282,48 @@ function Dashboard() {
                 </Row>
               </div>
               <hr />
-              <Col>
-                <h2 className="py-3">
-                   Credit Point Wallet <i className="fas fa-wallet"></i>
-                </h2>
-                <p>
-                  Balance: NGN{" "}
-                  {
-                    creditPointsFormatted
-                    .toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })
-                  }
-                </p>
-                <div className="py-3">{withdrawCreditPoints}</div>
+              <Col className="d-flex justify-content-center">
+                <Row>
+                  <Col>
+                    <h2 className="py-3">
+                      Credit Point Wallet <i className="fas fa-wallet"></i>
+                    </h2>
+                    <p>
+                      Balance:{" "}
+                      {creditPointsFormatted.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}{" "}
+                      cps
+                    </p>
+
+                    <div className="d-flex justify-content-between py-2">
+                      <span className="py-2">
+                        <Button
+                          variant="outline-success"
+                          size="sm"
+                          className="py-2 rounded"
+                          onClick={handleBuyCreditPointOpen}
+                        >
+                          Buy Credit Point
+                        </Button>
+                      </span>
+
+                      <span className="py-2">
+                        <Button
+                          variant="outline-success"
+                          size="sm"
+                          className="py-2 rounded"
+                          onClick={handleSellCreditPointOpen}
+                        >
+                          Sell/Share Credit Point
+                        </Button>
+                      </span>
+                    </div>
+                  </Col>
+                </Row>
+
+                {/* <div className="py-3">{withdrawCreditPoints}</div> */}
               </Col>
 
               <hr />
@@ -286,6 +331,24 @@ function Dashboard() {
           </div>
         )}
       </div>
+
+      <Modal show={buyCreditPointModal} onHide={handleBuyCreditPointClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Buy Credit Point
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{buyCreditPointModal && <BuyCreditPoint />}</Modal.Body>
+      </Modal>
+
+      <Modal show={sellCreditPointModal} onHide={handleSellCreditPointClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Sell/Share Credit Point
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{sellCreditPointModal && <SellCreditPoint />}</Modal.Body>
+      </Modal>
     </div>
   );
 }

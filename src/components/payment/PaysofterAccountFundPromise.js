@@ -46,11 +46,9 @@ const PaysofterAccountFundPromise = ({
   );
 
   const [accountId, setAccountId] = useState("");
-
   const [accountIdError, setAccountIdError] = useState("");
 
   const [securityCode, setSecurityCode] = useState("");
-
   const [securityCodeError, setSecurityCodeError] = useState("");
 
   const [formError, setFormError] = useState("");
@@ -116,6 +114,7 @@ const PaysofterAccountFundPromise = ({
         break;
     }
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -142,9 +141,6 @@ const PaysofterAccountFundPromise = ({
       );
     }
 
-
-
-    
     // try {
     //   localStorage.setItem(
     //     "debitAccountData",

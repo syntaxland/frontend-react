@@ -69,7 +69,7 @@ function UserDashboard({ history }) {
   };
 
   const handleMarketplaceDashboard = () => {
-    history.push("/dashboard/marketplace/sellers"); 
+    history.push("/dashboard/marketplace/sellers");
   };
 
   const renderTabContent = () => {
@@ -139,7 +139,7 @@ function UserDashboard({ history }) {
             className="sidebar-toggle-button"
             onClick={handleSidebarToggle}
           >
-            {/* <FontAwesomeIcon icon={sidebarOpen ? faBars : faBars} /> */} 
+            {/* <FontAwesomeIcon icon={sidebarOpen ? faBars : faBars} /> */}
             <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} />
           </Button>
 
@@ -339,8 +339,6 @@ function UserDashboard({ history }) {
                 </Button>
               </div>
 
-              
-
               <div>
                 {profile?.is_superuser || profile?.is_staff ? (
                   <div>
@@ -353,7 +351,8 @@ function UserDashboard({ history }) {
                       className="sidebar-link"
                       onClick={() => handleAdminDashboard()}
                     >
-                     <i className="fas fa-user-check"></i> Go to Admin Dashboard
+                      <i className="fas fa-user-check"></i> Go to Admin
+                      Dashboard
                     </Button>
                   </div>
                 ) : (
@@ -361,36 +360,37 @@ function UserDashboard({ history }) {
                 )}
               </div>
 
-              <div className="mt-50 ">
+              <div className="">
                 {!profile?.is_marketplace_seller ? (
-                  <div className="text-center">
-                    <span>Don't have a Seller account? </span> 
+                  <div className="mt-3">
+                    {/* <span className="py-2 text-center">
+                      Don't have a Seller account?{" "}
+                    </span> */}
                     <Button
                       size="sm"
                       className="sidebar-link py-2"
                       variant="outline-success"
                       onClick={handleAddbusiness}
                     >
-                      <i className="fa fa-user-alt"></i> Create
+                      <i className="fa fa-user-alt"></i> Create Seller Account
                     </Button>
                   </div>
                 ) : (
                   <>
-                  <div>
-                    <Button
-                      size="sm"
-                      className="sidebar-link py-2"
-                      variant="outline-success"
-                      onClick={handleMarketplaceDashboard}
-                    >
-                      <i className="fa fa-user-alt"></i> Go to Marketplace Dashboard
-                    </Button>
-                  </div>
+                    <div className="mt-3">
+                      <Button
+                        size="sm"
+                        className="sidebar-link py-2"
+                        variant="outline-success"
+                        onClick={handleMarketplaceDashboard}
+                      >
+                        <i className="fa fa-user-alt"></i> Go to Marketplace
+                        Dashboard
+                      </Button>
+                    </div>
                   </>
                 )}
               </div>
-
-              
             </div>
           )}
         </Col>

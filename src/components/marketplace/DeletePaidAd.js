@@ -11,7 +11,7 @@ function DeletePaidAd({ ad_id }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin); 
   const { userInfo } = userLogin;
 
   useEffect(() => {

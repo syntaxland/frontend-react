@@ -109,6 +109,8 @@ import {
 } from "./reducers/accountFundOtpReducers";
 
 import {
+  buyCreditPointReducer,
+sellCreditPointReducer,
   creditPointRequestCreateReducer,
   creditPointListReducer,
   creditPointAllListReducer,
@@ -185,6 +187,8 @@ const reducer = combineReducers({
   orderAddReview: orderAddReviewReducer,
   orderEditReview: orderEditReviewReducer,
 
+  buyCreditPointState: buyCreditPointReducer,
+sellCreditPointState: sellCreditPointReducer,
   creditPointRequestCreate: creditPointRequestCreateReducer,
   creditPointList: creditPointListReducer,
   creditPointAllList: creditPointAllListReducer,

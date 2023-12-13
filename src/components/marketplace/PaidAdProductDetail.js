@@ -273,7 +273,7 @@ function PaidAdProductDetail({ match, history }) {
                               style={{
                                 maxWidth: "80px",
                                 maxHeight: "80px",
-                                borderRadius: "50%",
+                                borderRadius: "50%", 
                               }}
                             />
                           )}

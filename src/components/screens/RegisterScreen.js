@@ -94,12 +94,13 @@ function RegisterScreen({ location, history }) {
   };
 
   const lowerCaseEmail = email.toLowerCase();
+  const lowerCaseUsername = username.toLowerCase();
 
   const formData = useMemo(() => {
     return {
       first_name: firstName,
       last_name: lastName,
-      username: username,
+      username: lowerCaseUsername,
       email: lowerCaseEmail,
       password,
       phone_number: phoneNumber,
@@ -110,7 +111,7 @@ function RegisterScreen({ location, history }) {
     firstName,
     lastName,
     lowerCaseEmail,
-    username,
+    lowerCaseUsername,
     password,
     phoneNumber,
     referralCode,
@@ -193,7 +194,7 @@ function RegisterScreen({ location, history }) {
               type="text"
               placeholder="Enter username"
               value={username}
-              maxLength={30}
+              maxLength={12}
               onChange={(e) => {
                 setUsername(e.target.value);
                 handleInputChange("username", e.target.value);
