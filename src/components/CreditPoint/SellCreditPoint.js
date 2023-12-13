@@ -82,12 +82,12 @@ function SellCreditPoint() {
 
           <Form>
             <Form.Group>
-              <Form.Label>Receiver/Buyer's Username</Form.Label>
+              <Form.Label>Receiver's Username</Form.Label>
               <Form.Control
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter cps receiver/buyer's username"
+                placeholder="Enter cps receiver's username"
                 className="rounded"
                 required
                 maxLength={20}
@@ -101,7 +101,7 @@ function SellCreditPoint() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter cps amount"
-                className="rounded  "
+                className="rounded"
                 required
               />
             </Form.Group>
@@ -113,7 +113,7 @@ function SellCreditPoint() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="rounded  "
+                className="rounded"
                 required
                 maxLength={100}
               />
