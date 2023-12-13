@@ -132,8 +132,8 @@ function UserDashboard({ history }) {
 
   return (
     <Container fluid>
-      <Row>
-        <Col xs={sidebarOpen ? 3 : 1} className="sidebar">
+      <Row className="main-section">
+        <Col xs={sidebarOpen ? 4 : 1} className="sidebar">
           <Button
             variant="link"
             className="sidebar-toggle-button"
@@ -394,7 +394,7 @@ function UserDashboard({ history }) {
             </div>
           )}
         </Col>
-        <Col xs={sidebarOpen ? 9 : 11} className="main-content">
+        <Col xs={sidebarOpen ? 8 : 11} className="main-content">
           {renderTabContent()}
         </Col>
       </Row>

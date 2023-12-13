@@ -76,7 +76,7 @@ function BuyCreditPoint({ ad_id }) {
                 className="rounded py-2 mb-2"
                 required
               >
-                <option value="">Select Ad Amount</option>
+                <option value="">Select CPS Amount</option>
                 {DURATION_CHOICES.map((type) => (
                   <option key={type[0]} value={type[0]}>
                     {type[1]}

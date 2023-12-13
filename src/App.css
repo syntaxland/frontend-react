@@ -6,17 +6,15 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 300px; 
+  width: 300px;
   background-color: #fff;
   z-index: 9999;
 }
 
-
 /* Dashboard --------------------------------------------------------------------------------- */
 
-.sidebar-content .sidebar-link  {
+.sidebar-content .sidebar-link {
   text-transform: none;
-
 }
 
 /* .sidebar-link {
@@ -37,13 +35,23 @@
   color: #000; /* Set the text color to your preferred color */
   text-decoration: none; /* Remove underlines or other decorations */
   display: block; /* Ensure the button takes the full width as a block element */
-  transition: background-color 0.3s; 
-  min-width: 100px; 
+  transition: background-color 0.3s;
+  min-width: 100px;
   max-width: 150px;
 }
 
 .sidebar-link:hover {
   background-color: #f0f0f0; /* Add a background color on hover */
+}
+
+.main-content {
+  /* width: 100%; */
+  min-width: 150px;
+}
+
+.main-section {
+  /* width: 100%; */
+  min-width: 350px;
 }
 
 /* Style the active link */
@@ -54,13 +62,12 @@
 
 .sidebar-content {
   height: auto;
-  overflow-y: hidden; 
-  transition: overflow-y 0.3s; 
-
+  overflow-y: hidden;
+  transition: overflow-y 0.3s;
 }
 
 .sidebar:hover .sidebar-content {
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .active-link {
@@ -96,7 +103,6 @@
   }
 }
 
-
 /* footer --------------------------------------------------------------------------------- */
 
 body,
@@ -125,10 +131,6 @@ main {
   text-align: center;
   text-transform: none;
 }
-
-
-
-
 
 .App-logo {
   height: 40vmin;
@@ -165,16 +167,12 @@ main {
   }
 }
 
-
-
 /* --------------------------------------------------------------------------------- */
 
-
 .warning-icon {
-  color: yellow; 
+  color: yellow;
 }
 
-
 .testing {
-  color: #520712; 
+  color: #520712;
 }
