@@ -67,14 +67,14 @@ function ReactivatePaidAd({ ad_id }) {
           )}
           {error && <Message variant="danger">{error}</Message>}
 
-          <p className="rounded mt-2 py-1 text-center">
+          {/* <p className="rounded mt-2 py-1 text-center">
             <i
               className="fa fa-warning"
               style={{ fontSize: "18px", color: "yellow" }}
             ></i>{" "}
             Warning! This action will reactivate this ad and it's irreversible.
             Type <i>reactivate</i> to confirm the deactivation.
-          </p>
+          </p> */}
 
           <Form>
             <Form.Group>
