@@ -88,41 +88,41 @@ function SellCreditPoint() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter cps receiver/buyer's username"
-                className="rounded py-2 mt-2"
+                className="rounded"
                 required
                 maxLength={20}
               />
             </Form.Group>
 
-            <Form.Group className="py-2">
+            <Form.Group className="py-1">
               <Form.Label>Amount</Form.Label>
               <Form.Control
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 placeholder="Enter cps amount"
-                className="rounded py-2 mt-2"
+                className="rounded  "
                 required
               />
             </Form.Group>
 
-            <Form.Group className="py-2">
+            <Form.Group className="py-1">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="rounded py-2 mt-2"
+                className="rounded  "
                 required
                 maxLength={100}
               />
             </Form.Group>
             <div className="py-2">
               <Button
-                variant="primary"
+                variant="success"
                 onClick={handleSellCreditPoint}
-                className="rounded py-2 mt-2 text-center w-100"
+                className="rounded text-center w-100"
                 disabled={password === "" || username === "" || amount === ""}
               >
                 Sell/Share Credit Point

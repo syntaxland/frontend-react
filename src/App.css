@@ -36,7 +36,7 @@
   text-decoration: none; /* Remove underlines or other decorations */
   display: block; /* Ensure the button takes the full width as a block element */
   transition: background-color 0.3s;
-  min-width: 100px;
+  min-width: 115px;
   max-width: 150px;
 }
 
@@ -46,7 +46,7 @@
 
 .main-content {
   /* width: 100%; */
-  min-width: 150px;
+  min-width: 130px;
 }
 
 .main-section {
