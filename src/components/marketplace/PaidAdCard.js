@@ -214,7 +214,7 @@ function PaidAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="primary"
               size="sm"
               className="py-2 rounded"
               onClick={handleEditAd}
@@ -226,7 +226,7 @@ function PaidAdCard({ product }) {
           <span className="py-2">
             {isAdExpired ? (
               <Button
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
                 className="py-2 rounded"
                 onClick={handleReactivateAdOpen}
@@ -235,7 +235,7 @@ function PaidAdCard({ product }) {
               </Button>
             ) : (
               <Button
-                variant="outline-primary"
+                variant="primary"
                 size="sm"
                 className="py-2 rounded"
                 onClick={handleDeactivateAdOpen}
@@ -247,7 +247,7 @@ function PaidAdCard({ product }) {
 
           <span className="py-2">
             <Button
-              variant="outline-danger"
+              variant="danger"
               size="sm"
               className="py-2 rounded"
               onClick={handleDeleteAdOpen}
