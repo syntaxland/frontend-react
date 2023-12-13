@@ -231,7 +231,7 @@ function PaidAdCard({ product }) {
                 className="py-2 rounded"
                 onClick={handleReactivateAdOpen}
               >
-                Reactivate Ad
+                Reactivate
               </Button>
             ) : (
               <Button
@@ -240,7 +240,7 @@ function PaidAdCard({ product }) {
                 className="py-2 rounded"
                 onClick={handleDeactivateAdOpen}
               >
-                Deactivate Ad
+                Deactivate
               </Button>
             )}
           </span>

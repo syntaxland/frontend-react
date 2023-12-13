@@ -303,7 +303,7 @@ function EditPaidAd({ history, match }) {
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        // history.push("/seller/bank");
+        history.push("/dashboard/sellers/");
         window.location.reload();
       }, 5000);
       return () => clearTimeout(timer);
