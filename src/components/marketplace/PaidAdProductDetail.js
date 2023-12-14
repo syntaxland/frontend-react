@@ -275,7 +275,7 @@ function PaidAdProductDetail({ match, history }) {
                                 maxHeight: "80px",
                                 borderRadius: "50%", 
                               }}
-                            />
+                            /> 
                           )}
                           {ads?.seller_username}
                         </span>
@@ -342,7 +342,7 @@ function PaidAdProductDetail({ match, history }) {
 
                   <ListGroup.Item>
                     <Button
-                      variant="outline-primary"
+                      variant="primary"
                       size="sm"
                       className="py-2 rounded"
                       onClick={handleShowPhoneNumber}
@@ -350,12 +350,14 @@ function PaidAdProductDetail({ match, history }) {
                       <i className="fa fa-phone"></i>{" "}
                       {showPhoneNumber ? "Hide" : "Show"} Seller Phone Number
                     </Button>
-                    {showPhoneNumber && <p>{ads?.seller_phone}</p>}
+                    <p className="mt-2">
+                      {showPhoneNumber && <p>{ads?.seller_phone}</p>}
+                    </p>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Button
-                      variant="outline-primary"
+                      variant="primary"
                       size="sm"
                       className="py-2 rounded"
                       onClick={handleClickMessageSeller}

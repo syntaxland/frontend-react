@@ -11,7 +11,7 @@ import {
   trackProductView,
 } from "../../actions/productAction";
 import { getSellerAccount } from "../../actions/marketplaceSellerActions";
-import { getPaidAdDetail } from "../../actions/marketplaceSellerActions";
+import { getFreeAdDetail } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
 import PromoTimer from "../PromoTimer";
@@ -54,7 +54,7 @@ function AllFreeAdCard({ product }) {
     const pk = product.id;
     if (userInfo) {
       dispatch(getSellerAccount());
-      dispatch(getPaidAdDetail(pk));
+      dispatch(getFreeAdDetail(pk));
     }
   }, [dispatch, userInfo, product.id]);
 
@@ -311,7 +311,7 @@ function AllFreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="primary"
               size="sm"
               className="py-2 rounded"
               onClick={handleClickMessageSeller}

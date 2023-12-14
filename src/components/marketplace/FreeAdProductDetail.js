@@ -107,7 +107,7 @@ function FreeAdProductDetail({ match, history }) {
 
   const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
 
-const handleClickMessageSeller = () => {
+  const handleClickMessageSeller = () => {
     const queryParams = {
       id: ads.id,
       image1: ads.image1,
@@ -319,7 +319,7 @@ const handleClickMessageSeller = () => {
 
                   <ListGroup.Item>
                     <Button
-                      variant="outline-primary"
+                      variant="primary"
                       size="sm"
                       className="py-2 rounded"
                       onClick={handleShowPhoneNumber}
@@ -327,12 +327,15 @@ const handleClickMessageSeller = () => {
                       <i className="fa fa-phone"></i>{" "}
                       {showPhoneNumber ? "Hide" : "Show"} Seller Phone Number
                     </Button>
-                    {showPhoneNumber && <p>{ads?.seller_phone}</p>}
+
+                    <p className="mt-2">
+                      {showPhoneNumber && <p>{ads?.seller_phone}</p>}
+                    </p>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Button
-                      variant="outline-primary"
+                      variant="primary"
                       size="sm"
                       className="py-2 rounded"
                       onClick={handleClickMessageSeller}

@@ -46,10 +46,11 @@ function AllPaidAdCard({ product }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const getFreeAdDetailState = useSelector(
-    (state) => state.getFreeAdDetailState
+  const getPaidAdDetailState = useSelector(
+    (state) => state.getPaidAdDetailState
   );
-  const { sellerAvatarUrl } = getFreeAdDetailState;
+  const { sellerAvatarUrl } = getPaidAdDetailState;
+  // console.log("sellerAvatarUrl:", sellerAvatarUrl);
 
   useEffect(() => {
     if (
@@ -216,13 +217,13 @@ function AllPaidAdCard({ product }) {
       </Link>
 
       <Card.Body>
-        <div className="d-flex justify-content-between">
-          <Link onClick={viewProductHandler}>
-            <Card.Title as="div">
-              <strong>{product.ad_name}</strong>
-            </Card.Title>
-          </Link>
+        <Link onClick={viewProductHandler} className="py-2">
+          <Card.Title as="div">
+            <strong>{product.ad_name}</strong>
+          </Card.Title>
+        </Link>
 
+        <div className="d-flex justify-content-between py-2">
           <span>
             <Button
               variant="outline-success"
@@ -298,14 +299,16 @@ function AllPaidAdCard({ product }) {
           </Card.Text>
         </div>
 
-        <div className="d-flex justify-content-between py-2">
+        <div className="d-flex justify-content-between">
           <Card.Text as="h5" className="py-2">
             <span>
               NGN {product?.price}{" "}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
+        </div>
 
+        <div className="d-flex justify-content-end">
           <span className="py-2">
             {product?.promo_code ? (
               <Button
@@ -342,7 +345,7 @@ function AllPaidAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="primary"
               size="sm"
               className="py-2 rounded"
               onClick={handleClickMessageSeller}
