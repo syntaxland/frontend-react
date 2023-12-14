@@ -41,8 +41,10 @@ function SellCreditPoint() {
     }
   }, [dispatch, success, history]);
 
+  const lowerCaseUsername = username.toLowerCase();
   const creditPointData = {
-    username: username,
+    // username: username,
+    username: lowerCaseUsername,
     amount: amount,
     password: password,
   };
@@ -90,7 +92,7 @@ function SellCreditPoint() {
                 placeholder="Enter cps receiver's username"
                 className="rounded"
                 required
-                maxLength={20}
+                maxLength={12}
               />
             </Form.Group>
 
