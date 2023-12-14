@@ -139,71 +139,58 @@ function RegisterScreen({ location }) {
 
     if (!username) {
       setUsernameError("Please enter your username.");
-      return;
     } else if (username.length < 6) {
       setUsernameError("Username must be at least 6 characters.");
-      return;
     } else if (/[^a-zA-Z0-9_]/.test(username)) {
       setUsernameError("Username must not contain special characters.");
-      return;
     } else {
       setUsernameError("");
     }
 
     if (!firstName) {
       setFirstNameError("Please enter your first name.");
-      return;
     } else {
       setFirstNameError("");
     }
 
     if (!lastName) {
       setLastNameError("Please enter your last name.");
-      return;
     } else {
       setLastNameError("");
     }
 
     if (!email) {
       setEmailError("Please enter your email.");
-      return;
     } else {
       setEmailError("");
     }
 
     if (!password) {
       setPasswordError("Please enter your password.");
-      return;
     } else if (password !== confirmPassword) {
       setPasswordError("Passwords do not match.");
-      return;
     } else if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters.");
-      return;
     } else {
       setPasswordError("");
     }
 
     if (!confirmPassword) {
       setConfirmPasswordError("Please confirm your password.");
-      return;
     } else {
       setConfirmPasswordError("");
     }
 
     if (!phoneNumber) {
       setPhoneNumberError("Please enter your phone number.");
-      return;
     } else if (phoneNumber.length < 9) {
       setPhoneNumberError("Phone number must be at least 9 digits.");
-      return;
     } else {
       setPhoneNumberError("");
     }
 
     if (!isTermsConditionsRead) {
       setTermsConditionsError("Please accept the terms and conditions.");
-      return;
     } else {
       setTermsConditionsError("");
     }
@@ -252,8 +239,7 @@ function RegisterScreen({ location }) {
 
           {success && (
             <Message fixed variant="success">
-              Registration submitted successfully and verification OTP sent to:{" "}
-              {email}
+              Verification OTP sent to: {email}
             </Message>
           )}
 
@@ -270,6 +256,7 @@ function RegisterScreen({ location }) {
           )}
 
           {loading && <Loader />}
+
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="username">
               <Form.Label>
@@ -286,8 +273,10 @@ function RegisterScreen({ location }) {
               />
 
               <span className="d-flex justify-content-end">
-                {!usernameError && (
+                {!usernameError && username !== "" ? (
                   <i className="far fa-check-circle text-success"></i>
+                ) : (
+                  <></>
                 )}
               </span>
 
@@ -307,8 +296,10 @@ function RegisterScreen({ location }) {
               />
 
               <span className="d-flex justify-content-end">
-                {!firstNameError && (
+                {!firstNameError && firstName !== "" ? (
                   <i className="far fa-check-circle text-success"></i>
+                ) : (
+                  <></>
                 )}
               </span>
 
@@ -330,8 +321,10 @@ function RegisterScreen({ location }) {
               />
 
               <span className="d-flex justify-content-end">
-                {!lastNameError && (
+                {!lastNameError && lastName !== "" ? (
                   <i className="far fa-check-circle text-success"></i>
+                ) : (
+                  <></>
                 )}
               </span>
               <Form.Text className="text-danger">{lastNameError}</Form.Text>
@@ -352,8 +345,10 @@ function RegisterScreen({ location }) {
               />
 
               <span className="d-flex justify-content-end">
-                {!emailError && (
+                {!emailError && email !== "" ? (
                   <i className="far fa-check-circle text-success"></i>
+                ) : (
+                  <></>
                 )}
               </span>
 
@@ -368,7 +363,6 @@ function RegisterScreen({ location }) {
                 country={selectedCountry}
                 value={phoneNumber}
                 maxLength={18}
-                // onChange={(e) => handleFieldChange("phoneNumber", e.target.value)}
                 onChange={(value) => {
                   setPhoneNumber(value);
                   handleFieldChange("phoneNumber", value);
@@ -376,8 +370,10 @@ function RegisterScreen({ location }) {
               />
 
               <span className="d-flex justify-content-end">
-                {!phoneNumberError && (
+                {!phoneNumberError && phoneNumber !== "" ? (
                   <i className="far fa-check-circle text-success"></i>
+                ) : (
+                  <></>
                 )}
               </span>
 
@@ -394,22 +390,26 @@ function RegisterScreen({ location }) {
                 value={password}
                 onChange={(e) => handleFieldChange("password", e.target.value)}
               />
-              <span className="d-flex justify-content-end">
-                {!passwordError && (
-                  <i className="far fa-check-circle text-success"></i>
-                )}
-              </span>
-              <div
-                className="password-toggle-icon"
-                onClick={() => setPasswordVisible(!passwordVisible)}
-              >
-                {passwordVisible ? (
-                  <i className="fas fa-eye-slash"></i>
-                ) : (
-                  <i className="fas fa-eye"></i>
-                )}
-              </div>
+              <div className="d-flex justify-content-between">
+                <span
+                  className="password-toggle-icon"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? (
+                    <i className="fas fa-eye-slash"></i>
+                  ) : (
+                    <i className="fas fa-eye"></i>
+                  )}
+                </span>
 
+                <span className="d-flex justify-content-end">
+                  {!passwordError && password !== "" ? (
+                    <i className="far fa-check-circle text-success"></i>
+                  ) : (
+                    <></>
+                  )}
+                </span>
+              </div>
               <Form.Text className="text-danger">{passwordError}</Form.Text>
             </Form.Group>
 
@@ -420,27 +420,31 @@ function RegisterScreen({ location }) {
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) =>
-                  handleFieldChange("confirmPassword", e.target.value)
+                  handleFieldChange("confirmPassword", e.target.value) 
                 }
               />
-              <span className="d-flex justify-content-end">
-                {!confirmPasswordError && (
-                  <i className="far fa-check-circle text-success"></i>
-                )}
-              </span>
-              <span
-                className="password-toggle-icon"
-                onClick={() =>
-                  setConfirmPasswordVisible(!confirmPasswordVisible)
-                }
-              >
-                {confirmPasswordVisible ? (
-                  <i className="fas fa-eye-slash"></i>
-                ) : (
-                  <i className="fas fa-eye"></i>
-                )}
-              </span>
+              <div className="d-flex justify-content-between">
+                <span
+                  className="password-toggle-icon"
+                  onClick={() =>
+                    setConfirmPasswordVisible(!confirmPasswordVisible)
+                  }
+                >
+                  {confirmPasswordVisible ? (
+                    <i className="fas fa-eye-slash"></i>
+                  ) : (
+                    <i className="fas fa-eye"></i>
+                  )}
+                </span>
 
+                <span className="d-flex justify-content-end">
+                  {!confirmPasswordError && confirmPassword !== "" ? (
+                    <i className="far fa-check-circle text-success"></i>
+                  ) : (
+                    <></>
+                  )}
+                </span>
+              </div>
               <Form.Text className="text-danger">
                 {confirmPasswordError}
               </Form.Text>

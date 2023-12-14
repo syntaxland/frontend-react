@@ -372,8 +372,6 @@ function PostPaidAd({ history }) {
       setPromoCodeError("");
     }
 
-
-
     // if (!condition) {
     //   setConditionError("Please enter ad condtion.");
     // } else {
