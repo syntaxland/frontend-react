@@ -208,16 +208,20 @@ function PaidAdProductDetail({ match, history }) {
                   </ListGroup.Item>
                   <ListGroup.Item>
                     {" "}
-                    Promo Code:
+                    {/* Promo Code: */}
                     <Button
                       variant="outline-primary"
                       size="sm"
                       className="py-2 rounded"
                       disabled
                     >
-                      <i>
+                      {/* <i>
                         {ads?.promo_code} {ads?.discount_percentage}% Off
-                      </i>
+                      </i> */}
+                      <i>
+                  Promo Code: {ads?.promo_code}{" "}
+                  {ads?.discount_percentage}% Off
+                </i>
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>

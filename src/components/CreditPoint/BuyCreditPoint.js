@@ -55,6 +55,7 @@ function BuyCreditPoint({ ad_id }) {
     ["125000", "125,000 cps for NGN 100,000"],
     ["255000", "255,000 cps for NGN 200,000"],
     ["620000", "620,000 cps for NGN 500,000"],
+    ["1500000", "1,500,000 cps for NGN 1,000,000"],
   ];
 
   return (
