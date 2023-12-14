@@ -104,9 +104,19 @@ function Referrals() {
                 <h5 className="text-right py-2">
                   <i className="fas fa-users"></i> Referred Users:{" "}
                   {userReferrals.map((referrals) => (
-                    <span key={referrals.id}>
-                      ({referrals.referred_users.length || "0"})
-                    </span>
+                    <>
+                      {/* <span key={referrals.id}>
+                        ({referrals.referred_users.length || 0})
+                      </span> */}
+
+                      <span key={referrals.id}>
+                        (
+                        {referrals.referred_users.length !== 0
+                          ? referrals.referred_users.length
+                          : 0}
+                        )
+                      </span>
+                    </>
                   ))}
                 </h5>
               </>
@@ -188,7 +198,6 @@ function Referrals() {
                   Generate
                 </Button>
               </div> */}
-
             </div>
           )}
 
