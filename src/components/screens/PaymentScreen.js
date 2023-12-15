@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Paystack from "../payment/Paystack";
 import Paysofter from "../payment/Paysofter";
-import PaysofterPromise from "../payment/PaysofterPromise";
+import PaysofterPromise from "../payment/PaysofterPromise"; 
 
 const API_URL = process.env.REACT_APP_API_URL;
 

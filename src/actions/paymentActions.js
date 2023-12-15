@@ -19,18 +19,58 @@ import {
   CREATE_PAYSOFTER_PROMISE_REQUEST,
   CREATE_PAYSOFTER_PROMISE_SUCCESS,
   CREATE_PAYSOFTER_PROMISE_FAIL,
+  GET_PAYMENT_API_KEYS_REQUEST,
+  GET_PAYMENT_API_KEYS_SUCCESS,
+  GET_PAYMENT_API_KEYS_FAIL,
 } from "../constants/paymentConstants";
 
 import {
   VERIFY_OTP_REQUEST,
   VERIFY_OTP_SUCCESS,
   VERIFY_OTP_FAIL,
+  
 } from "../constants/accountFundOtpConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
 // const PAYSOFTER_URL = "http://localhost:8001";
 const PAYSOFTER_URL = "https://api.paysofter.com";
+
+export const getPaymentApiKeys = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: GET_PAYMENT_API_KEYS_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/get-payment-details/`,
+      config
+    );
+
+    dispatch({
+      type: GET_PAYMENT_API_KEYS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PAYMENT_API_KEYS_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const createPayment = (paymentData) => async (dispatch, getState) => {
   try {

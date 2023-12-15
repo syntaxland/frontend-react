@@ -414,7 +414,7 @@ function RegisterScreen({ location }) {
             </Form.Group>
 
             <Form.Group controlId="confirmPassword">
-              <Form.Label>Confirm Password</Form.Label>
+              <Form.Label><i className="fas fa-key"></i> Confirm Password</Form.Label>
               <Form.Control
                 type={confirmPasswordVisible ? "text" : "password"}
                 placeholder="Confirm Password"
@@ -477,7 +477,7 @@ function RegisterScreen({ location }) {
               </Form.Text>
             )}
 
-            <Row className="py-3">
+            <Row className="py-2">
               <Col className="text-center">
                 <Button
                   className="mt-3 rounded w-100"

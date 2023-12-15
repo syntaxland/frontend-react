@@ -4,20 +4,20 @@ import { Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../../actions/cartActions";
+import { buyCreditPoint } from "../../../actions/creditPointActions";
 import {
-  createPayment,
+  // createPayment,
   createPaysofterPayment,
-} from "../../actions/paymentActions";
-import Message from "../Message";
-import Loader from "../Loader";
+} from "../../../actions/paymentActions";
+import Message from "../../Message";
+import Loader from "../../Loader";
 
 function CardPayment({
-  promoTotalPrice,
+  amount,
   paymentData,
   reference,
   userEmail,
-  publicApiKey,
+  paysofterPublicKey,
 }) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,6 +33,12 @@ function CardPayment({
 
   const paysofterPayment = useSelector((state) => state.paysofterPayment);
   const { loading, success, error } = paysofterPayment;
+
+  const buyCreditPointState = useSelector((state) => state.buyCreditPointState);
+  const {
+    success: buyCreditPointSuccess,
+    error: buyCreditPointError,
+  } = buyCreditPointState;
 
   const [cardType, setCardType] = useState("");
   const [paymentDetails, setPaymentDetails] = useState({
@@ -78,8 +84,8 @@ function CardPayment({
     const paysofterPaymentData = {
       payment_id: reference,
       email: userEmail,
-      amount: promoTotalPrice,
-      public_api_key: publicApiKey,
+      amount: amount,
+      public_api_key: paysofterPublicKey,
       created_at: createdAt,
 
       card_number: paymentDetails.cardNumber,
@@ -90,20 +96,31 @@ function CardPayment({
     dispatch(createPaysofterPayment(paysofterPaymentData));
   };
 
+  const creditPointData = {
+    amount: amount,
+  };
+
   useEffect(() => {
     if (success) {
-      dispatch(createPayment(paymentData));
-      dispatch(clearCart());
+      dispatch(buyCreditPoint(creditPointData));
       const timer = setTimeout(() => {
-        window.location.reload();
-        // history.push("/dashboard");
-        window.location.href = "/dashboard/users";
+        // window.location.reload();
+        // window.location.href = "/dashboard/users";
       }, 5000);
       return () => clearTimeout(timer);
     }
     // console.log('// eslint-disable-next-line')
     // eslint-disable-next-line
   }, [dispatch, success, history]);
+
+  useEffect(() => {
+    if (buyCreditPointSuccess) {
+      const timer = setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [buyCreditPointSuccess, history]);
 
   return (
     <div>
@@ -114,6 +131,18 @@ function CardPayment({
 
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
+
+      {buyCreditPointSuccess && (
+        <Message variant="success">
+          Your account has been credited with the credit points purchased for
+          NGN {amount}.
+        </Message>
+      )}
+
+      {buyCreditPointError && (
+        <Message variant="danger">{buyCreditPointError}</Message>
+      )}
+
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label>Card Number</Form.Label>
@@ -181,7 +210,7 @@ function CardPayment({
             Pay{" "}
             <span>
               (NGN{" "}
-              {promoTotalPrice.toLocaleString(undefined, {
+              {amount?.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}

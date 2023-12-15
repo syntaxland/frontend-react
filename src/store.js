@@ -65,6 +65,7 @@ import {
 } from "./reducers/orderReducers";
 
 import {
+  getPaymentApiKeysReducer,
   paymentCreateReducer,
   paysofterPaymentCreateReducer,
   debitPaysofterAccountReducer,
@@ -201,6 +202,7 @@ sellCreditPointState: sellCreditPointReducer,
   allOrderList: allOrderListReducer,
   orderDelete: orderDeleteReducer,
 
+  getPaymentApiKeysState: getPaymentApiKeysReducer,
   paymentCreate: paymentCreateReducer,
   paysofterPayment: paysofterPaymentCreateReducer,
   debitPaysofterAccountState: debitPaysofterAccountReducer,

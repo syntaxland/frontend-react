@@ -2,21 +2,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button, Modal } from "react-bootstrap";
-import { debitPaysofterAccountFund } from "../../actions/paymentActions";
-import Message from "../Message";
-import Loader from "../Loader";
+import { debitPaysofterAccountFund } from "../../../actions/paymentActions";
+
+import Message from "../../Message";
+import Loader from "../../Loader";
 import VerifyAccountFundOtp from "./VerifyAccountFundOtp";
 
 const PaysofterAccountFund = ({
   history,
-  promoTotalPrice,
+  amount,
   paymentData,
   reference,
   userEmail,
-  publicApiKey,
+  paysofterPublicKey,
   duration,
-paymenthMethod,
-currency
+  paymenthMethod,
+  currency,
 }) => {
   const dispatch = useDispatch();
 
@@ -39,6 +40,7 @@ currency
     error,
   } = debitPaysofterAccountState;
   console.log("formattedPayerEmail:", formattedPayerEmail);
+  console.log("paysofterPublicKey:", paysofterPublicKey);
 
   const [accountId, setAccountId] = useState("");
   const [securityCode, setSecurityCode] = useState("");
@@ -63,7 +65,7 @@ currency
   const handleSecurityCodeModalShow = () => {
     setShowSecurityCodeModal(true);
   };
-  
+
   const handleSecurityCodeModalClose = () => {
     setShowSecurityCodeModal(false);
   };
@@ -71,8 +73,6 @@ currency
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible(!securityCodeVisible);
   };
-
-  
 
   const handleInfoModalShow = () => {
     setShowInfoModal(true);
@@ -84,9 +84,9 @@ currency
 
   const debitAccountData = {
     account_id: accountId,
-    security_code: securityCode, 
-    amount: promoTotalPrice, 
-    public_api_key: publicApiKey,
+    security_code: securityCode,
+    amount: amount,
+    public_api_key: paysofterPublicKey,
   };
 
   const submitHandler = (e) => {
@@ -108,9 +108,8 @@ currency
         setShowVerifyAccountFundOtp(true);
       }, 1000);
       return () => clearTimeout(timer);
-    }
-    else {
-      console.error("Error verifying account")
+    } else {
+      console.error("Error verifying account");
     }
     // eslint-disable-next-line
   }, [dispatch, success, history, error]);
@@ -119,12 +118,12 @@ currency
     <>
       {showVerifyAccountFundOtp ? (
         <VerifyAccountFundOtp
-          promoTotalPrice={promoTotalPrice}
+          amount={amount}
           paymentData={paymentData}
           reference={reference}
           currency={currency}
           userEmail={userEmail}
-          publicApiKey={publicApiKey}
+          paysofterPublicKey={paysofterPublicKey}
           securityCode={securityCode}
           accountId={accountId}
           formattedPayerEmail={formattedPayerEmail}
@@ -302,10 +301,11 @@ currency
                       </Modal.Header>
                       <Modal.Body>
                         <p className="text-center">
-                          A 4-digit randomly generated Paysofter Account Security Code that expires
-                          at a given time (e.g. every hour). Having issue
-                          applying the security code? Refresh your paysofter
-                          account page, logout and login or clear browsing data.{" "}
+                          A 4-digit randomly generated Paysofter Account
+                          Security Code that expires at a given time (e.g. every
+                          hour). Having issue applying the security code?
+                          Refresh your paysofter account page, logout and login
+                          or clear browsing data.{" "}
                           <a
                             href="https://paysofter.com/"
                             target="_blank"
@@ -356,13 +356,17 @@ currency
                   Pay{" "}
                   <span>
                     (NGN{" "}
-                    {promoTotalPrice?.toLocaleString(undefined, {
+                    {amount?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
                     )
                   </span>
                 </Button>
+              </div>
+
+              <div className="py-2 d-flex justify-content-center">
+                <Form.Text className="text-danger">{error}</Form.Text>
               </div>
             </Form>
           </Col>

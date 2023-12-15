@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // } from "../../actions/paymentActions";
 import PaysofterButton from "./PaysofterButton"; 
 import ApplyPromoCode from "../ApplyPromoCode";
-import LoaderPaysofter from "../LoaderPaysofter";
+import LoaderPaysofter from "../LoaderPaysofter"; 
 import Message from "../Message";
 import "./Paysofter.css";
 
