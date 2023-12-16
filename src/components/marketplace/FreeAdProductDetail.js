@@ -125,6 +125,10 @@ function FreeAdProductDetail({ match, history }) {
     });
   };
 
+  const handleSellerShopFront = () => {
+    history.push(`/seller-shop-front/${ads?.seller_username}/`);
+  };
+
   return (
     <Container>
       <Row>
@@ -245,7 +249,7 @@ function FreeAdProductDetail({ match, history }) {
                 <ListGroup.Item>
                   <ListGroup.Item>Seller Details</ListGroup.Item>
                   <ListGroup.Item>
-                    <span className="d-flex justify-content-between py-2">
+                    {/* <span className="d-flex justify-content-between py-2">
                       {sellerAvatarUrl && (
                         <img
                           src={sellerAvatarUrl}
@@ -258,7 +262,30 @@ function FreeAdProductDetail({ match, history }) {
                         />
                       )}
                       {ads?.seller_username}
-                    </span>
+                    </span> */}
+                    <Row>
+                      <Col md={4}>
+                        <Link
+                          to={`/seller-shop-front/${ads?.seller_username}/`}
+                        >
+                          <span className="d-flex justify-content-between py-2">
+                            {sellerAvatarUrl && (
+                              <img
+                                src={sellerAvatarUrl}
+                                alt="Seller"
+                                style={{
+                                  maxWidth: "80px",
+                                  maxHeight: "80px",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                            )}
+                            {ads?.seller_username}
+                          </span>
+                        </Link>
+                      </Col>
+                      {/* <Col>Go to Seller Shopfront</Col> */}
+                    </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
                     <div>
@@ -334,14 +361,24 @@ function FreeAdProductDetail({ match, history }) {
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      className="py-2 rounded"
-                      onClick={handleClickMessageSeller}
-                    >
-                      <i className="fa fa-message"></i> Message Seller
-                    </Button>
+                    <span className="d-flex justify-content-between py-2">
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="py-2 rounded"
+                        onClick={handleClickMessageSeller}
+                      >
+                        <i className="fa fa-message"></i> Message Seller
+                      </Button>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="py-2 rounded"
+                        onClick={handleSellerShopFront}
+                      >
+                        <i className="fa fa-shopping-cart"></i> Go to Seller Shopfront
+                      </Button>
+                    </span>
                   </ListGroup.Item>
 
                   <ListGroup.Item>

@@ -115,6 +115,8 @@ import {
 import {
   buyCreditPointReducer,
   sellCreditPointReducer,
+  getBuyCreditPointReducer,
+  getSellCreditPointReducer,
   creditPointRequestCreateReducer,
   creditPointListReducer,
   creditPointAllListReducer,
@@ -193,6 +195,8 @@ const reducer = combineReducers({
 
   buyCreditPointState: buyCreditPointReducer,
   sellCreditPointState: sellCreditPointReducer,
+  getBuyCreditPointState: getBuyCreditPointReducer,
+  getSellCreditPointState: getSellCreditPointReducer,
   creditPointRequestCreate: creditPointRequestCreateReducer,
   creditPointList: creditPointListReducer,
   creditPointAllList: creditPointAllListReducer,

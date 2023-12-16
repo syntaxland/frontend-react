@@ -64,7 +64,7 @@ function BuyCreditPoint() {
                 <Form.Control
                   as="select"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={(e) => setAmount(e.target.value)} 
                   className="rounded py-2 mb-2"
                   required
                 >

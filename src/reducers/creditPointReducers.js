@@ -27,6 +27,13 @@ import {
   SELL_CREDIT_POINT_REQUEST,
   SELL_CREDIT_POINT_SUCCESS,
   SELL_CREDIT_POINT_FAIL,
+
+  GET_BUY_CREDIT_POINT_REQUEST,
+  GET_BUY_CREDIT_POINT_SUCCESS,
+  GET_BUY_CREDIT_POINT_FAIL,
+  GET_SELL_CREDIT_POINT_REQUEST,
+  GET_SELL_CREDIT_POINT_SUCCESS,
+  GET_SELL_CREDIT_POINT_FAIL,
 } from "../constants/creditPointConstants";
 
 const initialState = {
@@ -41,6 +48,33 @@ const initialState = {
   creditPointAllPayments: [],
 
   creditPointEarnings: [],
+  creditPoints: [],
+};
+
+export const getBuyCreditPointReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_BUY_CREDIT_POINT_REQUEST:
+      return { ...state, loading: true };
+    case GET_BUY_CREDIT_POINT_SUCCESS:
+      return { ...state, loading: false, success: true, creditPoints: action.payload };
+    case GET_BUY_CREDIT_POINT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getSellCreditPointReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SELL_CREDIT_POINT_REQUEST:
+      return { ...state, loading: true };
+    case GET_SELL_CREDIT_POINT_SUCCESS:
+      return { ...state, loading: false, success: true, creditPoints: action.payload };
+    case GET_SELL_CREDIT_POINT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const buyCreditPointReducer = (state = initialState, action) => {

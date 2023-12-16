@@ -334,7 +334,7 @@ function PostPaidAd({ history }) {
       const timer = setTimeout(() => {
         // history.push("/seller/bank");
         window.location.reload();
-      }, 5000);
+      }, 5000); 
       return () => clearTimeout(timer);
     }
   }, [dispatch, success, history]);
@@ -598,7 +598,7 @@ function PostPaidAd({ history }) {
                 type="text"
                 value={promoCode}
                 onChange={(e) => handleFieldChange("promoCode", e.target.value)}
-                placeholder="Enter ad promoCode"
+                placeholder="Enter ad promo code"
                 className="rounded py-2 mb-2"
                 maxLength={10}
               />
@@ -627,7 +627,7 @@ function PostPaidAd({ history }) {
                 onChange={(e) =>
                   handleFieldChange("countInStock", e.target.value)
                 }
-                placeholder="Enter ad countInStock"
+                placeholder="Enter number of ad in stock"
                 className="rounded py-2 mb-2"
                 maxLength={100}
               />
@@ -687,7 +687,7 @@ function PostPaidAd({ history }) {
             <Form.Group>
               <Form.Check
                 type="checkbox"
-                label="Renewal Automatically?"
+                label="Renew Automatically?"
                 checked={isAutoRenewal}
                 onChange={(e) =>
                   handleFieldChange("isAutoRenewal", e.target.checked)

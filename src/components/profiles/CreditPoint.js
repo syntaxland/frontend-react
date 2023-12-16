@@ -10,6 +10,8 @@ import {
 import Message from "../Message";
 import Loader from "../Loader";
 import CreditPointEarning from "./CreditPointEarning";
+import GetBuyCreditPoint from "../CreditPoint/GetBuyCreditPoint";
+import GetSellCreditPoint from "../CreditPoint/GetSellCreditPoint";
 
 const CreditPoint = () => {
   const dispatch = useDispatch();
@@ -75,6 +77,14 @@ const CreditPoint = () => {
       <Row>
         <div className="justify-content-md-center">
           <Col>
+            <div>
+              <GetBuyCreditPoint />
+            </div>
+
+            <div>
+              <GetSellCreditPoint />
+            </div>
+
             <div>
               {/* <h1 className="text-center py-3">Credit Point Earnings</h1> */}
               <CreditPointEarning />
@@ -182,7 +192,9 @@ const CreditPoint = () => {
 
             <div>
               <hr />
-              <h1 className="py-3 text-center">Credit Point Withdrawal Requests</h1>
+              <h1 className="py-3 text-center">
+                Credit Point Withdrawal Requests
+              </h1>
               <hr />
 
               {loading ? (

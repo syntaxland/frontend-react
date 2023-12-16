@@ -43,7 +43,7 @@ function PaidAdProductDetail({ match, history }) {
       window.location.href = "/login";
     }
   }, [userInfo]);
-  
+
   const getSellerAccountState = useSelector(
     (state) => state.getSellerAccountState
   );
@@ -153,6 +153,10 @@ function PaidAdProductDetail({ match, history }) {
     });
   };
 
+  const handleSellerShopFront = () => {
+    history.push(`/seller-shop-front/${ads?.seller_username}/`);
+  };
+
   return (
     <Container>
       <Row>
@@ -216,12 +220,12 @@ function PaidAdProductDetail({ match, history }) {
                       disabled
                     >
                       {/* <i>
-                        {ads?.promo_code} {ads?.discount_percentage}% Off
+                        {ads?.promo_code} {ads?.discount_percentage}% Off 
                       </i> */}
                       <i>
-                  Promo Code: {ads?.promo_code}{" "}
-                  {ads?.discount_percentage}% Off
-                </i>
+                        Promo Code: {ads?.promo_code} {ads?.discount_percentage}
+                        % Off
+                      </i>
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>
@@ -268,23 +272,26 @@ function PaidAdProductDetail({ match, history }) {
                   <ListGroup.Item>
                     <Row>
                       <Col md={4}>
-                      <Link to={`/seller-shop-front/${ads?.seller_username}/`}>
-                        <span className="d-flex justify-content-between py-2">
-                          {sellerAvatarUrl && (
-                            <img
-                              src={sellerAvatarUrl}
-                              alt="Seller"
-                              style={{
-                                maxWidth: "80px",
-                                maxHeight: "80px",
-                                borderRadius: "50%", 
-                              }}
-                            /> 
-                          )}
-                          {ads?.seller_username}
-                        </span>
+                        <Link
+                          to={`/seller-shop-front/${ads?.seller_username}/`}
+                        >
+                          <span className="d-flex justify-content-between py-2">
+                            {sellerAvatarUrl && (
+                              <img
+                                src={sellerAvatarUrl}
+                                alt="Seller"
+                                style={{
+                                  maxWidth: "80px",
+                                  maxHeight: "80px",
+                                  borderRadius: "50%",
+                                }}
+                              />
+                            )}
+                            {ads?.seller_username}
+                          </span>
                         </Link>
                       </Col>
+                      {/* <Col>Go to Seller Shopfront</Col> */}
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>
@@ -360,14 +367,24 @@ function PaidAdProductDetail({ match, history }) {
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      className="py-2 rounded"
-                      onClick={handleClickMessageSeller}
-                    >
-                      <i className="fa fa-message"></i> Message Seller
-                    </Button>
+                    <span className="d-flex justify-content-between py-2">
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="py-2 rounded"
+                        onClick={handleClickMessageSeller}
+                      >
+                        <i className="fa fa-message"></i> Message Seller
+                      </Button>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="py-2 rounded"
+                        onClick={handleSellerShopFront}
+                      >
+                        <i className="fa fa-shopping-cart"></i> Go to Seller Shopfront
+                      </Button>
+                    </span>
                   </ListGroup.Item>
 
                   <ListGroup.Item>

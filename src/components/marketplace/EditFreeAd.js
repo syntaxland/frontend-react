@@ -601,7 +601,7 @@ function EditFreeAd({ history, match }) {
             <Form.Group>
               <Form.Check
                 type="checkbox"
-                label="Renewal Automatically?"
+                label="Renew Automatically?"
                 name="is_auto_renewal"
                 checked={editAdData.is_auto_renewal}
                 onChange={handleEditAdChanges}
