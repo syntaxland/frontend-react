@@ -1,24 +1,22 @@
-// AllFreeAdScreen.js
+// SellerActivePaidAdScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import {
-   getAllFreeAd,
-} from "../../actions/marketplaceSellerActions";
+import { getSellerActivePaidAds } from "../../actions/marketplaceSellerActions";
 
-import AllFreeAdCard from "./AllFreeAdCard";
+import AllPaidAdCard from "./AllPaidAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function AllFreeAdScreen() {
+function SellerActivePaidAdScreen() {
   const dispatch = useDispatch();
 
-  const getAllFreeAdState = useSelector((state) => state.getAllFreeAdState);
-  const { loading, error, ads } = getAllFreeAdState;
-  console.log("All Free Ads:", ads);
+  const getSellerActivePaidAdsState = useSelector((state) => state.getSellerActivePaidAdsState);
+  const { loading, error, ads } = getSellerActivePaidAdsState; 
+  console.log("Seller Paid Active Ads:", ads);
 
   useEffect(() => {
-    dispatch(getAllFreeAd());
+    dispatch(getSellerActivePaidAds());
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +38,7 @@ function AllFreeAdScreen() {
       <Row>
         <Col>
           <hr />
-          <h1 className="text-center">Running Ads</h1>
+          <h1 className="text-center">Promoted Ads</h1>
           <hr />
           {loading ? (
             <Loader />
@@ -49,16 +47,16 @@ function AllFreeAdScreen() {
           ) : (
             <>
               {currentItems?.length === 0 ? (
-                <div className="text-center">Running ads appear here.</div>
+                <div className="text-center">Promoted ads appear here.</div>
               ) : (
                 <Row>
                   {currentItems?.map((product) => (
                     <Col key={product.id} xs={12} sm={12} md={6} lg={4} xl={4}>
-                      <AllFreeAdCard product={product} />
+                      <AllPaidAdCard product={product} />
                     </Col>
                   ))}
                 </Row>
-              )} 
+              )}
               <nav className="mt-4">
                 <ul className="pagination justify-content-center">
                   <li
@@ -111,4 +109,4 @@ function AllFreeAdScreen() {
   );
 }
 
-export default AllFreeAdScreen;
+export default SellerActivePaidAdScreen;

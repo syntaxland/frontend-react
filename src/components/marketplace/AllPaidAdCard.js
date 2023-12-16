@@ -320,7 +320,7 @@ function AllPaidAdCard({ product }) {
                 <i>
                   Promo Code: {product?.promo_code}{" "}
                   {product?.discount_percentage}% Off
-                </i>
+                </i> 
               </Button>
             ) : (
               <></>

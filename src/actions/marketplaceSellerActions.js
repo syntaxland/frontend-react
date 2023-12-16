@@ -91,9 +91,85 @@ import {
   EDIT_FREE_AD_REQUEST,
   EDIT_FREE_AD_SUCCESS,
   EDIT_FREE_AD_FAIL,
+  GET_SELLER_ACTIVE_PAID_ADS_REQUEST,
+  GET_SELLER_ACTIVE_PAID_ADS_SUCCESS,
+  GET_SELLER_ACTIVE_PAID_ADS_FAIL,
+  GET_SELLER_ACTIVE_FREE_ADS_REQUEST,
+  GET_SELLER_ACTIVE_FREE_ADS_SUCCESS,
+  GET_SELLER_ACTIVE_FREE_ADS_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
+
+export const getSellerActivePaidAds = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: GET_SELLER_ACTIVE_PAID_ADS_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/get-seller-active-paid-ads/`,
+      config
+    );
+
+    dispatch({
+      type: GET_SELLER_ACTIVE_PAID_ADS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SELLER_ACTIVE_PAID_ADS_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getSellerActiveFreeAds = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: GET_SELLER_ACTIVE_FREE_ADS_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/get-seller-active-free-ads/`,
+      config
+    );
+
+    dispatch({
+      type: GET_SELLER_ACTIVE_FREE_ADS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SELLER_ACTIVE_FREE_ADS_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const deactivateFreeAd = (adData) => async (dispatch, getState) => {
   try {

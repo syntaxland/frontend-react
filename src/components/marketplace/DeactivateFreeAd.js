@@ -60,7 +60,7 @@ function DeactivateFreeAd({ ad_id }) {
               className="fa fa-warning"
               style={{ fontSize: "18px", color: "yellow" }}
             ></i>{" "}
-            Warning! This action will deactivate this ad and it's irreversible. Type{" "}
+            Warning! This action will deactivate this ad. Type{" "}
             <i>deactivate</i> to confirm the deactivation.
           </p>
 

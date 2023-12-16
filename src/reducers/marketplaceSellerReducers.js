@@ -90,6 +90,13 @@ import {
   EDIT_FREE_AD_REQUEST,
   EDIT_FREE_AD_SUCCESS,
   EDIT_FREE_AD_FAIL,
+
+  GET_SELLER_ACTIVE_PAID_ADS_REQUEST,
+  GET_SELLER_ACTIVE_PAID_ADS_SUCCESS,
+  GET_SELLER_ACTIVE_PAID_ADS_FAIL,
+  GET_SELLER_ACTIVE_FREE_ADS_REQUEST,
+  GET_SELLER_ACTIVE_FREE_ADS_SUCCESS,
+  GET_SELLER_ACTIVE_FREE_ADS_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -102,6 +109,42 @@ const initialState = {
   adMessages: [],
   sellerApiKey: [],
   sellerAvatarUrl: [],
+};
+
+export const getSellerActivePaidAdsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SELLER_ACTIVE_PAID_ADS_REQUEST:
+      return { loading: true };
+    case GET_SELLER_ACTIVE_PAID_ADS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        ads: action.payload,
+      };
+
+    case GET_SELLER_ACTIVE_PAID_ADS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getSellerActiveFreeAdsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SELLER_ACTIVE_FREE_ADS_REQUEST:
+      return { loading: true };
+    case GET_SELLER_ACTIVE_FREE_ADS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        ads: action.payload,
+      };
+
+    case GET_SELLER_ACTIVE_FREE_ADS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const deactivateFreeAdReducer = (state = initialState, action) => {

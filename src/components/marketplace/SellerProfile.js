@@ -7,7 +7,7 @@ import {
   getSellerAccount,
   updateSellerAccount,
   getSellerPhoto,
-  updateSellerPhoto,
+  updateSellerPhoto, 
   getSellerPaysofterApiKey,
   updateSellerPaysofterApiKey,
 } from "../../actions/marketplaceSellerActions";

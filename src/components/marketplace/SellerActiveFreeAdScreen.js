@@ -1,24 +1,24 @@
-// AllFreeAdScreen.js
+// SellerActiveFreeAdScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import {
-   getAllFreeAd,
+   getSellerActiveFreeAds,
 } from "../../actions/marketplaceSellerActions";
 
 import AllFreeAdCard from "./AllFreeAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function AllFreeAdScreen() {
+function SellerActiveFreeAdScreen() {
   const dispatch = useDispatch();
 
-  const getAllFreeAdState = useSelector((state) => state.getAllFreeAdState);
-  const { loading, error, ads } = getAllFreeAdState;
+  const getSellerActiveFreeAdsState = useSelector((state) => state.getSellerActiveFreeAdsState);
+  const { loading, error, ads } = getSellerActiveFreeAdsState;
   console.log("All Free Ads:", ads);
 
   useEffect(() => {
-    dispatch(getAllFreeAd());
+    dispatch(getSellerActiveFreeAds());
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -111,4 +111,4 @@ function AllFreeAdScreen() {
   );
 }
 
-export default AllFreeAdScreen;
+export default SellerActiveFreeAdScreen;

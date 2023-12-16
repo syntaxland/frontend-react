@@ -44,6 +44,8 @@ import {
   deactivatePaidAdReducer,
   reactivatePaidAdReducer,
   deactivateFreeAdReducer,
+  getSellerActivePaidAdsReducer,
+getSellerActiveFreeAdsReducer,
   reactivateFreeAdReducer,
   editFreeAdReducer,
   listPaidAdMessageReducer,
@@ -288,6 +290,8 @@ const reducer = combineReducers({
   reactivatePaidAdState: reactivatePaidAdReducer,
 
   deactivateFreeAdState: deactivateFreeAdReducer,
+  getSellerActivePaidAdsState: getSellerActivePaidAdsReducer,
+  getSellerActiveFreeAdsState: getSellerActiveFreeAdsReducer,
   reactivateFreeAdState: reactivateFreeAdReducer,
   editFreeAdState: editFreeAdReducer,
 

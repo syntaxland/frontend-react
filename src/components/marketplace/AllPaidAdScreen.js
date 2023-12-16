@@ -12,7 +12,7 @@ function AllPaidAdScreen() {
   const dispatch = useDispatch();
 
   const getAllPaidAdState = useSelector((state) => state.getAllPaidAdState);
-  const { loading, error, ads } = getAllPaidAdState;
+  const { loading, error, ads } = getAllPaidAdState; 
   console.log("PaidAds:", ads);
 
   useEffect(() => {
