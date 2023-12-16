@@ -10,7 +10,7 @@ import {
   // getPaidAd,
   //  updatePaidAd,
   //  deletePaidAd,
-  //  getAllPaidAd,
+  //  getAllPaidAd,  
 } from "../../actions/marketplaceSellerActions";
 
 import FreeAdCard from "./FreeAdCard";
@@ -22,7 +22,7 @@ function FreeAdScreen() {
 
   const getFreeAdState = useSelector((state) => state.getFreeAdState);
   const { loading, error, ads } = getFreeAdState;
-  console.log("Free Ads:", ads);
+  console.log("Free Ads screen:", ads);
 
   useEffect(() => {
     dispatch(getSellerFreeAd());

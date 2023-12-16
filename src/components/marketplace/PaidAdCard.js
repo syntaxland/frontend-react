@@ -43,7 +43,7 @@ function PaidAdCard({ product }) {
 
   const handleEditAd = () => {
     const id = product.id;
-    history.push(`/edit/paid/ad/${id}`);
+    history.push(`/edit/paid/ad/${id}`); 
   };
 
   const [deactivateAdModal, setDeactivateAdModal] = useState(false);

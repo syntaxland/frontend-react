@@ -65,7 +65,8 @@ import FreeAdMessage from "./components/marketplace/FreeAdMessage";
 import EditPaidAd from "./components/marketplace/EditPaidAd";
 import SellerShopFront from "./components/marketplace/SellerShopFront";
 
-// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+import EditFreeAd from "./components/marketplace/EditFreeAd";
+
 // import PaidAdMessage from "./components/marketplace/PaidAdMessage";
 
 function App() {
@@ -148,8 +149,10 @@ function App() {
           <Route path="/paid/ad/message/:id" component={PaidAdMessage} />
           <Route path="/free/ad/message/:id" component={FreeAdMessage} />
           <Route path="/edit/paid/ad/:id" component={EditPaidAd} />
+          <Route path="/edit/free/ad/:id" component={EditFreeAd} />
           <Route path="/seller-shop-front/:seller_username" component={SellerShopFront} />
-          {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
+
+          {/* <Route path="/paid-ad-screen" component={EditFreeAd} /> */}
           {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
 
           <Route

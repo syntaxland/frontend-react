@@ -49,7 +49,7 @@ function AllFreeAdScreen() {
           ) : (
             <>
               {currentItems?.length === 0 ? (
-                <div className="text-center">Promoted ads appear here.</div>
+                <div className="text-center">Running ads appear here.</div>
               ) : (
                 <Row>
                   {currentItems?.map((product) => (

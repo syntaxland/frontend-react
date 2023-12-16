@@ -41,8 +41,11 @@ import {
   getPaidAdDetailReducer,
   createPaidAdMessageReducer,
   editPaidAdReducer,
-deactivatePaidAdReducer,
-reactivatePaidAdReducer,
+  deactivatePaidAdReducer,
+  reactivatePaidAdReducer,
+  deactivateFreeAdReducer,
+  reactivateFreeAdReducer,
+  editFreeAdReducer,
   listPaidAdMessageReducer,
   createFreeAdMessageReducer,
   listFreeAdMessageReducer,
@@ -111,7 +114,7 @@ import {
 
 import {
   buyCreditPointReducer,
-sellCreditPointReducer,
+  sellCreditPointReducer,
   creditPointRequestCreateReducer,
   creditPointListReducer,
   creditPointAllListReducer,
@@ -189,7 +192,7 @@ const reducer = combineReducers({
   orderEditReview: orderEditReviewReducer,
 
   buyCreditPointState: buyCreditPointReducer,
-sellCreditPointState: sellCreditPointReducer,
+  sellCreditPointState: sellCreditPointReducer,
   creditPointRequestCreate: creditPointRequestCreateReducer,
   creditPointList: creditPointListReducer,
   creditPointAllList: creditPointAllListReducer,
@@ -277,8 +280,12 @@ sellCreditPointState: sellCreditPointReducer,
   getPaidAdDetailState: getPaidAdDetailReducer,
 
   editPaidAdState: editPaidAdReducer,
-deactivatePaidAdState: deactivatePaidAdReducer,
-reactivatePaidAdState: reactivatePaidAdReducer,
+  deactivatePaidAdState: deactivatePaidAdReducer,
+  reactivatePaidAdState: reactivatePaidAdReducer,
+
+  deactivateFreeAdState: deactivateFreeAdReducer,
+  reactivateFreeAdState: reactivateFreeAdReducer,
+  editFreeAdState: editFreeAdReducer,
 
   createPaidAdMessageState: createPaidAdMessageReducer,
   listPaidAdMessageState: listPaidAdMessageReducer,

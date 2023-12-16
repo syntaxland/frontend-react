@@ -1,13 +1,13 @@
-// DeleteFreeAd.js
+// DeactivateFreeAd.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { deleteFreeAd } from "../../actions/marketplaceSellerActions";
-import { useHistory } from "react-router-dom"; 
+import { deactivateFreeAd } from "../../actions/marketplaceSellerActions";
+import { useHistory } from "react-router-dom";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function DeleteFreeAd({ ad_id }) {
+function DeactivateFreeAd({ ad_id }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,9 +20,8 @@ function DeleteFreeAd({ ad_id }) {
     }
   }, [userInfo]);
 
-  const deleteFreeAdState = useSelector((state) => state.deleteFreeAdState);
-  const { success, error, loading } = deleteFreeAdState;
-
+  const deactivateFreeAdState = useSelector((state) => state.deactivateFreeAdState);
+  const { success, error, loading } = deactivateFreeAdState;
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
@@ -42,8 +41,8 @@ function DeleteFreeAd({ ad_id }) {
   };
   console.log("adData:", adData);
 
-  const handleDeleteFreeAd = () => {
-    dispatch(deleteFreeAd(adData));
+  const handleDeactivateFreeAd = () => {
+    dispatch(deactivateFreeAd(adData));
   };
 
   return (
@@ -52,7 +51,7 @@ function DeleteFreeAd({ ad_id }) {
         <Col>
           {loading && <Loader />}
           {success && (
-            <Message variant="success">Ad deleted successfully.</Message>
+            <Message variant="success">Ad deactivate successfully.</Message>
           )}
           {error && <Message variant="danger">{error}</Message>}
 
@@ -61,8 +60,8 @@ function DeleteFreeAd({ ad_id }) {
               className="fa fa-warning"
               style={{ fontSize: "18px", color: "yellow" }}
             ></i>{" "}
-            Warning! This action will delete this ad and it's irreversible. Type{" "}
-            <i>delete</i> to confirm the deletion.
+            Warning! This action will deactivate this ad and it's irreversible. Type{" "}
+            <i>deactivate</i> to confirm the deactivation.
           </p>
 
           <Form>
@@ -71,21 +70,21 @@ function DeleteFreeAd({ ad_id }) {
                 type="text"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                placeholder="delete"
+                placeholder="deactivate"
                 className="rounded mt-2"
                 required
-                maxLength={6}
+                maxLength={10}
               />
             </Form.Group>
           </Form>
 
           <Button
             variant="primary"
-            onClick={handleDeleteFreeAd}
+            onClick={handleDeactivateFreeAd}
             className="rounded mt-2 text-center w-100"
-            disabled={keyword.toLowerCase() !== "delete"}
+            disabled={keyword.toLowerCase() !== "deactivate"}
           >
-            Delete Ad
+            Deactivate Ad
           </Button>
         </Col>
       </Row>
@@ -93,4 +92,4 @@ function DeleteFreeAd({ ad_id }) {
   );
 }
 
-export default DeleteFreeAd;
+export default DeactivateFreeAd;

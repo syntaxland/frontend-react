@@ -72,7 +72,6 @@ import {
   LIST_FREE_AD_MESSAGE_REQUEST,
   LIST_FREE_AD_MESSAGE_SUCCESS,
   LIST_FREE_AD_MESSAGE_FAIL,
-
   EDIT_PAID_AD_REQUEST,
   EDIT_PAID_AD_SUCCESS,
   EDIT_PAID_AD_FAIL,
@@ -82,6 +81,15 @@ import {
   REACTIVATE_PAID_AD_REQUEST,
   REACTIVATE_PAID_AD_SUCCESS,
   REACTIVATE_PAID_AD_FAIL,
+  DEACTIVATE_FREE_AD_REQUEST,
+  DEACTIVATE_FREE_AD_SUCCESS,
+  DEACTIVATE_FREE_AD_FAIL,
+  REACTIVATE_FREE_AD_REQUEST,
+  REACTIVATE_FREE_AD_SUCCESS,
+  REACTIVATE_FREE_AD_FAIL,
+  EDIT_FREE_AD_REQUEST,
+  EDIT_FREE_AD_SUCCESS,
+  EDIT_FREE_AD_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -96,16 +104,48 @@ const initialState = {
   sellerAvatarUrl: [],
 };
 
-export const editPaidAdReducer = (state = initialState, action) => {
+export const deactivateFreeAdReducer = (state = initialState, action) => {
   switch (action.type) {
-    case EDIT_PAID_AD_REQUEST:
+    case DEACTIVATE_FREE_AD_REQUEST:
       return { loading: true };
-    case EDIT_PAID_AD_SUCCESS:
+    case DEACTIVATE_FREE_AD_SUCCESS:
       return {
         loading: false,
         success: true,
       };
-    case EDIT_PAID_AD_FAIL:
+    case DEACTIVATE_FREE_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const reactivateFreeAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REACTIVATE_FREE_AD_REQUEST:
+      return { loading: true };
+    case REACTIVATE_FREE_AD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case REACTIVATE_FREE_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const editFreeAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case EDIT_FREE_AD_REQUEST:
+      return { loading: true };
+    case EDIT_FREE_AD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case EDIT_FREE_AD_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
@@ -138,6 +178,22 @@ export const reactivatePaidAdReducer = (state = initialState, action) => {
         success: true,
       };
     case REACTIVATE_PAID_AD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const editPaidAdReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case EDIT_PAID_AD_REQUEST:
+      return { loading: true };
+    case EDIT_PAID_AD_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case EDIT_PAID_AD_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
@@ -277,8 +333,7 @@ export const getFreeAdReducer = (state = initialState, action) => {
       return {
         loading: false,
         success: true,
-        ads: action.payload.data,
-        sellerApiKey: action.payload.sellerApiKey,
+        ads: action.payload,
       };
 
     case GET_FREE_AD_FAIL:

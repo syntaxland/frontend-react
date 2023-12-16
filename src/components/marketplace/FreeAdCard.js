@@ -8,15 +8,17 @@ import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
-  // trackProductView,
+  // trackProductView,  
 } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
 import PromoTimer from "../PromoTimer";
 import DeleteFreeAd from "./DeleteFreeAd";
+import DeactivateFreeAd from "./DeactivateFreeAd";
+import ReactivateFreeAd from "./ReactivateFreeAd";
 
 function FreeAdCard({ product }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   const [productSaved, setProductSaved] = useState(false);
   const [totalSaves, setTotalSaves] = useState(product?.ad_save_count);
@@ -44,6 +46,8 @@ function FreeAdCard({ product }) {
     }
   }, [userInfo]);
 
+  const isAdExpired = new Date(product?.expiration_date) < new Date();
+
   const [deleteAdModal, setDeleteModal] = useState(false);
 
   const handleDeleteAdOpen = () => {
@@ -52,6 +56,29 @@ function FreeAdCard({ product }) {
 
   const handleDeleteAdClose = () => {
     setDeleteModal(false);
+  };
+
+
+
+  const [deactivateAdModal, setDeactivateAdModal] = useState(false);
+  const handleDeactivateAdOpen = () => {
+    setDeactivateAdModal(true);
+  };
+  const handleDeactivateAdClose = () => {
+    setDeactivateAdModal(false);
+  };
+
+  const [reactivateAdModal, setReactivateAdModal] = useState(false);
+  const handleReactivateAdOpen = () => {
+    setReactivateAdModal(true);
+  };
+  const handleReleteAdClose = () => {
+    setReactivateAdModal(false);
+  };
+
+  const handleEditAd = () => {
+    const id = product.id;
+    history.push(`/edit/free/ad/${id}`); 
   };
 
   useEffect(() => {
@@ -267,17 +294,40 @@ function FreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="primary"
               size="sm"
               className="py-2 rounded"
+              onClick={handleEditAd}
             >
               Edit
             </Button>
           </span>
 
           <span className="py-2">
+            {isAdExpired ? (
+              <Button
+                variant="primary"
+                size="sm"
+                className="py-2 rounded"
+                onClick={handleReactivateAdOpen}
+              >
+                Reactivate
+              </Button>
+            ) : (
+              <Button
+                variant="primary"
+                size="sm"
+                className="py-2 rounded"
+                onClick={handleDeactivateAdOpen}
+              >
+                Deactivate
+              </Button>
+            )}
+          </span>
+
+          <span className="py-2">
             <Button
-              variant="outline-primary"
+              variant="danger"
               size="sm"
               className="py-2 rounded"
               onClick={handleDeleteAdOpen}
@@ -285,20 +335,11 @@ function FreeAdCard({ product }) {
               Delete
             </Button>
           </span>
-
-          <span className="py-2">
-            <Button
-              variant="outline-primary"
-              size="sm"
-              className="py-2 rounded"
-            >
-              Deactivate
-            </Button>
-          </span>
         </div>
+
         <div className="py-2 text-center">
           <Button
-            variant="outline-primary"
+            variant="outline-tranparent"
             size="sm"
             className="py-2 rounded"
             disabled
@@ -316,6 +357,29 @@ function FreeAdCard({ product }) {
         </Modal.Header>
         <Modal.Body>
           {deleteAdModal && <DeleteFreeAd ad_id={product?.id} />}
+        </Modal.Body>
+      </Modal>
+
+      
+      <Modal show={deactivateAdModal} onHide={handleDeactivateAdClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Deactivate Ad
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {deactivateAdModal && <DeactivateFreeAd ad_id={product?.id} />}
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={reactivateAdModal} onHide={handleReleteAdClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="text-center w-100 py-2">
+            Reactivate Ad
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {reactivateAdModal && <ReactivateFreeAd ad_id={product?.id} />}
         </Modal.Body>
       </Modal>
     </Card>
