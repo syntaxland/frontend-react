@@ -1,21 +1,20 @@
-// GetBuyCreditPoint.js
-// GetBuyCreditPoint.js
+// GetBuyerCreditPoint.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
-import { getUserBuyCreditPoint } from "../../actions/creditPointActions";
+import { getBuyerCreditPoint } from "../../actions/creditPointActions";
 import Message from "../Message";
 import Loader from "../Loader";
 import Pagination from "../Pagination";
 
-function GetBuyCreditPoint() {
+function GetBuyerCreditPoint() {
   const dispatch = useDispatch();
 
-  const getBuyCreditPointState = useSelector(
-    (state) => state.getBuyCreditPointState
+  const getBuyerCreditPointState = useSelector(
+    (state) => state.getBuyerCreditPointState
   );
-  const { loading, creditPoints, error } = getBuyCreditPointState;
-  console.log("GetBuyCreditPoint:", creditPoints);
+  const { loading, creditPoints, error } = getBuyerCreditPointState;
+  console.log("GetBuyerCreditPoint:", creditPoints);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -31,14 +30,14 @@ function GetBuyCreditPoint() {
   const currentItems = creditPoints?.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    dispatch(getUserBuyCreditPoint());
+    dispatch(getBuyerCreditPoint());
   }, [dispatch]);
 
   return (
     <div>
       <hr />
       <h1 className="text-center py-3">
-        <i className="fas fa-credit-card"></i> Bought/Funded CPS List
+        <i className="fas fa-credit-card"></i> Bought CPS List
       </h1>
       <hr />
       {loading ? (
@@ -48,7 +47,7 @@ function GetBuyCreditPoint() {
       ) : (
         <>
           {currentItems.length === 0 ? (
-            <div className="text-center py-3"> Bought cps appear here.</div>
+            <div className="text-center py-3">Bought cps appear here.</div>
           ) : (
             <Table striped bordered hover responsive className="table-sm">
               <thead>
@@ -117,4 +116,4 @@ function GetBuyCreditPoint() {
   );
 }
 
-export default GetBuyCreditPoint;
+export default GetBuyerCreditPoint;

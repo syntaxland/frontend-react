@@ -133,9 +133,9 @@ function GetSellerDetail({ match, history, seller_username }) {
     });
   };
 
-  const handleSellerShopFront = () => {
-    history.push(`/seller-shop-front/${ads?.seller_username}/`); 
-  };
+  // const handleSellerShopFront = () => {
+  //   history.push(`/seller-shop-front/${ads?.seller_username}/`); 
+  // };
 
   return (
     <Container>
@@ -152,92 +152,7 @@ function GetSellerDetail({ match, history, seller_username }) {
             <Message variant="danger">{error} </Message>
           ) : (
             <Row>
-              {/* <Col md={6}>
-                {images.length > 0 ? (
-                  <Carousel
-                    // showArrows={true}
-                    // showIndicators={true}
-                    // showThumbs={true}
-                    useKeyboardArrows={true}
-                    // dynamicHeight={false}
-                  >
-                    {images.map((image, index) => (
-                      <div className="slide" key={index}>
-                        <Image src={image} alt={`Slide ${index + 1}`} fluid />
-                      </div>
-                    ))}
-                  </Carousel>
-                ) : (
-                  <></>
-                )}
-              </Col> */}
-
-              {/* <Col md={3}>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <h3>{ads?.ad_name}</h3>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <span>
-                      <Button
-                        variant="outline-success"
-                        size="sm"
-                        className="rounded"
-                        disabled
-                      >
-                        <i>Promoted</i>
-                      </Button>
-                    </span>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      className="py-2 rounded"
-                      disabled
-                    >
-                      
-                      <i>
-                        Promo Code: {ads?.promo_code} {ads?.discount_percentage}
-                        % Off
-                      </i>
-                    </Button>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Col>
-              <Col md={3}>
-                <Card>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Price:</Col>
-                        <Col>
-                          <strong>NGN {ads?.price}</strong>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-
-                    <ListGroup.Item>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        className="py-2 rounded"
-                        disabled
-                      >
-                        <i className="fas fa-clock"></i> Expires in:{" "}
-                        <PromoTimer expirationDate={ads?.expiration_date} />
-                      </Button>
-                    </ListGroup.Item>
-
-                    {ads?.count_in_stock > 0 && (
-                      <ListGroup.Item>
-                        Quantity in Stock: {ads?.count_in_stock}
-                      </ListGroup.Item>
-                    )}
-                  </ListGroup>
-                </Card>
-              </Col> */}
+             
               <ListGroup className="py-2">
                 
 
@@ -246,9 +161,9 @@ function GetSellerDetail({ match, history, seller_username }) {
                   <ListGroup.Item>
                     <Row>
                       <Col md={4}>
-                        <Link
+                        {/* <Link
                           to={`/seller-shop-front/${ads?.seller_username}/`}
-                        >
+                        > */}
                           <span className="d-flex justify-content-between py-2">
                             {sellerAvatarUrl && (
                               <img
@@ -263,7 +178,7 @@ function GetSellerDetail({ match, history, seller_username }) {
                             )}
                             {ads?.seller_username}
                           </span>
-                        </Link>
+                        {/* </Link> */}
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -349,14 +264,14 @@ function GetSellerDetail({ match, history, seller_username }) {
                       >
                         <i className="fa fa-message"></i> Message Seller
                       </Button>
-                      <Button
+                      {/* <Button
                         variant="primary"
                         size="sm"
                         className="py-2 rounded"
                         onClick={handleSellerShopFront}
                       >
                         <i className="fa fa-shopping-cart"></i> Go to Seller Shopfront
-                      </Button>
+                      </Button> */}
                     </span>
                   </ListGroup.Item>
 
@@ -366,34 +281,14 @@ function GetSellerDetail({ match, history, seller_username }) {
                 </ListGroup.Item>
                 <Row className="d-flex justify-content-center py-2">
                   <Col md={6}>
-                    {/* <ListGroup.Item>
-                      <Button
-                        className="w-100 rounded"
-                        variant="success"
-                        type="button"
-                        // onClick={handlePaysofterOption}
-                      >
-                        Pay With Paysofter Promise
-                      </Button>
-                    </ListGroup.Item> */}
+                    
                   </Col>
                 </Row>
               </ListGroup>
             </Row>
           )}
 
-          {/* <Row className="d-flex justify-content-center">
-            <Col>
-              {showPaysofterOption && (
-                <Paysofter
-                  ads={ads}
-                  buyerEmail={userInfo.email}
-                  amount={ads?.price}
-                  sellerApiKey={sellerApiKey}
-                />
-              )}
-            </Col>
-          </Row> */}
+         
 
           <div className="text-center mt-4 mb-2 text-muted">
             <p style={{ color: "red" }}>

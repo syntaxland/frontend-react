@@ -1,21 +1,20 @@
-// GetBuyCreditPoint.js
-// GetBuyCreditPoint.js
+// GetBuyerCreditPoint.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
-import { getUserBuyCreditPoint } from "../../actions/creditPointActions";
+import { getBuyerCreditPoint } from "../../actions/creditPointActions";
 import Message from "../Message";
 import Loader from "../Loader";
 import Pagination from "../Pagination";
 
-function GetBuyCreditPoint() {
+function GetBuyerCreditPoint() {
   const dispatch = useDispatch();
 
-  const getBuyCreditPointState = useSelector(
-    (state) => state.getBuyCreditPointState
+  const getBuyerCreditPointState = useSelector(
+    (state) => state.getBuyerCreditPointState
   );
-  const { loading, creditPoints, error } = getBuyCreditPointState;
-  console.log("GetBuyCreditPoint:", creditPoints);
+  const { loading, creditPoints, error } = getBuyerCreditPointState;
+  console.log("GetBuyerCreditPoint:", creditPoints);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -31,14 +30,14 @@ function GetBuyCreditPoint() {
   const currentItems = creditPoints?.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    dispatch(getUserBuyCreditPoint());
+    dispatch(getBuyerCreditPoint());
   }, [dispatch]);
 
   return (
     <div>
       <hr />
       <h1 className="text-center py-3">
-        <i className="fas fa-credit-card"></i> Bought/Funded CPS List
+        <i className="fas fa-credit-card"></i> Buyer Recieved CPS List
       </h1>
       <hr />
       {loading ? (
@@ -48,14 +47,15 @@ function GetBuyCreditPoint() {
       ) : (
         <>
           {currentItems.length === 0 ? (
-            <div className="text-center py-3"> Bought cps appear here.</div>
+            <div className="text-center py-3">Buyer cps appear here.</div>
           ) : (
             <Table striped bordered hover responsive className="table-sm">
               <thead>
                 <tr>
                   <th>SN</th>
                   <th>CPS ID</th>
-                  <th>User</th>
+                  <th>Seller</th>
+                  <th>Buyer</th>
                   <th>Amount Paid</th>
                   <th>CPS Amount</th>
                   <th>Success</th>
@@ -66,8 +66,9 @@ function GetBuyCreditPoint() {
                 {currentItems.map((cps, index) => (
                   <tr key={cps.id}>
                     <td>{index + 1}</td>
-                    <td>{cps.cps_purchase_id}</td>
-                    <td>{cps.username}</td>
+                    <td>{cps.cps_sell_id}</td>
+                    <td>{cps.seller_username}</td>
+                    <td>{cps.buyer_username}</td>
                     <td>NGN {cps.amount}</td>
                     <td>{cps.cps_amount}</td>
                     <td>
@@ -117,4 +118,4 @@ function GetBuyCreditPoint() {
   );
 }
 
-export default GetBuyCreditPoint;
+export default GetBuyerCreditPoint;

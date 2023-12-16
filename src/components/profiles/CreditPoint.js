@@ -12,6 +12,7 @@ import Loader from "../Loader";
 import CreditPointEarning from "./CreditPointEarning";
 import GetBuyCreditPoint from "../CreditPoint/GetBuyCreditPoint";
 import GetSellCreditPoint from "../CreditPoint/GetSellCreditPoint";
+import GetBuyerCreditPoint from "../CreditPoint/GetBuyerCreditPoint";
 
 const CreditPoint = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,10 @@ const CreditPoint = () => {
 
             <div>
               <GetSellCreditPoint />
+            </div>
+
+            <div>
+              <GetBuyerCreditPoint />
             </div>
 
             <div>

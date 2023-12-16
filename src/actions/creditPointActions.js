@@ -28,16 +28,49 @@ import {
   SELL_CREDIT_POINT_REQUEST,
   SELL_CREDIT_POINT_SUCCESS,
   SELL_CREDIT_POINT_FAIL,
-
   GET_BUY_CREDIT_POINT_REQUEST,
-GET_BUY_CREDIT_POINT_SUCCESS,
-GET_BUY_CREDIT_POINT_FAIL,
-GET_SELL_CREDIT_POINT_REQUEST,
-GET_SELL_CREDIT_POINT_SUCCESS,
-GET_SELL_CREDIT_POINT_FAIL,
+  GET_BUY_CREDIT_POINT_SUCCESS,
+  GET_BUY_CREDIT_POINT_FAIL,
+  GET_SELL_CREDIT_POINT_REQUEST,
+  GET_SELL_CREDIT_POINT_SUCCESS,
+  GET_SELL_CREDIT_POINT_FAIL,
+  GET_BUYER_CREDIT_POINT_REQUEST,
+  GET_BUYER_CREDIT_POINT_SUCCESS,
+  GET_BUYER_CREDIT_POINT_FAIL,
 } from "../constants/creditPointConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
+
+export const getBuyerCreditPoint = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: GET_BUYER_CREDIT_POINT_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/get-buyer-credit-point/`,
+      config
+    );
+
+    dispatch({ type: GET_BUYER_CREDIT_POINT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_BUYER_CREDIT_POINT_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const getUserBuyCreditPoint = () => async (dispatch, getState) => {
   try {
