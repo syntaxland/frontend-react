@@ -101,7 +101,7 @@ import {
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getSellerActivePaidAds = () => async (dispatch, getState) => {
+export const getSellerActivePaidAds = (seller_username) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_SELLER_ACTIVE_PAID_ADS_REQUEST });
 
@@ -117,7 +117,7 @@ export const getSellerActivePaidAds = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `${API_URL}/api/get-seller-active-paid-ads/`,
+      `${API_URL}/api/get-seller-active-paid-ads/${seller_username}/`,
       config
     );
 
@@ -136,7 +136,7 @@ export const getSellerActivePaidAds = () => async (dispatch, getState) => {
   }
 };
 
-export const getSellerActiveFreeAds = () => async (dispatch, getState) => {
+export const getSellerActiveFreeAds = (seller_username) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_SELLER_ACTIVE_FREE_ADS_REQUEST });
 
@@ -152,7 +152,7 @@ export const getSellerActiveFreeAds = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `${API_URL}/api/get-seller-active-free-ads/`,
+      `${API_URL}/api/get-seller-active-free-ads/${seller_username}/`,
       config
     );
 

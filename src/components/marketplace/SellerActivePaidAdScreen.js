@@ -8,16 +8,17 @@ import AllPaidAdCard from "./AllPaidAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function SellerActivePaidAdScreen() {
+function SellerActivePaidAdScreen({seller_username}) {
   const dispatch = useDispatch();
 
   const getSellerActivePaidAdsState = useSelector((state) => state.getSellerActivePaidAdsState);
   const { loading, error, ads } = getSellerActivePaidAdsState; 
-  console.log("Seller Paid Active Ads:", ads);
+  console.log("Seller Paid Active Ads:", ads); 
 
   useEffect(() => {
-    dispatch(getSellerActivePaidAds());
-  }, [dispatch]);
+    // const seller_username = "jonbullion"; 
+    dispatch(getSellerActivePaidAds(seller_username));
+  }, [dispatch, seller_username]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

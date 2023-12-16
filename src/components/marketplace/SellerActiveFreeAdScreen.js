@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import {
-   getSellerActiveFreeAds,
+   getSellerActiveFreeAds, 
 } from "../../actions/marketplaceSellerActions";
 
 import AllFreeAdCard from "./AllFreeAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function SellerActiveFreeAdScreen() {
+function SellerActiveFreeAdScreen({seller_username}) {
   const dispatch = useDispatch();
 
   const getSellerActiveFreeAdsState = useSelector((state) => state.getSellerActiveFreeAdsState);
@@ -18,8 +18,8 @@ function SellerActiveFreeAdScreen() {
   console.log("All Free Ads:", ads);
 
   useEffect(() => {
-    dispatch(getSellerActiveFreeAds());
-  }, [dispatch]);
+    dispatch(getSellerActiveFreeAds(seller_username));
+  }, [dispatch, seller_username]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

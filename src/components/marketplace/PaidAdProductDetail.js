@@ -154,7 +154,7 @@ function PaidAdProductDetail({ match, history }) {
   };
 
   const handleSellerShopFront = () => {
-    history.push(`/seller-shop-front/${ads?.seller_username}/`);
+    history.push(`/seller-shop-front/${ads?.seller_username}/`); 
   };
 
   return (
@@ -291,7 +291,6 @@ function PaidAdProductDetail({ match, history }) {
                           </span>
                         </Link>
                       </Col>
-                      {/* <Col>Go to Seller Shopfront</Col> */}
                     </Row>
                   </ListGroup.Item>
                   <ListGroup.Item>

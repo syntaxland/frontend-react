@@ -1,6 +1,7 @@
 // SellerShopFront.js
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { getUserProfile } from "../../actions/userProfileActions";
 
@@ -9,6 +10,8 @@ import SellerActivePaidAdScreen from "./SellerActivePaidAdScreen";
 
 function SellerShopFront() {
   const dispatch = useDispatch();
+  const { seller_username } = useParams();
+  console.log("seller_username:", seller_username)
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -43,11 +46,11 @@ function SellerShopFront() {
           <hr />
 
           <div>
-            <SellerActiveFreeAdScreen />
+            <SellerActiveFreeAdScreen seller_username={seller_username} />
           </div>
 
           <div>
-            <SellerActivePaidAdScreen />
+            <SellerActivePaidAdScreen seller_username={seller_username} />
           </div>
 
           {/* <div className="text-center">
