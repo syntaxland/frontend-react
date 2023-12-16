@@ -7,33 +7,24 @@ import { getUserProfile } from "../../actions/userProfileActions";
 
 import SellerActiveFreeAdScreen from "./SellerActiveFreeAdScreen";
 import SellerActivePaidAdScreen from "./SellerActivePaidAdScreen";
+import GetSellerDetail from "./GetSellerDetail";
 
 function SellerShopFront() {
   const dispatch = useDispatch();
+
   const { seller_username } = useParams();
-  console.log("seller_username:", seller_username)
+  console.log("seller_username:", seller_username);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // const userProfile = useSelector((state) => state.userProfile);
-  // const { profile } = userProfile;
-
   useEffect(() => {
-    if (userInfo) {
+    if (!userInfo) {
+      window.location.href = "/login";
+    } else {
       dispatch(getUserProfile());
     }
   }, [dispatch, userInfo]);
-
-  // const handlePostFreeAd = () => {
-  //   if (!userInfo) {
-  //     history.push("/login");
-  //   } else if (userInfo && !profile.is_marketplace_seller) {
-  //     history.push("/create-marketplace-seller");
-  //   } else {
-  //     history.push("/ad/free");
-  //   }
-  // };
 
   return (
     <div>
@@ -46,28 +37,17 @@ function SellerShopFront() {
           <hr />
 
           <div>
+            <GetSellerDetail seller_username={seller_username} />
+          </div>
+
+          <div>
             <SellerActiveFreeAdScreen seller_username={seller_username} />
           </div>
 
           <div>
             <SellerActivePaidAdScreen seller_username={seller_username} />
           </div>
-
-          {/* <div className="text-center">
-            <span>
-              Post your goods and services and start making more sell.{" "}
-            </span>
-
-            <Button
-              variant="primary"
-              className="rounded"
-              size="sm"
-              onClick={handlePostFreeAd}
-            >
-              Post Free Ads <i className="fas fa-plus-square"></i>
-            </Button>
-          </div> */}
-
+        
           <hr />
         </Col>
       </Row>

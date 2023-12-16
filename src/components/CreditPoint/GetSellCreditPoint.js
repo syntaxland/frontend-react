@@ -47,7 +47,7 @@ function GetSellCreditPoint() {
       ) : (
         <>
           {currentItems.length === 0 ? (
-            <div className="text-center py-3">Bought cps appear here.</div>
+            <div className="text-center py-3">Sold/Shared cps appear here.</div>
           ) : (
             <Table striped bordered hover responsive className="table-sm">
               <thead>
