@@ -37,7 +37,7 @@ function GetBuyerCreditPoint() {
     <div>
       <hr />
       <h1 className="text-center py-3">
-        <i className="fas fa-credit-card"></i> Buyer Recieved CPS List
+        <i className="fas fa-credit-card"></i> Buyer/Recieved CPS List
       </h1>
       <hr />
       {loading ? (
@@ -57,7 +57,7 @@ function GetBuyerCreditPoint() {
                   <th>Seller</th>
                   <th>Buyer</th>
                   <th>Amount Paid</th>
-                  <th>CPS Amount</th>
+                  {/* <th>CPS Amount</th> */}
                   <th>Success</th>
                   <th>Created At</th>
                 </tr>
@@ -70,7 +70,7 @@ function GetBuyerCreditPoint() {
                     <td>{cps.seller_username}</td>
                     <td>{cps.buyer_username}</td>
                     <td>NGN {cps.amount}</td>
-                    <td>{cps.cps_amount}</td>
+                    {/* <td>{cps.cps_amount}</td> */}
                     <td>
                       {cps.is_success ? (
                         <>
