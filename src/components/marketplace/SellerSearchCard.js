@@ -12,14 +12,14 @@ function SellerSearchCard({ sellerUsername }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
 
-  useEffect(() => {
-    if (!userInfo) {
-      window.location.href = "/login";
-    }
-  }, [userInfo]);
+  // useEffect(() => {
+  //   if (!userInfo) {
+  //     window.location.href = "/login";
+  //   }
+  // }, [userInfo]);
 
   const getSellerUsernameSearchState = useSelector(
     (state) => state.getSellerUsernameSearchState
@@ -151,6 +151,10 @@ function SellerSearchCard({ sellerUsername }) {
                         </div>
                       </Col>
                     </Row>
+                  </ListGroup.Item>
+                  
+                  <ListGroup.Item>
+                    Business Name: {serachResults?.business_name}
                   </ListGroup.Item>
 
                   <ListGroup.Item>
