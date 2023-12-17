@@ -3,14 +3,19 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Button, Form } from "react-bootstrap";
 import { getUserProfile } from "../../actions/userProfileActions";
-// import { searchSellerByUsername } from "../../api/seller";
-
 import AllPaidAdScreen from "./AllPaidAdScreen";
 import AllFreeAdScreen from "./AllFreeAdScreen";
+import SellerSearchCard from "./SellerSearchCard";
+import { getSellerUsernameSearch } from "../../actions/marketplaceSellerActions";
 
 function Marketplace({ history }) {
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
+  const [sellerUsername, setSellerUsername] = useState("");
+
+  const [searchSellerUsernameResult, setSellerUsernameSearchResult] = useState(
+    null
+  );
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -34,20 +39,13 @@ function Marketplace({ history }) {
     }
   };
 
-  const handleSearch = async () => {
-    try {
-      const result = "";
-      // const result = await searchSellerByUsername(searchTerm);
-
-      if (result.data) {
-        const sellerUsername = result.data.username;
-        history.push(`/seller-shop-front/${sellerUsername}/`);
-      } else {
-        // Handle case when seller is not found
-        console.log("Seller not found");
+  const handleSellerUsernameSearch = async () => {
+    if (sellerUsername.trim() !== "") {
+      const result = dispatch(getSellerUsernameSearch(sellerUsername));
+      setSellerUsernameSearchResult(result);
+      if (!result) {
+        console.log("Seller not found.");
       }
-    } catch (error) {
-      console.error("Error searching for seller:", error);
     }
   };
 
@@ -79,10 +77,9 @@ function Marketplace({ history }) {
                     variant="primary"
                     className="rounded"
                     size="sm"
-                    onClick={handleSearch}
+                    // onClick={handleAdSearch}
                   >
-                    <i className="fas fa-search"></i>{" "}
-                    Search Ads
+                    <i className="fas fa-search"></i> Search Ads
                   </Button>
                 </Col>
               </Row>
@@ -120,8 +117,8 @@ function Marketplace({ history }) {
                     <Form.Control
                       type="text"
                       placeholder="Search seller by username"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
+                      value={sellerUsername}
+                      onChange={(e) => setSellerUsername(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
@@ -130,15 +127,34 @@ function Marketplace({ history }) {
                     variant="primary"
                     className="rounded"
                     size="sm"
-                    onClick={handleSearch}
+                    onClick={handleSellerUsernameSearch}
+                    required
                   >
-                    <i className="fas fa-search"></i>{" "}
-                    Search Seller
+                    <i className="fas fa-search"></i> Search Seller
                   </Button>
                 </Col>
               </Row>
             </Col>
           </Row>
+
+          {searchSellerUsernameResult && (
+            <Row className="py-2 d-flex justify-content-center">
+              <Col md={6}>
+                <div>
+                  <SellerSearchCard sellerUsername={sellerUsername} />
+                </div>
+              </Col>
+            </Row>
+          )}
+
+          {/* <Row className="py-2 d-flex justify-content-center">
+            <Col md={6}>
+              <div>
+                <SellerSearchCard sellerUsername={sellerUsername} />
+              </div>
+            </Col>
+          </Row> */}
+
           <hr />
         </Col>
       </Row>

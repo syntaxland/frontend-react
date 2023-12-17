@@ -14,9 +14,10 @@ import RatingSeller from "../RatingSeller";
 import Loader from "../Loader";
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
-import { getSellerAccount } from "../../actions/marketplaceSellerActions";
 import {
+  getSellerAccount,
   getPaidAdDetail,
+  getSellerDetail,
 } from "../../actions/marketplaceSellerActions";
 // import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -35,10 +36,23 @@ function GetSellerDetail({ match, history, seller_username }) {
     }
   }, [userInfo]);
 
-  const getSellerAccountState = useSelector(
-    (state) => state.getSellerAccountState
+  // const getSellerAccountState = useSelector(
+  //   (state) => state.getSellerAccountState
+  // );
+  // const { sellerDetail } = getSellerAccountState;
+
+  const getSellerDetailState = useSelector(
+    (state) => state.getSellerDetailState
   );
-  const { sellerAccount } = getSellerAccountState;
+  const {
+    loading,
+    error,
+    sellerAvatarUrl,
+
+    sellerDetail,
+  } = getSellerDetailState;
+  console.log("sellerDetail", sellerDetail);
+
   // const [showPaysofterOption, setShowPaysofterOption] = useState(false);
 
   // const handlePaysofterOption = () => {
@@ -51,24 +65,25 @@ function GetSellerDetail({ match, history, seller_username }) {
     setShowPhoneNumber(!showPhoneNumber);
   };
 
-  const getPaidAdDetailState = useSelector(
-    (state) => state.getPaidAdDetailState
-  );
-  const {
-    loading,
-    error,
-    ads,
-    // sellerApiKey,
-    sellerAvatarUrl,
-  } = getPaidAdDetailState;
-  console.log("sellerAvatarUrl", sellerAvatarUrl);
+  // const getPaidAdDetailState = useSelector(
+  //   (state) => state.getPaidAdDetailState
+  // );
+  // const {
+  //   // loading,
+  //   // error,
+  //   // sellerDetail,
+  //   // sellerApiKey,
+  //   sellerAvatarUrl,
+  // } = getPaidAdDetailState;
+  // console.log("sellerAvatarUrl", sellerAvatarUrl);
 
   useEffect(() => {
     dispatch(getPaidAdDetail(match?.params.id));
     dispatch(getSellerAccount());
-  }, [dispatch, match]);
+    dispatch(getSellerDetail(seller_username));
+  }, [dispatch, seller_username, match]);
 
-  // const images = [ads?.image1, ads?.image2, ads?.image3].filter(Boolean);
+  // const images = [sellerDetail?.image1, sellerDetail?.image2, sellerDetail?.image3].filter(Boolean);
 
   function formatCount(viewCount) {
     if (viewCount >= 1000000) {
@@ -115,26 +130,26 @@ function GetSellerDetail({ match, history, seller_username }) {
     return parts.join(", ");
   }
 
-  const handleClickMessageSeller = () => {
-    const queryParams = {
-      id: ads.id,
-      image1: ads.image1,
-      ad_name: ads.ad_name,
-      price: ads.price,
-      sellerAvatarUrl,
-      seller_username: ads.seller_username,
-      expiration_date: ads.expiration_date,
-      ad_rating: ads.ad_rating,
-    };
+  // const handleClickMessageSeller = () => {
+  //   const queryParams = {
+  //     id: sellerDetail.id,
+  //     image1: sellerDetail.image1,
+  //     ad_name: sellerDetail.ad_name,
+  //     price: sellerDetail.price,
+  //     sellerAvatarUrl,
+  //     seller_username: sellerDetail.seller_username,
+  //     expiration_date: sellerDetail.expiration_date,
+  //     rating: sellerDetail.rating,
+  //   };
 
-    history.push({
-      pathname: `/paid/ad/message/${ads.id}`,
-      search: `?${new URLSearchParams(queryParams).toString()}`,
-    });
-  };
+  //   history.push({
+  //     pathname: `/paid/ad/message/${sellerDetail.id}`,
+  //     search: `?${new URLSearchParams(queryParams).toString()}`,
+  //   });
+  // };
 
   // const handleSellerShopFront = () => {
-  //   history.push(`/seller-shop-front/${ads?.seller_username}/`); 
+  //   history.push(`/seller-shop-front/${sellerDetail?.seller_username}/`);
   // };
 
   return (
@@ -152,32 +167,29 @@ function GetSellerDetail({ match, history, seller_username }) {
             <Message variant="danger">{error} </Message>
           ) : (
             <Row>
-             
               <ListGroup className="py-2">
-                
-
                 <ListGroup.Item>
                   <ListGroup.Item>Seller Details</ListGroup.Item>
                   <ListGroup.Item>
                     <Row>
                       <Col md={4}>
                         {/* <Link
-                          to={`/seller-shop-front/${ads?.seller_username}/`}
+                          to={`/seller-shop-front/${sellerDetail?.seller_username}/`}
                         > */}
-                          <span className="d-flex justify-content-between py-2">
-                            {sellerAvatarUrl && (
-                              <img
-                                src={sellerAvatarUrl}
-                                alt="Seller"
-                                style={{
-                                  maxWidth: "80px",
-                                  maxHeight: "80px",
-                                  borderRadius: "50%",
-                                }}
-                              />
-                            )}
-                            {ads?.seller_username}
-                          </span>
+                        <span className="d-flex justify-content-between py-2">
+                          {sellerAvatarUrl && (
+                            <img
+                              src={sellerAvatarUrl}
+                              alt="Seller"
+                              style={{
+                                maxWidth: "80px",
+                                maxHeight: "80px",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          )}
+                          {sellerDetail?.seller_username}
+                        </span>
                         {/* </Link> */}
                       </Col>
                     </Row>
@@ -185,7 +197,7 @@ function GetSellerDetail({ match, history, seller_username }) {
                   <ListGroup.Item>
                     <div>
                       <span>
-                        {sellerAccount?.is_seller_verified ? (
+                        {sellerDetail?.is_seller_verified ? (
                           <>
                             <Button
                               variant="outline-success"
@@ -221,14 +233,16 @@ function GetSellerDetail({ match, history, seller_username }) {
                   <ListGroup.Item>
                     <span>
                       <RatingSeller
-                        value={ads?.ad_rating}
-                        text={`${formatCount(ads?.num_reviews)} reviews `}
+                        value={sellerDetail?.rating}
+                        text={`${formatCount(
+                          sellerDetail?.num_reviews
+                        )} reviews `}
                         color={"green"}
                       />
                     </span>
                     <span>
                       {userInfo ? (
-                        <Link to={`/review-list/${ads.id}`}>
+                        <Link to={`/review-list/${sellerDetail.id}`}>
                           (Seller Reviews)
                         </Link>
                       ) : (
@@ -250,45 +264,41 @@ function GetSellerDetail({ match, history, seller_username }) {
                       {showPhoneNumber ? "Hide" : "Show"} Seller Phone Number
                     </Button>
                     <p className="mt-2">
-                      {showPhoneNumber && <p>{ads?.seller_phone}</p>}
+                      {showPhoneNumber && <p>{sellerDetail?.seller_phone}</p>}
                     </p>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    <span className="d-flex justify-content-between py-2">
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        className="py-2 rounded"
-                        onClick={handleClickMessageSeller}
-                      >
-                        <i className="fa fa-message"></i> Message Seller
-                      </Button>
-                      {/* <Button
-                        variant="primary"
-                        size="sm"
-                        className="py-2 rounded"
-                        onClick={handleSellerShopFront}
-                      >
-                        <i className="fa fa-shopping-cart"></i> Go to Seller Shopfront
-                      </Button> */}
-                    </span>
+                    Business Name: {sellerDetail?.business_name}
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    Joined since {calculateDuration(ads?.seller_joined_since)}
+                    Category: {sellerDetail?.business_category}
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    Description: {sellerDetail?.business_description}
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    Website: {sellerDetail?.business_website}
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    Business Address: {sellerDetail?.business_address}
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    Country: {sellerDetail?.country}
                   </ListGroup.Item>
                 </ListGroup.Item>
-                <Row className="d-flex justify-content-center py-2">
-                  <Col md={6}>
-                    
-                  </Col>
-                </Row>
+                <ListGroup.Item>
+                  Joined since{" "}
+                  {calculateDuration(sellerDetail?.seller_joined_since)}
+                </ListGroup.Item>
               </ListGroup>
             </Row>
           )}
-
-         
 
           <div className="text-center mt-4 mb-2 text-muted">
             <p style={{ color: "red" }}>

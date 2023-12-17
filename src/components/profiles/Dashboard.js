@@ -305,7 +305,7 @@ function Dashboard() {
                           className="py-2 rounded"
                           onClick={handleBuyCreditPointOpen}
                         >
-                          Buy Credit Point
+                          Buy CPS
                         </Button>
                       </span>
 
@@ -316,7 +316,7 @@ function Dashboard() {
                           className="py-2 rounded"
                           onClick={handleSellCreditPointOpen}
                         >
-                          Sell/Share Credit Point
+                          Sell/Share CPS
                         </Button>
                       </span>
                     </div>

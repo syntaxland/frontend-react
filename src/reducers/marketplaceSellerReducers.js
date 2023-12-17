@@ -90,13 +90,18 @@ import {
   EDIT_FREE_AD_REQUEST,
   EDIT_FREE_AD_SUCCESS,
   EDIT_FREE_AD_FAIL,
-
   GET_SELLER_ACTIVE_PAID_ADS_REQUEST,
   GET_SELLER_ACTIVE_PAID_ADS_SUCCESS,
   GET_SELLER_ACTIVE_PAID_ADS_FAIL,
   GET_SELLER_ACTIVE_FREE_ADS_REQUEST,
   GET_SELLER_ACTIVE_FREE_ADS_SUCCESS,
   GET_SELLER_ACTIVE_FREE_ADS_FAIL,
+  GET_SELLER_USERNAME_SEARCH_REQUEST,
+  GET_SELLER_USERNAME_SEARCH_SUCCESS,
+  GET_SELLER_USERNAME_SEARCH_FAIL,
+  GET_SELLER_DETAIL_REQUEST,
+  GET_SELLER_DETAIL_SUCCESS,
+  GET_SELLER_DETAIL_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -109,6 +114,49 @@ const initialState = {
   adMessages: [],
   sellerApiKey: [],
   sellerAvatarUrl: [],
+  serachResults: [],
+  sellerDetail: [],
+};
+
+export const getSellerUsernameSearchReducer = (
+  state = initialState,
+  action
+) => {
+  switch (action.type) {
+    case GET_SELLER_USERNAME_SEARCH_REQUEST:
+      return { loading: true };
+    case GET_SELLER_USERNAME_SEARCH_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        serachResults: action.payload.data,
+        sellerAvatarUrl: action.payload.seller_avatar_url,
+      };
+
+    case GET_SELLER_USERNAME_SEARCH_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getSellerDetailReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SELLER_DETAIL_REQUEST:
+      return { loading: true };
+    case GET_SELLER_DETAIL_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        sellerDetail: action.payload.data,
+        sellerAvatarUrl: action.payload.seller_avatar_url,
+      };
+
+    case GET_SELLER_DETAIL_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const getSellerActivePaidAdsReducer = (state = initialState, action) => {

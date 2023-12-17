@@ -143,6 +143,7 @@ function RegisterScreen({ location }) {
       setUsernameError("Username must be at least 6 characters.");
     } else if (/[^a-zA-Z0-9_]/.test(username)) {
       setUsernameError("Username must not contain special characters.");
+      return;
     } else {
       setUsernameError("");
     }

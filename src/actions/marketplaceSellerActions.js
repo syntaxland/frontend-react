@@ -97,11 +97,96 @@ import {
   GET_SELLER_ACTIVE_FREE_ADS_REQUEST,
   GET_SELLER_ACTIVE_FREE_ADS_SUCCESS,
   GET_SELLER_ACTIVE_FREE_ADS_FAIL,
+  GET_SELLER_USERNAME_SEARCH_REQUEST,
+  GET_SELLER_USERNAME_SEARCH_SUCCESS,
+  GET_SELLER_USERNAME_SEARCH_FAIL,
+  GET_SELLER_DETAIL_REQUEST,
+  GET_SELLER_DETAIL_SUCCESS,
+  GET_SELLER_DETAIL_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getSellerActivePaidAds = (seller_username) => async (dispatch, getState) => {
+export const getSellerUsernameSearch = (sellerUsername) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: GET_SELLER_USERNAME_SEARCH_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/search-seller-username/${sellerUsername}/`,
+      config
+    );
+
+    dispatch({
+      type: GET_SELLER_USERNAME_SEARCH_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SELLER_USERNAME_SEARCH_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getSellerDetail = (seller_username) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: GET_SELLER_DETAIL_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${API_URL}/api/get-seller-detail/${seller_username}/`,
+      config
+    );
+
+    dispatch({
+      type: GET_SELLER_DETAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SELLER_DETAIL_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const getSellerActivePaidAds = (seller_username) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({ type: GET_SELLER_ACTIVE_PAID_ADS_REQUEST });
 
@@ -136,7 +221,10 @@ export const getSellerActivePaidAds = (seller_username) => async (dispatch, getS
   }
 };
 
-export const getSellerActiveFreeAds = (seller_username) => async (dispatch, getState) => {
+export const getSellerActiveFreeAds = (seller_username) => async (
+  dispatch,
+  getState
+) => {
   try {
     dispatch({ type: GET_SELLER_ACTIVE_FREE_ADS_REQUEST });
 
