@@ -41,7 +41,7 @@ function SellCreditPoint() {
     }
   }, [dispatch, success, history]);
 
-  const lowerCaseUsername = username.toLowerCase();
+  const lowerCaseUsername = username.toLowerCase().trim();
   const creditPointData = {
     // username: username,
     username: lowerCaseUsername,
