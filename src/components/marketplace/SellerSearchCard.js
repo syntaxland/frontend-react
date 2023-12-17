@@ -33,8 +33,7 @@ function SellerSearchCard({ sellerUsername }) {
   console.log("serachResults", serachResults);
 
   useEffect(() => {
-  const lowerCaseUsername = sellerUsername.toLowerCase();
-
+  const lowerCaseUsername = sellerUsername.toLowerCase().trim();
     dispatch(getSellerUsernameSearch(lowerCaseUsername));
   }, [dispatch, sellerUsername]);
 
