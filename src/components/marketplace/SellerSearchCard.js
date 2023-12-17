@@ -34,8 +34,9 @@ function SellerSearchCard({ sellerUsername }) {
 
   useEffect(() => {
   const lowerCaseUsername = sellerUsername.toLowerCase();
+
     dispatch(getSellerUsernameSearch(lowerCaseUsername));
-  }, [dispatch, lowerCaseUsername]);
+  }, [dispatch, sellerUsername]);
 
   function calculateDuration(joinedTimestamp) {
     const now = new Date();
@@ -152,7 +153,7 @@ function SellerSearchCard({ sellerUsername }) {
                       </Col>
                     </Row>
                   </ListGroup.Item>
-                  
+
                   <ListGroup.Item>
                     Business Name: {serachResults?.business_name}
                   </ListGroup.Item>
