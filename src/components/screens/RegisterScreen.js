@@ -108,7 +108,7 @@ function RegisterScreen({ location }) {
   };
 
   const lowerCaseEmail = email.toLowerCase();
-  const lowerCaseUsername = username.toLowerCase();
+  const lowerCaseUsername = username.toLowerCase().trim();
 
   const formData = useMemo(() => {
     return {
