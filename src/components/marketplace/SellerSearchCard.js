@@ -33,8 +33,9 @@ function SellerSearchCard({ sellerUsername }) {
   console.log("serachResults", serachResults);
 
   useEffect(() => {
-    dispatch(getSellerUsernameSearch(sellerUsername));
-  }, [dispatch, sellerUsername]);
+  const lowerCaseUsername = sellerUsername.toLowerCase();
+    dispatch(getSellerUsernameSearch(lowerCaseUsername));
+  }, [dispatch, lowerCaseUsername]);
 
   function calculateDuration(joinedTimestamp) {
     const now = new Date();

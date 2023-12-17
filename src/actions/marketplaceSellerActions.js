@@ -107,26 +107,26 @@ import {
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getSellerUsernameSearch = (sellerUsername) => async (
+export const getSellerUsernameSearch = (lowerCaseUsername) => async (
   dispatch,
   getState
 ) => {
   try {
     dispatch({ type: GET_SELLER_USERNAME_SEARCH_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState();
 
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${userInfo.access}`,
+        // Authorization: `Bearer ${userInfo.access}`,
       },
     };
 
     const { data } = await axios.get(
-      `${API_URL}/api/search-seller-username/${sellerUsername}/`,
+      `${API_URL}/api/search-seller-username/${lowerCaseUsername}/`,
       config
     );
 
