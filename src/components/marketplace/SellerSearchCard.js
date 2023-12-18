@@ -1,15 +1,15 @@
 // SellerSearchCard.js
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { Row, Col, ListGroup, Button, Container } from "react-bootstrap";
-import Loader from "../Loader";
-import Message from "../Message";
-import { useDispatch, useSelector } from "react-redux";
-import { getSellerUsernameSearch } from "../../actions/marketplaceSellerActions";
+// import Loader from "../Loader";
+// import Message from "../Message";
+// import { useSelector } from "react-redux";
+// import { getSellerUsernameSearch } from "../../actions/marketplaceSellerActions";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-function SellerSearchCard({ sellerUsername }) {
-  const dispatch = useDispatch();
+function SellerSearchCard({ serachResults, sellerAvatarUrl }) {
+  // const dispatch = useDispatch();
   const history = useHistory();
 
   // const userLogin = useSelector((state) => state.userLogin);
@@ -21,21 +21,21 @@ function SellerSearchCard({ sellerUsername }) {
   //   }
   // }, [userInfo]);
 
-  const getSellerUsernameSearchState = useSelector(
-    (state) => state.getSellerUsernameSearchState
-  );
-  const {
-    loading,
-    error,
-    serachResults,
-    sellerAvatarUrl,
-  } = getSellerUsernameSearchState;
-  console.log("serachResults", serachResults);
+  // const getSellerUsernameSearchState = useSelector(
+  //   (state) => state.getSellerUsernameSearchState
+  // );
+  // const {
+  //   loading,
+  //   error,
+  //   serachResults,
+  //   sellerAvatarUrl,
+  // } = getSellerUsernameSearchState;
+  // console.log("serachResults", serachResults);
 
-  useEffect(() => {
-  const lowerCaseUsername = sellerUsername.toLowerCase().trim();
-    dispatch(getSellerUsernameSearch(lowerCaseUsername));
-  }, [dispatch, sellerUsername]);
+  // useEffect(() => {
+  //   const lowerCaseUsername = sellerUsername.toLowerCase().trim();
+  //   dispatch(getSellerUsernameSearch(lowerCaseUsername));
+  // }, [dispatch, sellerUsername]);
 
   function calculateDuration(joinedTimestamp) {
     const now = new Date();
@@ -78,106 +78,106 @@ function SellerSearchCard({ sellerUsername }) {
     <Container>
       <Row>
         <Col>
-          {loading ? (
+          {/* {loading ? (
             <Loader />
           ) : error ? (
             <Message variant="danger">{error} </Message>
-          ) : (
-            <Row>
-              <ListGroup className="py-2">
+          ) : ( */}
+          <Row>
+            <ListGroup className="py-2">
+              <ListGroup.Item>
+                <ListGroup.Item>Seller Found</ListGroup.Item>
                 <ListGroup.Item>
-                  <ListGroup.Item>Seller Found</ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col md={6}>
-                        {/* <Link
+                  <Row>
+                    <Col md={6}>
+                      {/* <Link
                           to={`/seller-shop-front/${serachResults?.seller_username}/`}
                         > */}
-                        <span className="d-flex justify-content-between py-2">
-                          {sellerAvatarUrl && (
-                            <img
-                              src={sellerAvatarUrl}
-                              alt="Seller"
-                              style={{
-                                maxWidth: "80px",
-                                maxHeight: "80px",
-                                borderRadius: "50%",
-                              }}
-                            />
+                      <span className="d-flex justify-content-between py-2">
+                        {sellerAvatarUrl && (
+                          <img
+                            src={sellerAvatarUrl}
+                            alt="Seller"
+                            style={{
+                              maxWidth: "80px",
+                              maxHeight: "80px",
+                              borderRadius: "50%",
+                            }}
+                          />
+                        )}
+                        {serachResults?.seller_username}
+                      </span>
+                      {/* </Link> */}
+                    </Col>
+                    <Col md={6}>
+                      <div>
+                        <span>
+                          {serachResults?.is_seller_verified ? (
+                            <>
+                              <Button
+                                variant="outline-success"
+                                size="sm"
+                                className="rounded"
+                                disabled
+                              >
+                                <i className="fas fa-user"></i>{" "}
+                                <i>Verified ID</i>{" "}
+                                <i
+                                  className="fas fa-check-circle"
+                                  style={{
+                                    fontSize: "18px",
+                                    color: "blue",
+                                  }}
+                                ></i>
+                              </Button>
+                            </>
+                          ) : (
+                            <>
+                              <Button
+                                variant="outline-danger"
+                                size="sm"
+                                className="rounded"
+                                disabled
+                              >
+                                <i className="fas fa-user"></i>{" "}
+                                <i>ID Not Verified</i>{" "}
+                                <i
+                                  style={{ fontSize: "18px", color: "red" }}
+                                ></i>
+                              </Button>
+                            </>
                           )}
-                          {serachResults?.seller_username}
                         </span>
-                        {/* </Link> */}
-                      </Col>
-                      <Col md={6}>
-                        <div>
-                          <span>
-                            {serachResults?.is_seller_verified ? (
-                              <>
-                                <Button
-                                  variant="outline-success"
-                                  size="sm"
-                                  className="rounded"
-                                  disabled
-                                >
-                                  <i className="fas fa-user"></i>{" "}
-                                  <i>Verified ID</i>{" "}
-                                  <i
-                                    className="fas fa-check-circle"
-                                    style={{
-                                      fontSize: "18px",
-                                      color: "blue",
-                                    }}
-                                  ></i>
-                                </Button>
-                              </>
-                            ) : (
-                              <>
-                                <Button
-                                  variant="outline-danger"
-                                  size="sm"
-                                  className="rounded"
-                                  disabled
-                                >
-                                  <i className="fas fa-user"></i>{" "}
-                                  <i>ID Not Verified</i>{" "}
-                                  <i
-                                    style={{ fontSize: "18px", color: "red" }}
-                                  ></i>
-                                </Button>
-                              </>
-                            )}
-                          </span>
-                        </div>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    Business Name: {serachResults?.business_name}
-                  </ListGroup.Item>
-
-                  <ListGroup.Item>
-                    <span className="d-flex justify-content-between py-2">
-                      <ListGroup.Item>
-                        Joined since{" "}
-                        {calculateDuration(serachResults?.seller_joined_since)}
-                      </ListGroup.Item>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        className="py-2 rounded"
-                        onClick={handleSellerShopFront}
-                      >
-                        <i className="fa fa-shopping-cart"></i> Go to Seller
-                        Shopfront
-                      </Button>
-                    </span>
-                  </ListGroup.Item>
+                      </div>
+                    </Col>
+                  </Row>
                 </ListGroup.Item>
-              </ListGroup>
-            </Row>
-          )}
+
+                <ListGroup.Item>
+                  Business Name: {serachResults?.business_name}
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <span className="d-flex justify-content-between py-2">
+                    <ListGroup.Item>
+                      Joined since{" "}
+                      {calculateDuration(serachResults?.seller_joined_since)}
+                    </ListGroup.Item>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="py-2 rounded"
+                      onClick={handleSellerShopFront}
+                    >
+                      <i className="fa fa-shopping-cart"></i> Go to Seller
+                      Shopfront
+                    </Button>
+                  </span>
+                </ListGroup.Item>
+              </ListGroup.Item>
+            </ListGroup>
+          </Row>
+          {/* )} */}
         </Col>
       </Row>
     </Container>

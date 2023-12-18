@@ -102,6 +102,9 @@ import {
   GET_SELLER_DETAIL_REQUEST,
   GET_SELLER_DETAIL_SUCCESS,
   GET_SELLER_DETAIL_FAIL,
+  SEARCH_ADS_REQUEST,
+  SEARCH_ADS_SUCCESS,
+  SEARCH_ADS_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -115,7 +118,29 @@ const initialState = {
   sellerApiKey: [],
   sellerAvatarUrl: [],
   serachResults: [],
+  freeAds: [],
+  paidAds: [],
   sellerDetail: [],
+};
+
+export const searchAdsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SEARCH_ADS_REQUEST:
+      return { loading: true };
+    case SEARCH_ADS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        freeAds: action.payload.free_ads,
+        paidAds: action.payload.paid_ads,
+        
+      };
+
+    case SEARCH_ADS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const getSellerUsernameSearchReducer = (

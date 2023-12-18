@@ -1,4 +1,4 @@
-// AllFreeAdCard.js
+// SearchFreeAdCard.js
 import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
@@ -16,7 +16,9 @@ import Message from "../Message";
 import Loader from "../Loader";
 import PromoTimer from "../PromoTimer";
 
-function AllFreeAdCard({ product }) {
+function SearchFreeAdCard({ freeAds }) {
+  console.log("free Ads Card", freeAds);
+
   const dispatch = useDispatch();
 
   const getFreeAdDetailState = useSelector(
@@ -24,19 +26,19 @@ function AllFreeAdCard({ product }) {
   );
   const { sellerAvatarUrl } = getFreeAdDetailState;
 
-  const [productSaved, setProductSaved] = useState(false);
-  const [totalSaves, setTotalSaves] = useState(product?.ad_save_count);
+  const [freeAdsSaved, setProductSaved] = useState(false);
+  const [totalSaves, setTotalSaves] = useState(freeAds?.ad_save_count);
 
-  const [productMessages, setProductMessages] = useState({
-    productSaveSuccess: false,
-    productRemoveSuccess: false,
-    productSaveError: null,
-    productRemoveError: null,
+  const [freeAdsMessages, setProductMessages] = useState({
+    freeAdsSaveSuccess: false,
+    freeAdsRemoveSuccess: false,
+    freeAdsSaveError: null,
+    freeAdsRemoveError: null,
   });
 
-  const [productLoading, setProductLoading] = useState({
-    productSaveLoading: false,
-    productRemoveLoading: false,
+  const [freeAdsLoading, setProductLoading] = useState({
+    freeAdsSaveLoading: false,
+    freeAdsRemoveLoading: false,
   });
 
   const history = useHistory();
@@ -51,99 +53,99 @@ function AllFreeAdCard({ product }) {
   console.log("is_seller_verified", sellerAccount?.is_seller_verified);
   
   useEffect(() => {
-    const pk = product.id;
+    const pk = freeAds.id;
     if (userInfo) {
       dispatch(getSellerAccount());
       dispatch(getFreeAdDetail(pk));
     } 
-  }, [dispatch, userInfo, product.id]);
+  }, [dispatch, userInfo, freeAds.id]);
 
   useEffect(() => {
     if (
       userInfo &&
-      userInfo.favorite_products &&
-      userInfo.favorite_products.includes(product.id)
+      userInfo.favorite_freeAdss &&
+      userInfo.favorite_freeAdss.includes(freeAds.id)
     ) {
       setProductSaved(true);
     } else {
       setProductSaved(false);
     }
-  }, [userInfo, product.id]);
+  }, [userInfo, freeAds.id]);
 
   const toggleFavoriteHandler = () => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (productSaved) {
-        setProductLoading({ productRemoveLoading: true });
-        dispatch(removeProduct(userInfo.id, product.id))
+      if (freeAdsSaved) {
+        setProductLoading({ freeAdsRemoveLoading: true });
+        dispatch(removeProduct(userInfo.id, freeAds.id))
           .then(() => {
             setProductMessages((prevState) => ({
               ...prevState,
-              productRemoveSuccess: true,
-              productSaveSuccess: false,
-              productRemoveError: null,
-              productSaveError: null,
+              freeAdsRemoveSuccess: true,
+              freeAdsSaveSuccess: false,
+              freeAdsRemoveError: null,
+              freeAdsSaveError: null,
             }));
             setProductSaved(false);
             setTotalSaves((prevSaves) => prevSaves - 1); // Decrement totalSaves
-            const updatedSaveCount = product?.ad_save_count - 1;
-            dispatch(updateProductSaveCount(product.id, updatedSaveCount));
+            const updatedSaveCount = freeAds?.ad_save_count - 1;
+            dispatch(updateProductSaveCount(freeAds.id, updatedSaveCount));
           })
           .catch((error) => {
             // Handle error
             setProductMessages((prevState) => ({
               ...prevState,
-              productRemoveError:
+              freeAdsRemoveError:
                 error.response && error.response.data.detail
                   ? error.response.data.detail
                   : error.message,
-              productRemoveSuccess: false,
-              productSaveSuccess: false,
-              productSaveError: null,
+              freeAdsRemoveSuccess: false,
+              freeAdsSaveSuccess: false,
+              freeAdsSaveError: null,
             }));
           })
           .finally(() => {
-            setProductLoading({ productRemoveLoading: false });
+            setProductLoading({ freeAdsRemoveLoading: false });
           });
       } else {
-        setProductLoading({ productSaveLoading: true });
-        dispatch(saveProduct(userInfo.id, product.id))
+        setProductLoading({ freeAdsSaveLoading: true });
+        dispatch(saveProduct(userInfo.id, freeAds.id))
           .then(() => {
             setProductMessages((prevState) => ({
               ...prevState,
-              productSaveSuccess: true,
-              productRemoveSuccess: false,
-              productSaveError: null,
-              productRemoveError: null,
+              freeAdsSaveSuccess: true,
+              freeAdsRemoveSuccess: false,
+              freeAdsSaveError: null,
+              freeAdsRemoveError: null,
             }));
             setProductSaved(true);
             setTotalSaves((prevSaves) => prevSaves + 1);
-            const updatedSaveCount = product?.ad_save_count + 1;
-            dispatch(updateProductSaveCount(product.id, updatedSaveCount));
+            const updatedSaveCount = freeAds?.ad_save_count + 1;
+            dispatch(updateProductSaveCount(freeAds.id, updatedSaveCount));
           })
           .catch((error) => {
             setProductMessages((prevState) => ({
               ...prevState,
-              productSaveError:
+              freeAdsSaveError:
                 error.response && error.response.data.detail
                   ? error.response.data.detail
                   : error.message,
-              productSaveSuccess: false,
-              productRemoveSuccess: false,
-              productRemoveError: null,
+              freeAdsSaveSuccess: false,
+              freeAdsRemoveSuccess: false,
+              freeAdsRemoveError: null,
             }));
           })
           .finally(() => {
-            setProductLoading({ productSaveLoading: false });
+            setProductLoading({ freeAdsSaveLoading: false });
           });
       }
     }
     setTimeout(() => {
       setProductMessages((prevState) => ({
         ...prevState,
-        productSaveSuccess: false,
-        productRemoveSuccess: false,
+        freeAdsSaveSuccess: false,
+        freeAdsRemoveSuccess: false,
       }));
     }, 3000);
   };
@@ -151,11 +153,11 @@ function AllFreeAdCard({ product }) {
   const viewProductHandler = () => {
     if (!userInfo) {
       history.push("/login");
-      // dispatch(trackProductView(userInfo.id, product.id));
+      // dispatch(trackProductView(userInfo.id, freeAds.id));
     }
-    dispatch(trackProductView(userInfo.id, product.id));
+    dispatch(trackProductView(userInfo.id, freeAds.id));
 
-    history.push(`/free-ad-detail/${product.id}`);
+    history.push(`/free-ad-detail/${freeAds.id}`);
   };
 
   function formatCount(viewCount) {
@@ -175,18 +177,18 @@ function AllFreeAdCard({ product }) {
       history.push("/login");
     } else {
       const queryParams = {
-        id: product.id,
-        image1: product.image1,
-        ad_name: product.ad_name,
-        price: product.price,
+        id: freeAds.id,
+        image1: freeAds.image1,
+        ad_name: freeAds.ad_name,
+        price: freeAds.price,
         sellerAvatarUrl,
-        seller_username: product.seller_username,
-        expiration_date: product.expiration_date,
-        ad_rating: product.ad_rating,
+        seller_username: freeAds.seller_username,
+        expiration_date: freeAds.expiration_date,
+        ad_rating: freeAds.ad_rating,
       };
 
       history.push({
-        pathname: `/free/ad/message/${product.id}`,
+        pathname: `/free/ad/message/${freeAds.id}`,
         search: `?${new URLSearchParams(queryParams).toString()}`,
       });
     }
@@ -194,31 +196,31 @@ function AllFreeAdCard({ product }) {
 
   return (
     <Card className="my-3 p-3 rounded">
-      {productMessages.productSaveSuccess && (
+      {freeAdsMessages.freeAdsSaveSuccess && (
         <Message variant="success">Item added to favorites.</Message>
       )}
-      {productMessages.productRemoveSuccess && (
+      {freeAdsMessages.freeAdsRemoveSuccess && (
         <Message variant="danger">Item removed from favorites.</Message>
       )}
-      {productMessages.productSaveError && (
-        <Message variant="danger">{productMessages.productSaveError}</Message>
+      {freeAdsMessages.freeAdsSaveError && (
+        <Message variant="danger">{freeAdsMessages.freeAdsSaveError}</Message>
       )}
-      {productMessages.productRemoveError && (
-        <Message variant="danger">{productMessages.productRemoveError}</Message>
+      {freeAdsMessages.freeAdsRemoveError && (
+        <Message variant="danger">{freeAdsMessages.freeAdsRemoveError}</Message>
       )}
 
-      {productLoading.productSaveLoading && <Loader />}
-      {productLoading.productRemoveLoading && <Loader />}
+      {freeAdsLoading.freeAdsSaveLoading && <Loader />}
+      {freeAdsLoading.freeAdsRemoveLoading && <Loader />}
 
       <Link onClick={viewProductHandler}>
-        <Card.Img src={product.image1} />
+        <Card.Img src={freeAds.image1} />
       </Link>
 
       <Card.Body>
         <div className="d-flex justify-content-between">
           <Link onClick={viewProductHandler}>
             <Card.Title as="div">
-              <strong>{product.ad_name}</strong>
+              <strong>{freeAds.ad_name}</strong>
             </Card.Title>
           </Link>
           <div>
@@ -262,13 +264,13 @@ function AllFreeAdCard({ product }) {
           <div as="div">
             <div className="py-2">
               <RatingSeller
-                value={product.rating}
-                text={`${formatCount(product?.num_reviews)} reviews `}
+                value={freeAds.rating}
+                text={`${formatCount(freeAds?.num_reviews)} reviews `}
                 color={"green"}
               />
 
               {userInfo ? (
-                <Link to={`/review-list/${product.id}`}>(Seller Reviews)</Link>
+                <Link to={`/review-list/${freeAds.id}`}>(Seller Reviews)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
                   (Seller Reviews)
@@ -280,7 +282,7 @@ function AllFreeAdCard({ product }) {
           <Card.Text as="div" className="py-2">
             <span className="text-right" onClick={viewProductHandler}>
               <i className="fas fa-eye"></i>{" "}
-              {formatCount(product?.ad_view_count)} views
+              {formatCount(freeAds?.ad_view_count)} views
             </span>
           </Card.Text>
         </div>
@@ -288,8 +290,8 @@ function AllFreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-              NGN {product?.price}{" "}
-              {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
+              NGN {freeAds?.price}{" "}
+              {freeAds?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
         </div>
@@ -303,7 +305,7 @@ function AllFreeAdCard({ product }) {
               disabled
             >
               <i className="fas fa-clock"></i> Expires in:{" "}
-              <PromoTimer expirationDate={product?.expiration_date} />
+              <PromoTimer expirationDate={freeAds?.expiration_date} />
             </Button>
           </span>
         </div>
@@ -325,13 +327,13 @@ function AllFreeAdCard({ product }) {
               onClick={toggleFavoriteHandler}
               className="py-2 rounded"
               type="button"
-              variant={productSaved ? "danger" : "outline-danger"}
+              variant={freeAdsSaved ? "danger" : "outline-danger"}
             >
               <div className="mt-auto">
                 <i
-                  className={productSaved ? "fas fa-heart" : "far fa-heart"}
+                  className={freeAdsSaved ? "fas fa-heart" : "far fa-heart"}
                 ></i>{" "}
-                {productSaved ? "Saved" : "Save"}{" "}
+                {freeAdsSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
             </Button> 
@@ -342,4 +344,4 @@ function AllFreeAdCard({ product }) {
   );
 }
 
-export default AllFreeAdCard;
+export default SearchFreeAdCard;
