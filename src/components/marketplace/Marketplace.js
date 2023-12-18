@@ -86,28 +86,6 @@ function Marketplace({ history }) {
             </Col>
           </Row>
 
-          <div>
-            <AllPaidAdScreen />
-          </div>
-
-          <div>
-            <AllFreeAdScreen />
-          </div>
-
-          <div className="text-center">
-            <span>
-              Post your goods and services and start making more sales.
-            </span>
-            <Button
-              variant="primary"
-              className="rounded"
-              size="sm"
-              onClick={handlePostFreeAd}
-            >
-              Post Free Ads <i className="fas fa-plus-square"></i>
-            </Button>
-          </div>
-
           <hr />
           <Row className="py-2 d-flex justify-content-end">
             <Col md={4}>
@@ -147,15 +125,30 @@ function Marketplace({ history }) {
             </Row>
           )}
 
-          {/* <Row className="py-2 d-flex justify-content-center">
-            <Col md={6}>
-              <div>
-                <SellerSearchCard sellerUsername={sellerUsername} />
-              </div>
-            </Col>
-          </Row> */}
-
           <hr />
+
+          <div className="text-center py-2">
+            <span>
+              Post your goods and services and start making more sales.
+            </span>
+            <Button
+              variant="primary"
+              className="rounded"
+              size="sm"
+              onClick={handlePostFreeAd}
+            >
+              Post Free Ads <i className="fas fa-plus-square"></i>
+            </Button>
+          </div>
+
+          <div>
+            <AllPaidAdScreen />
+          </div>
+
+          <div>
+            <AllFreeAdScreen />
+          </div>
+
         </Col>
       </Row>
     </div>
