@@ -34,8 +34,8 @@ function ShopFrontLink() {
     if (navigator.share) {
       navigator
         .share({
-          title: "Referral Link",
-          text: "Check out this referral link!",
+          title: "Shopfront Link",
+          text: "Check out my Shopfront link!",
           url: shopfrontLink,
         })
         .then(() => console.log("Shared successfully"))
