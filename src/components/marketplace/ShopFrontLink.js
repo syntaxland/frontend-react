@@ -59,7 +59,7 @@ function ShopFrontLink() {
             <Message variant="danger">{error}</Message>
           ) : (
             <div>
-              <h5 className="pt-3">Your Referral Link:</h5>
+              <h5 className="pt-3">Your Shopfront Link:</h5>
               <div>
                 <span style={{ color: "blue" }}>
                   <Button
