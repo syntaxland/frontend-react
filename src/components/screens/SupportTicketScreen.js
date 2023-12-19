@@ -55,7 +55,7 @@ function SupportTicketScreen({ history }) {
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        history.push("/dashboard");
+        history.push("/dashboard/users");
         window.location.reload();
       }, 1000);
       return () => clearTimeout(timer);
