@@ -181,8 +181,6 @@ function Marketplace() {
                           {paidAds && <SearchPaidAdCard paidAds={paidAds} />}
                         </Col>
                       ))}
-                      {/* {freeAds && <SearchFreeAdCard freeAds={freeAds} />}
-                      {paidAds && <SearchPaidAdCard paidAds={paidAds} />} */}
                     </>
                   ) : (
                     <p></p>

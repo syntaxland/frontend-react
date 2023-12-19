@@ -105,6 +105,10 @@ import {
   SEARCH_ADS_REQUEST,
   SEARCH_ADS_SUCCESS,
   SEARCH_ADS_FAIL,
+
+  GET_SELLER_SHOPFRONT_LINK_REQUEST,
+GET_SELLER_SHOPFRONT_LINK_SUCCESS,
+GET_SELLER_SHOPFRONT_LINK_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const initialState = {
@@ -121,6 +125,26 @@ const initialState = {
   freeAds: [],
   paidAds: [],
   sellerDetail: [],
+  shopfrontLink: [],
+
+};
+
+export const getSellerShopfrontLinkReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_SELLER_SHOPFRONT_LINK_REQUEST:
+      return { loading: true };
+    case GET_SELLER_SHOPFRONT_LINK_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        shopfrontLink: action.payload.shopfrontLink,
+      };
+
+    case GET_SELLER_SHOPFRONT_LINK_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };
 
 export const searchAdsReducer = (state = initialState, action) => {

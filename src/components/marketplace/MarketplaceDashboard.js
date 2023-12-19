@@ -12,7 +12,7 @@ import PostFreeAd from "./PostFreeAd";
 import PostPaidAd from "./PostPaidAd";
 import CurrentAds from "./CurrentAds";
 // import Favorites from "./SavedItems";
-// import OrderShipment from "./OrderShipment";
+import ShopFrontLink from "./ShopFrontLink";
 // import OrderItem from "./OrderItem";
 // import Reviews from "./Reviews";
 // import MessageInbox from "./MessageInbox";
@@ -67,8 +67,8 @@ function MarketplaceDashboard({ history }) {
       // case "favorites":
       //   return <Favorites />;
 
-      // case "order-shipment":
-      //   return <OrderShipment />;
+      case "Shop-front-link":
+        return <ShopFrontLink />;
 
       
 
@@ -313,6 +313,16 @@ function MarketplaceDashboard({ history }) {
                   onClick={() => handleTabChange("viewed-products")}
                 >
                   <i className="fa fa-eye"></i> Viewed Items
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={activeTab === "Shop-front-link" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("Shop-front-link")}
+                >
+                  <i className="fa fa-link"></i> Shop Front Link
                 </Button>
               </div>
 

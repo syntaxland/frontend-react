@@ -50,6 +50,7 @@ getSellerActiveFreeAdsReducer,
   editFreeAdReducer,
   getSellerUsernameSearchReducer,
   searchAdsReducer,
+  getSellerShopfrontLinkReducer,
 getSellerDetailReducer,
   listPaidAdMessageReducer,
   createFreeAdMessageReducer,
@@ -302,6 +303,7 @@ const reducer = combineReducers({
 
   getSellerUsernameSearchState: getSellerUsernameSearchReducer,
   searchAdsState: searchAdsReducer,
+  getSellerShopfrontLinkState: getSellerShopfrontLinkReducer,
 getSellerDetailState: getSellerDetailReducer,
 
   createPaidAdMessageState: createPaidAdMessageReducer,
