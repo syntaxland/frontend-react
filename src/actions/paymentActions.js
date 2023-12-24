@@ -34,7 +34,7 @@ import {
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
 // const PAYSOFTER_URL = "http://localhost:8001";
-const PAYSOFTER_URL = "https://api.paysofter.com";
+const PAYSOFTER_URL = "https://api.paysofter.com"; 
 
 export const getPaymentApiKeys = () => async (dispatch, getState) => {
   try {
