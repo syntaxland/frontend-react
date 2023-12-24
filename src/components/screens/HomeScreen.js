@@ -33,12 +33,12 @@ function HomeScreen({ history }) {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = products?.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(products.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(products?.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -85,13 +85,13 @@ function HomeScreen({ history }) {
               <Message variant="danger">{error}</Message>
             ) : (
               <>
-                {currentItems.length === 0 ? (
+                {currentItems?.length === 0 ? (
                   <div className="text-center">
                     Latest products appear here.
                   </div>
                 ) : (
                   <Row>
-                    {currentItems.map((product) => (
+                    {currentItems?.map((product) => (
                       <Col
                         key={product._id}
                         xs={12}
