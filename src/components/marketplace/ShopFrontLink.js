@@ -71,13 +71,11 @@ function ShopFrontLink() {
               <h5 className="pt-3">Your Shopfront Link:</h5>
               <div>
                 <span style={{ color: "blue" }}>
-                  <Button
-                    variant="outline-transparent"
-                    className="rounded"
-                    size="sm"
+                  <span
+                    
                   >
                     {shopfrontLink}
-                  </Button>
+                  </span>
                 </span>{" "}
                 <span>
                   <Button

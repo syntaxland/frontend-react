@@ -118,9 +118,9 @@ function Marketplace() {
           </div>
 
           <Row className="py-2 d-flex justify-content-center">
-            <Col md={6}>
+            <Col md={8}>
               <Row className="py-2 d-flex justify-content-betwwen">
-                <Col md={9}>
+                <Col md={10}>
                   <Form.Group>
                     <Form.Control
                       type="text"
@@ -130,7 +130,7 @@ function Marketplace() {
                     />
                   </Form.Group>
                 </Col>
-                <Col md={3} className="d-flex justify-content-end">
+                <Col md={2} className="d-flex justify-content-end">
                   <Button
                     variant="primary"
                     className="rounded"
@@ -192,7 +192,7 @@ function Marketplace() {
 
           <hr />
           <Row className="py-2 d-flex justify-content-end">
-            <Col md={4}>
+            <Col md={4} xs={12} sm={6} lg={4} xl={4}>
               <Row className="py-2 d-flex justify-content-betwwen">
                 <Col md={10}>
                   <Form.Group>
@@ -247,7 +247,7 @@ function Marketplace() {
               Post your goods and services and start making more sales.
             </span>
             <Button
-              variant="primary"
+              variant="success"
               className="rounded"
               size="sm"
               onClick={handlePostFreeAd}

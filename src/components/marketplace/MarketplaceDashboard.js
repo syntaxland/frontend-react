@@ -232,7 +232,7 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("post-free-ad")}
                 >
-                  <i className="fas fa-sack-dollar"></i> Post Free Ads
+                  <i className="fas fa-ad"></i> Post Free Ads
                 </Button>
               </div>
 
@@ -244,7 +244,7 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("post-paid-ad")}
                 >
-                  <i className="fas fa-sack-dollar"></i> Post Paid Ads
+                  <i className="fas fa-ad"></i> Post Paid Ads
                 </Button>
               </div> 
 
@@ -278,21 +278,11 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("ads")}
                 >
-                  <i className="fas fa-sack-dollar"></i> Current Ads
+                  <i className="fas fa-ad"></i> Current Ads
                 </Button>
               </div>
 
-              {/* <div>
-                <Button
-                  variant={
-                    activeTab === "message-inbox" ? "info" : "outline-info"
-                  }
-                  className="sidebar-link"
-                  onClick={() => handleTabChange("message-inbox")}
-                >
-                  <i className="fa fa-message"></i> Inbox
-                </Button>
-              </div> */}
+             
 
               <div>
                 <Button
@@ -300,7 +290,7 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("favorites")}
                 >
-                  <i className="fa fa-heart"></i> Saved Items
+                  <i className="fa fa-heart"></i> Saved Ads
                 </Button>
               </div>
 
@@ -312,7 +302,19 @@ function MarketplaceDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("viewed-products")}
                 >
-                  <i className="fa fa-eye"></i> Viewed Items
+                  <i className="fa fa-eye"></i> Viewed Ads
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={
+                    activeTab === "seller-inbox" ? "info" : "outline-info"
+                  }
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("seller-inbox")}
+                >
+                  <i className="fa fa-message"></i> Seller Inbox
                 </Button>
               </div>
 
@@ -323,6 +325,16 @@ function MarketplaceDashboard({ history }) {
                   onClick={() => handleTabChange("Shop-front-link")}
                 >
                   <i className="fa fa-link"></i> Shop Front Link
+                </Button>
+              </div>
+
+              <div>
+                <Button
+                  variant={activeTab === "billing" ? "info" : "outline-info"}
+                  className="sidebar-link"
+                  onClick={() => handleTabChange("billing")}
+                >
+                  <i className="fas fa-money-bill"></i> Billing
                 </Button>
               </div>
 

@@ -66,8 +66,7 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> McDof
-            Shop
+            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> Sell Angle
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">

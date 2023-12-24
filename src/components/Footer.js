@@ -35,7 +35,7 @@ function Footer() {
         </Row>
         <Row>
           <Col className="text-center py-3">
-            &copy; McDofShop | Powered by SoftGlobal | +2349066167293
+            &copy; Sellangle Inc. | Powered by SoftGlobal | +2349066167293
           </Col>
         </Row>
       </Container>
