@@ -62,8 +62,7 @@ function HomeScreen({ history }) {
             {/* <h1 className="py-3 text-center">MarketPlace Hot Deals</h1> */}
             <AllPaidAdScreen />
             <span className="d-flex justify-content-center text-center">
-              Checkout more currently running deals at the market place and/or
-              post your ads.{" "}
+              Check out more running marketplace deals and/or post your ads.{" "}
             <Button
               variant="primary"
               className="rounded"
