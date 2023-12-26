@@ -1,11 +1,15 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 function Footer() {
+  const softGlobalLink = () => {
+    window.location.href = "/softglobal.org";
+  };
+
   return (
     <footer className="bg-dark text-light footer">
       <Container fluid>
-        <Row className="py-3">
+        {/* <Row className="py-3">
           <Col className="text-center">
             <h5>Company</h5>
             <ul className="list-unstyled">
@@ -32,10 +36,18 @@ function Footer() {
               <li>Customer Service</li>
             </ul>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col className="text-center py-3">
-            &copy; Sellangle Inc. | Powered by SoftGlobal | +2349066167293
+            &copy; Sellangle Inc. | Powered by
+            <Button
+              variant="outline-transparent"
+              className="rounded"
+              onClick={softGlobalLink}
+            >
+              SoftGlobal
+            </Button>{" "}
+            | +2349066167293
           </Col>
         </Row>
       </Container>
