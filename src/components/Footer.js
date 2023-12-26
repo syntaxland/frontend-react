@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 
 function Footer() {
   const softGlobalLink = () => {
-    window.location.href = "/softglobal.org";
+    window.location.href = "http://softglobal.org";
   };
 
   return (
