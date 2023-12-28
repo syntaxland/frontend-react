@@ -373,8 +373,8 @@ function SearchPaidAdCard({ paidAds }) {
             </Button>
           </span>
         </div>
-        <div className="d-flex justify-content-center">
-          <span className="py-2">
+        <div className="d-flex justify-content-between py-2">
+          <span>
             <Button
               variant="outline-transparent"
               size="sm"
@@ -382,6 +382,18 @@ function SearchPaidAdCard({ paidAds }) {
               disabled
             >
               <i className="fas fa-map-marker-alt"></i> {paidAds?.city} {paidAds?.state_province}, {paidAds?.country}.
+            </Button>
+          </span>
+
+          <span>
+            <Button
+              variant="danger"
+              size="sm"
+              className="rounded py-2"
+              // onClick={handleReportAd}
+              disabled
+            >
+              <i className="fa fa-exclamation-circle"></i> Report Ad
             </Button>
           </span>
         </div>

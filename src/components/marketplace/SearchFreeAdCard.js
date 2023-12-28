@@ -340,8 +340,8 @@ function SearchFreeAdCard({ freeAds }) {
             </Button> 
           </span>
         </div>
-        <div className="d-flex justify-content-center">
-          <span className="py-2">
+        <div className="d-flex justify-content-between py-2">
+          <span>
             <Button
               variant="outline-transparent"
               size="sm"
@@ -349,6 +349,18 @@ function SearchFreeAdCard({ freeAds }) {
               disabled
             >
               <i className="fas fa-map-marker-alt"></i> {freeAds?.city} {freeAds?.state_province}, {freeAds?.country}.
+            </Button>
+          </span>
+
+          <span>
+            <Button
+              variant="danger"
+              size="sm"
+              className="rounded py-2"
+              // onClick={handleReportAd}
+              disabled
+            >
+              <i className="fa fa-exclamation-circle"></i> Report Ad
             </Button>
           </span>
         </div>

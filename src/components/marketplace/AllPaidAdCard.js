@@ -223,18 +223,6 @@ function AllPaidAdCard({ product }) {
               <strong>{product.ad_name}</strong>
             </Card.Title>
           </Link>
-
-          <span >
-            <Button
-              variant="danger"
-              size="sm"
-              className="rounded"
-              // onClick={handleReportAd}
-              disabled
-            >
-              <i className="fa fa-exclamation-circle"></i> Report Ad
-            </Button>
-          </span>
         </div>
 
         <div className="d-flex justify-content-between py-2">
@@ -316,8 +304,12 @@ function AllPaidAdCard({ product }) {
         <div className="d-flex justify-content-between">
           <Card.Text as="h5" className="py-2">
             <span>
-             {product?.price} {product?.currency}{" "}
-             {product?.usd_price ? <span> / {product?.usd_price} USD </span> : <></>}{" "}
+              {product?.price} {product?.currency}{" "}
+              {product?.usd_price ? (
+                <span> / {product?.usd_price} USD </span>
+              ) : (
+                <></>
+              )}{" "}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
@@ -387,7 +379,7 @@ function AllPaidAdCard({ product }) {
           </span>
         </div>
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-between py-2">
           <span className="py-2">
             <Button
               variant="outline-transparent"
@@ -395,7 +387,20 @@ function AllPaidAdCard({ product }) {
               className="py-2 rounded"
               disabled
             >
-              <i className="fas fa-map-marker-alt"></i> {product?.city} {product?.state_province}, {product?.country}.
+              <i className="fas fa-map-marker-alt"></i> {product?.city}{" "}
+              {product?.state_province}, {product?.country}.
+            </Button>
+          </span>
+
+          <span>
+            <Button
+              variant="danger"
+              size="sm"
+              className="rounded py-2"
+              // onClick={handleReportAd}
+              disabled
+            >
+              <i className="fa fa-exclamation-circle"></i> Report Ad
             </Button>
           </span>
         </div>

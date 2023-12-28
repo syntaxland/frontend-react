@@ -222,17 +222,7 @@ function AllFreeAdCard({ product }) {
             </Card.Title>
           </Link>
 
-          <span>
-            <Button
-              variant="danger"
-              size="sm"
-              className="rounded"
-              // onClick={handleReportAd}
-              disabled
-            >
-              <i className="fa fa-exclamation-circle"></i> Report Ad
-            </Button>
-          </span>
+          
         </div>
 
         <div className="d-flex justify-content-end">
@@ -358,8 +348,8 @@ function AllFreeAdCard({ product }) {
           </span>
         </div>
 
-        <div className="d-flex justify-content-center">
-          <span className="py-2">
+        <div className="d-flex justify-content-between py-2">
+          <span>
             <Button
               variant="outline-transparent"
               size="sm"
@@ -367,6 +357,18 @@ function AllFreeAdCard({ product }) {
               disabled
             >
               <i className="fas fa-map-marker-alt"></i>  {product?.city} {product?.state_province}, {product?.country}.
+            </Button>
+          </span>
+
+          <span>
+            <Button
+              variant="danger"
+              size="sm"
+              className="rounded py-2"
+              // onClick={handleReportAd}
+              disabled
+            >
+              <i className="fa fa-exclamation-circle"></i> Report Ad
             </Button>
           </span>
         </div>
