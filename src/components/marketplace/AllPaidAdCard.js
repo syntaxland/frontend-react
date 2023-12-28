@@ -380,7 +380,7 @@ function AllPaidAdCard({ product }) {
         </div>
 
         <div className="d-flex justify-content-between py-2">
-          <span className="py-2">
+          <span>
             <Button
               variant="outline-transparent"
               size="sm"
