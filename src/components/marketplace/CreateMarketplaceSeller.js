@@ -5,6 +5,8 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { createMarketplaceSeller } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
+import DatePicker from "react-datepicker";
+import LoaderButton from "../LoaderButton";
 
 function CreateMarketplaceSeller({ history }) {
   const dispatch = useDispatch();
@@ -194,8 +196,8 @@ function CreateMarketplaceSeller({ history }) {
   ];
 
   const ID_TYPE_CHOICES = [
-    ["NIN", "NIN"],
-    ["Intl Passport", "Intl Passport"],
+    // ["NIN", "NIN"],
+    ["Intl Passport", "Int'l Passport"],
     ["Driving License", "Driving License"],
     ["Govt Issued ID", "Govt Issued ID"],
   ];
@@ -215,7 +217,7 @@ function CreateMarketplaceSeller({ history }) {
   sellerData.append("id_number", idNumber);
   sellerData.append("id_card_image", idCardImage);
   sellerData.append("dob", dob);
-  sellerData.append("address", address);
+  sellerData.append("home_address", address);
 
   useEffect(() => {
     if (success) {
@@ -331,9 +333,15 @@ function CreateMarketplaceSeller({ history }) {
           {loading && <Loader />}
 
           {success && (
-            <Message variant="success">Form submitted successfully.</Message>
+            <Message variant="success" fixed>
+              Form submitted successfully.
+            </Message>
           )}
-          {error && <Message variant="danger">{error}</Message>}
+          {error && (
+            <Message variant="danger" fixed>
+              {error}
+            </Message>
+          )}
 
           <Form>
             <Form.Group>
@@ -588,7 +596,7 @@ function CreateMarketplaceSeller({ history }) {
 
             <Form.Group>
               <Form.Label>Date Of Birth*</Form.Label>
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 value={dob}
                 onChange={(e) => handleFieldChange("dob", e.target.value)}
@@ -596,16 +604,34 @@ function CreateMarketplaceSeller({ history }) {
                 className="rounded py-2 mb-2"
                 maxLength={50}
                 required
-              />
+              /> */}
+              <div>
+                <DatePicker
+                  selected={dob ? new Date(dob) : null}
+                  onChange={(date) => setDob(date)}
+                  dateFormat="dd/MM/yyyy"
+                  className="rounded py-2 mb-2 form-control"
+                  placeholderText="Select date of birth"
+                  showYearDropdown
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={100}
+                  scrollableMonthYearDropdown
+                />
+              </div>
+
               <Form.Text className="text-danger">{dobError}</Form.Text>
             </Form.Group>
 
-            {formError && <Message variant="danger">{formError}</Message>}
-            {loading && <Loader />}
-            {success && (
-              <Message variant="success">Form submitted successfully.</Message>
+            {formError && (
+              <Message variant="danger" fixed>
+                {formError}
+              </Message>
             )}
-            {error && <Message variant="danger">{error}</Message>}
+            {/* {loading && <Loader />} */}
+            {/* {success && (
+              <Message variant="success" fixed>Form submitted successfully.</Message>
+            )}
+            {error && <Message variant="danger">{error}</Message>} */}
           </Form>
           <Button
             variant="primary"
@@ -613,8 +639,12 @@ function CreateMarketplaceSeller({ history }) {
             className="rounded py-2 mb-2 text-center w-100"
             disabled={loading || success}
           >
-            Continue
+            <span className="d-flex justify-content-center">
+              {loading && <LoaderButton />}{" "}
+              Continue
+            </span>
           </Button>
+
         </Col>
       </Row>
     </Container>

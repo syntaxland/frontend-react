@@ -11,12 +11,11 @@ const PaysofterAccountFundPromise = ({
   buyerEmail,
   amount,
   sellerApiKey,
-
   paymentData,
   reference,
   duration,
-  paymenthMethod,
-  paymentProvider,
+  // paymenthMethod,
+  // paymentProvider,
   currency,
 }) => {
   const dispatch = useDispatch();
@@ -42,8 +41,8 @@ const PaysofterAccountFundPromise = ({
   console.log(
     "formattedPayerEmail:",
     formattedPayerEmail,
-    "paymenthMethod:",
-    paymenthMethod
+    // "paymenthMethod:",
+    // paymenthMethod
   );
 
   const [accountId, setAccountId] = useState("");
@@ -177,8 +176,8 @@ const PaysofterAccountFundPromise = ({
           formattedPayerEmail={formattedPayerEmail}
           currency={currency}
           duration={duration}
-          paymenthMethod={paymenthMethod}
-          paymentProvider={paymentProvider}
+          // paymenthMethod={paymenthMethod}
+          // paymentProvider={paymentProvider}
         />
       ) : (
         <Row className="justify-content-center">

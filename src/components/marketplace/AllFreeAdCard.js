@@ -49,13 +49,13 @@ function AllFreeAdCard({ product }) {
   );
   const { sellerAccount } = getSellerAccountState;
   console.log("is_seller_verified", sellerAccount?.is_seller_verified);
-  
+
   useEffect(() => {
     const pk = product.id;
     if (userInfo) {
       dispatch(getSellerAccount());
       dispatch(getFreeAdDetail(pk));
-    } 
+    }
   }, [dispatch, userInfo, product.id]);
 
   useEffect(() => {
@@ -215,12 +215,27 @@ function AllFreeAdCard({ product }) {
       </Link>
 
       <Card.Body>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between py-2">
           <Link onClick={viewProductHandler}>
             <Card.Title as="div">
               <strong>{product.ad_name}</strong>
             </Card.Title>
           </Link>
+
+          <span>
+            <Button
+              variant="danger"
+              size="sm"
+              className="rounded"
+              // onClick={handleReportAd}
+              disabled
+            >
+              <i className="fa fa-exclamation-circle"></i> Report Ad
+            </Button>
+          </span>
+        </div>
+
+        <div className="d-flex justify-content-end">
           <div>
             <span>
               {sellerAccount?.is_seller_verified ? (
@@ -288,7 +303,12 @@ function AllFreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-              NGN {product?.price}{" "}
+              {product?.price} {product?.currency}
+              {product?.usd_price ? (
+                <span> / {product?.usd_price} USD </span>
+              ) : (
+                <></>
+              )}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
@@ -320,7 +340,7 @@ function AllFreeAdCard({ product }) {
             </Button>
           </span>
 
-          <span className="py-2"> 
+          <span className="py-2">
             <Button
               onClick={toggleFavoriteHandler}
               className="py-2 rounded"
@@ -334,7 +354,20 @@ function AllFreeAdCard({ product }) {
                 {productSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
-            </Button> 
+            </Button>
+          </span>
+        </div>
+
+        <div className="d-flex justify-content-center">
+          <span className="py-2">
+            <Button
+              variant="outline-transparent"
+              size="sm"
+              className="py-2 rounded"
+              disabled
+            >
+              <i className="fas fa-map-marker-alt"></i>  {product?.city} {product?.state_province}, {product?.country}.
+            </Button>
           </span>
         </div>
       </Card.Body>

@@ -7,7 +7,7 @@ import {
   getSellerAccount,
   updateSellerAccount,
   getSellerPhoto,
-  updateSellerPhoto, 
+  updateSellerPhoto,
   getSellerPaysofterApiKey,
   updateSellerPaysofterApiKey,
 } from "../../actions/marketplaceSellerActions";
@@ -15,6 +15,8 @@ import { Form, Button, Row, Col, Container, Accordion } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
+import DatePicker from "react-datepicker";
+import { parseISO } from "date-fns";
 
 function SellerProfile() {
   const dispatch = useDispatch();
@@ -76,8 +78,8 @@ function SellerProfile() {
   }, [userInfo]);
 
   const ID_TYPE_CHOICES = [
-    ["NIN", "NIN"],
-    ["Intl Passport", "Intl Passport"],
+    // ["NIN", "NIN"],
+    ["Intl Passport", "Int'l Passport"],
     ["Driving License", "Driving License"],
     ["Govt Issued ID", "Govt Issued ID"],
   ];
@@ -209,11 +211,18 @@ function SellerProfile() {
 
   const handleBusinessDataChanges = (e) => {
     const { name, value, files } = e.target;
-    if (files) {
-      setBusinessData({ ...businessData, [name]: files[0] });
+
+    if (name === "dob" && typeof value === "string") {
+      const parsedDate = parseISO(value);
+      setBusinessData({ ...businessData, [name]: parsedDate });
     } else {
-      setBusinessData({ ...businessData, [name]: value });
+      if (files) {
+        setBusinessData({ ...businessData, [name]: files[0] });
+      } else {
+        setBusinessData({ ...businessData, [name]: value });
+      }
     }
+
     setBusinessDataChanges(true);
   };
 
@@ -320,7 +329,7 @@ function SellerProfile() {
   useEffect(() => {
     if (userInfo) {
       dispatch(getSellerAccount());
-      dispatch(getSellerPaysofterApiKey()); 
+      dispatch(getSellerPaysofterApiKey());
       dispatch(getSellerPhoto());
     }
   }, [dispatch, userInfo]);
@@ -616,12 +625,26 @@ function SellerProfile() {
 
                   <Form.Group>
                     <Form.Label>Date of Birth</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="dob"
-                      value={businessData.dob}
-                      onChange={handleBusinessDataChanges}
-                    />
+
+                    <div>
+                      <DatePicker
+                        selected={
+                          businessData.dob ? new Date(businessData.dob) : null
+                        }
+                        onChange={(date) =>
+                          handleBusinessDataChanges({
+                            target: { name: "dob", value: date },
+                          })
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        showYearDropdown
+                        scrollableYearDropdown
+                        yearDropdownItemNumber={100}
+                        scrollableMonthYearDropdown
+                        className="rounded py-2 mb-2 form-control"
+                        placeholderText="Select date of birth"
+                      />
+                    </div>
                   </Form.Group>
 
                   <Form.Group>

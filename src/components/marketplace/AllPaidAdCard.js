@@ -217,11 +217,25 @@ function AllPaidAdCard({ product }) {
       </Link>
 
       <Card.Body>
-        <Link onClick={viewProductHandler} className="py-2">
-          <Card.Title as="div">
-            <strong>{product.ad_name}</strong>
-          </Card.Title>
-        </Link>
+        <div className="d-flex justify-content-between py-2">
+          <Link onClick={viewProductHandler}>
+            <Card.Title as="div">
+              <strong>{product.ad_name}</strong>
+            </Card.Title>
+          </Link>
+
+          <span >
+            <Button
+              variant="danger"
+              size="sm"
+              className="rounded"
+              // onClick={handleReportAd}
+              disabled
+            >
+              <i className="fa fa-exclamation-circle"></i> Report Ad
+            </Button>
+          </span>
+        </div>
 
         <div className="d-flex justify-content-between py-2">
           <span>
@@ -302,7 +316,8 @@ function AllPaidAdCard({ product }) {
         <div className="d-flex justify-content-between">
           <Card.Text as="h5" className="py-2">
             <span>
-              NGN {product?.price}{" "}
+             {product?.price} {product?.currency}{" "}
+             {product?.usd_price ? <span> / {product?.usd_price} USD </span> : <></>}{" "}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
@@ -320,8 +335,8 @@ function AllPaidAdCard({ product }) {
                 <i>
                   Promo Code: {product?.promo_code}{" "}
                   {product?.discount_percentage}% Off
-                </i> 
-              </Button> 
+                </i>
+              </Button>
             ) : (
               <></>
             )}
@@ -368,6 +383,19 @@ function AllPaidAdCard({ product }) {
                 {productSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
+            </Button>
+          </span>
+        </div>
+
+        <div className="d-flex justify-content-center">
+          <span className="py-2">
+            <Button
+              variant="outline-transparent"
+              size="sm"
+              className="py-2 rounded"
+              disabled
+            >
+              <i className="fas fa-map-marker-alt"></i> {product?.city} {product?.state_province}, {product?.country}.
             </Button>
           </span>
         </div>

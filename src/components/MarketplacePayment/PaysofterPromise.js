@@ -14,11 +14,9 @@ import PaysofterAccountFundPromise from "./PaysofterAccountFundPromise";
 
 const PaysofterPromise = ({
   history,
-
   buyerEmail,
   amount,
   sellerApiKey,
-
   paymentData,
   reference,
 }) => {
@@ -38,10 +36,15 @@ const PaysofterPromise = ({
   );
   const { loading, success, error } = debitPaysofterAccountState;
 
+  const CURRENCY_CHOICES = [
+    ["NGN", "NGN"],
+    ["USD", "USD"],
+  ];
+
   const [duration, setDuration] = useState("Within 1 day");
-  const [currency, setCurrency] = useState("NGN");
-  const [paymenthMethod, setPaymenthMethod] = useState("Paysofter Promise");
-  const [paymentProvider, setPaymentProvider] = useState("Paysofter");
+  const [currency, setCurrency] = useState("");
+  // const [paymenthMethod, setPaymenthMethod] = useState("Paysofter Promise"); 
+  // const [paymentProvider, setPaymentProvider] = useState("Paysofter");
   // const createdAt = new Date().toISOString();
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [
@@ -107,13 +110,12 @@ const PaysofterPromise = ({
           amount={amount}
           buyerEmail={buyerEmail}
           sellerApiKey={sellerApiKey}
-          
           paymentData={paymentData}
           reference={reference}
           currency={currency}
           duration={duration}
-          paymenthMethod={paymenthMethod}
-          paymentProvider={paymentProvider}
+          // paymenthMethod={paymenthMethod}
+          // paymentProvider={paymentProvider}
         />
       ) : (
         <Row className="justify-content-center">
@@ -181,10 +183,15 @@ const PaysofterPromise = ({
                   as="select"
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                  disabled
+                  // disabled
+                  required
                 >
-                  <option value="NGN">NGN</option>
-                  <option value="USD">USD</option>
+                  <option value="">Select Currency</option>
+                  {CURRENCY_CHOICES.map((type) => (
+                    <option key={type[0]} value={type[0]}>
+                      {type[1]}
+                    </option>
+                  ))}
                 </Form.Control>
               </Form.Group>
 
@@ -197,7 +204,12 @@ const PaysofterPromise = ({
                 placeholder="123456789012"
                 disabled
               ></Form.Control>
-            </Form.Group> */}
+            </Form.Group> 
+            
+            
+           
+            
+            */}
 
               {/* <Form.Group controlId="seller_name">
               <Form.Label>Seller Name</Form.Label>
@@ -210,7 +222,7 @@ const PaysofterPromise = ({
               ></Form.Control>
             </Form.Group> */}
 
-              <Form.Group controlId="paymenthMethod">
+              {/* <Form.Group controlId="paymenthMethod">
                 <Form.Label>Payment Method</Form.Label>
                 <Form.Control
                   disabled
@@ -228,9 +240,9 @@ const PaysofterPromise = ({
                   <option value="QR COde">QR COde</option>
                   <option value="USSD">USSD</option>
                 </Form.Control>
-              </Form.Group>
+              </Form.Group> */}
 
-              <Form.Group controlId="paymentProvider">
+              {/* <Form.Group controlId="paymentProvider">
                 <Form.Label>Payment Provider</Form.Label>
                 <Form.Control
                   disabled
@@ -246,10 +258,10 @@ const PaysofterPromise = ({
                   <option value="GTB">GTB</option>
                   <option value="Fidelity">Fidelity</option>
                 </Form.Control>
-              </Form.Group>
+              </Form.Group> */}
 
               <Form.Group controlId="duration">
-                <Form.Label>Settlement Duration</Form.Label>
+                <Form.Label>Expected Settlement Duration</Form.Label>
                 <Form.Control
                   as="select"
                   readOnly

@@ -181,7 +181,7 @@ function Header() {
                   <div>
                     {userInfo ? (
                       <>
-                        <Nav.Link as={Link} to="/message/inbox">
+                        <Nav.Link as={Link} to="/inbox">
                           <i
                             className="fas fa-message"
                             style={{ fontSize: "16px" }}

@@ -45,6 +45,7 @@ import ResetPassword from "./components/profiles/ResetPassword";
 import Orders from "./components/profiles/Orders";
 import Payments from "./components/profiles/Payments";
 import SupportTicketDetails from "./components/profiles/SupportTicketDetails";
+import MessageInbox from "./components/profiles/MessageInbox";
 
 import UserDashboard from "./components/profiles/UserDashboard";
 import MarketplaceDashboard from "./components/marketplace/MarketplaceDashboard";
@@ -135,6 +136,7 @@ function App() {
             component={SupportTicketScreen}
           />
           <Route path="/support/ticket/:id" component={SupportTicketDetails} />
+          <Route path="/inbox" component={MessageInbox} />
           <Route path="/live-chat" component={LiveChatScreen} />
           <Route path="/feedback" component={FeedbackScreen} />
           <Route path="/dark-mode" component={DarkModeScreen} />

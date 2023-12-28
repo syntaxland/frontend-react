@@ -42,7 +42,7 @@ function RecommendedProducts() {
     <div>
       <Row>
         <Col>
-          <h1 className="text-center">Recommended Products</h1>
+          <h1 className="text-center">Sell Angle Recommended Products</h1>
           {loading ? (
             <Loader />
           ) : error ? (

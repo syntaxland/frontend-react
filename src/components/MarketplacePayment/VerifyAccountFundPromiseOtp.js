@@ -20,14 +20,13 @@ const VerifyAccountFundPromiseOtp = ({
   buyerEmail,
   amount,
   sellerApiKey,
-
   paymentData,
   reference,
   formattedPayerEmail,
   currency,
   duration,
-  paymenthMethod,
-  paymentProvider,
+  // paymenthMethod,
+  // paymentProvider,
 }) => {
   const [otp, setOtp] = useState("");
   const [resendDisabled, setResendDisabled] = useState(false);
@@ -101,8 +100,8 @@ const VerifyAccountFundPromiseOtp = ({
     account_id: sendOtpData.account_id,
     currency: currency,
     duration: duration,
-    payment_method: paymenthMethod,
-    payment_provider: paymentProvider,
+    // payment_method: paymenthMethod,
+    // payment_provider: paymentProvider,
     created_at: createdAt,
   };
   console.log("paysofterPromiseData:", paysofterPromiseData);
@@ -168,7 +167,7 @@ const VerifyAccountFundPromiseOtp = ({
           sellerApiKey={sellerApiKey}
           currency={currency}
           duration={duration}
-          paymenthMethod={paymenthMethod}
+          // paymenthMethod={paymenthMethod}
         />
       ) : (
         <Row className="justify-content-center text-center mt-5">

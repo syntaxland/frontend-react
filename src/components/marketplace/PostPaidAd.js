@@ -31,14 +31,28 @@ function PostPaidAd({ history }) {
   const [adType, setAdType] = useState("");
   const [adTypeError, setAdTypeError] = useState("");
 
-  const [location, setLocation] = useState("");
-  const [locationError, setLocationError] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [locationError, setLocationError] = useState("");
+
+  const [country, setCountry] = useState("");
+  const [countryError, setCountryError] = useState("");
+
+  const [stateProvince, setStateProvince] = useState("");
+  const [stateProvinceError, setStateProvinceError] = useState("");
+
+  const [city, setCity] = useState("");
+  const [cityError, setCityError] = useState("");
 
   const [condition, setCondition] = useState("");
   // const [conditionError, setConditionError] = useState("");
 
+  const [currency, setCurrency] = useState("");
+  const [currencyError, setCurrencyError] = useState("");
+
   const [price, setPrice] = useState("");
   const [priceError, setPriceError] = useState("");
+
+  const [usdPrice, setUsdPrice] = useState("");
 
   const [brand, setBrand] = useState("");
   // const [brandError, setBrandError] = useState("");
@@ -87,9 +101,24 @@ function PostPaidAd({ history }) {
         setAdTypeError("");
         break;
 
-      case "location":
-        setLocation(value);
-        setLocationError("");
+      // case "location":
+      //   setLocation(value);
+      //   setLocationError("");
+      //   break;
+
+      case "country":
+        setCountry(value);
+        setCountryError("");
+        break;
+
+      case "stateProvince":
+        setStateProvince(value);
+        setStateProvinceError("");
+        break;
+
+      case "city":
+        setCity(value);
+        setCityError("");
         break;
 
       case "condition":
@@ -97,9 +126,18 @@ function PostPaidAd({ history }) {
         // setConditionError("");
         break;
 
+      case "currency":
+        setCurrency(value);
+        setCurrencyError("");
+        break;
+
       case "price":
         setPrice(value);
         setPriceError("");
+        break;
+
+      case "usdPrice":
+        setUsdPrice(value);
         break;
 
       case "brand":
@@ -177,6 +215,7 @@ function PostPaidAd({ history }) {
     ["Brand New", "Brand New"],
     ["Fairly Used", "Fairly Used"],
   ];
+
 
   const AD_TYPE_CHOICES = [
     <p style={{ color: "red" }}>Choices for Home Appliances</p>,
@@ -309,13 +348,185 @@ function PostPaidAd({ history }) {
     ["Others", "Others"],
   ];
 
+  
+  const CURRENCY_CHOICES = [
+    ["NGN", "Nigerian Naira"],
+    ["USD", "United States Dollar"],
+    ["CAD", "Canadian Dollar"],
+    ["EUR", "Euro"],
+    ["GBP", "British Pound Sterling"],
+    ["INR", "Indian Rupee"],
+    ["ZAR", "South African Rand"],
+    ["GHS", "Ghanaian Cedi"],
+    ["CNY", "Chinese Yuan"],
+    ["AED", "United Arab Emirates Dirham"],
+    ["AUD", "Australian Dollar"],
+    ["BRL", "Brazilian Real"],
+    ["JPY", "Japanese Yen"],
+    ["KES", "Kenyan Shilling"],
+    ["SAR", "Saudi Riyal"],
+    // Additional currencies
+    ["AFN", "Afghan Afghani"],
+    ["ALL", "Albanian Lek"],
+    ["AMD", "Armenian Dram"],
+    ["ANG", "Netherlands Antillean Guilder"],
+    ["AOA", "Angolan Kwanza"],
+    ["ARS", "Argentine Peso"],
+    ["AWG", "Aruban Florin"],
+    ["AZN", "Azerbaijani Manat"],
+    ["BAM", "Bosnia-Herzegovina Convertible Mark"],
+    ["BBD", "Barbadian Dollar"],
+    ["BDT", "Bangladeshi Taka"],
+    ["BGN", "Bulgarian Lev"],
+    ["BHD", "Bahraini Dinar"],
+    ["BIF", "Burundian Franc"],
+    ["BMD", "Bermudian Dollar"],
+    ["BND", "Brunei Dollar"],
+    ["BOB", "Bolivian Boliviano"],
+    ["BSD", "Bahamian Dollar"],
+    ["BTN", "Bhutanese Ngultrum"],
+    ["BWP", "Botswanan Pula"],
+    ["BYN", "Belarusian Ruble"],
+    ["BZD", "Belize Dollar"],
+    ["CDF", "Congolese Franc"],
+    ["CHF", "Swiss Franc"],
+    ["CLP", "Chilean Peso"],
+    ["CNY", "Chinese Yuan"],
+    ["COP", "Colombian Peso"],
+    ["CRC", "Costa Rican Colón"],
+    ["CUP", "Cuban Peso"],
+    ["CVE", "Cape Verdean Escudo"],
+    ["CZK", "Czech Republic Koruna"],
+    ["DJF", "Djiboutian Franc"],
+    ["DKK", "Danish Krone"],
+    ["DOP", "Dominican Peso"],
+    ["DZD", "Algerian Dinar"],
+    ["EGP", "Egyptian Pound"],
+    ["ERN", "Eritrean Nakfa"],
+    ["ETB", "Ethiopian Birr"],
+    ["FJD", "Fijian Dollar"],
+    ["FKP", "Falkland Islands Pound"],
+    ["FOK", "Faroe Islands Króna"],
+    ["GEL", "Georgian Lari"],
+    ["GGP", "Guernsey Pound"],
+    ["GIP", "Gibraltar Pound"],
+    ["GMD", "Gambian Dalasi"],
+    ["GNF", "Guinean Franc"],
+    ["GTQ", "Guatemalan Quetzal"],
+    ["GYD", "Guyanaese Dollar"],
+    ["HKD", "Hong Kong Dollar"],
+    ["HNL", "Honduran Lempira"],
+    ["HRK", "Croatian Kuna"],
+    ["HTG", "Haitian Gourde"],
+    ["HUF", "Hungarian Forint"],
+    ["IDR", "Indonesian Rupiah"],
+    ["ILS", "Israeli New Shekel"],
+    ["IMP", "Isle of Man Pound"],
+    ["IQD", "Iraqi Dinar"],
+    ["IRR", "Iranian Rial"],
+    ["ISK", "Icelandic Króna"],
+    ["JEP", "Jersey Pound"],
+    ["JMD", "Jamaican Dollar"],
+    ["JOD", "Jordanian Dinar"],
+    ["KGS", "Kyrgystani Som"],
+    ["KHR", "Cambodian Riel"],
+    ["KID", "Kiribati Dollar"],
+    ["KWD", "Kuwaiti Dinar"],
+    ["KYD", "Cayman Islands Dollar"],
+    ["KZT", "Kazakhstani Tenge"],
+    ["LAK", "Laotian Kip"],
+    ["LBP", "Lebanese Pound"],
+    ["LKR", "Sri Lankan Rupee"],
+    ["LRD", "Liberian Dollar"],
+    ["LSL", "Lesotho Loti"],
+    ["LYD", "Libyan Dinar"],
+    ["MAD", "Moroccan Dirham"],
+    ["MDL", "Moldovan Leu"],
+    ["MGA", "Malagasy Ariary"],
+    ["MKD", "Macedonian Denar"],
+    ["MMK", "Myanma Kyat"],
+    ["MNT", "Mongolian Tugrik"],
+    ["MOP", "Macanese Pataca"],
+    ["MRU", "Mauritanian Ouguiya"],
+    ["MUR", "Mauritian Rupee"],
+    ["MVR", "Maldivian Rufiyaa"],
+    ["MWK", "Malawian Kwacha"],
+    ["MXN", "Mexican Peso"],
+    ["MYR", "Malaysian Ringgit"],
+    ["MZN", "Mozambican Metical"],
+    ["NAD", "Namibian Dollar"],
+    ["NIO", "Nicaraguan Córdoba"],
+    ["NOK", "Norwegian Krone"],
+    ["NPR", "Nepalese Rupee"],
+    ["NZD", "New Zealand Dollar"],
+    ["OMR", "Omani Rial"],
+    ["PAB", "Panamanian Balboa"],
+    ["PEN", "Peruvian Nuevo Sol"],
+    ["PGK", "Papua New Guinean Kina"],
+    ["PHP", "Philippine Peso"],
+    ["PKR", "Pakistani Rupee"],
+    ["PLN", "Polish Złoty"],
+    ["PYG", "Paraguayan Guarani"],
+    ["QAR", "Qatari Rial"],
+    ["RON", "Romanian Leu"],
+    ["RSD", "Serbian Dinar"],
+    ["RUB", "Russian Ruble"],
+    ["RWF", "Rwandan Franc"],
+    ["SBD", "Solomon Islands Dollar"],
+    ["SCR", "Seychellois Rupee"],
+    ["SDG", "Sudanese Pound"],
+    ["SEK", "Swedish Krona"],
+    ["SGD", "Singapore Dollar"],
+    ["SHP", "Saint Helena Pound"],
+    ["SLL", "Sierra Leonean Leone"],
+    ["SOS", "Somali Shilling"],
+    ["SRD", "Surinamese Dollar"],
+    ["SSP", "South Sudanese Pound"],
+    ["STN", "São Tomé and Príncipe Dobra"],
+    ["SYP", "Syrian Pound"],
+    ["SZL", "Swazi Lilangeni"],
+    ["TJS", "Tajikistani Somoni"],
+    ["TMT", "Turkmenistani Manat"],
+    ["TND", "Tunisian Dinar"],
+    ["TOP", "Tongan Paʻanga"],
+    ["TRY", "Turkish Lira"],
+    ["TTD", "Trinidad and Tobago Dollar"],
+    ["TVD", "Tuvaluan Dollar"],
+    ["TWD", "New Taiwan Dollar"],
+    ["TZS", "Tanzanian Shilling"],
+    ["UAH", "Ukrainian Hryvnia"],
+    ["UGX", "Ugandan Shilling"],
+    ["UYU", "Uruguayan Peso"],
+    ["UZS", "Uzbekistan Som"],
+    ["VES", "Venezuelan Bolívar"],
+    ["VND", "Vietnamese Đồng"],
+    ["VUV", "Vanuatu Vatu"],
+    ["WST", "Samoan Tala"],
+    ["XAF", "Central African CFA Franc"],
+    ["XCD", "Eastern Caribbean Dollar"],
+    ["XDR", "Special Drawing Rights"],
+    ["XOF", "West African CFA franc"],
+    ["XPF", "CFP Franc"],
+    ["YER", "Yemeni Rial"],
+    ["ZMW", "Zambian Kwacha"],
+];
+
+
   const sellerData = new FormData();
   sellerData.append("ad_name", adName);
   sellerData.append("ad_category", adCategory);
   sellerData.append("ad_type", adType);
-  sellerData.append("location", location);
+  // sellerData.append("location", location);
+
+  sellerData.append("country", country);
+  sellerData.append("state_province", stateProvince);
+  sellerData.append("city", city);
+
+
   sellerData.append("condition", condition);
+  sellerData.append("currency", currency);
   sellerData.append("price", price);
+  sellerData.append("usd_price", usdPrice);
   sellerData.append("brand", brand);
   sellerData.append("description", description);
   sellerData.append("youtube_link", youtubeLink);
@@ -360,10 +571,30 @@ function PostPaidAd({ history }) {
       setAdTypeError("");
     }
 
-    if (!location) {
-      setLocationError("Please enter ad location.");
+    // if (!location) {
+    //   setLocationError("Please enter ad location.");
+    // } else {
+    //   setLocationError("");
+    // }
+
+
+    if (!country) {
+      setCountryError("Please enter ad country.");
     } else {
-      setLocationError("");
+      setCountryError("");
+    }
+
+    if (!stateProvince) {
+      setStateProvinceError("Please enter ad state/province.");
+    } else {
+      setStateProvinceError("");
+    }
+
+
+    if (!city) {
+      setCityError("Please enter ad city.");
+    } else {
+      setCityError("");
     }
 
     if (/[^a-zA-Z0-9_]/.test(promoCode)) {
@@ -372,11 +603,11 @@ function PostPaidAd({ history }) {
       setPromoCodeError("");
     }
 
-    // if (!condition) {
-    //   setConditionError("Please enter ad condtion.");
-    // } else {
-    //   setPriceError("");
-    // }
+    if (!currency) {
+      setCurrencyError("Please select currency.");
+    } else {
+      setCurrencyError("");
+    }
 
     if (!price) {
       setPriceError("Please enter ad price.");
@@ -400,8 +631,11 @@ function PostPaidAd({ history }) {
       !adName ||
       !adCategory ||
       !adType ||
-      !location ||
-      // !condition ||
+      // !location ||
+      !country ||
+      !stateProvince ||
+      !city ||
+      !currency ||
       !price ||
       !description ||
       !duration
@@ -438,7 +672,7 @@ function PostPaidAd({ history }) {
 
           <Form>
             <Form.Group>
-              <Form.Label>Ad Name</Form.Label>
+              <Form.Label>Ad Name*</Form.Label>
               <Form.Control
                 type="text"
                 value={adName}
@@ -452,7 +686,7 @@ function PostPaidAd({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Ad Category</Form.Label>
+              <Form.Label>Ad Category*</Form.Label>
               <Form.Control
                 as="select"
                 value={adCategory}
@@ -473,7 +707,7 @@ function PostPaidAd({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Ad Type</Form.Label>
+              <Form.Label>Ad Type*</Form.Label>
               <Form.Control
                 as="select"
                 value={adType}
@@ -491,18 +725,60 @@ function PostPaidAd({ history }) {
               <Form.Text className="text-danger">{adTypeError}</Form.Text>
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Ad Location</Form.Label>
+            {/* <Form.Group>
+              <Form.Label>Ad Location*</Form.Label>
               <Form.Control
                 type="text"
                 value={location}
                 onChange={(e) => handleFieldChange("location", e.target.value)}
-                placeholder="Enter the ad location"
+                placeholder="Enter city, state/province, country"
                 className="rounded py-2 mb-2"
                 required
                 maxLength={100}
               />
               <Form.Text className="text-danger">{locationError}</Form.Text>
+            </Form.Group> */}
+
+            <Form.Group>
+              <Form.Label>Ad Country*</Form.Label>
+              <Form.Control
+                type="text"
+                value={country}
+                onChange={(e) => handleFieldChange("country", e.target.value)}
+                placeholder="Enter country"
+                className="rounded py-2 mb-2"
+                required
+                maxLength={100}
+              />
+              <Form.Text className="text-danger">{countryError}</Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Ad State/Province*</Form.Label>
+              <Form.Control
+                type="text"
+                value={stateProvince}
+                onChange={(e) => handleFieldChange("stateProvince", e.target.value)}
+                placeholder="Enter state/province"
+                className="rounded py-2 mb-2"
+                required
+                maxLength={100}
+              />
+              <Form.Text className="text-danger">{stateProvinceError}</Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Ad City*</Form.Label>
+              <Form.Control
+                type="text"
+                value={city}
+                onChange={(e) => handleFieldChange("city", e.target.value)}
+                placeholder="Enter ad city"
+                className="rounded py-2 mb-2"
+                required
+                maxLength={100}
+              />
+              <Form.Text className="text-danger">{cityError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
@@ -524,8 +800,46 @@ function PostPaidAd({ history }) {
               {/* <Form.Text className="text-danger">{conditionError}</Form.Text> */}
             </Form.Group>
 
+            {/* <Form.Group>
+              <Form.Label>Currency*</Form.Label>
+              <Form.Control
+                as="select"
+                value={adType}
+                onChange={(e) => handleFieldChange("adType", e.target.value)}
+                className="rounded py-2 mb-2"
+                required
+              >
+                <option value="">Select Currency</option>
+                {CURRENCY_CHOICES.map((type) => (
+                  <option key={type[0]} value={type[0]}>
+                    {type[1]}
+                  </option>
+                ))}
+              </Form.Control>
+              <Form.Text className="text-danger">{adTypeError}</Form.Text>
+            </Form.Group> */}
+
             <Form.Group>
-              <Form.Label>Price</Form.Label>
+              <Form.Label>Currency*</Form.Label>
+              <Form.Control
+                as="select"
+                value={currency}
+                onChange={(e) => handleFieldChange("currency", e.target.value)}
+                className="rounded py-2 mb-2"
+                required
+              >
+                <option value="">Select Currency</option>
+                {CURRENCY_CHOICES.map((type) => (
+                  <option key={type[0]} value={type[0]}>
+                    {type[1]}
+                  </option>
+                ))}
+              </Form.Control>
+              <Form.Text className="text-danger">{currencyError}</Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Price*</Form.Label>
               <Form.Control
                 type="number"
                 value={price}
@@ -535,6 +849,17 @@ function PostPaidAd({ history }) {
                 required
               />
               <Form.Text className="text-danger">{priceError}</Form.Text>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>USD Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={usdPrice}
+                onChange={(e) => handleFieldChange("usdPrice", e.target.value)}
+                placeholder="Enter USD price equivalent"
+                className="rounded py-2 mb-2"
+              />
             </Form.Group>
 
             <Form.Group>
@@ -563,7 +888,7 @@ function PostPaidAd({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Description*</Form.Label>
               <Form.Control
                 type="text"
                 value={description}
@@ -622,7 +947,7 @@ function PostPaidAd({ history }) {
             <Form.Group>
               <Form.Label>Number In Stock</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 value={countInStock}
                 onChange={(e) =>
                   handleFieldChange("countInStock", e.target.value)
@@ -666,7 +991,7 @@ function PostPaidAd({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Duration</Form.Label>
+              <Form.Label>Duration*</Form.Label>
               <Form.Control
                 as="select"
                 value={duration}

@@ -7,7 +7,7 @@ import { searchProducts } from "../../actions/productAction";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function SearchScreen({ match }) {
+function SearchScreen({ match }) { 
   const dispatch = useDispatch();
   const keyword = match.params.keyword;
 

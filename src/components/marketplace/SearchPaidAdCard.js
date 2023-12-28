@@ -303,7 +303,8 @@ function SearchPaidAdCard({ paidAds }) {
         <div className="d-flex justify-content-between">
           <Card.Text as="h5" className="py-2">
             <span>
-              NGN {paidAds?.price}{" "}
+               {paidAds?.price} {paidAds?.currency}{" "}
+             {paidAds?.usd_price ? <span> / {paidAds?.usd_price} USD </span> : <></>}{" "}
               {paidAds?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
@@ -369,6 +370,18 @@ function SearchPaidAdCard({ paidAds }) {
                 {paidAdsSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
+            </Button>
+          </span>
+        </div>
+        <div className="d-flex justify-content-center">
+          <span className="py-2">
+            <Button
+              variant="outline-transparent"
+              size="sm"
+              className="py-2 rounded"
+              disabled
+            >
+              <i className="fas fa-map-marker-alt"></i> {paidAds?.city} {paidAds?.state_province}, {paidAds?.country}.
             </Button>
           </span>
         </div>

@@ -8,7 +8,7 @@ import Loader from "../Loader";
 import DOMPurify from "dompurify";
 
 const MessageInbox = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   const messaging = useSelector((state) => state.messaging);
   const { loading, messages, loadingError } = messaging;

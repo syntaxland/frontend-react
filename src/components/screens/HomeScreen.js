@@ -45,10 +45,26 @@ function HomeScreen({ history }) {
   return (
     <div>
       <Row className="d-flex justify-content-center py-2">
-        <Col >
+        <Col>
+          <div>
+            {/* <h1 className="py-3 text-center">MarketPlace Hot Deals</h1> */}
+            <AllPaidAdScreen />
+            <span className="d-flex justify-content-center text-center">
+              Check out more marketplace deals and/or post your ads.{" "}
+              <Button
+                variant="primary"
+                className="rounded"
+                size="sm"
+                onClick={() => history.push("/marketplace")}
+              >
+                Go to MarketPlace <i className="fa fa-shopping-cart"></i>
+              </Button>
+            </span>
+          </div>
+
           <div>
             <hr />
-            <h1 className="text-center py-3">Current Offers</h1>
+            <h1 className="text-center py-3">Sell Angle Current Offers</h1>
             <hr />
             <PromoProductScroll />
             {/* {products.length === 0 ? (
@@ -58,25 +74,9 @@ function HomeScreen({ history }) {
             )} */}
           </div>
 
-          <div >
-            {/* <h1 className="py-3 text-center">MarketPlace Hot Deals</h1> */}
-            <AllPaidAdScreen />
-            <span className="d-flex justify-content-center text-center">
-              Check out more running marketplace deals and/or post your ads.{" "}
-            <Button
-              variant="primary"
-              className="rounded"
-              size="sm"
-              onClick={() => history.push("/marketplace")}
-            >
-              Go to MarketPlace <i className="fa fa-shopping-cart"></i>
-            </Button>
-            </span>
-          </div>
-
           <div>
             <hr />
-            <h1 className="text-center py-3">Latest Products</h1>
+            <h1 className="text-center py-3">Sell Angle Latest Products</h1>
             <hr />
             {loading ? (
               <Loader />
@@ -163,4 +163,4 @@ function HomeScreen({ history }) {
   );
 }
 
-export default HomeScreen; 
+export default HomeScreen;

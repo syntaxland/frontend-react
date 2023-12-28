@@ -192,8 +192,50 @@ function Marketplace() {
 
           <hr />
           <Row className="py-2 d-flex justify-content-end">
-            <Col md={4} xs={12} sm={6} lg={4} xl={4}>
-              <Row className="py-2 d-flex justify-content-betwwen">
+            <Col className="py-2">
+              <Row>
+                <Col md={1}>
+                  <i className="fas fa-map-marker-alt"></i>
+                </Col>
+
+                <Col md={3}>
+                  <Form.Control
+                    as="select"
+                    // onChange={handleCategoryChange}
+                    // value={category}
+                  >
+                    <option value="">Select Country</option>
+                    <option value="Shower">Nigeria</option>
+                    <option value="Basins">Canada</option>
+                    <option value="Basins">Ghana</option>
+                    <option value="Basins">USA</option>
+                    <option value="Basins">UAE</option>
+                  </Form.Control>
+                </Col>
+
+                <Col md={3}>
+                  <Form.Control
+                    as="select"
+                    // onChange={handleSortOrderChange}
+                    // value={sortOrder}
+                  >
+                    <option value="">Select State/Province</option>
+                    <option value="-createdAt"></option>
+                    <option value="createdAt"></option>
+                  </Form.Control>
+                </Col>
+
+                <Col md={3}>
+                  <Form.Control as="select">
+                    <option value="">Select City</option>
+                    <option value="Shower"></option>
+                    <option value="Basins"></option>
+                  </Form.Control>
+                </Col>
+              </Row>
+            </Col>
+            <Col md={4} xs={12} sm={6} lg={4} xl={4} className="py-2">
+              <Row className="d-flex justify-content-betwwen">
                 <Col md={10}>
                   <Form.Group>
                     <Form.Control

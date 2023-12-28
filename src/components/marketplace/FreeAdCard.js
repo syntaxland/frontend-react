@@ -254,7 +254,8 @@ function FreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-              NGN {product?.price}{" "}
+               {product?.price} {product?.currency}{" "}
+             {product?.usd_price ? <span> / {product?.usd_price} USD </span> : <></>}{" "}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
@@ -346,6 +347,19 @@ function FreeAdCard({ product }) {
           >
             Due Ad Charges: Free
           </Button>
+        </div>
+
+        <div className="d-flex justify-content-center">
+          <span className="py-2">
+            <Button
+              variant="outline-transparent"
+              size="sm"
+              className="py-2 rounded"
+              disabled
+            >
+              <i className="fas fa-map-marker-alt"></i>  {product?.city} {product?.state_province}, {product?.country}.
+            </Button>
+          </span>
         </div>
       </Card.Body>
 
