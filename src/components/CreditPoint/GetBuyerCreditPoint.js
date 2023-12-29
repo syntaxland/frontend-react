@@ -56,7 +56,7 @@ function GetBuyerCreditPoint() {
                   <th>CPS ID</th>
                   <th>Seller</th>
                   <th>Buyer</th>
-                  <th>Amount Paid</th>
+                  <th>Amount</th>
                   <th>Success</th>
                   <th>Created At</th>
                 </tr>
@@ -65,10 +65,10 @@ function GetBuyerCreditPoint() {
                 {currentItems.map((cps, index) => (
                   <tr key={cps.id}>
                     <td>{index + 1}</td>
-                    <td>{cps.cps_sell_id}</td>
+                    <td>{cps.cps_sell_id}</td> 
                     <td>{cps.seller_username}</td>
                     <td>{cps.buyer_username}</td>
-                    <td>NGN {cps.amount}</td>
+                    <td style={{ color: "green" }}> {cps.amount}</td>
                     <td>
                       {cps.is_success ? (
                         <>

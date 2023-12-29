@@ -48,7 +48,7 @@ function GetBuyCreditPoint() {
       ) : (
         <>
           {currentItems.length === 0 ? (
-            <div className="text-center py-3"> Bought cps appear here.</div>
+            <div className="text-center py-3"> Bought cps appear here.</div> 
           ) : (
             <Table striped bordered hover responsive className="table-sm">
               <thead>
@@ -69,7 +69,7 @@ function GetBuyCreditPoint() {
                     <td>{cps.cps_purchase_id}</td>
                     <td>{cps.username}</td>
                     <td>NGN {cps.amount}</td>
-                    <td>{cps.cps_amount}</td>
+                    <td style={{ color: "green" }}>{cps.cps_amount}</td>
                     <td>
                       {cps.is_success ? (
                         <>

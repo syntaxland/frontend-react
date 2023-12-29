@@ -264,7 +264,7 @@ function PaidAdCard({ product }) {
             className="py-2 rounded"
             disabled
           >
-            Due Ad Charges: NGN {product?.ad_charges}
+            Due Ad Charges: {product?.ad_charges} CPS
           </Button>
         </div>
 

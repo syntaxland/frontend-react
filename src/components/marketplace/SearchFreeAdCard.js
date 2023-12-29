@@ -291,7 +291,7 @@ function SearchFreeAdCard({ freeAds }) {
           <Card.Text as="h5" className="py-2">
             <span>
                {freeAds?.price} {freeAds?.currency}{" "}
-             {freeAds?.usd_price ? <span> / {freeAds?.usd_price} USD </span> : <></>}{" "}
+             {/* {freeAds?.usd_price ? <span> / {freeAds?.usd_price} USD </span> : <></>}{" "} */}
               {freeAds?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>

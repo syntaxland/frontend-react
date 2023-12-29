@@ -293,12 +293,12 @@ function AllFreeAdCard({ product }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-              {product?.price} {product?.currency}
-              {product?.usd_price ? (
+              {product?.price} {product?.currency}{" "}
+              {/* {product?.usd_price ? (
                 <span> / {product?.usd_price} USD </span>
               ) : (
                 <></>
-              )}
+              )} */}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>

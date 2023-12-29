@@ -474,7 +474,7 @@ function CreateMarketplaceSeller({ history }) {
               />
             </Form.Group>
 
-            <Form.Group>
+            <Form.Group> 
               <Form.Label>Business Website</Form.Label>
               <Form.Control
                 type="text"

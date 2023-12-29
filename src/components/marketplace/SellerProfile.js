@@ -215,6 +215,7 @@ function SellerProfile() {
     if (name === "dob" && typeof value === "string") {
       const parsedDate = parseISO(value);
       setBusinessData({ ...businessData, [name]: parsedDate });
+      
     } else {
       if (files) {
         setBusinessData({ ...businessData, [name]: files[0] });
@@ -747,8 +748,8 @@ function SellerProfile() {
                       updateSellerApiKeySuccess
                     }
                   >
-                    <span className="d-flex justify-content-between">
-                      {updateSellerApiKeyLoading && <LoaderButton />}
+                    <span className="d-flex justify-content-between"> 
+                      {updateSellerApiKeyLoading && <LoaderButton />} 
                       Save API Key
                     </span>
                   </Button>

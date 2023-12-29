@@ -52,7 +52,7 @@ function PostFreeAd() {
   const [price, setPrice] = useState("");
   const [priceError, setPriceError] = useState("");
 
-  const [usdPrice, setUsdPrice] = useState("");
+  // const [usdPrice, setUsdPrice] = useState("");
 
   const [currency, setCurrency] = useState("");
   const [currencyError, setCurrencyError] = useState("");
@@ -134,9 +134,9 @@ function PostFreeAd() {
         setPriceError("");
         break;
 
-      case "usdPrice":
-        setUsdPrice(value);
-        break;
+      // case "usdPrice":
+      //   setUsdPrice(value);
+      //   break;
 
       case "brand":
         setBrand(value);
@@ -501,7 +501,7 @@ function PostFreeAd() {
   sellerData.append("city", city);
   sellerData.append("condition", condition);
   sellerData.append("price", price);
-  sellerData.append("usd_price", usdPrice);
+  // sellerData.append("usd_price", usdPrice);
   sellerData.append("currency", currency);
   sellerData.append("brand", brand);
   sellerData.append("description", description);
@@ -828,7 +828,7 @@ function PostFreeAd() {
               <Form.Text className="text-danger">{priceError}</Form.Text>
             </Form.Group>
 
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Label>USD Price</Form.Label>
               <Form.Control
                 type="number"
@@ -837,7 +837,7 @@ function PostFreeAd() {
                 placeholder="Enter USD price equivalent"
                 className="rounded py-2 mb-2"
               />
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group>
               <Form.Label>Brand</Form.Label>

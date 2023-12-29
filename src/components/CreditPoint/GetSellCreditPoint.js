@@ -56,7 +56,7 @@ function GetSellCreditPoint() {
                   <th>CPS ID</th>
                   <th>Seller</th>
                   <th>Buyer</th>
-                  <th>Amount Paid</th>
+                  <th>Amount</th>
                   {/* <th>CPS Amount</th> */}
                   <th>Success</th>
                   <th>Created At</th>
@@ -69,8 +69,8 @@ function GetSellCreditPoint() {
                     <td>{cps.cps_sell_id}</td>
                     <td>{cps.seller_username}</td>
                     <td>{cps.buyer_username}</td>
-                    <td>NGN {cps.amount}</td>
-                    {/* <td>{cps.cps_amount}</td> */}
+                    <td style={{ color: "red" }}> {cps.amount}</td>
+                    {/* <td>{cps.cps_amount}</td> */} 
                     <td>
                       {cps.is_success ? (
                         <>

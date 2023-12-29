@@ -211,7 +211,7 @@ function EditFreeAd({ history, match }) {
     condition: "",
     currency: "",
     price: "",
-    usd_price: "",
+    // usd_price: "",
     brand: "",
     description: "",
     youtube_link: "",
@@ -239,7 +239,7 @@ function EditFreeAd({ history, match }) {
         condition: ads?.condition,
         currency: ads?.currency,
         price: ads?.price,
-        usd_price: ads?.usd_price,
+        // usd_price: ads?.usd_price,
         brand: ads?.brand,
         description: ads?.description,
         youtube_link: ads?.youtube_link,
@@ -296,7 +296,7 @@ function EditFreeAd({ history, match }) {
     editAdFormData.append("condition", editAdData.condition);
     editAdFormData.append("currency", editAdData.currency);
     editAdFormData.append("price", editAdData.price);
-    editAdFormData.append("usd_price", editAdData.usd_price);
+    // editAdFormData.append("usd_price", editAdData.usd_price);
     editAdFormData.append("brand", editAdData.brand);
     editAdFormData.append("description", editAdData.description);
     editAdFormData.append("youtube_link", editAdData.youtube_link);
@@ -665,7 +665,7 @@ function EditFreeAd({ history, match }) {
               />
             </Form.Group>
 
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Label>USD Price</Form.Label>
               <Form.Control
                 type="number"
@@ -676,7 +676,7 @@ function EditFreeAd({ history, match }) {
                 className="rounded py-2 mb-2"
                 required
               />
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group>
               <Form.Check
