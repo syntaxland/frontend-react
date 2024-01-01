@@ -1,4 +1,4 @@
-// CardPayment.js
+// UsdCardPayment.js
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
@@ -9,12 +9,13 @@ import {
   // createPayment,
   createPaysofterPayment,
 } from "../../../actions/paymentActions";
-import Message from "../../Message";
+import Message from "../../Message"; 
 import Loader from "../../Loader";
 
-function CardPayment({
+function UsdCardPayment({
   amount,
   currency,
+  paymentData,
   reference,
   userEmail,
   paysofterPublicKey,
@@ -84,8 +85,8 @@ function CardPayment({
     const paysofterPaymentData = {
       payment_id: reference,
       email: userEmail,
-      currency: currency,
       amount: amount,
+      currency: currency,
       public_api_key: paysofterPublicKey,
       created_at: createdAt,
 
@@ -104,7 +105,6 @@ function CardPayment({
   useEffect(() => {
     if (success) {
       dispatch(buyCreditPoint(creditPointData));
-
       const timer = setTimeout(() => {
         // window.location.reload();
         // window.location.href = "/dashboard/users";
@@ -137,7 +137,7 @@ function CardPayment({
       {buyCreditPointSuccess && (
         <Message variant="success">
           Your account has been credited with the CPS purchased for
-          {amount} {currency}.
+          NGN {amount}.
         </Message>
       )}
 
@@ -211,12 +211,12 @@ function CardPayment({
           <Button variant="primary" type="submit" disabled={!isFormValid()}>
             Pay{" "}
             <span>
-              ({" "}
+              (NGN{" "}
               {amount?.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              })}{" "}
-              {currency})
+              })}
+              )
             </span>
           </Button>
         </div>
@@ -228,4 +228,4 @@ function CardPayment({
   );
 }
 
-export default CardPayment;
+export default UsdCardPayment;

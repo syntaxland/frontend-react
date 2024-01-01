@@ -19,9 +19,9 @@ function PaysofterButton({
   amount,
   sellerApiKey,
   setShowPaymentModal,
-
+  currency,
+  usdPrice,
   reference,
-
   paymentDetails,
   handlePaymentDetailsChange,
   // handlePaymentSubmit,
@@ -42,7 +42,7 @@ function PaysofterButton({
 
   const handlePaymentOptionChange = (option) => {
     setSelectedPaymentOption(option);
-  };
+  }; 
 
   const handleMoreOptions = () => {
     setShowMoreOptions(!showMoreOptions);
@@ -66,11 +66,11 @@ function PaysofterButton({
             <Modal.Title>Mock Payment (Test)</Modal.Title>
             <div>{buyerEmail}</div>
             <div>
-              NGN{" "}
               {amount?.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              })}
+              })}{" "}
+              {currency}
             </div>
           </div>
         </Modal.Header>
@@ -106,10 +106,10 @@ function PaysofterButton({
                     Fund
                   </Button>
                 </div>
-
+                
                 <div className="py-1">
                   <Button
-                    variant="outline-primary"
+                    variant="primary"
                     onClick={() => handlePaymentOptionChange("promise")}
                     className={
                       selectedPaymentOption === "promise" ? "active" : ""
@@ -118,6 +118,20 @@ function PaysofterButton({
                     <i className="fas fa-money-bill-wave"></i> Paysofter Promise
                   </Button>
                 </div>
+
+                {/* {currency === "USD" && (
+                   <div className="py-1">
+                   <Button
+                     variant="outline-primary"
+                     onClick={() => handlePaymentOptionChange("usd-promise")}
+                     className={
+                       selectedPaymentOption === "usd-promise" ? "active" : ""
+                     }
+                   >
+                     <i className="fas fa-money-bill-wave"></i> Paysofter Promise
+                   </Button>
+                 </div>
+                )} */}
 
                 <div className="text-center py-2">
                   <Button
@@ -212,9 +226,10 @@ function PaysofterButton({
                   buyerEmail={buyerEmail}
                   amount={amount}
                   sellerApiKey={sellerApiKey}
+                  currency={currency}
+                  usdPrice={usdPrice}
                 />
               )}
-
               {selectedPaymentOption === "bank" && <BankPayment />}
               {selectedPaymentOption === "transfer" && <TransferPayment />}
               {selectedPaymentOption === "ussd" && <UssdPayment />}

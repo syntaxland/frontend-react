@@ -21,6 +21,10 @@ import {
   GET_PAYMENT_API_KEYS_REQUEST,
   GET_PAYMENT_API_KEYS_SUCCESS,
   GET_PAYMENT_API_KEYS_FAIL,
+
+  DEBIT_PAYSOFTER_USD_ACCOUNT_REQUEST,
+DEBIT_PAYSOFTER_USD_ACCOUNT_SUCCESS,
+DEBIT_PAYSOFTER_USD_ACCOUNT_FAIL,
 } from "../constants/paymentConstants";
 
 const initialState = {
@@ -32,6 +36,29 @@ const initialState = {
   loading: false,
   success: false,
   error: null,
+};
+
+export const debitPaysofterUsdAccountReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case DEBIT_PAYSOFTER_USD_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DEBIT_PAYSOFTER_USD_ACCOUNT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        formattedPayerEmail: action.payload.formattedPayerEmail,
+      };
+    case DEBIT_PAYSOFTER_USD_ACCOUNT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
 };
 
 export const getPaymentApiKeysReducer = (state = initialState, action) => {

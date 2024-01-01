@@ -10,7 +10,7 @@ import { listPayments } from "../../actions/paymentActions";
 import { getOrders } from "../../actions/orderActions";
 import { Line, Pie } from "react-chartjs-2";
 import SellCreditPoint from "../CreditPoint/SellCreditPoint";
-import BuyCreditPoint from "../CreditPoint/BuyCreditPoint";
+import SelectCurrency from "../CreditPoint/SelectCurrency"; 
 
 import {
   Chart as ChartJS,
@@ -305,7 +305,7 @@ function Dashboard() {
                           className="py-2 rounded"
                           onClick={handleBuyCreditPointOpen}
                         >
-                          Buy CPS
+                          Buy CPS 
                         </Button>
                       </span>
 
@@ -338,7 +338,7 @@ function Dashboard() {
             Buy Credit Point
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{buyCreditPointModal && <BuyCreditPoint />}</Modal.Body>
+        <Modal.Body className="py-2 d-flex justify-content-center">{buyCreditPointModal && <SelectCurrency />}</Modal.Body>
       </Modal>
 
       <Modal show={sellCreditPointModal} onHide={handleSellCreditPointClose}>
@@ -347,7 +347,7 @@ function Dashboard() {
             Sell/Share Credit Point
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{sellCreditPointModal && <SellCreditPoint />}</Modal.Body>
+        <Modal.Body className="py-2 d-flex justify-content-center">{sellCreditPointModal && <SellCreditPoint />}</Modal.Body>
       </Modal>
     </div>
   );

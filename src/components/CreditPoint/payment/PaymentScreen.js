@@ -7,6 +7,7 @@ import Paysofter from "./Paysofter";
 
 function PaymentScreen({
   amount,
+  currency,
   paysofterPublicKey,
   paystackPublicKey,
   userEmail,
@@ -35,7 +36,7 @@ function PaymentScreen({
     setSelectedPaymentGateway(paymentGateway);
   };
 
-  console.log("amount:", amount);
+  console.log("amount:", currency, amount);
 
   return (
     <>
@@ -46,7 +47,7 @@ function PaymentScreen({
 
             <div className="text-center py-2">
               <Row className="text-center py-2">
-                <Col md={11}>
+                <Col md={10}>
                   <Button
                     variant="dark"
                     onClick={() => handlePaymentGatewaySelection("paystack")}
@@ -55,13 +56,13 @@ function PaymentScreen({
                     Pay with Paystack
                   </Button>
                 </Col>
-                <Col md={1}>
+                <Col md={2}>
                   <Button variant="outline"></Button>
                 </Col>
               </Row>
 
               <Row className="text-center py-2">
-                <Col md={11}>
+                <Col md={10}>
                   <Button
                     variant="primary"
                     onClick={() => handlePaymentGatewaySelection("paysofter")}
@@ -70,7 +71,7 @@ function PaymentScreen({
                     Pay with Paysofter
                   </Button>
                 </Col>
-                <Col md={1}>
+                <Col md={2}>
                   <Button
                     variant="outline"
                     onClick={handleInfoModalShow}
@@ -116,18 +117,20 @@ function PaymentScreen({
             </div>
 
             {selectedPaymentGateway === "paystack" && (
-              <Paystack 
-              amount={amount} 
-              userEmail={userEmail} 
-              paystackPublicKey={paystackPublicKey} 
+              <Paystack
+                currency={currency}
+                amount={amount}
+                userEmail={userEmail}
+                paystackPublicKey={paystackPublicKey}
               />
             )}
 
             {selectedPaymentGateway === "paysofter" && (
-              <Paysofter 
-              userEmail={userEmail} 
-              amount={amount} 
-              paysofterPublicKey={paysofterPublicKey} 
+              <Paysofter
+                userEmail={userEmail}
+                currency={currency}
+                amount={amount}
+                paysofterPublicKey={paysofterPublicKey}
               />
             )}
           </Col>

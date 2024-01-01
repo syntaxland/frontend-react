@@ -14,13 +14,18 @@ import {
   getSellerUsernameSearch,
   searchAds,
 } from "../../actions/marketplaceSellerActions";
-
 import Message from "../Message";
 import LoaderButton from "../LoaderButton";
+import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 
 function Marketplace() {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  console.log("Country:", Country.getAllCountries());
+  console.log("State:", State.getAllStates());
+  console.log("City:", City.getAllCities());
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sellerUsername, setSellerUsername] = useState("");
@@ -92,6 +97,14 @@ function Marketplace() {
       }
     }
   };
+
+  const COUNTRY_CHOICES = [
+    ["Nigeria", "Nigeria"],
+    ["Canada", "Canada"],
+    ["Ghana", "Ghana"],
+    ["USA", "USA"],
+    ["UAE", "UAE"],
+  ];
 
   return (
     <div>
@@ -198,8 +211,20 @@ function Marketplace() {
                   <i className="fas fa-map-marker-alt"></i>
                 </Col>
 
-                <Col md={3}>
-                  <Form.Control
+                <Col md={4}>
+                  <Select
+                    options={COUNTRY_CHOICES.map(([value, label]) => ({
+                      value,
+                      label,
+                    }))}
+                    // value={{ value: selectedCategory, label: selectedCategory }}
+                    // onChange={handleCategoryChange}
+                    placeholder="Countries"
+                    className="rounded"
+                    required
+                  />
+
+                  {/* <Form.Control
                     as="select"
                     // onChange={handleCategoryChange}
                     // value={category}
@@ -210,7 +235,7 @@ function Marketplace() {
                     <option value="Basins">Ghana</option>
                     <option value="Basins">USA</option>
                     <option value="Basins">UAE</option>
-                  </Form.Control>
+                  </Form.Control> */}
                 </Col>
 
                 <Col md={3}>

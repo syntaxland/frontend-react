@@ -1,22 +1,19 @@
-// PaysofterAccountFund.js
+// PaysofterUsdAccountFundPromise.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button, Modal } from "react-bootstrap";
-import { debitPaysofterAccountFund } from "../../../actions/paymentActions";
+import { debitPaysofterUsdAccountFund } from "../../actions/paymentActions";
+import Message from "../Message";
+import Loader from "../Loader";
+import VerifyUsdAccountFundPromiseOtp from "./VerifyUsdAccountFundPromiseOtp";
 
-import Message from "../../Message";
-import Loader from "../../Loader";
-import VerifyAccountFundOtp from "./VerifyAccountFundOtp";
-
-const PaysofterAccountFund = ({
-  history,
+const PaysofterUsdAccountFundPromise = ({
+  buyerEmail,
   amount,
+  sellerApiKey,
   paymentData,
   reference,
-  userEmail,
-  paysofterPublicKey,
   duration,
-  paymenthMethod,
   currency,
 }) => {
   const dispatch = useDispatch();
@@ -30,28 +27,37 @@ const PaysofterAccountFund = ({
     }
   }, [userInfo]);
 
-  const debitPaysofterAccountState = useSelector(
-    (state) => state.debitPaysofterAccountState
+  const debitPaysofterUsdAccountState = useSelector(
+    (state) => state.debitPaysofterUsdAccountState
   );
   const {
     loading,
     success,
     formattedPayerEmail,
     error,
-  } = debitPaysofterAccountState;
-  console.log("formattedPayerEmail:", formattedPayerEmail);
-  console.log("paysofterPublicKey:", paysofterPublicKey);
+  } = debitPaysofterUsdAccountState;
+  console.log(
+    "formattedPayerEmail:",
+    formattedPayerEmail
+  );
 
   const [accountId, setAccountId] = useState("");
+  const [accountIdError, setAccountIdError] = useState("");
+
   const [securityCode, setSecurityCode] = useState("");
+  const [securityCodeError, setSecurityCodeError] = useState("");
+
+  const [formError, setFormError] = useState("");
+
   // const [currency, setCurrency] = useState("");
 
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
   const [showSecurityCodeModal, setShowSecurityCodeModal] = useState(false);
-  const [showVerifyAccountFundOtp, setShowVerifyAccountFundOtp] = useState(
-    false
-  );
+  const [
+    showVerifyUsdAccountFundPromiseOtp,
+    setShowVerifyUsdAccountFundPromiseOtp,
+  ] = useState(false);
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
 
   const handleAccountInfoModalShow = () => {
@@ -82,60 +88,92 @@ const PaysofterAccountFund = ({
     setShowInfoModal(false);
   };
 
-  const debitAccountData = {
+  const handleFieldChange = (fieldName, value) => {
+    switch (fieldName) {
+      case "accountId":
+        setAccountId(value);
+        setAccountIdError("");
+        break;
+
+      case "securityCode":
+        setSecurityCode(value);
+        setSecurityCodeError("");
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const debitUsdAccountData = {
     account_id: accountId,
     security_code: securityCode,
     amount: amount,
-    public_api_key: paysofterPublicKey,
+    public_api_key: sellerApiKey,
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    try {
+
+    if (!accountId) {
+      setAccountIdError("Please enter Account ID.");
+      return;
+    } else {
+      setAccountIdError("");
+    }
+
+    if (!securityCode) {
+      setSecurityCodeError("Please enter Security Code.");
+      return;
+    } else {
+      setSecurityCodeError("");
+    }
+
+    if (!accountId || !securityCode) {
+      setFormError("Please attend to the errors within the form.");
+      return;
+    } else {
+      dispatch(debitPaysofterUsdAccountFund(debitUsdAccountData));
       localStorage.setItem(
-        "debitAccountData",
-        JSON.stringify(debitAccountData)
+        "debitUsdAccountData",
+        JSON.stringify(debitUsdAccountData)
       );
-      dispatch(debitPaysofterAccountFund(debitAccountData));
-    } catch (error) {
-      console.log(error);
     }
   };
 
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        setShowVerifyAccountFundOtp(true);
+        setShowVerifyUsdAccountFundPromiseOtp(true);
       }, 1000);
       return () => clearTimeout(timer);
-    } else {
-      console.error("Error verifying account");
     }
     // eslint-disable-next-line
-  }, [dispatch, success, history, error]);
+  }, [dispatch, success]);
 
   return (
     <>
-      {showVerifyAccountFundOtp ? (
-        <VerifyAccountFundOtp
+      {showVerifyUsdAccountFundPromiseOtp ? (
+        <VerifyUsdAccountFundPromiseOtp
           amount={amount}
+          sellerApiKey={sellerApiKey}
+          buyerEmail={buyerEmail}
           paymentData={paymentData}
           reference={reference}
-          currency={currency}
-          userEmail={userEmail}
-          paysofterPublicKey={paysofterPublicKey}
           securityCode={securityCode}
           accountId={accountId}
           formattedPayerEmail={formattedPayerEmail}
+          currency={currency}
           duration={duration}
-          paymenthMethod={paymenthMethod}
+          // paymenthMethod={paymenthMethod}
+          // paymentProvider={paymentProvider}
         />
       ) : (
         <Row className="justify-content-center">
           <Col>
             <Row className="text-center py-2">
               <Col md={10}>
-                <h2 className="py-2 text-center">Paysofter Account Fund (NGN)</h2>
+                <h2 className="py-2 text-center">Paysofter Account Fund (USD)</h2>
               </Col>
               <Col md={2}>
                 <Button
@@ -192,7 +230,9 @@ const PaysofterAccountFund = ({
             {error && <Message variant="danger">{error}</Message>}
             {loading && <Loader />}
 
-            <Form onSubmit={submitHandler}>
+            {formError && <Message variant="danger">{formError}</Message>}
+
+            <Form>
               {/* <Form.Group controlId="currency">
                 <Form.Label>Currency</Form.Label>
                 <Form.Control
@@ -215,8 +255,11 @@ const PaysofterAccountFund = ({
                       type="text"
                       placeholder="Enter Paysofter Account ID"
                       value={accountId}
-                      onChange={(e) => setAccountId(e.target.value)}
-                      required
+                      // onChange={(e) => setAccountId(e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("accountId", e.target.value)
+                      }
+                      // required
                       maxLength={12}
                     />
                   </Col>
@@ -263,6 +306,7 @@ const PaysofterAccountFund = ({
                     </Modal>
                   </Col>
                 </Row>
+                <Form.Text className="text-danger">{accountIdError}</Form.Text>
               </Form.Group>
 
               <Form.Group controlId="securityCode">
@@ -274,8 +318,11 @@ const PaysofterAccountFund = ({
                       type={securityCodeVisible ? "text" : "password"}
                       placeholder="Enter Account Security Code"
                       value={securityCode}
-                      onChange={(e) => setSecurityCode(e.target.value)}
-                      required
+                      // onChange={(e) => setSecurityCode(e.target.value)}
+                      onChange={(e) =>
+                        handleFieldChange("securityCode", e.target.value)
+                      }
+                      // required
                       maxLength={4}
                     />
                   </Col>
@@ -285,7 +332,7 @@ const PaysofterAccountFund = ({
                       onClick={handleSecurityCodeModalShow}
                       data-toggle="tooltip"
                       data-placement="top"
-                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every minute, hour or day). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
+                      title="A 4-digit randomly generated Paysofter Account Security Code that expires at a given time  (e.g. every hour). Having issue applying the security code? Refresh your paysofter account page, logout and login or clear browsing data."
                     >
                       <i className="fa fa-info-circle"> </i>
                     </Button>
@@ -345,6 +392,9 @@ const PaysofterAccountFund = ({
                     </Button>
                   </span>
                 </Row>
+                <Form.Text className="text-danger">
+                  {securityCodeError}
+                </Form.Text>
               </Form.Group>
 
               <div className="py-3 text-center">
@@ -352,18 +402,19 @@ const PaysofterAccountFund = ({
                   className="w-100 rounded"
                   type="submit"
                   variant="primary"
+                  onClick={submitHandler}
                 >
                   Pay{" "}
                   <span>
+                    (
                     {amount?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })} {" "}{currency}
+                    })}{" "}{currency}
                     )
                   </span>
                 </Button>
               </div>
-
               <div className="py-2 d-flex justify-content-center">
                 <Form.Text className="text-danger">{error}</Form.Text>
               </div>
@@ -375,4 +426,4 @@ const PaysofterAccountFund = ({
   );
 };
 
-export default PaysofterAccountFund;
+export default PaysofterUsdAccountFundPromise;

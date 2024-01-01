@@ -1,14 +1,13 @@
-// PaysofterAccountFund.js
+// PaysofterUsdAccountFund.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, Form, Button, Modal } from "react-bootstrap";
-import { debitPaysofterAccountFund } from "../../../actions/paymentActions";
-
+import { debitPaysofterUsdAccountFund } from "../../../actions/paymentActions";
 import Message from "../../Message";
 import Loader from "../../Loader";
-import VerifyAccountFundOtp from "./VerifyAccountFundOtp";
+import VerifyUsdAccountFundOtp from "./VerifyUsdAccountFundOtp"; 
 
-const PaysofterAccountFund = ({
+const PaysofterUsdAccountFund = ({
   history,
   amount,
   paymentData,
@@ -30,26 +29,24 @@ const PaysofterAccountFund = ({
     }
   }, [userInfo]);
 
-  const debitPaysofterAccountState = useSelector(
-    (state) => state.debitPaysofterAccountState
+  const debitPaysofterUsdAccountState = useSelector(
+    (state) => state.debitPaysofterUsdAccountState
   );
   const {
     loading,
     success,
     formattedPayerEmail,
     error,
-  } = debitPaysofterAccountState;
+  } = debitPaysofterUsdAccountState;
   console.log("formattedPayerEmail:", formattedPayerEmail);
   console.log("paysofterPublicKey:", paysofterPublicKey);
 
   const [accountId, setAccountId] = useState("");
   const [securityCode, setSecurityCode] = useState("");
-  // const [currency, setCurrency] = useState("");
-
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showAccountInfoModal, setShowAccountInfoModal] = useState(false);
   const [showSecurityCodeModal, setShowSecurityCodeModal] = useState(false);
-  const [showVerifyAccountFundOtp, setShowVerifyAccountFundOtp] = useState(
+  const [showVerifyUsdAccountFundOtp, setShowVerifyUsdAccountFundOtp] = useState(
     false
   );
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
@@ -82,7 +79,7 @@ const PaysofterAccountFund = ({
     setShowInfoModal(false);
   };
 
-  const debitAccountData = {
+  const debitUsdAccountData = {
     account_id: accountId,
     security_code: securityCode,
     amount: amount,
@@ -93,10 +90,10 @@ const PaysofterAccountFund = ({
     e.preventDefault();
     try {
       localStorage.setItem(
-        "debitAccountData",
-        JSON.stringify(debitAccountData)
+        "debitUsdAccountData",
+        JSON.stringify(debitUsdAccountData)
       );
-      dispatch(debitPaysofterAccountFund(debitAccountData));
+      dispatch(debitPaysofterUsdAccountFund(debitUsdAccountData));
     } catch (error) {
       console.log(error);
     }
@@ -105,7 +102,7 @@ const PaysofterAccountFund = ({
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        setShowVerifyAccountFundOtp(true);
+        setShowVerifyUsdAccountFundOtp(true);
       }, 1000);
       return () => clearTimeout(timer);
     } else {
@@ -116,8 +113,8 @@ const PaysofterAccountFund = ({
 
   return (
     <>
-      {showVerifyAccountFundOtp ? (
-        <VerifyAccountFundOtp
+      {showVerifyUsdAccountFundOtp ? (
+        <VerifyUsdAccountFundOtp
           amount={amount}
           paymentData={paymentData}
           reference={reference}
@@ -135,7 +132,7 @@ const PaysofterAccountFund = ({
           <Col>
             <Row className="text-center py-2">
               <Col md={10}>
-                <h2 className="py-2 text-center">Paysofter Account Fund (NGN)</h2>
+                <h2 className="py-2 text-center">Paysofter Account Fund (USD)</h2>
               </Col>
               <Col md={2}>
                 <Button
@@ -193,19 +190,7 @@ const PaysofterAccountFund = ({
             {loading && <Loader />}
 
             <Form onSubmit={submitHandler}>
-              {/* <Form.Group controlId="currency">
-                <Form.Label>Currency</Form.Label>
-                <Form.Control
-                  as="select"
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  disabled
-                >
-                  <option value="NGN">NGN</option>
-                  <option value="USD">USD</option>
-                </Form.Control>
-              </Form.Group> */}
-
+              
               <Form.Group controlId="accountId">
                 <Form.Label>Account ID</Form.Label>
 
@@ -355,10 +340,11 @@ const PaysofterAccountFund = ({
                 >
                   Pay{" "}
                   <span>
+                    ({" "}
                     {amount?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })} {" "}{currency}
+                    })}{" "}{currency}
                     )
                   </span>
                 </Button>
@@ -375,4 +361,4 @@ const PaysofterAccountFund = ({
   );
 };
 
-export default PaysofterAccountFund;
+export default PaysofterUsdAccountFund;

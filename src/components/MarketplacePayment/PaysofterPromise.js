@@ -11,10 +11,13 @@ import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
 import PaysofterAccountFundPromise from "./PaysofterAccountFundPromise";
+import PaysofterUsdAccountFundPromise from "./PaysofterUsdAccountFundPromise";
+import Select from "react-select";
 
 const PaysofterPromise = ({
   history,
   buyerEmail,
+  currency,
   amount,
   sellerApiKey,
   paymentData,
@@ -36,14 +39,14 @@ const PaysofterPromise = ({
   );
   const { loading, success, error } = debitPaysofterAccountState;
 
-  const CURRENCY_CHOICES = [
-    ["NGN", "NGN"],
-    ["USD", "USD"],
-  ];
+  // const CURRENCY_CHOICES = [
+  //   ["NGN", "NGN"],
+  //   ["USD", "USD"],
+  // ];
 
   const [duration, setDuration] = useState("Within 1 day");
-  const [currency, setCurrency] = useState("");
-  // const [paymenthMethod, setPaymenthMethod] = useState("Paysofter Promise"); 
+  // const [currency, setCurrency] = useState("");
+  // const [paymenthMethod, setPaymenthMethod] = useState("Paysofter Promise");
   // const [paymentProvider, setPaymentProvider] = useState("Paysofter");
   // const createdAt = new Date().toISOString();
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -106,17 +109,75 @@ const PaysofterPromise = ({
   return (
     <Container>
       {showPaysofterAccountFundPromise ? (
-        <PaysofterAccountFundPromise
-          amount={amount}
-          buyerEmail={buyerEmail}
-          sellerApiKey={sellerApiKey}
-          paymentData={paymentData}
-          reference={reference}
-          currency={currency}
-          duration={duration}
-          // paymenthMethod={paymenthMethod}
-          // paymentProvider={paymentProvider}
-        />
+        <>
+          {currency === "USD" ? (
+            <>
+              <PaysofterUsdAccountFundPromise 
+                currency={currency}
+                amount={amount}
+                buyerEmail={buyerEmail}
+                sellerApiKey={sellerApiKey}
+                paymentData={paymentData}
+                reference={reference}
+                duration={duration}
+              />
+            </>
+          ) : (
+            <>
+              <PaysofterAccountFundPromise
+                currency={currency}
+                amount={amount}
+                buyerEmail={buyerEmail}
+                sellerApiKey={sellerApiKey}
+                paymentData={paymentData}
+                reference={reference}
+                duration={duration}
+              />
+            </>
+          )}
+
+          {/* {currency === "USD" && (
+            <PaysofterUsdAccountFundPromise
+              currency={currency}
+              amount={amount}
+              buyerEmail={buyerEmail}
+              sellerApiKey={sellerApiKey}
+              paymentData={paymentData}
+              reference={reference}
+              duration={duration}
+            />
+          )} */}
+
+          {/* {currency === "NGN" && (
+            <PaysofterAccountFundPromise
+              currency={currency}
+              amount={amount}
+              buyerEmail={buyerEmail}
+              sellerApiKey={sellerApiKey}
+              paymentData={paymentData}
+              reference={reference}
+              duration={duration}
+            />
+          )} */}
+
+          {/* {currency !== "USD" && currency !== "NGN" && (
+            <div className="text-center py-2 mt-2">
+              <h3 className="py-2">
+                <i
+                  className="fa fa-info-circle"
+                  style={{ fontSize: "16px" }}
+                ></i>{" "}
+                Noticification
+              </h3>
+              <p>
+                Paysofter currently supports transactions in USD and NGN. Kindly
+                contact the seller to add the USD (or NGN) main price for
+                Paysofter Promise checkout.
+              </p>
+              <p>Thank you.</p>
+            </div>
+          )} */}
+        </>
       ) : (
         <Row className="justify-content-center">
           <Col>
@@ -177,88 +238,20 @@ const PaysofterPromise = ({
             {loading && <Loader />}
 
             <Form onSubmit={submitHandler}>
+              {/* <Form.Group controlId="currency">
+                  <Form.Label>Currency</Form.Label>
+                  <Form.Control as="select" value={currency} readOnly>
+                    <option>{currency}</option>
+                  </Form.Control>
+                </Form.Group> */}
+
               <Form.Group controlId="currency">
                 <Form.Label>Currency</Form.Label>
-                <Form.Control
-                  as="select"
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  // disabled
-                  required
-                >
-                  <option value="">Select Currency</option>
-                  {CURRENCY_CHOICES.map((type) => (
-                    <option key={type[0]} value={type[0]}>
-                      {type[1]}
-                    </option>
-                  ))}
-                </Form.Control>
+                <Select
+                  value={{ value: currency, label: currency }}
+                  isDisabled
+                />
               </Form.Group>
-
-              {/* <Form.Group controlId="currency">
-              <Form.Label>Seller Paysofter Account ID</Form.Label>
-              <Form.Control
-                // as="select"
-                // value={currency}
-                // onChange={(e) => setCurrency(e.target.value)}
-                placeholder="123456789012"
-                disabled
-              ></Form.Control>
-            </Form.Group> 
-            
-            
-           
-            
-            */}
-
-              {/* <Form.Group controlId="seller_name">
-              <Form.Label>Seller Name</Form.Label>
-              <Form.Control
-                // as="select"
-                // value={seller_name}
-                // onChange={(e) => setCurrency(e.target.value)}
-                placeholder="Seller name"
-                disabled
-              ></Form.Control>
-            </Form.Group> */}
-
-              {/* <Form.Group controlId="paymenthMethod">
-                <Form.Label>Payment Method</Form.Label>
-                <Form.Control
-                  disabled
-                  as="select"
-                  value={paymenthMethod}
-                  onChange={(e) => setPaymenthMethod(e.target.value)}
-                >
-                  <option value="Paysofter Promise">Paysofter Promise</option>
-                  <option value="Paysofter Account Fund">
-                    Paysofter Account Fund
-                  </option>
-                  <option value="Debit Card">Debit Card</option>
-                  <option value="Bank">Bank</option>
-                  <option value="Transfer">Transfer</option>
-                  <option value="QR COde">QR COde</option>
-                  <option value="USSD">USSD</option>
-                </Form.Control>
-              </Form.Group> */}
-
-              {/* <Form.Group controlId="paymentProvider">
-                <Form.Label>Payment Provider</Form.Label>
-                <Form.Control
-                  disabled
-                  as="select"
-                  value={paymentProvider}
-                  onChange={(e) => setPaymentProvider(e.target.value)}
-                >
-                  <option value="Paysofter">Paysofter</option>
-
-                  <option value="Mastercard">Mastercard</option>
-                  <option value="Verve">Verve</option>
-                  <option value="Visa">Visa</option>
-                  <option value="GTB">GTB</option>
-                  <option value="Fidelity">Fidelity</option>
-                </Form.Control>
-              </Form.Group> */}
 
               <Form.Group controlId="duration">
                 <Form.Label>Expected Settlement Duration</Form.Label>

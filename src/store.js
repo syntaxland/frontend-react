@@ -78,6 +78,7 @@ import {
   paymentCreateReducer,
   paysofterPaymentCreateReducer,
   debitPaysofterAccountReducer,
+  debitPaysofterUsdAccountReducer,
   createPaysofterPromiseReducer,
   paymentListReducer,
   listAllPaymentsReducer,
@@ -116,6 +117,7 @@ import {
 import {
   otpSendReducer,
   otpVerifyReducer,
+  otpVerifyUsdPromiseReducer,
 } from "./reducers/accountFundOtpReducers";
 
 import {
@@ -221,6 +223,7 @@ const reducer = combineReducers({
   paymentCreate: paymentCreateReducer,
   paysofterPayment: paysofterPaymentCreateReducer,
   debitPaysofterAccountState: debitPaysofterAccountReducer,
+  debitPaysofterUsdAccountState: debitPaysofterUsdAccountReducer,
   createPaysofterPromiseState: createPaysofterPromiseReducer,
   paymentList: paymentListReducer,
   listAllPayments: listAllPaymentsReducer,
@@ -233,7 +236,7 @@ const reducer = combineReducers({
 
   otpSendState: otpSendReducer,
   otpVerifyState: otpVerifyReducer,
-
+  otpVerifyUsdPromiseState: otpVerifyUsdPromiseReducer,
   userProfile: getUserProfileReducer,
   updateProfile: updateUserProfileReducer,
   userChangePassword: changePasswordReducer,

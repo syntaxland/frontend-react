@@ -1,21 +1,20 @@
-// VerifyAccountFundOtp.js
+// VerifyUsdAccountFundOtp.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { clearCart } from "../../../actions/cartActions";
 import {
   // createPayment,
   createPaysofterPayment,
-  debitPaysofterAccountFund,
+  debitPaysofterUsdAccountFund,
   verifyOtp,
 } from "../../../actions/paymentActions";
-
 import { buyCreditPoint } from "../../../actions/creditPointActions";
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Loader from "../../Loader";
 import Message from "../../Message";
 
-const VerifyAccountFundOtp = ({
+const VerifyUsdAccountFundOtp = ({
   amount,
   paymentData,
   reference,
@@ -56,7 +55,7 @@ const VerifyAccountFundOtp = ({
   console.log("formattedPayerEmail:", formattedPayerEmail);
 
   const sendOtpData =
-    JSON.parse(localStorage.getItem("debitAccountData")) || [];
+    JSON.parse(localStorage.getItem("debitUsdAccountData")) || [];
   console.log("sendOtpData:", sendOtpData, sendOtpData.account_id);
 
   const paysofterPaymentData = {
@@ -74,7 +73,7 @@ const VerifyAccountFundOtp = ({
     currency: currency,
   };
 
-  const debitAccountData = {
+  const debitUsdAccountData = {
     account_id: sendOtpData.account_id,
     security_code: sendOtpData.security_code,
     amount: amount,
@@ -88,7 +87,9 @@ const VerifyAccountFundOtp = ({
     setResendLoading(true);
     setResendMessage("");
     try {
-      dispatch(debitPaysofterAccountFund(JSON.stringify(debitAccountData)));
+      dispatch(
+        debitPaysofterUsdAccountFund(JSON.stringify(debitUsdAccountData))
+      );
       setResendMessage(`OTP resent to ${formattedPayerEmail} successfully.`);
       setResendDisabled(true);
     } catch (error) {
@@ -119,7 +120,7 @@ const VerifyAccountFundOtp = ({
     if (success) {
       dispatch(createPaysofterPayment(paysofterPaymentData));
       dispatch(buyCreditPoint(creditPointData));
-      localStorage.removeItem("debitAccountData");
+      localStorage.removeItem("debitUsdAccountData");
       setShowSuccessMessage(true);
       setTimeout(() => {
         // window.location.reload();
@@ -156,8 +157,8 @@ const VerifyAccountFundOtp = ({
 
             {buyCreditPointSuccess && (
               <Message variant="success">
-                Your account has been credited with the credit points purchased
-                for {amount} {currency}.
+                Your account has been credited with the CPS purchased for{" "}
+                {amount} {currency}.
               </Message>
             )}
 
@@ -215,4 +216,4 @@ const VerifyAccountFundOtp = ({
   );
 };
 
-export default VerifyAccountFundOtp;
+export default VerifyUsdAccountFundOtp;

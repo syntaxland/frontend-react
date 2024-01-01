@@ -255,7 +255,7 @@ function FreeAdCard({ product }) {
           <Card.Text as="h5" className="py-2">
             <span>
                {product?.price} {product?.currency}{" "}
-             {product?.usd_price ? <span> / {product?.usd_price} USD </span> : <></>}{" "}
+             {/* {product?.usd_price ? <span> / {product?.usd_price} USD </span> : <></>}{" "} */}
               {product?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>

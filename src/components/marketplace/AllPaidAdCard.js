@@ -306,7 +306,7 @@ function AllPaidAdCard({ product }) {
             <span>
               {product?.price} {product?.currency}{" "}
               {product?.usd_price ? (
-                <span> / {product?.usd_price} USD </span>
+                <span> / {product?.usd_price} {product?.usd_currency} </span>
               ) : (
                 <></>
               )}{" "}

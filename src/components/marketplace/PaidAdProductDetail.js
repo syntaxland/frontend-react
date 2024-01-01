@@ -154,7 +154,7 @@ function PaidAdProductDetail({ match, history }) {
   };
 
   const handleSellerShopFront = () => {
-    history.push(`/seller-shop-front/${ads?.seller_username}/`); 
+    history.push(`/seller-shop-front/${ads?.seller_username}/`);
   };
 
   return (
@@ -237,7 +237,19 @@ function PaidAdProductDetail({ match, history }) {
                       <Row>
                         <Col>Price:</Col>
                         <Col>
-                          <strong>NGN {ads?.price}</strong>
+                          <strong>
+                             {ads?.price} {ads?.currency}
+                          </strong>
+                          <strong>
+                            {ads?.usd_price ? (
+                              <span>
+                                {" "}
+                                / {ads?.usd_price} {ads?.usd_currency}{" "} 
+                              </span>
+                            ) : (
+                              <></>
+                            )}{" "}
+                          </strong>
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -381,7 +393,8 @@ function PaidAdProductDetail({ match, history }) {
                         className="py-2 rounded"
                         onClick={handleSellerShopFront}
                       >
-                        <i className="fa fa-shopping-cart"></i> Go to Seller Shopfront
+                        <i className="fa fa-shopping-cart"></i> Go to Seller
+                        Shopfront
                       </Button>
                     </span>
                   </ListGroup.Item>
@@ -413,7 +426,9 @@ function PaidAdProductDetail({ match, history }) {
               {showPaysofterOption && (
                 <Paysofter
                   ads={ads}
-                  buyerEmail={userInfo.email}
+                  buyerEmail={userInfo?.email}
+                  currency={ads?.currency}
+                  usdPrice={ads?.usd_price}
                   amount={ads?.price}
                   sellerApiKey={sellerApiKey}
                 />

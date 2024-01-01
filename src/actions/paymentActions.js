@@ -22,19 +22,102 @@ import {
   GET_PAYMENT_API_KEYS_REQUEST,
   GET_PAYMENT_API_KEYS_SUCCESS,
   GET_PAYMENT_API_KEYS_FAIL,
+  DEBIT_PAYSOFTER_USD_ACCOUNT_REQUEST,
+  DEBIT_PAYSOFTER_USD_ACCOUNT_SUCCESS,
+  DEBIT_PAYSOFTER_USD_ACCOUNT_FAIL,
 } from "../constants/paymentConstants";
 
 import {
   VERIFY_OTP_REQUEST,
   VERIFY_OTP_SUCCESS,
   VERIFY_OTP_FAIL,
-  
+  VERIFY_USD_OTP_REQUEST,
+  VERIFY_USD_OTP_SUCCESS,
+  VERIFY_USD_OTP_FAIL,
 } from "../constants/accountFundOtpConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
 // const PAYSOFTER_URL = process.env.PAYSOFTER_API_URL;
 // const PAYSOFTER_URL = "http://localhost:8001";
-const PAYSOFTER_URL = "https://api.paysofter.com"; 
+const PAYSOFTER_URL = "https://api.paysofter.com";
+
+export const debitPaysofterUsdAccountFund = (debitUsdAccountData) => async (
+  dispatch
+  // getState
+) => {
+  try {
+    dispatch({
+      type: DEBIT_PAYSOFTER_USD_ACCOUNT_REQUEST,
+    });
+
+    // const {
+    //   userLogin: { userInfo },
+    // } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${userInfo.access}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `${PAYSOFTER_URL}/api/debit-user-usd-account-fund/`,
+      debitUsdAccountData,
+      config
+    );
+
+    dispatch({
+      type: DEBIT_PAYSOFTER_USD_ACCOUNT_SUCCESS,
+      payload: data,
+    });
+    // window.location.reload();
+    // window.location.href = "/verify-account-fund-otp";
+  } catch (error) {
+    dispatch({
+      type: DEBIT_PAYSOFTER_USD_ACCOUNT_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+export const verifyUsdPromiseOtp = (otpData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VERIFY_USD_OTP_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      `${PAYSOFTER_URL}/api/verify-usd-account-debit-email-otp/`,
+      { otpData },
+      config
+    );
+
+    dispatch({
+      type: VERIFY_USD_OTP_SUCCESS,
+      payload: data,
+    });
+    // window.location.reload();
+    // window.location.href = "/dashboard/users";
+  } catch (error) {
+    dispatch({
+      type: VERIFY_USD_OTP_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const getPaymentApiKeys = () => async (dispatch, getState) => {
   try {

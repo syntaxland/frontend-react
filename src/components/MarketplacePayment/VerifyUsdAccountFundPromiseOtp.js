@@ -1,14 +1,14 @@
-// VerifyAccountFundPromiseOtp.js
+// VerifyUsdAccountFundPromiseOtp.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../actions/cartActions";
 import {
   createPayment,
   // createPaysofterPayment,
-  debitPaysofterAccountFund,
-  verifyOtp,
+  debitPaysofterUsdAccountFund,
+  verifyUsdPromiseOtp,
   createPaysofterPromise,
-} from "../../actions/paymentActions"; 
+} from "../../actions/paymentActions";
 
 import { useHistory } from "react-router-dom";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
@@ -16,7 +16,7 @@ import Loader from "../Loader";
 import Message from "../Message";
 import ConfirmPaysofterPromise from "./ConfirmPaysofterPromise";
 
-const VerifyAccountFundPromiseOtp = ({
+const VerifyUsdAccountFundPromiseOtp = ({
   buyerEmail,
   amount,
   sellerApiKey,
@@ -52,8 +52,8 @@ const VerifyAccountFundPromiseOtp = ({
     }
   }, [userInfo]);
 
-  const otpVerifyState = useSelector((state) => state.otpVerifyState);
-  const { loading, success, error } = otpVerifyState;
+  const otpVerifyUsdPromiseState = useSelector((state) => state.otpVerifyUsdPromiseState);
+  const { loading, success, error } = otpVerifyUsdPromiseState;
 
   const createPaysofterPromiseState = useSelector(
     (state) => state.createPaysofterPromiseState
@@ -67,7 +67,7 @@ const VerifyAccountFundPromiseOtp = ({
   console.log("formattedPayerEmail:", formattedPayerEmail);
 
   const sendOtpData =
-    JSON.parse(localStorage.getItem("debitAccountData")) || [];
+    JSON.parse(localStorage.getItem("debitUsdAccountData")) || [];
   console.log("sendOtpData:", sendOtpData, sendOtpData.account_id);
 
   // const paysofterPaymentData = {
@@ -86,7 +86,7 @@ const VerifyAccountFundPromiseOtp = ({
     public_api_key: sellerApiKey,
   };
 
-  const debitAccountData = {
+  const debitUsdAccountData = {
     account_id: sendOtpData.account_id,
     security_code: sendOtpData.security_code,
     amount: amount,
@@ -107,7 +107,7 @@ const VerifyAccountFundPromiseOtp = ({
   console.log("paysofterPromiseData:", paysofterPromiseData);
 
   const handleVerifyEmailOtp = () => {
-    dispatch(verifyOtp(otpData));
+    dispatch(verifyUsdPromiseOtp(otpData));
 
     // dispatch(createPaysofterPromise(paysofterPromiseData));
   };
@@ -116,7 +116,7 @@ const VerifyAccountFundPromiseOtp = ({
     setResendLoading(true);
     setResendMessage("");
     try {
-      dispatch(debitPaysofterAccountFund(JSON.stringify(debitAccountData)));
+      dispatch(debitPaysofterUsdAccountFund(JSON.stringify(debitUsdAccountData)));
       setResendMessage(`OTP resent to ${formattedPayerEmail} successfully.`);
       setResendDisabled(true);
     } catch (error) {
@@ -144,7 +144,7 @@ const VerifyAccountFundPromiseOtp = ({
       dispatch(createPaysofterPromise(paysofterPromiseData));
       setShowConfirmPaysofterPromise(true);
       dispatch(createPayment(paymentData));
-      localStorage.removeItem("debitAccountData");
+      localStorage.removeItem("debitUsdAccountData");
       dispatch(clearCart());
       setShowSuccessMessage(true);
       setTimeout(() => {
@@ -168,10 +168,10 @@ const VerifyAccountFundPromiseOtp = ({
           // paymenthMethod={paymenthMethod}
         />
       ) : (
-        <Row className="justify-content-center text-center mt-5"> 
+        <Row className="justify-content-center text-center mt-5">
           <Col>
             <div className="border rounded p-4 py-2">
-              <h1 className="py-2">Verify OTP (NGN)</h1>
+              <h1 className="py-2">Verify OTP (USD)</h1>
               {showSuccessMessage && (
                 <Message variant="success">Promise sent successfully!</Message>
               )}
@@ -236,4 +236,4 @@ const VerifyAccountFundPromiseOtp = ({
   );
 };
 
-export default VerifyAccountFundPromiseOtp;
+export default VerifyUsdAccountFundPromiseOtp;

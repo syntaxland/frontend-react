@@ -127,7 +127,7 @@ function SellCreditPoint() {
                 className="rounded text-center w-100"
                 disabled={password === "" || username === "" || amount === ""}
               >
-                Sell/Share Credit Point
+                Sell/Share CPS
               </Button>
             </div>
             <div className="py-2 d-flex justify-content-center text-center">

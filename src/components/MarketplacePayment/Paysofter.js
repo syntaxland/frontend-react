@@ -7,14 +7,15 @@ import PaysofterButton from "./PaysofterButton";
 import ApplyPromoCode from "../ApplyPromoCode";
 import LoaderPaysofter from "../LoaderPaysofter";
 import Message from "../Message";
-import "./Paysofter.css";
+import "./Paysofter.css"; 
 
 function Paysofter({
   // ads,
   buyerEmail,
   amount,
   sellerApiKey,
-
+  currency,
+  usdPrice,
   reference,
   order_id,
   totalPrice,
@@ -105,21 +106,21 @@ function Paysofter({
               </ListGroup.Item> */}
 
               <ListGroup.Item>
-                Total Amount: NGN{" "}
+                Total Amount:{" "}
                 {ads?.price?.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                })}
+                })}{" "}{currency}
               </ListGroup.Item>
 
               <ListGroup.Item>
-                Promo Discount: NGN{" "}
+                Promo Discount: {" "}
                 {promoDiscount ? (
                   <span>
                     {promoDiscount?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })}{" "}
+                    })}{" "}{currency}
                     ({discountPercentage}%)
                   </span>
                 ) : (
@@ -128,13 +129,13 @@ function Paysofter({
               </ListGroup.Item>
 
               <ListGroup.Item>
-                Final Total Amount: NGN{" "}
+                Final Total Amount: {currency}{" "}
                 {promoTotalPrice ? (
                   <span>
                     {promoTotalPrice?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })}
+                    })}{" "}{currency}
                   </span>
                 ) : (
                   <span>
@@ -159,6 +160,8 @@ function Paysofter({
                 paymentData={paymentData}
                 reference={reference}
                 buyerEmail={buyerEmail}
+                currency={currency}
+                usdPrice={usdPrice}
                 amount={amount}
                 sellerApiKey={sellerApiKey}
               />

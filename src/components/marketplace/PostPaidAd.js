@@ -1,11 +1,12 @@
 // PostPaidAd.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { postPaidAd } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
+import Select from "react-select";
 
 function PostPaidAd({ history }) {
   const dispatch = useDispatch();
@@ -46,13 +47,14 @@ function PostPaidAd({ history }) {
   const [condition, setCondition] = useState("");
   // const [conditionError, setConditionError] = useState("");
 
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("NGN");
   const [currencyError, setCurrencyError] = useState("");
 
   const [price, setPrice] = useState("");
   const [priceError, setPriceError] = useState("");
 
   const [usdPrice, setUsdPrice] = useState("");
+  const [usdCurrency, setUsdCurrency] = useState("USD");
 
   const [brand, setBrand] = useState("");
   // const [brandError, setBrandError] = useState("");
@@ -83,6 +85,29 @@ function PostPaidAd({ history }) {
   const [isAutoRenewal, setIsAutoRenewal] = useState("");
 
   const [formError, setFormError] = useState("");
+
+  const [showMainCurrencyInfoModal, setShowMainCurrencyInfoModal] = useState(
+    false
+  );
+  const [showAltCurrencyInfoModal, setShowAltCurrencyInfoModal] = useState(
+    false
+  );
+
+  const handleMainCurrencyInfoModalShow = () => {
+    setShowMainCurrencyInfoModal(true);
+  };
+
+  const handleMainCurrencyInfoModalClose = () => {
+    setShowMainCurrencyInfoModal(false);
+  };
+
+  const handleAltCurrencyInfoModalShow = () => {
+    setShowAltCurrencyInfoModal(true);
+  };
+
+  const handleAltCurrencyInfoModalClose = () => {
+    setShowAltCurrencyInfoModal(false);
+  };
 
   const handleFieldChange = (fieldName, value) => {
     switch (fieldName) {
@@ -138,6 +163,10 @@ function PostPaidAd({ history }) {
 
       case "usdPrice":
         setUsdPrice(value);
+        break;
+
+      case "usdCurrency":
+        setUsdCurrency(value);
         break;
 
       case "brand":
@@ -215,7 +244,6 @@ function PostPaidAd({ history }) {
     ["Brand New", "Brand New"],
     ["Fairly Used", "Fairly Used"],
   ];
-
 
   const AD_TYPE_CHOICES = [
     <p style={{ color: "red" }}>Choices for Home Appliances</p>,
@@ -348,8 +376,12 @@ function PostPaidAd({ history }) {
     ["Others", "Others"],
   ];
 
-  
-  const CURRENCY_CHOICES = [
+  const MAIN_CURRENCY_CHOICES = [
+    ["NGN", "Nigerian Naira"],
+    ["USD", "United States Dollar"],
+  ];
+
+  const EQUIVALENT_CURRENCY_CHOICES = [
     ["NGN", "Nigerian Naira"],
     ["USD", "United States Dollar"],
     ["CAD", "Canadian Dollar"],
@@ -509,8 +541,7 @@ function PostPaidAd({ history }) {
     ["XPF", "CFP Franc"],
     ["YER", "Yemeni Rial"],
     ["ZMW", "Zambian Kwacha"],
-];
-
+  ];
 
   const sellerData = new FormData();
   sellerData.append("ad_name", adName);
@@ -522,9 +553,9 @@ function PostPaidAd({ history }) {
   sellerData.append("state_province", stateProvince);
   sellerData.append("city", city);
 
-
   sellerData.append("condition", condition);
   sellerData.append("currency", currency);
+  sellerData.append("usd_currency", usdCurrency);
   sellerData.append("price", price);
   sellerData.append("usd_price", usdPrice);
   sellerData.append("brand", brand);
@@ -545,7 +576,7 @@ function PostPaidAd({ history }) {
       const timer = setTimeout(() => {
         // history.push("/seller/bank");
         window.location.reload();
-      }, 5000); 
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [dispatch, success, history]);
@@ -577,7 +608,6 @@ function PostPaidAd({ history }) {
     //   setLocationError("");
     // }
 
-
     if (!country) {
       setCountryError("Please enter ad country.");
     } else {
@@ -589,7 +619,6 @@ function PostPaidAd({ history }) {
     } else {
       setStateProvinceError("");
     }
-
 
     if (!city) {
       setCityError("Please enter ad city.");
@@ -758,13 +787,17 @@ function PostPaidAd({ history }) {
               <Form.Control
                 type="text"
                 value={stateProvince}
-                onChange={(e) => handleFieldChange("stateProvince", e.target.value)}
+                onChange={(e) =>
+                  handleFieldChange("stateProvince", e.target.value)
+                }
                 placeholder="Enter state/province"
                 className="rounded py-2 mb-2"
                 required
                 maxLength={100}
               />
-              <Form.Text className="text-danger">{stateProvinceError}</Form.Text>
+              <Form.Text className="text-danger">
+                {stateProvinceError}
+              </Form.Text>
             </Form.Group>
 
             <Form.Group>
@@ -800,41 +833,51 @@ function PostPaidAd({ history }) {
               {/* <Form.Text className="text-danger">{conditionError}</Form.Text> */}
             </Form.Group>
 
-            {/* <Form.Group>
-              <Form.Label>Currency*</Form.Label>
-              <Form.Control
-                as="select"
-                value={adType}
-                onChange={(e) => handleFieldChange("adType", e.target.value)}
-                className="rounded py-2 mb-2"
-                required
-              >
-                <option value="">Select Currency</option>
-                {CURRENCY_CHOICES.map((type) => (
-                  <option key={type[0]} value={type[0]}>
-                    {type[1]}
-                  </option>
-                ))}
-              </Form.Control>
-              <Form.Text className="text-danger">{adTypeError}</Form.Text>
-            </Form.Group> */}
-
             <Form.Group>
               <Form.Label>Currency*</Form.Label>
-              <Form.Control
-                as="select"
-                value={currency}
-                onChange={(e) => handleFieldChange("currency", e.target.value)}
-                className="rounded py-2 mb-2"
-                required
-              >
-                <option value="">Select Currency</option>
-                {CURRENCY_CHOICES.map((type) => (
-                  <option key={type[0]} value={type[0]}>
-                    {type[1]}
-                  </option>
-                ))}
-              </Form.Control>
+              <Row className="py-2">
+                <Col md={10}>
+                  <Select
+                    value={{ value: currency, label: currency }}
+                    onChange={(selectedOption) =>
+                      handleFieldChange("currency", selectedOption.value)
+                    }
+                    options={MAIN_CURRENCY_CHOICES.map((type) => ({
+                      value: type[0],
+                      label: type[1],
+                    }))}
+                  />
+                </Col>
+                <Col md={2}>
+                  <Button
+                    variant="outline"
+                    onClick={handleMainCurrencyInfoModalShow}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="This is the main currency price that can be used for Paysofter Promise checkout."
+                  >
+                    <i className="fa fa-info-circle"> </i>
+                  </Button>
+
+                  <Modal
+                    show={showMainCurrencyInfoModal}
+                    onHide={handleMainCurrencyInfoModalClose}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title className="text-center w-100 py-2">
+                        Main Currency Info
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p className="text-center">
+                        This is the main currency price that can be used for
+                        Paysofter Promise checkout.{" "}
+                      </p>
+                    </Modal.Body>
+                  </Modal>
+                </Col>
+              </Row>
+
               <Form.Text className="text-danger">{currencyError}</Form.Text>
             </Form.Group>
 
@@ -851,13 +894,58 @@ function PostPaidAd({ history }) {
               <Form.Text className="text-danger">{priceError}</Form.Text>
             </Form.Group>
 
+            <Form.Group controlId="usdCurrency">
+              <Form.Label>Alternative Currency</Form.Label>
+              <Row className="py-2">
+                <Col md={10}>
+                  <Select
+                    value={{ value: usdCurrency, label: usdCurrency }}
+                    onChange={(selectedOption) =>
+                      handleFieldChange("usdCurrency", selectedOption.value)
+                    }
+                    options={EQUIVALENT_CURRENCY_CHOICES.map((type) => ({
+                      value: type[0],
+                      label: type[1],
+                    }))}
+                  />
+                </Col>
+                <Col md={2}>
+                  <Button
+                    variant="outline"
+                    onClick={handleAltCurrencyInfoModalShow}
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="This is optional and could be the alternative currency."
+                  >
+                    <i className="fa fa-info-circle"> </i>
+                  </Button>
+
+                  <Modal
+                    show={showAltCurrencyInfoModal}
+                    onHide={handleAltCurrencyInfoModalClose}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title className="text-center w-100 py-2">
+                      Alternative Currency Info
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <p className="text-center">
+                      This is optional and could be the alternative currency.{" "}
+                      </p>
+                    </Modal.Body>
+                  </Modal>
+                </Col>
+              </Row>
+            </Form.Group>
+
             <Form.Group>
-              <Form.Label>USD Price</Form.Label>
+              <Form.Label>Price Alternative</Form.Label>
               <Form.Control
                 type="number"
                 value={usdPrice}
                 onChange={(e) => handleFieldChange("usdPrice", e.target.value)}
-                placeholder="Enter USD price equivalent"
+                placeholder="Enter price alternative"
                 className="rounded py-2 mb-2"
               />
             </Form.Group>

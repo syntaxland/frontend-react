@@ -10,6 +10,7 @@ import {
 import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
+import Select from "react-select";
 
 function EditPaidAd({ history, match }) {
   const dispatch = useDispatch();
@@ -33,6 +34,11 @@ function EditPaidAd({ history, match }) {
   useEffect(() => {
     dispatch(getPaidAdDetail(match.params.id));
   }, [dispatch, match]);
+
+  const MAIN_CURRENCY_CHOICES = [
+    ["NGN", "Nigerian Naira"],
+    ["USD", "United States Dollar"],
+  ];
 
   const CURRENCY_CHOICES = [
     ["NGN", "Nigerian Naira"],
@@ -212,6 +218,7 @@ function EditPaidAd({ history, match }) {
     currency: "",
     price: "",
     usd_price: "",
+    usd_currency: "",
     brand: "",
     description: "",
     youtube_link: "",
@@ -240,6 +247,7 @@ function EditPaidAd({ history, match }) {
         currency: ads?.currency,
         price: ads?.price,
         usd_price: ads?.usd_price,
+        usd_currency: ads?.usd_currency,
         brand: ads?.brand,
         description: ads?.description,
         youtube_link: ads?.youtube_link,
@@ -297,6 +305,7 @@ function EditPaidAd({ history, match }) {
     editAdFormData.append("currency", editAdData.currency);
     editAdFormData.append("price", editAdData.price);
     editAdFormData.append("usd_price", editAdData.usd_price);
+    editAdFormData.append("usd_currency", editAdData.usd_currency);
     editAdFormData.append("brand", editAdData.brand);
     editAdFormData.append("description", editAdData.description);
     editAdFormData.append("youtube_link", editAdData.youtube_link);
@@ -644,7 +653,7 @@ function EditPaidAd({ history, match }) {
                 required
               >
                 <option value="">Select Currency</option>
-                {CURRENCY_CHOICES.map((type) => (
+                {MAIN_CURRENCY_CHOICES.map((type) => (
                   <option key={type[0]} value={type[0]}>
                     {type[1]}
                   </option>
@@ -665,8 +674,30 @@ function EditPaidAd({ history, match }) {
               />
             </Form.Group>
 
+            <Form.Group controlId="usdCurrency">
+              <Form.Label>Alternative Currency</Form.Label>
+              <Select
+                value={{
+                  value: editAdData.usd_currency,
+                  label: editAdData.usd_currency,
+                }}
+                onChange={(selectedOption) =>
+                  handleEditAdChanges({
+                    target: {
+                      name: "usd_currency",
+                      value: selectedOption.value,
+                    },
+                  })
+                }
+                options={CURRENCY_CHOICES.map((type) => ({
+                  value: type[0],
+                  label: type[1],
+                }))}
+              />
+            </Form.Group>
+
             <Form.Group>
-              <Form.Label>USD Price</Form.Label>
+              <Form.Label>Price Alternative</Form.Label>
               <Form.Control
                 type="number"
                 name="usd_price"

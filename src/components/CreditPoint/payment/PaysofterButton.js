@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import CardPayment from "./CardPayment";
 import UssdPayment from "./UssdPayment";
-import BankPayment from "./BankPayment"; 
+import BankPayment from "./BankPayment";
 import TransferPayment from "./TransferPayment";
 import PaysofterAccountFund from "./PaysofterAccountFund";
-// import PaysofterPromise from "./PaysofterPromise"; 
+import PaysofterUsdAccountFund from "./PaysofterUsdAccountFund";
 import QrPayment from "./QrPayment";
 
 import "./Paysofter.css";
@@ -19,13 +19,13 @@ function PaysofterButton({
   reference,
   userEmail,
   amount,
+  currency,
   paysofterPublicKey,
   // handlePaymentDetailsChange,
   // handlePaymentSubmit,
   // paymentData,
   // paysofterPaymentData,
 }) {
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -41,7 +41,6 @@ function PaysofterButton({
   const handlePaymentOptionChange = (option) => {
     setSelectedPaymentOption(option);
   };
-
 
   const handleMoreOptions = () => {
     setShowMoreOptions(!showMoreOptions);
@@ -65,11 +64,10 @@ function PaysofterButton({
             <Modal.Title>Mock Payment (Test)</Modal.Title>
             <div>{userEmail}</div>
             <div>
-              NGN{" "}
               {amount?.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              })}
+              })}{" "}{currency}
             </div>
           </div>
         </Modal.Header>
@@ -91,18 +89,39 @@ function PaysofterButton({
                   </Button>{" "}
                 </div>
 
-                <div className="py-1">
-                  <Button
-                    variant="outline-primary"
-                    onClick={() => handlePaymentOptionChange("account-fund")}
-                    className={
-                      selectedPaymentOption === "account-fund" ? "active" : ""
-                    }
-                  >
-                    <i className="fas fa-money-bill-alt"></i> Paysofter Account
-                    Fund
-                  </Button>
-                </div>
+                {currency === "NGN" && (
+                  <div className="py-1">
+                    <Button
+                      variant="outline-primary"
+                      onClick={() => handlePaymentOptionChange("account-fund")}
+                      className={
+                        selectedPaymentOption === "account-fund" ? "active" : ""
+                      }
+                    >
+                      <i className="fas fa-money-bill-alt"></i> Paysofter
+                      Account Fund (NGN)
+                    </Button>
+                  </div>
+                )}
+
+                {currency === "USD" && (
+                  <div className="py-1">
+                    <Button
+                      variant="outline-primary"
+                      onClick={() =>
+                        handlePaymentOptionChange("usd-account-fund")
+                      }
+                      className={
+                        selectedPaymentOption === "usd-account-fund"
+                          ? "active"
+                          : ""
+                      }
+                    >
+                      <i className="fas fa-money-bill-alt"></i> Paysofter
+                      Account Fund (USD)
+                    </Button>
+                  </div>
+                )}
 
                 <div className="py-1">
                   <Button
@@ -226,26 +245,35 @@ function PaysofterButton({
             <Col md={9}>
               {selectedPaymentOption === "card" && (
                 <CardPayment
-                  // handlePaymentDetailsChange={handlePaymentDetailsChange}
                   amount={amount}
-                  // paymentData={paymentData}
+                  currency={currency}
                   reference={reference}
                   userEmail={userEmail}
                   paysofterPublicKey={paysofterPublicKey}
-                  // paysofterPaymentData={paysofterPaymentData}
                 />
               )}
 
               {selectedPaymentOption === "account-fund" && (
                 <PaysofterAccountFund
+                  currency={currency}
                   amount={amount}
-                  // paymentData={paymentData}
                   reference={reference}
                   userEmail={userEmail}
                   paysofterPublicKey={paysofterPublicKey}
                 />
               )}
-{/* 
+
+              {selectedPaymentOption === "usd-account-fund" && (
+                <PaysofterUsdAccountFund
+                  currency={currency}
+                  amount={amount}
+                  reference={reference}
+                  userEmail={userEmail}
+                  paysofterPublicKey={paysofterPublicKey}
+                />
+              )}
+
+              {/* 
               {selectedPaymentOption === "promise" && (
                 <PaysofterPromise
                   amount={amount}

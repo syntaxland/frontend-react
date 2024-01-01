@@ -6,6 +6,10 @@ import {
   VERIFY_OTP_REQUEST,
   VERIFY_OTP_SUCCESS,
   VERIFY_OTP_FAIL,
+
+  VERIFY_USD_OTP_REQUEST,
+VERIFY_USD_OTP_SUCCESS,
+VERIFY_USD_OTP_FAIL, 
 } from "../constants/accountFundOtpConstants";
 
 const initialState = {
@@ -49,6 +53,28 @@ export const otpVerifyReducer = (state = initialState, action) => {
         success: true,
       };
     case VERIFY_OTP_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const otpVerifyUsdPromiseReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case VERIFY_USD_OTP_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case VERIFY_USD_OTP_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case VERIFY_USD_OTP_FAIL:
       return {
         loading: false,
         error: action.payload,

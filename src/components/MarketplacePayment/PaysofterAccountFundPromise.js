@@ -40,7 +40,7 @@ const PaysofterAccountFundPromise = ({
   } = debitPaysofterAccountState;
   console.log(
     "formattedPayerEmail:",
-    formattedPayerEmail,
+    formattedPayerEmail
     // "paymenthMethod:",
     // paymenthMethod
   );
@@ -184,7 +184,7 @@ const PaysofterAccountFundPromise = ({
           <Col>
             <Row className="text-center py-2">
               <Col md={10}>
-                <h2 className="py-2 text-center">Paysofter Account Fund</h2>
+                <h2 className="py-2 text-center">Paysofter Account Fund (NGN)</h2>
               </Col>
               <Col md={2}>
                 <Button
@@ -417,11 +417,11 @@ const PaysofterAccountFundPromise = ({
                 >
                   Pay{" "}
                   <span>
-                    (NGN{" "}
+                    (
                     {amount?.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
-                    })}
+                    })}{" "}{currency}
                     )
                   </span>
                 </Button>
