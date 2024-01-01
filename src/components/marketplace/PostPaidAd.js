@@ -581,9 +581,9 @@ function PostPaidAd({ history }) {
   sellerData.append("ad_name", adName);
   sellerData.append("ad_category", adCategory);
   sellerData.append("ad_type", adType);
-  sellerData.append("country", country);
-  sellerData.append("state_province", stateProvince);
-  sellerData.append("city", city);
+  sellerData.append("country", country.name);
+  sellerData.append("state_province", stateProvince.name);
+  sellerData.append("city", city.name);
   sellerData.append("condition", condition);
   sellerData.append("currency", currency);
   sellerData.append("usd_currency", usdCurrency);
@@ -602,6 +602,13 @@ function PostPaidAd({ history }) {
   sellerData.append("is_price_negotiable", isPriceNegotiable);
   sellerData.append("is_auto_renewal", isAutoRenewal);
 
+  console.log(
+    "country.name, stateProvince.name, city.name",
+    country.name,
+    stateProvince.name,
+    city.name
+  );
+  
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
