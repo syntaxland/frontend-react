@@ -23,10 +23,6 @@ function Marketplace() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log("Country:", Country.getAllCountries());
-  console.log("State:", State.getAllStates());
-  console.log("City:", City.getAllCities());
-
   const [searchTerm, setSearchTerm] = useState("");
   const [sellerUsername, setSellerUsername] = useState("");
 
@@ -59,6 +55,29 @@ function Marketplace() {
     sellerAvatarUrl,
   } = getSellerUsernameSearchState;
   console.log("serachResults", serachResults);
+
+  // console.log("Country:", Country.getAllCountries());
+  // console.log("State:", State.getAllStates());
+  // console.log("City:", City.getAllCities());
+
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const handleCountryChange = (selectedOption) => {
+    setSelectedCountry(selectedOption.value);
+    setSelectedState("");
+    setSelectedCity("");
+  };
+
+  const handleStateChange = (selectedOption) => {
+    setSelectedState(selectedOption.value);
+    setSelectedCity("");
+  };
+
+  const handleCityChange = (selectedOption) => {
+    setSelectedCity(selectedOption.value);
+  };
 
   useEffect(() => {
     if (userInfo) {
@@ -97,14 +116,6 @@ function Marketplace() {
       }
     }
   };
-
-  const COUNTRY_CHOICES = [
-    ["Nigeria", "Nigeria"],
-    ["Canada", "Canada"],
-    ["Ghana", "Ghana"],
-    ["USA", "USA"],
-    ["UAE", "UAE"],
-  ];
 
   return (
     <div>
@@ -204,60 +215,63 @@ function Marketplace() {
           )}
 
           <hr />
+          <Col md={6}>
+            <i className="fas fa-map-marker-alt"></i> Ad Location
+          </Col>
           <Row className="py-2 d-flex justify-content-end">
             <Col className="py-2">
-              <Row>
-                <Col md={1}>
-                  <i className="fas fa-map-marker-alt"></i>
-                </Col>
-
-                <Col md={4}>
-                  <Select
-                    options={COUNTRY_CHOICES.map(([value, label]) => ({
-                      value,
-                      label,
-                    }))}
-                    // value={{ value: selectedCategory, label: selectedCategory }}
-                    // onChange={handleCategoryChange}
-                    placeholder="Countries"
-                    className="rounded"
-                    required
-                  />
-
-                  {/* <Form.Control
-                    as="select"
-                    // onChange={handleCategoryChange}
-                    // value={category}
-                  >
-                    <option value="">Select Country</option>
-                    <option value="Shower">Nigeria</option>
-                    <option value="Basins">Canada</option>
-                    <option value="Basins">Ghana</option>
-                    <option value="Basins">USA</option>
-                    <option value="Basins">UAE</option>
-                  </Form.Control> */}
-                </Col>
-
-                <Col md={3}>
-                  <Form.Control
-                    as="select"
-                    // onChange={handleSortOrderChange}
-                    // value={sortOrder}
-                  >
-                    <option value="">Select State/Province</option>
-                    <option value="-createdAt"></option>
-                    <option value="createdAt"></option>
-                  </Form.Control>
-                </Col>
-
-                <Col md={3}>
-                  <Form.Control as="select">
-                    <option value="">Select City</option>
-                    <option value="Shower"></option>
-                    <option value="Basins"></option>
-                  </Form.Control>
-                </Col>
-              </Row>
+              <Col md={4}>
+                <Select
+                  options={Country.getAllCountries().map((country) => ({
+                    value: country.isoCode,
+                    label: country.name,
+                  }))}
+                  value={{ value: selectedCountry, label: selectedCountry }}
+                  onChange={handleCountryChange}
+                  placeholder="Select Country"
+                  className="rounded"
+                  required
+                />
+              </Col>
+              <Col md={4}>
+                <Select
+                  options={
+                    selectedCountry
+                      ? State.getStatesOfCountry(selectedCountry).map(
+                          (state) => ({
+                            value: state.isoCode,
+                            label: state.name,
+                          })
+                        )
+                      : []
+                  }
+                  value={{ value: selectedState, label: selectedState }}
+                  onChange={handleStateChange}
+                  placeholder="Select State/Province"
+                  className="rounded"
+                  required
+                />
+              </Col>
+              <Col md={4}>
+                <Select
+                  options={
+                    selectedState
+                      ? City.getCitiesOfState(
+                          selectedCountry,
+                          selectedState
+                        ).map((city) => ({
+                          value: city.name,
+                          label: city.name,
+                        }))
+                      : []
+                  }
+                  value={{ value: selectedCity, label: selectedCity }}
+                  onChange={handleCityChange}
+                  placeholder="Select City"
+                  className="rounded"
+                  required
+                />
+              </Col>
             </Col>
             <Col md={4} xs={12} sm={6} lg={4} xl={4} className="py-2">
               <Row className="d-flex justify-content-betwwen">

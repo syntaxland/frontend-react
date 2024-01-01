@@ -7,6 +7,7 @@ import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
 import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 
 function PostPaidAd({ history }) {
   const dispatch = useDispatch();
@@ -31,9 +32,6 @@ function PostPaidAd({ history }) {
 
   const [adType, setAdType] = useState("");
   const [adTypeError, setAdTypeError] = useState("");
-
-  // const [location, setLocation] = useState("");
-  // const [locationError, setLocationError] = useState("");
 
   const [country, setCountry] = useState("");
   const [countryError, setCountryError] = useState("");
@@ -86,6 +84,61 @@ function PostPaidAd({ history }) {
 
   const [formError, setFormError] = useState("");
 
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    setCountries(Country.getAllCountries());
+  }, []);
+
+  useEffect(() => {
+    if (country) {
+      setStates(State.getStatesOfCountry(country.isoCode));
+    } else {
+      setStates([]);
+    }
+  }, [country, country.isoCode]);
+
+  useEffect(() => {
+    if (stateProvince) {
+      setCities(City.getCitiesOfState(country.isoCode, stateProvince.isoCode));
+    } else {
+      setCities([]);
+    }
+  }, [stateProvince, country.isoCode]);
+
+  // const handleCategoryChange = (selectedOption) => {
+  //   setSelectedCategory(selectedOption.value);
+  //   setSelectedType("");
+  // };
+
+  // const handleTypeChange = (selectedOption) => {
+  //   setSelectedType(selectedOption.value);
+  // };
+
+  // const handleCategoryChange = (selectedOption) => {
+  //   setSelectedCategory(selectedOption.value);
+  //   setAdCategory(selectedOption.value);
+  //   setSelectedType("");
+  // };
+
+  // const handleTypeChange = (selectedOption) => {
+  //   setSelectedType(selectedOption.value);
+  //   setAdType(selectedOption.value);
+  // };
+
+  const handleCategoryChange = (selectedOption) => {
+    setAdCategory(selectedOption.value);
+    setAdCategoryError("");
+    setAdType(""); // Reset adType when category changes
+  };
+
+  const handleTypeChange = (selectedOption) => {
+    setAdType(selectedOption.value);
+    setAdTypeError("");
+  };
+
   const [showMainCurrencyInfoModal, setShowMainCurrencyInfoModal] = useState(
     false
   );
@@ -125,11 +178,6 @@ function PostPaidAd({ history }) {
         setAdType(value);
         setAdTypeError("");
         break;
-
-      // case "location":
-      //   setLocation(value);
-      //   setLocationError("");
-      //   break;
 
       case "country":
         setCountry(value);
@@ -245,117 +293,6 @@ function PostPaidAd({ history }) {
     ["Fairly Used", "Fairly Used"],
   ];
 
-  const AD_TYPE_CHOICES = [
-    <p style={{ color: "red" }}>Choices for Home Appliances</p>,
-    ["Washing Machine", "Washing Machine"],
-    ["Refrigerator", "Refrigerator"],
-    ["Microwave", "Microwave"],
-    ["Coffee Machine", "Coffee Machine"],
-    ["Air Conditioner", "Air Conditioner"],
-
-    <hr />,
-    // ... Choices for Properties
-    ["House", "House"],
-    ["Apartment", "Apartment"],
-    ["Land", "Land"],
-    ["Commercial Property", "Commercial Property"],
-
-    <hr />,
-    // ... Choices for Electronics
-    ["Laptop", "Laptop"],
-    ["Smartphone", "Smartphone"],
-    ["Camera", "Camera"],
-    ["Headphones", "Headphones"],
-    ["Television", "Television"],
-
-    <hr />,
-    // ... Choices for Fashion
-    ["Clothing", "Clothing"],
-    ["Shoes", "Shoes"],
-    ["Accessories", "Accessories"],
-
-    // ... Choices for Vehicles
-    ["Car", "Car"],
-    ["Motorcycle", "Motorcycle"],
-    ["Bicycle", "Bicycle"],
-
-    <hr />,
-    // ... Choices for Services
-    ["Cleaning", "Cleaning"],
-    ["Plumbing", "Plumbing"],
-    ["Electrician", "Electrician"],
-    ["Catering", "Catering"],
-    ["Tutoring", "Tutoring"],
-
-    // ... Choices for Mobile Phones
-    ["iPhone", "iPhone"],
-    ["Samsung", "Samsung"],
-    ["Google Pixel", "Google Pixel"],
-    ["OnePlus", "OnePlus"],
-
-    // ... Choices for Health & Beauty
-    ["Skincare", "Skincare"],
-    ["Haircare", "Haircare"],
-    ["Makeup", "Makeup"],
-    ["Fitness Equipment", "Fitness Equipment"],
-
-    <hr />,
-    // ... Choices for Sports
-    ["Soccer", "Soccer"],
-    ["Basketball", "Basketball"],
-    ["Tennis", "Tennis"],
-    ["Golf", "Golf"],
-    <hr />,
-
-    // ... Choices for Jobs
-    ["IT", "IT"],
-    ["Sales", "Sales"],
-    ["Marketing", "Marketing"],
-    ["Administrative", "Administrative"],
-    <hr />,
-
-    // ... Choices for Babies and Kids
-    ["Toys", "Toys"],
-    ["Clothing Kids", "Clothing"],
-    ["Strollers", "Strollers"],
-    <hr />,
-
-    // ... Choices for Agric & Food
-    ["Farm Products", "Farm Products"],
-    ["Processed Food", "Processed Food"],
-    ["Beverages", "Beverages"],
-    <hr />,
-
-    // ... Choices for Repairs
-    ["Electronic Repair", "Electronic Repair"],
-    ["Appliance Repair", "Appliance Repair"],
-    ["Car Repair", "Car Repair"],
-    <hr />,
-
-    // ... Choices for Equipment & Tools
-    ["Power Tools", "Power Tools"],
-    ["Hand Tools", "Hand Tools"],
-    ["Kitchen Tools", "Kitchen Tools"],
-    <hr />,
-
-    // ... Choices for CVs
-    ["Engineering", "Engineering"],
-    ["Marketing CVs", "Marketing"],
-    ["Design", "Design"],
-    ["Education", "Education"],
-    <hr />,
-
-    // ... Choices for Pets
-    ["Dog", "Dog"],
-    ["Cat", "Cat"],
-    ["Fish", "Fish"],
-    ["Bird", "Bird"],
-    <hr />,
-
-    // ... Choices for Others
-    ["Others", "Others"],
-  ];
-
   const AD_CATEGORY_CHOICES = [
     ["Home Appliances", "Home Appliances"],
     ["Properties", "Properties"],
@@ -375,6 +312,103 @@ function PostPaidAd({ history }) {
     ["Pets", "Pets"],
     ["Others", "Others"],
   ];
+
+  const AD_TYPE_CHOICES = {
+    "Home Appliances": [
+      ["Washing Machine", "Washing Machine"],
+      ["Refrigerator", "Refrigerator"],
+      ["Microwave", "Microwave"],
+      ["Coffee Machine", "Coffee Machine"],
+      ["Air Conditioner", "Air Conditioner"],
+    ],
+    Properties: [
+      ["House", "House"],
+      ["Apartment", "Apartment"],
+      ["Land", "Land"],
+      ["Commercial Property", "Commercial Property"],
+    ],
+    Electronics: [
+      ["Laptop", "Laptop"],
+      ["Smartphone", "Smartphone"],
+      ["Camera", "Camera"],
+      ["Headphones", "Headphones"],
+      ["Television", "Television"],
+    ],
+    Fashion: [
+      ["Clothing", "Clothing"],
+      ["Shoes", "Shoes"],
+      ["Accessories", "Accessories"],
+    ],
+    Vehicles: [
+      ["Car", "Car"],
+      ["Motorcycle", "Motorcycle"],
+      ["Bicycle", "Bicycle"],
+    ],
+    Services: [
+      ["Cleaning", "Cleaning"],
+      ["Plumbing", "Plumbing"],
+      ["Electrician", "Electrician"],
+      ["Catering", "Catering"],
+      ["Tutoring", "Tutoring"],
+    ],
+    "Mobile Phones": [
+      ["iPhone", "iPhone"],
+      ["Samsung", "Samsung"],
+      ["Google Pixel", "Google Pixel"],
+      ["OnePlus", "OnePlus"],
+    ],
+    "Health & Beauty": [
+      ["Skincare", "Skincare"],
+      ["Haircare", "Haircare"],
+      ["Makeup", "Makeup"],
+      ["Fitness Equipment", "Fitness Equipment"],
+    ],
+    Sports: [
+      ["Soccer", "Soccer"],
+      ["Basketball", "Basketball"],
+      ["Tennis", "Tennis"],
+      ["Golf", "Golf"],
+    ],
+    Jobs: [
+      ["IT", "IT"],
+      ["Sales", "Sales"],
+      ["Marketing", "Marketing"],
+      ["Administrative", "Administrative"],
+    ],
+    "Babies and Kids": [
+      ["Toys", "Toys"],
+      ["Clothing Kids", "Clothing"],
+      ["Strollers", "Strollers"],
+    ],
+    "Agric & Food": [
+      ["Farm Products", "Farm Products"],
+      ["Processed Food", "Processed Food"],
+      ["Beverages", "Beverages"],
+    ],
+    Repairs: [
+      ["Electronic Repair", "Electronic Repair"],
+      ["Appliance Repair", "Appliance Repair"],
+      ["Car Repair", "Car Repair"],
+    ],
+    "Equipment & Tools": [
+      ["Power Tools", "Power Tools"],
+      ["Hand Tools", "Hand Tools"],
+      ["Kitchen Tools", "Kitchen Tools"],
+    ],
+    CVs: [
+      ["Engineering", "Engineering"],
+      ["Marketing CVs", "Marketing"],
+      ["Design", "Design"],
+      ["Education", "Education"],
+    ],
+    Pets: [
+      ["Dog", "Dog"],
+      ["Cat", "Cat"],
+      ["Fish", "Fish"],
+      ["Bird", "Bird"],
+    ],
+    Others: [["Others", "Others"]],
+  };
 
   const MAIN_CURRENCY_CHOICES = [
     ["NGN", "Nigerian Naira"],
@@ -547,12 +581,9 @@ function PostPaidAd({ history }) {
   sellerData.append("ad_name", adName);
   sellerData.append("ad_category", adCategory);
   sellerData.append("ad_type", adType);
-  // sellerData.append("location", location);
-
   sellerData.append("country", country);
   sellerData.append("state_province", stateProvince);
   sellerData.append("city", city);
-
   sellerData.append("condition", condition);
   sellerData.append("currency", currency);
   sellerData.append("usd_currency", usdCurrency);
@@ -601,12 +632,6 @@ function PostPaidAd({ history }) {
     } else {
       setAdTypeError("");
     }
-
-    // if (!location) {
-    //   setLocationError("Please enter ad location.");
-    // } else {
-    //   setLocationError("");
-    // }
 
     if (!country) {
       setCountryError("Please enter ad country.");
@@ -660,7 +685,6 @@ function PostPaidAd({ history }) {
       !adName ||
       !adCategory ||
       !adType ||
-      // !location ||
       !country ||
       !stateProvince ||
       !city ||
@@ -716,84 +740,81 @@ function PostPaidAd({ history }) {
 
             <Form.Group>
               <Form.Label>Ad Category*</Form.Label>
-              <Form.Control
-                as="select"
-                value={adCategory}
-                onChange={(e) =>
-                  handleFieldChange("adCategory", e.target.value)
-                }
+              <Select
+                options={AD_CATEGORY_CHOICES.map(([value, label]) => ({
+                  value,
+                  label,
+                }))}
+                value={{ value: adCategory, label: adCategory }}
+                onChange={handleCategoryChange}
+                placeholder="Select Category"
                 className="rounded py-2 mb-2"
                 required
-              >
-                <option value="">Select Ad Category</option>
-                {AD_CATEGORY_CHOICES.map((type) => (
-                  <option key={type[0]} value={type[0]}>
-                    {type[1]}
-                  </option>
-                ))}
-              </Form.Control>
+              />
               <Form.Text className="text-danger">{adCategoryError}</Form.Text>
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Ad Type*</Form.Label>
-              <Form.Control
-                as="select"
-                value={adType}
-                onChange={(e) => handleFieldChange("adType", e.target.value)}
-                className="rounded py-2 mb-2"
-                required
-              >
-                <option value="">Select Ad Type</option>
-                {AD_TYPE_CHOICES.map((type) => (
-                  <option key={type[0]} value={type[0]}>
-                    {type[1]}
-                  </option>
-                ))}
-              </Form.Control>
-              <Form.Text className="text-danger">{adTypeError}</Form.Text>
-            </Form.Group>
-
-            {/* <Form.Group>
-              <Form.Label>Ad Location*</Form.Label>
-              <Form.Control
-                type="text"
-                value={location}
-                onChange={(e) => handleFieldChange("location", e.target.value)}
-                placeholder="Enter city, state/province, country"
-                className="rounded py-2 mb-2"
-                required
-                maxLength={100}
-              />
-              <Form.Text className="text-danger">{locationError}</Form.Text>
-            </Form.Group> */}
+            {adCategory && (
+              <Form.Group>
+                <Form.Label>Ad Type*</Form.Label>
+                <Select
+                  options={AD_TYPE_CHOICES[adCategory].map(
+                    ([value, label]) => ({
+                      value,
+                      label,
+                    })
+                  )}
+                  value={{ value: adType, label: adType }}
+                  onChange={handleTypeChange}
+                  placeholder="Select Type"
+                  className="rounded py-2 mb-2"
+                  required
+                />
+                <Form.Text className="text-danger">{adTypeError}</Form.Text>
+              </Form.Group>
+            )}
 
             <Form.Group>
               <Form.Label>Ad Country*</Form.Label>
-              <Form.Control
-                type="text"
-                value={country}
-                onChange={(e) => handleFieldChange("country", e.target.value)}
-                placeholder="Enter country"
+              <Select
+                options={countries.map((country) => ({
+                  value: country.isoCode,
+                  label: country.name,
+                }))}
+                value={{ value: country.isoCode, label: country.name }}
+                onChange={(selectedOption) => {
+                  handleFieldChange("country", {
+                    isoCode: selectedOption.value,
+                    name: selectedOption.label,
+                  });
+                }}
+                placeholder="Select Country"
                 className="rounded py-2 mb-2"
                 required
-                maxLength={100}
               />
               <Form.Text className="text-danger">{countryError}</Form.Text>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Ad State/Province*</Form.Label>
-              <Form.Control
-                type="text"
-                value={stateProvince}
-                onChange={(e) =>
-                  handleFieldChange("stateProvince", e.target.value)
-                }
-                placeholder="Enter state/province"
+              <Select
+                options={states.map((state) => ({
+                  value: state.isoCode,
+                  label: state.name,
+                }))}
+                value={{
+                  value: stateProvince.isoCode,
+                  label: stateProvince.name,
+                }}
+                onChange={(selectedOption) => {
+                  handleFieldChange("stateProvince", {
+                    isoCode: selectedOption.value,
+                    name: selectedOption.label,
+                  });
+                }}
+                placeholder="Select State/Province"
                 className="rounded py-2 mb-2"
                 required
-                maxLength={100}
               />
               <Form.Text className="text-danger">
                 {stateProvinceError}
@@ -802,14 +823,20 @@ function PostPaidAd({ history }) {
 
             <Form.Group>
               <Form.Label>Ad City*</Form.Label>
-              <Form.Control
-                type="text"
-                value={city}
-                onChange={(e) => handleFieldChange("city", e.target.value)}
-                placeholder="Enter ad city"
+              <Select
+                options={cities.map((city) => ({
+                  value: city.name,
+                  label: city.name,
+                }))}
+                value={{ value: city.name, label: city.name }}
+                onChange={(selectedOption) => {
+                  handleFieldChange("city", {
+                    name: selectedOption.label,
+                  });
+                }}
+                placeholder="Select City"
                 className="rounded py-2 mb-2"
                 required
-                maxLength={100}
               />
               <Form.Text className="text-danger">{cityError}</Form.Text>
             </Form.Group>
@@ -926,12 +953,12 @@ function PostPaidAd({ history }) {
                   >
                     <Modal.Header closeButton>
                       <Modal.Title className="text-center w-100 py-2">
-                      Alternative Currency Info
+                        Alternative Currency Info
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <p className="text-center">
-                      This is optional and could be the alternative currency.{" "}
+                        This is optional and could be the alternative currency.{" "}
                       </p>
                     </Modal.Body>
                   </Modal>

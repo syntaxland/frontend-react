@@ -136,8 +136,8 @@ function CardPayment({
 
       {buyCreditPointSuccess && (
         <Message variant="success">
-          Your account has been credited with the CPS purchased for
-          {amount} {currency}.
+          Your account has been credited with the CPS purchased for {amount}{" "}
+          {currency}.
         </Message>
       )}
 
