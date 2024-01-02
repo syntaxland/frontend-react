@@ -223,6 +223,7 @@ function Marketplace() {
               <Col md={4}>
                 <Select
                   options={Country.getAllCountries().map((country) => ({
+                    // value: country.name,
                     value: country.isoCode,
                     label: country.name,
                   }))}
@@ -240,6 +241,7 @@ function Marketplace() {
                       ? State.getStatesOfCountry(selectedCountry).map(
                           (state) => ({
                             value: state.isoCode,
+                            // value: state.name,
                             label: state.name,
                           })
                         )

@@ -11,6 +11,7 @@ import Message from "../Message";
 import Loader from "../Loader";
 import LoaderButton from "../LoaderButton";
 import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 
 function EditPaidAd({ history, match }) {
   const dispatch = useDispatch();
@@ -205,6 +206,10 @@ function EditPaidAd({ history, match }) {
   const editPaidAdState = useSelector((state) => state.editPaidAdState);
   const { success, error, loading } = editPaidAdState;
 
+  const [countries, setCountries] = useState([]);
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
+
   const [editAdChanges, setEditAdChanges] = useState(false);
   const [editAdData, setEditAdData] = useState({
     ad_name: "",
@@ -265,17 +270,51 @@ function EditPaidAd({ history, match }) {
     }
   }, [ads]);
 
-  // const handleEditAdChanges = (e) => {
-  //   const { name, value, files, checked } = e.target;
-  //   if (files) {
-  //     setEditAdData({ ...editAdData, [name]: files[0] });
-  //   } else if (checked) {
-  //     setEditAdData({ ...editAdData, [name]: checked });
+  useEffect(() => {
+    setCountries(Country?.getAllCountries());
+  }, []);
+
+  // useEffect(() => {
+  //   if (editAdData?.country && editAdData?.country?.isoCode) {
+  //     setStates(State?.getStatesOfCountry(editAdData?.country?.isoCode));
   //   } else {
-  //     setEditAdData({ ...editAdData, [name]: value });
+  //     setStates([]);
   //   }
-  //   setEditAdChanges(true);
-  // };
+  // }, [editAdData?.country, editAdData?.country?.isoCode]);
+
+  // useEffect(() => {
+  //   if (editAdData?.state_province && editAdData?.state_province?.isoCode) {
+  //     setCities(
+  //       City?.getCitiesOfState(
+  //         editAdData?.country?.isoCode,
+  //         editAdData?.state_province?.isoCode
+  //       )
+  //     );
+  //   } else {
+  //     setCities([]);
+  //   }
+  // }, [editAdData?.state_province, editAdData?.country?.isoCode]);
+
+  useEffect(() => {
+    if (editAdData?.country) {
+      setStates(State?.getStatesOfCountry(editAdData?.country));
+    } else {
+      setStates([]);
+    }
+  }, [editAdData?.country]);
+
+  useEffect(() => {
+    if (editAdData?.state_province) {
+      setCities(
+        City?.getCitiesOfState(
+          editAdData?.country,
+          editAdData?.state_province
+        )
+      );
+    } else {
+      setCities([]);
+    }
+  }, [editAdData?.country, editAdData?.state_province]);
 
   const handleEditAdChanges = (e) => {
     const { name, value, files, checked } = e.target;
@@ -284,6 +323,31 @@ function EditPaidAd({ history, match }) {
       setEditAdData({ ...editAdData, [name]: checked });
     } else if (files) {
       setEditAdData({ ...editAdData, [name]: files[0] });
+    } else if (name === "country") {
+      const selectedCountry = countries?.find(
+        (country) => country.name === value
+        // (country) => country.isoCode === value
+      );
+      setEditAdData({
+        ...editAdData,
+        country: selectedCountry,
+        state_province: "",
+        city: "",
+      });
+    } else if (name === "state_province") {
+      const selectedState = states?.find((state) => state.name === value);
+      // const selectedState = states?.find((state) => state.isoCode === value);
+      setEditAdData({
+        ...editAdData,
+        state_province: selectedState,
+        city: "",
+      });
+    } else if (name === "city") {
+      const selectedCity = cities?.find((city) => city.name === value);
+      setEditAdData({
+        ...editAdData,
+        city: selectedCity,
+      });
     } else {
       setEditAdData({ ...editAdData, [name]: value });
     }
@@ -291,16 +355,23 @@ function EditPaidAd({ history, match }) {
     setEditAdChanges(true);
   };
 
+  // console.log(
+  //   "country.name,  country.isoCode",
+  //   editAdData?.country,
+  //   editAdData?.country
+  // );
+
   const handleEditAd = () => {
     const editAdFormData = new FormData();
 
     editAdFormData.append("ad_name", editAdData.ad_name);
     editAdFormData.append("ad_category", editAdData.ad_category);
     editAdFormData.append("ad_type", editAdData.ad_type);
-    // editAdFormData.append("location", editAdData.location);
+    // editAdFormData.append("country", editAdData.country.name);
+    // editAdFormData.append("state_province", editAdData.state_province.name);
     editAdFormData.append("country", editAdData.country);
     editAdFormData.append("state_province", editAdData.state_province);
-    editAdFormData.append("city", editAdData.city);
+    editAdFormData.append("city", editAdData.city.name);
     editAdFormData.append("condition", editAdData.condition);
     editAdFormData.append("currency", editAdData.currency);
     editAdFormData.append("price", editAdData.price);
@@ -324,15 +395,15 @@ function EditPaidAd({ history, match }) {
     editAdFormData.append("ad_id", id);
 
     if (editAdFormData.image1 instanceof File) {
-      editAdFormData.append("image1", editAdFormData.image1);
+      editAdFormData.append("image1", editAdData.image1);
     }
 
     if (editAdFormData.image2 instanceof File) {
-      editAdFormData.append("image2", editAdFormData.image2);
+      editAdFormData.append("image2", editAdData.image2);
     }
 
     if (editAdFormData.image3 instanceof File) {
-      editAdFormData.append("image3", editAdFormData.image3);
+      editAdFormData.append("image3", editAdData.image3);
     }
 
     console.log("editAdFormData:", editAdFormData);
@@ -355,117 +426,6 @@ function EditPaidAd({ history, match }) {
     ["Fairly Used", "Fairly Used"],
   ];
 
-  const AD_TYPE_CHOICES = [
-    <p style={{ color: "red" }}>Choices for Home Appliances</p>,
-    ["Washing Machine", "Washing Machine"],
-    ["Refrigerator", "Refrigerator"],
-    ["Microwave", "Microwave"],
-    ["Coffee Machine", "Coffee Machine"],
-    ["Air Conditioner", "Air Conditioner"],
-
-    <hr />,
-    // ... Choices for Properties
-    ["House", "House"],
-    ["Apartment", "Apartment"],
-    ["Land", "Land"],
-    ["Commercial Property", "Commercial Property"],
-
-    <hr />,
-    // ... Choices for Electronics
-    ["Laptop", "Laptop"],
-    ["Smartphone", "Smartphone"],
-    ["Camera", "Camera"],
-    ["Headphones", "Headphones"],
-    ["Television", "Television"],
-
-    <hr />,
-    // ... Choices for Fashion
-    ["Clothing", "Clothing"],
-    ["Shoes", "Shoes"],
-    ["Accessories", "Accessories"],
-
-    // ... Choices for Vehicles
-    ["Car", "Car"],
-    ["Motorcycle", "Motorcycle"],
-    ["Bicycle", "Bicycle"],
-
-    <hr />,
-    // ... Choices for Services
-    ["Cleaning", "Cleaning"],
-    ["Plumbing", "Plumbing"],
-    ["Electrician", "Electrician"],
-    ["Catering", "Catering"],
-    ["Tutoring", "Tutoring"],
-
-    // ... Choices for Mobile Phones
-    ["iPhone", "iPhone"],
-    ["Samsung", "Samsung"],
-    ["Google Pixel", "Google Pixel"],
-    ["OnePlus", "OnePlus"],
-
-    // ... Choices for Health & Beauty
-    ["Skincare", "Skincare"],
-    ["Haircare", "Haircare"],
-    ["Makeup", "Makeup"],
-    ["Fitness Equipment", "Fitness Equipment"],
-
-    <hr />,
-    // ... Choices for Sports
-    ["Soccer", "Soccer"],
-    ["Basketball", "Basketball"],
-    ["Tennis", "Tennis"],
-    ["Golf", "Golf"],
-    <hr />,
-
-    // ... Choices for Jobs
-    ["IT", "IT"],
-    ["Sales", "Sales"],
-    ["Marketing", "Marketing"],
-    ["Administrative", "Administrative"],
-    <hr />,
-
-    // ... Choices for Babies and Kids
-    ["Toys", "Toys"],
-    ["Clothing Kids", "Clothing"],
-    ["Strollers", "Strollers"],
-    <hr />,
-
-    // ... Choices for Agric & Food
-    ["Farm Products", "Farm Products"],
-    ["Processed Food", "Processed Food"],
-    ["Beverages", "Beverages"],
-    <hr />,
-
-    // ... Choices for Repairs
-    ["Electronic Repair", "Electronic Repair"],
-    ["Appliance Repair", "Appliance Repair"],
-    ["Car Repair", "Car Repair"],
-    <hr />,
-
-    // ... Choices for Equipment & Tools
-    ["Power Tools", "Power Tools"],
-    ["Hand Tools", "Hand Tools"],
-    ["Kitchen Tools", "Kitchen Tools"],
-    <hr />,
-
-    // ... Choices for CVs
-    ["Engineering", "Engineering"],
-    ["Marketing CVs", "Marketing"],
-    ["Design", "Design"],
-    ["Education", "Education"],
-    <hr />,
-
-    // ... Choices for Pets
-    ["Dog", "Dog"],
-    ["Cat", "Cat"],
-    ["Fish", "Fish"],
-    ["Bird", "Bird"],
-    <hr />,
-
-    // ... Choices for Others
-    ["Others", "Others"],
-  ];
-
   const AD_CATEGORY_CHOICES = [
     ["Home Appliances", "Home Appliances"],
     ["Properties", "Properties"],
@@ -485,6 +445,103 @@ function EditPaidAd({ history, match }) {
     ["Pets", "Pets"],
     ["Others", "Others"],
   ];
+
+  const AD_TYPE_CHOICES = {
+    "Home Appliances": [
+      ["Washing Machine", "Washing Machine"],
+      ["Refrigerator", "Refrigerator"],
+      ["Microwave", "Microwave"],
+      ["Coffee Machine", "Coffee Machine"],
+      ["Air Conditioner", "Air Conditioner"],
+    ],
+    Properties: [
+      ["House", "House"],
+      ["Apartment", "Apartment"],
+      ["Land", "Land"],
+      ["Commercial Property", "Commercial Property"],
+    ],
+    Electronics: [
+      ["Laptop", "Laptop"],
+      ["Smartphone", "Smartphone"],
+      ["Camera", "Camera"],
+      ["Headphones", "Headphones"],
+      ["Television", "Television"],
+    ],
+    Fashion: [
+      ["Clothing", "Clothing"],
+      ["Shoes", "Shoes"],
+      ["Accessories", "Accessories"],
+    ],
+    Vehicles: [
+      ["Car", "Car"],
+      ["Motorcycle", "Motorcycle"],
+      ["Bicycle", "Bicycle"],
+    ],
+    Services: [
+      ["Cleaning", "Cleaning"],
+      ["Plumbing", "Plumbing"],
+      ["Electrician", "Electrician"],
+      ["Catering", "Catering"],
+      ["Tutoring", "Tutoring"],
+    ],
+    "Mobile Phones": [
+      ["iPhone", "iPhone"],
+      ["Samsung", "Samsung"],
+      ["Google Pixel", "Google Pixel"],
+      ["OnePlus", "OnePlus"],
+    ],
+    "Health & Beauty": [
+      ["Skincare", "Skincare"],
+      ["Haircare", "Haircare"],
+      ["Makeup", "Makeup"],
+      ["Fitness Equipment", "Fitness Equipment"],
+    ],
+    Sports: [
+      ["Soccer", "Soccer"],
+      ["Basketball", "Basketball"],
+      ["Tennis", "Tennis"],
+      ["Golf", "Golf"],
+    ],
+    Jobs: [
+      ["IT", "IT"],
+      ["Sales", "Sales"],
+      ["Marketing", "Marketing"],
+      ["Administrative", "Administrative"],
+    ],
+    "Babies and Kids": [
+      ["Toys", "Toys"],
+      ["Clothing Kids", "Clothing"],
+      ["Strollers", "Strollers"],
+    ],
+    "Agric & Food": [
+      ["Farm Products", "Farm Products"],
+      ["Processed Food", "Processed Food"],
+      ["Beverages", "Beverages"],
+    ],
+    Repairs: [
+      ["Electronic Repair", "Electronic Repair"],
+      ["Appliance Repair", "Appliance Repair"],
+      ["Car Repair", "Car Repair"],
+    ],
+    "Equipment & Tools": [
+      ["Power Tools", "Power Tools"],
+      ["Hand Tools", "Hand Tools"],
+      ["Kitchen Tools", "Kitchen Tools"],
+    ],
+    CVs: [
+      ["Engineering", "Engineering"],
+      ["Marketing CVs", "Marketing"],
+      ["Design", "Design"],
+      ["Education", "Education"],
+    ],
+    Pets: [
+      ["Dog", "Dog"],
+      ["Cat", "Cat"],
+      ["Fish", "Fish"],
+      ["Bird", "Bird"],
+    ],
+    Others: [["Others", "Others"]],
+  };
 
   useEffect(() => {
     if (success) {
@@ -540,9 +597,9 @@ function EditPaidAd({ history, match }) {
                 required
               >
                 <option value="">Select Ad Category</option>
-                {AD_CATEGORY_CHOICES.map((type) => (
-                  <option key={type[0]} value={type[0]}>
-                    {type[1]}
+                {AD_CATEGORY_CHOICES.map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
                   </option>
                 ))}
               </Form.Control>
@@ -559,67 +616,103 @@ function EditPaidAd({ history, match }) {
                 required
               >
                 <option value="">Select Ad Type</option>
-                {AD_TYPE_CHOICES.map((type) => (
-                  <option key={type[0]} value={type[0]}>
-                    {type[1]}
-                  </option>
-                ))}
+                {AD_TYPE_CHOICES[editAdData.ad_category]?.map(
+                  ([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  )
+                )}
               </Form.Control>
             </Form.Group>
 
-            {/* <Form.Group>
-              <Form.Label>Ad Location</Form.Label>
-              <Form.Control
-                type="text"
-                name="location"
-                value={editAdData.location}
-                onChange={handleEditAdChanges}
-                placeholder="Enter the ad location"
-                className="rounded py-2 mb-2"
-                required
-                maxLength={100}
-              />
-            </Form.Group> */}
-
             <Form.Group>
               <Form.Label>Ad Country</Form.Label>
-              <Form.Control
-                type="text"
-                name="country"
-                value={editAdData.country}
-                onChange={handleEditAdChanges}
-                placeholder="Enter the ad country"
+              <Select
+                options={countries?.map((country) => ({
+                  value: country.name,
+                  label: country.name,
+                  // value: country?.isoCode,
+                  // label: country?.name,
+                }))}
+                value={{
+                  value: editAdData?.country,
+                  label: editAdData?.country,
+                  // value: editAdData?.country?.isoCode,
+                  // label: editAdData?.country?.name,
+                }}
+                onChange={(selectedOption) => {
+                  handleEditAdChanges({
+                    target: {
+                      name: "country",
+                      value: {
+                        isoCode: selectedOption.value,
+                        name: selectedOption.label,
+                      },
+                    },
+                  });
+                }}
+                placeholder="Select Country"
                 className="rounded py-2 mb-2"
                 required
-                maxLength={100}
+                isDisabled
               />
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Ad state/Province</Form.Label>
-              <Form.Control
-                type="text"
-                name="state_province"
-                value={editAdData.state_province}
-                onChange={handleEditAdChanges}
-                placeholder="Enter the ad state/province"
+              <Form.Label>Ad State/Province</Form.Label>
+              <Select
+                options={states?.map((state) => ({
+                  // value: state?.isoCode,
+                  value: state.name,
+                  label: state.name,
+                }))}
+                value={{
+                  value: editAdData?.state_province,
+                  // value: editAdData?.state_province?.isoCode,
+                  label: editAdData?.state_province,
+                }}
+                onChange={(selectedOption) => {
+                  handleEditAdChanges({
+                    target: {
+                      name: "state_province",
+                      value: {
+                        isoCode: selectedOption.value,
+                        name: selectedOption.label,
+                      },
+                    },
+                  });
+                }}
+                placeholder="Select State/Province"
                 className="rounded py-2 mb-2"
                 required
-                maxLength={100}
+                isDisabled
               />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Ad City</Form.Label>
-              <Form.Control
-                type="text"
-                name="city"
-                value={editAdData.city}
-                onChange={handleEditAdChanges}
-                placeholder="Enter the ad city"
+              <Select
+                options={cities?.map((city) => ({
+                  value: city.name,
+                  label: city.name,
+                }))}
+                value={{
+                  value: editAdData?.city,
+                  label: editAdData?.city,
+                }}
+                onChange={(selectedOption) => {
+                  handleEditAdChanges({
+                    target: {
+                      name: "city",
+                      value: { name: selectedOption.label },
+                    },
+                  });
+                }}
+                placeholder="Select City"
                 className="rounded py-2 mb-2"
                 required
-                maxLength={100}
+                isDisabled
               />
             </Form.Group>
 
@@ -729,20 +822,6 @@ function EditPaidAd({ history, match }) {
                 onChange={handleEditAdChanges}
                 placeholder="Enter ad brand"
                 className="rounded py-2 mb-2"
-                maxLength={100}
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type="text"
-                name="description"
-                value={editAdData.description}
-                onChange={handleEditAdChanges}
-                placeholder="Enter ad description"
-                className="rounded py-2 mb-2"
-                required
                 maxLength={100}
               />
             </Form.Group>
@@ -889,18 +968,36 @@ function EditPaidAd({ history, match }) {
                 className="rounded py-2 mb-2"
               />
             </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                // type="text"
+                as="textarea"
+                rows={2}
+                name="description"
+                value={editAdData.description}
+                onChange={handleEditAdChanges}
+                placeholder="Enter ad description"
+                className="rounded py-2 mb-2"
+                required
+                maxLength={100}
+              />
+            </Form.Group>
           </Form>
-          <Button
-            variant="success"
-            onClick={handleEditAd}
-            className="rounded py-2 mb-2 text-center w-100"
-            disabled={!editAdChanges || loading || success}
-          >
-            <div className="d-flex justify-content-center">
-              <span className="py-1">Update Ad</span>
-              {loading && <LoaderButton />}
-            </div>
-          </Button>
+          <div className="py-2">
+            <Button
+              variant="success"
+              onClick={handleEditAd}
+              className="rounded py-2 mb-2 text-center w-100"
+              disabled={!editAdChanges || loading || success}
+            >
+              <div className="d-flex justify-content-center">
+                <span className="py-1">Update Ad</span>
+                {loading && <LoaderButton />}
+              </div>
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>

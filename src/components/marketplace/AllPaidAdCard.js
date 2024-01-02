@@ -11,12 +11,11 @@ import {
   trackProductView,
 } from "../../actions/productAction";
 import { getSellerAccount } from "../../actions/marketplaceSellerActions";
-
 import { getPaidAdDetail } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";
 import Loader from "../Loader";
-// import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
+// import { Country, State, City } from "country-state-city";
 
 function AllPaidAdCard({ product }) {
   const dispatch = useDispatch();
@@ -51,6 +50,28 @@ function AllPaidAdCard({ product }) {
   );
   const { sellerAvatarUrl } = getPaidAdDetailState;
   // console.log("sellerAvatarUrl:", sellerAvatarUrl);
+
+  // const countries = Country?.getAllCountries();
+  // const states = State?.getStatesOfCountry(product?.country?.isoCode);
+  // const cities = City?.getCitiesOfState(
+  //   product?.country?.isoCode,
+  //   product?.state_province?.isoCode
+  // );
+
+  // const getCountryLabel = (isoCode) => {
+  //   const country = countries.find((c) => c.isoCode === isoCode);
+  //   return country ? country.name : "";
+  // };
+
+  // const getStateLabel = (isoCode) => {
+  //   const state = states.find((s) => s.isoCode === isoCode);
+  //   return state ? state.name : "";
+  // };
+
+  // const getCityLabel = (cityName) => {
+  //   const city = cities.find((c) => c.name === cityName);
+  //   return city ? city.name : "";
+  // };
 
   useEffect(() => {
     if (
@@ -306,7 +327,10 @@ function AllPaidAdCard({ product }) {
             <span>
               {product?.price} {product?.currency}{" "}
               {product?.usd_price ? (
-                <span> / {product?.usd_price} {product?.usd_currency} </span>
+                <span>
+                  {" "}
+                  / {product?.usd_price} {product?.usd_currency}{" "}
+                </span>
               ) : (
                 <></>
               )}{" "}
@@ -391,6 +415,20 @@ function AllPaidAdCard({ product }) {
               {product?.state_province}, {product?.country}.
             </Button>
           </span>
+
+          {/* <span>
+            <Button
+              variant="outline-transparent"
+              size="sm"
+              className="py-2 rounded"
+              disabled
+            >
+              <i className="fas fa-map-marker-alt"></i>{" "}
+              {getCityLabel(product?.city)},{" "}
+              {getStateLabel(product?.state_province)},{" "}
+              {getCountryLabel(product?.country)}.
+            </Button>
+          </span> */}
 
           <span>
             <Button

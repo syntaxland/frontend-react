@@ -64,7 +64,7 @@ function PostPaidAd({ history }) {
   // const [youtubeLinkError, setYoutubeLinkError] = useState("");
 
   const [image1, setImage1] = useState("");
-  // const [image1Error, setImage1Error] = useState("");
+  const [image1Error, setImage1Error] = useState("");
 
   const [image2, setImage2] = useState("");
   // const [image2Error, setImage2Error] = useState("");
@@ -108,30 +108,10 @@ function PostPaidAd({ history }) {
     }
   }, [stateProvince, country.isoCode]);
 
-  // const handleCategoryChange = (selectedOption) => {
-  //   setSelectedCategory(selectedOption.value);
-  //   setSelectedType("");
-  // };
-
-  // const handleTypeChange = (selectedOption) => {
-  //   setSelectedType(selectedOption.value);
-  // };
-
-  // const handleCategoryChange = (selectedOption) => {
-  //   setSelectedCategory(selectedOption.value);
-  //   setAdCategory(selectedOption.value);
-  //   setSelectedType("");
-  // };
-
-  // const handleTypeChange = (selectedOption) => {
-  //   setSelectedType(selectedOption.value);
-  //   setAdType(selectedOption.value);
-  // };
-
   const handleCategoryChange = (selectedOption) => {
     setAdCategory(selectedOption.value);
     setAdCategoryError("");
-    setAdType(""); // Reset adType when category changes
+    setAdType("");
   };
 
   const handleTypeChange = (selectedOption) => {
@@ -234,7 +214,7 @@ function PostPaidAd({ history }) {
 
       case "image1":
         setImage1(value);
-        // setImage1Error("");
+        setImage1Error("");
         break;
 
       case "image2":
@@ -583,6 +563,8 @@ function PostPaidAd({ history }) {
   sellerData.append("ad_type", adType);
   sellerData.append("country", country.name);
   sellerData.append("state_province", stateProvince.name);
+  // sellerData.append("country", country.isoCode);
+  // sellerData.append("state_province", stateProvince.isoCode);
   sellerData.append("city", city.name);
   sellerData.append("condition", condition);
   sellerData.append("currency", currency);
@@ -602,13 +584,6 @@ function PostPaidAd({ history }) {
   sellerData.append("is_price_negotiable", isPriceNegotiable);
   sellerData.append("is_auto_renewal", isAutoRenewal);
 
-  console.log(
-    "country.name, stateProvince.name, city.name",
-    country.name,
-    stateProvince.name,
-    city.name
-  );
-  
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
@@ -682,6 +657,12 @@ function PostPaidAd({ history }) {
       setDescriptionError("");
     }
 
+    if (!image1) {
+      setImage1Error("Please upload the ad image.");
+    } else {
+      setImage1Error("");
+    }
+
     if (!duration) {
       setDurationError("Please select the ad duration.");
     } else {
@@ -698,6 +679,7 @@ function PostPaidAd({ history }) {
       !currency ||
       !price ||
       !description ||
+      !image1 ||
       !duration
     ) {
       setFormError("Please fix the errors in the form.");
@@ -1010,22 +992,6 @@ function PostPaidAd({ history }) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Description*</Form.Label>
-              <Form.Control
-                type="text"
-                value={description}
-                onChange={(e) =>
-                  handleFieldChange("description", e.target.value)
-                }
-                placeholder="Enter ad description"
-                className="rounded py-2 mb-2"
-                required
-                maxLength={100}
-              />
-              <Form.Text className="text-danger">{descriptionError}</Form.Text>
-            </Form.Group>
-
-            <Form.Group>
               <Form.Label>Youtube Link</Form.Label>
               <Form.Control
                 type="text"
@@ -1088,6 +1054,7 @@ function PostPaidAd({ history }) {
                 placeholder="Upload the ID Card Photo"
                 className="rounded py-2 mb-2"
               />
+              <Form.Text className="text-danger">{image1Error}</Form.Text>
             </Form.Group>
 
             <Form.Group>
@@ -1142,18 +1109,38 @@ function PostPaidAd({ history }) {
                 className="rounded py-2 mb-2"
               />
             </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Description*</Form.Label>
+              <Form.Control
+                // type="text"
+                as="textarea"
+                rows={2}
+                value={description}
+                onChange={(e) =>
+                  handleFieldChange("description", e.target.value)
+                }
+                placeholder="Enter ad description"
+                className="rounded py-2 mb-2"
+                required
+                maxLength={100}
+              />
+              <Form.Text className="text-danger">{descriptionError}</Form.Text>
+            </Form.Group>
           </Form>
-          <Button
-            variant="success"
-            onClick={handlePostPaidAd}
-            className="rounded py-2 mb-2 text-center w-100"
-            disabled={loading || success}
-          >
-            <div className="d-flex justify-content-center">
-              <span className="py-1">Post Ad</span>
-              {loading && <LoaderButton />}
-            </div>
-          </Button>
+          <div className="py-2">
+            <Button
+              variant="success"
+              onClick={handlePostPaidAd}
+              className="rounded py-2 mb-2 text-center w-100"
+              disabled={loading || success}
+            >
+              <div className="d-flex justify-content-center">
+                <span className="py-1">Post Ad</span>
+                {loading && <LoaderButton />}
+              </div>
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>
