@@ -10,7 +10,7 @@ import { listPayments } from "../../actions/paymentActions";
 import { getOrders } from "../../actions/orderActions";
 import { Line, Pie } from "react-chartjs-2";
 import SellCreditPoint from "../CreditPoint/SellCreditPoint";
-import SelectCurrency from "../CreditPoint/SelectCurrency"; 
+import SelectCurrency from "../CreditPoint/SelectCurrency";
 
 import {
   Chart as ChartJS,
@@ -247,48 +247,47 @@ function Dashboard() {
                 </div>
 
                 <hr />
-<Col className="d-flex justify-content-center">
-                <Row>
-                  <Col>
-                    <h2 className="py-3">
-                      Credit Point Wallet <i className="fas fa-wallet"></i>
-                    </h2>
-                    <p>
-                      Balance:{" "}
-                      {creditPointsFormatted.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}{" "}
-                      cps
-                    </p>
+                <Col className="d-flex justify-content-center">
+                  <Row>
+                    <Col>
+                      <h2 className="py-3">
+                        Credit Point Wallet <i className="fas fa-wallet"></i>
+                      </h2>
+                      <p>
+                        Balance:{" "}
+                        {creditPointsFormatted.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}{" "}
+                        cps
+                      </p>
 
-                    <div className="d-flex justify-content-between py-2">
-                      <span className="py-2">
-                        <Button
-                          variant="outline-success"
-                          size="sm"
-                          className="py-2 rounded"
-                          onClick={handleBuyCreditPointOpen}
-                        >
-                          Buy CPS 
-                        </Button>
-                      </span>
+                      <div className="d-flex justify-content-between py-2">
+                        <span className="py-2">
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            className="py-2 rounded"
+                            onClick={handleBuyCreditPointOpen}
+                          >
+                            Buy CPS
+                          </Button>
+                        </span>
 
-                      <span className="py-2">
-                        <Button
-                          variant="outline-success"
-                          size="sm"
-                          className="py-2 rounded"
-                          onClick={handleSellCreditPointOpen}
-                        >
-                          Sell/Share CPS
-                        </Button>
-                      </span>
-                    </div>
-                  </Col>
-                </Row>
-              </Col>
-
+                        <span className="py-2">
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            className="py-2 rounded"
+                            onClick={handleSellCreditPointOpen}
+                          >
+                            Sell/Share CPS
+                          </Button>
+                        </span>
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
 
                 <hr />
                 <div className="line-graph mt-4">
@@ -327,9 +326,6 @@ function Dashboard() {
                 </Row>
               </div>
 
-
-              
-
               <hr />
             </Row>
           </div>
@@ -342,7 +338,9 @@ function Dashboard() {
             Buy Credit Point
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="py-2 d-flex justify-content-center">{buyCreditPointModal && <SelectCurrency />}</Modal.Body>
+        <Modal.Body className="py-2 d-flex justify-content-center">
+          {buyCreditPointModal && <SelectCurrency />}
+        </Modal.Body>
       </Modal>
 
       <Modal show={sellCreditPointModal} onHide={handleSellCreditPointClose}>
@@ -351,7 +349,9 @@ function Dashboard() {
             Sell/Share Credit Point
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="py-2 d-flex justify-content-center">{sellCreditPointModal && <SellCreditPoint />}</Modal.Body>
+        <Modal.Body className="py-2 d-flex justify-content-center">
+          {sellCreditPointModal && <SellCreditPoint />}
+        </Modal.Body>
       </Modal>
     </div>
   );
