@@ -52,7 +52,8 @@ function Paystack({currency, amount, paystackPublicKey, userEmail }) {
     email: userEmail,
     // reference: reference,
     amount: amount * 100,
-    currency: "NGN",
+    // currency: "NGN",
+    currency: currency,
     onSuccess: onSuccess,
     // onClose: onClose,
   };
@@ -75,18 +76,18 @@ function Paystack({currency, amount, paystackPublicKey, userEmail }) {
 
             <ListGroup variant="flush" className="text-center py-2">
               <ListGroup.Item>
-                Amount: NGN{" "}
+                Amount: {" "}
                 {amount?.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                })}
+                })}{" "}{currency}
               </ListGroup.Item>
             </ListGroup>
 
             <div className="text-center py-2">
               <PaystackButton {...paymentObject}>
                 <Button className="w-100 rounded" variant="dark">
-                  Pay Now
+                  Pay Now ({currency})
                 </Button>
               </PaystackButton>
             </div>

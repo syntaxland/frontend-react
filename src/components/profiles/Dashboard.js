@@ -245,44 +245,9 @@ function Dashboard() {
                     </p>
                   </div>
                 </div>
+
                 <hr />
-                <div className="line-graph mt-4">
-                  <h2 className="py-3">Payments</h2>
-                  <Line data={lineGraphData} options={lineChartOptions} />
-                </div>
-              </Col>
-              <hr />
-              <div className="mt-4 py-3">
-                <h2 className="py-3">
-                  Orders <i className="fas fa-luggage-cart"></i>
-                </h2>
-                <Row>
-                  <Col>
-                    <h5 className="py-3">Paid Order Rate</h5>
-                    <div className="chart-container">
-                      <Pie
-                        data={paidOrderRateData}
-                        options={pieChartOptions}
-                        width={200}
-                        height={200}
-                      />
-                    </div>
-                  </Col>
-                  <Col>
-                    <h5 className="py-3">Order Fulfilment Rate</h5>
-                    <div className="chart-container">
-                      <Pie
-                        data={unfulfilledOrderRateData}
-                        options={pieChartOptions}
-                        width={200}
-                        height={200}
-                      />
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-              <hr />
-              <Col className="d-flex justify-content-center">
+<Col className="d-flex justify-content-center">
                 <Row>
                   <Col>
                     <h2 className="py-3">
@@ -322,9 +287,48 @@ function Dashboard() {
                     </div>
                   </Col>
                 </Row>
-
-                {/* <div className="py-3">{withdrawCreditPoints}</div> */}
               </Col>
+
+
+                <hr />
+                <div className="line-graph mt-4">
+                  <h2 className="py-3">Payments</h2>
+                  <Line data={lineGraphData} options={lineChartOptions} />
+                </div>
+              </Col>
+              <hr />
+              <div className="mt-4 py-3">
+                <h2 className="py-3">
+                  Orders <i className="fas fa-luggage-cart"></i>
+                </h2>
+                <Row>
+                  <Col>
+                    <h5 className="py-3">Paid Order Rate</h5>
+                    <div className="chart-container">
+                      <Pie
+                        data={paidOrderRateData}
+                        options={pieChartOptions}
+                        width={200}
+                        height={200}
+                      />
+                    </div>
+                  </Col>
+                  <Col>
+                    <h5 className="py-3">Order Fulfilment Rate</h5>
+                    <div className="chart-container">
+                      <Pie
+                        data={unfulfilledOrderRateData}
+                        options={pieChartOptions}
+                        width={200}
+                        height={200}
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+
+
+              
 
               <hr />
             </Row>

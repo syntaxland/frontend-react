@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useHistory } from "react-router-dom";
-import { Row, Col, Button, Form } from "react-bootstrap";
+import { Row, Col, Button, Form, Container } from "react-bootstrap";
 import { getUserProfile } from "../../actions/userProfileActions";
 import AllPaidAdScreen from "./AllPaidAdScreen";
 import AllFreeAdScreen from "./AllFreeAdScreen";
@@ -150,7 +150,7 @@ function Marketplace() {
   };
 
   return (
-    <div>
+    <Container>
       <Row>
         <Col>
           <hr />
@@ -407,7 +407,7 @@ function Marketplace() {
           </div>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
 

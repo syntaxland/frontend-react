@@ -8,7 +8,7 @@ import { buyCreditPoint } from "../../../actions/creditPointActions";
 import Loader from "../../Loader";
 import Message from "../../Message";
 
-function Paystack({currency, amount, paystackPublicKey, userEmail }) {
+function Paystack({currency, amount, paystackPublicKey, userEmail }) { 
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -75,11 +75,11 @@ function Paystack({currency, amount, paystackPublicKey, userEmail }) {
 
             <ListGroup variant="flush" className="text-center py-2">
               <ListGroup.Item>
-                Amount: NGN{" "}
+                Amount:{" "}
                 {amount?.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
-                })}
+                })}{" "}{currency}
               </ListGroup.Item>
             </ListGroup>
 
