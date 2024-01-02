@@ -60,6 +60,21 @@ function Marketplace() {
   // console.log("State:", State.getAllStates());
   // console.log("City:", City.getAllCities());
 
+  const [defaultCountry] = useState({
+    value: "US",
+    label: "United States",
+  });
+
+  const [defaultState] = useState({
+    value: "CA",
+    label: "California",
+  });
+
+  const [defaultCity] = useState({
+    value: "SanFrancisco",
+    label: "San Francisco",
+  });
+
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -78,6 +93,23 @@ function Marketplace() {
   const handleCityChange = (selectedOption) => {
     setSelectedCity(selectedOption.value);
   };
+
+  useEffect(() => {
+    const savedCountry = localStorage.getItem("selectedCountry");
+    const savedState = localStorage.getItem("selectedState");
+    const savedCity = localStorage.getItem("selectedCity");
+
+    if (savedCountry) setSelectedCountry(savedCountry);
+    if (savedState) setSelectedState(savedState);
+    if (savedCity) setSelectedCity(savedCity);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCountry)
+      localStorage.setItem("selectedCountry", selectedCountry);
+    if (selectedState) localStorage.setItem("selectedState", selectedState);
+    if (selectedCity) localStorage.setItem("selectedCity", selectedCity);
+  }, [selectedCountry, selectedState, selectedCity]);
 
   useEffect(() => {
     if (userInfo) {
@@ -227,11 +259,20 @@ function Marketplace() {
                     value: country.isoCode,
                     label: country.name,
                   }))}
-                  value={{ value: selectedCountry, label: selectedCountry }}
+                  // value={{ value: selectedCountry, label: selectedCountry }}
+                  value={
+                    selectedCountry
+                      ? { value: selectedCountry, label: selectedCountry }
+                      : defaultCountry
+                  }
                   onChange={handleCountryChange}
                   placeholder="Select Country"
                   className="rounded"
                   required
+                  defaultValue={{
+                    value: "US",
+                    label: "United States",
+                  }}
                 />
               </Col>
               <Col md={4}>
@@ -247,11 +288,20 @@ function Marketplace() {
                         )
                       : []
                   }
-                  value={{ value: selectedState, label: selectedState }}
+                  // value={{ value: selectedState, label: selectedState }}
+                  value={
+                    selectedState
+                      ? { value: selectedState, label: selectedState }
+                      : defaultState
+                  }
                   onChange={handleStateChange}
                   placeholder="Select State/Province"
                   className="rounded"
                   required
+                  defaultValue={{
+                    value: "CA",
+                    label: "California",
+                  }}
                 />
               </Col>
               <Col md={4}>
@@ -267,11 +317,20 @@ function Marketplace() {
                         }))
                       : []
                   }
-                  value={{ value: selectedCity, label: selectedCity }}
+                  // value={{ value: selectedCity, label: selectedCity }}
+                  value={
+                    selectedCity
+                      ? { value: selectedCity, label: selectedCity }
+                      : defaultCity
+                  }
                   onChange={handleCityChange}
                   placeholder="Select City"
                   className="rounded"
                   required
+                  defaultValue={{
+                    value: "SanFrancisco",
+                    label: "San Francisco",
+                  }}
                 />
               </Col>
             </Col>
