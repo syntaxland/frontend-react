@@ -513,8 +513,10 @@ function PostFreeAd() {
   sellerData.append("ad_name", adName);
   sellerData.append("ad_category", adCategory);
   sellerData.append("ad_type", adType);
-  sellerData.append("country", country.name);
-  sellerData.append("state_province", stateProvince.name);
+  // sellerData.append("country", country.name);
+  // sellerData.append("state_province", stateProvince.name);
+  sellerData.append("country", country.isoCode);
+  sellerData.append("state_province", stateProvince.isoCode);
   sellerData.append("city", city.name);
   sellerData.append("condition", condition);
   sellerData.append("price", price);

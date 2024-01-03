@@ -146,7 +146,7 @@ function FilterBar() {
 
   const handleTypeChange = (type) => {
     setSelectedType(type);
-    localStorage.setItem("selectedType", type.value);
+    localStorage.setItem("selectedType", type.value); 
   };
 
   return (

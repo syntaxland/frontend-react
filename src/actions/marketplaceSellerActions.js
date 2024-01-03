@@ -106,18 +106,14 @@ import {
   SEARCH_ADS_REQUEST,
   SEARCH_ADS_SUCCESS,
   SEARCH_ADS_FAIL,
-
   GET_SELLER_SHOPFRONT_LINK_REQUEST,
-GET_SELLER_SHOPFRONT_LINK_SUCCESS,
-GET_SELLER_SHOPFRONT_LINK_FAIL,
+  GET_SELLER_SHOPFRONT_LINK_SUCCESS,
+  GET_SELLER_SHOPFRONT_LINK_FAIL,
 } from "../constants/marketplaceSellerConstants";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const getSellerShopfrontLink = () => async (
-  dispatch,
-  getState
-) => {
+export const getSellerShopfrontLink = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_SELLER_SHOPFRONT_LINK_REQUEST });
 
@@ -857,7 +853,7 @@ export const updateFreeAd = (businessFormData) => async (
   }
 };
 
-export const getAllFreeAd = (sellerData) => async (dispatch, getState) => {
+export const getAllFreeAd = (adData) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_FREE_AD_REQUEST });
 
@@ -872,11 +868,15 @@ export const getAllFreeAd = (sellerData) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${API_URL}/api/get-all-free-ad/`,
-      sellerData,
-      config
-    );
+    const { selected_country, selected_state, selected_city } = adData;
+    const url = `${API_URL}/api/get-all-free-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}`;
+    const { data } = await axios.get(url, config);
+
+    // const { data } = await axios.get(
+    //   `${API_URL}/api/get-all-free-ad/`,
+    //   adData,
+    //   config
+    // );
 
     dispatch({
       type: GET_ALL_FREE_AD_SUCCESS,
@@ -1040,7 +1040,7 @@ export const deletePaidAd = (adData) => async (dispatch, getState) => {
   }
 };
 
-export const getAllPaidAd = (sellerData) => async (dispatch, getState) => {
+export const getAllPaidAd = (adData) => async (dispatch, getState) => {
   try {
     dispatch({ type: GET_ALL_PAID_AD_REQUEST });
 
@@ -1055,11 +1055,15 @@ export const getAllPaidAd = (sellerData) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${API_URL}/api/get-all-paid-ad/`,
-      sellerData,
-      config
-    );
+    const { selected_country, selected_state, selected_city } = adData;
+    const url = `${API_URL}/api/get-all-paid-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}`;
+    const { data } = await axios.get(url, config);
+
+    // const { data } = await axios.get(
+    //   `${API_URL}/api/get-all-paid-ad/`,
+    //   adData,
+    //   config
+    // );
 
     dispatch({
       type: GET_ALL_PAID_AD_SUCCESS,

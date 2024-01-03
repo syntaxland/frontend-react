@@ -14,7 +14,6 @@ function AllPaidAdScreen({ selectedCountry, selectedState, selectedCity }) {
   const getAllPaidAdState = useSelector((state) => state.getAllPaidAdState);
   const { loading, error, ads } = getAllPaidAdState;
   console.log("PaidAds:", ads);
-  console.log("paid ad location", selectedCountry, selectedState, selectedCity);
 
   useEffect(() => {
     const adData = {

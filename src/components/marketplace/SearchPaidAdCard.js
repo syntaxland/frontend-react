@@ -10,7 +10,7 @@ import {
   updateProductSaveCount,
   trackProductView,
 } from "../../actions/productAction";
-import { getSellerAccount } from "../../actions/marketplaceSellerActions";
+import { getSellerAccount } from "../../actions/marketplaceSellerActions"; 
 
 import { getPaidAdDetail } from "../../actions/marketplaceSellerActions";
 import Message from "../Message";

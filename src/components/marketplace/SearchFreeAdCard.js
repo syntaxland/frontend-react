@@ -325,7 +325,7 @@ function SearchFreeAdCard({ freeAds }) {
 
           <span className="py-2"> 
             <Button
-              onClick={toggleFavoriteHandler}
+              onClick={toggleFavoriteHandler} 
               className="py-2 rounded"
               type="button"
               variant={freeAdsSaved ? "danger" : "outline-danger"}

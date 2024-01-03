@@ -1,7 +1,6 @@
 // Marketplace.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useHistory } from "react-router-dom";
 import { Row, Col, Button, Form, Container } from "react-bootstrap";
 import { getUserProfile } from "../../actions/userProfileActions";
@@ -61,20 +60,20 @@ function Marketplace() {
   // console.log("State:", State.getAllStates());
   // console.log("City:", City.getAllCities());
 
-  const [defaultCountry] = useState({
-    value: "US",
-    label: "United States",
-  });
+  // const [defaultCountry] = useState({
+  //   value: "US",
+  //   label: "United States",
+  // });
 
-  const [defaultState] = useState({
-    value: "CA",
-    label: "California",
-  });
+  // const [defaultState] = useState({
+  //   value: "CA",
+  //   label: "California",
+  // });
 
-  const [defaultCity] = useState({
-    value: "SanFrancisco",
-    label: "San Francisco",
-  });
+  // const [defaultCity] = useState({
+  //   value: "SanFrancisco",
+  //   label: "San Francisco",
+  // });
 
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -95,6 +94,10 @@ function Marketplace() {
     setSelectedCity(selectedOption.value);
   };
 
+  // const savedCountry = localStorage.getItem("selectedCountry");
+  // const savedState = localStorage.getItem("selectedState");
+  // const savedCity = localStorage.getItem("selectedCity");
+
   useEffect(() => {
     const savedCountry = localStorage.getItem("selectedCountry");
     const savedState = localStorage.getItem("selectedState");
@@ -111,6 +114,9 @@ function Marketplace() {
     if (selectedState) localStorage.setItem("selectedState", selectedState);
     if (selectedCity) localStorage.setItem("selectedCity", selectedCity);
   }, [selectedCountry, selectedState, selectedCity]);
+
+  console.log("location", selectedCountry, selectedState, selectedCity);
+  // console.log("saved location", savedCountry, savedState, savedCity);
 
   useEffect(() => {
     if (userInfo) {
@@ -221,20 +227,16 @@ function Marketplace() {
                     value: country.isoCode,
                     label: country.name,
                   }))}
-                  // value={{ value: selectedCountry, label: selectedCountry }}
-                  value={
-                    selectedCountry
-                      ? { value: selectedCountry, label: selectedCountry }
-                      : defaultCountry
-                  }
+                  value={{ value: selectedCountry, label: selectedCountry }}
+                  // value={
+                  //   selectedCountry
+                  //     ? { value: selectedCountry, label: selectedCountry }
+                  //     : defaultCountry
+                  // }
                   onChange={handleCountryChange}
                   placeholder="Select Country"
                   className="rounded"
                   required
-                  defaultValue={{
-                    value: "US",
-                    label: "United States",
-                  }}
                 />
               </Col>
               <Col md={4}>
@@ -250,20 +252,16 @@ function Marketplace() {
                         )
                       : []
                   }
-                  // value={{ value: selectedState, label: selectedState }}
-                  value={
-                    selectedState
-                      ? { value: selectedState, label: selectedState }
-                      : defaultState
-                  }
+                  value={{ value: selectedState, label: selectedState }}
+                  // value={
+                  //   selectedState
+                  //     ? { value: selectedState, label: selectedState }
+                  //     : defaultState
+                  // }
                   onChange={handleStateChange}
                   placeholder="Select State/Province"
                   className="rounded"
                   required
-                  defaultValue={{
-                    value: "CA",
-                    label: "California",
-                  }}
                 />
               </Col>
               <Col md={4}>
@@ -279,20 +277,16 @@ function Marketplace() {
                         }))
                       : []
                   }
-                  // value={{ value: selectedCity, label: selectedCity }}
-                  value={
-                    selectedCity
-                      ? { value: selectedCity, label: selectedCity }
-                      : defaultCity
-                  }
+                  value={{ value: selectedCity, label: selectedCity }}
+                  // value={
+                  //   selectedCity
+                  //     ? { value: selectedCity, label: selectedCity }
+                  //     : defaultCity
+                  // }
                   onChange={handleCityChange}
                   placeholder="Select City"
                   className="rounded"
                   required
-                  defaultValue={{
-                    value: "SanFrancisco",
-                    label: "San Francisco",
-                  }}
                 />
               </Col>
             </Col>
@@ -329,7 +323,6 @@ function Marketplace() {
               </Row>
             </Col>
           </Row>
-          
 
           <div className="py-2 d-flex justify-content-center">
             <FilterBar />
@@ -386,7 +379,14 @@ function Marketplace() {
                             lg={4}
                             xl={4}
                           >
-                            {freeAds && <SearchFreeAdCard freeAds={freeAds} />}
+                            {freeAds && (
+                              <SearchFreeAdCard
+                                selectedCountry={selectedCountry}
+                                selectedState={selectedState}
+                                selectedCity={selectedCity}
+                                freeAds={freeAds}
+                              />
+                            )}
                           </Col>
                         ))}
 
@@ -399,7 +399,14 @@ function Marketplace() {
                             lg={4}
                             xl={4}
                           >
-                            {paidAds && <SearchPaidAdCard paidAds={paidAds} />}
+                            {paidAds && (
+                              <SearchPaidAdCard
+                                selectedCountry={selectedCountry}
+                                selectedState={selectedState}
+                                selectedCity={selectedCity}
+                                paidAds={paidAds}
+                              />
+                            )}
                           </Col>
                         ))}
                       </>
@@ -413,11 +420,19 @@ function Marketplace() {
           </div>
 
           <div>
-            <AllPaidAdScreen />
+            <AllPaidAdScreen
+              selectedCountry={selectedCountry}
+              selectedState={selectedState}
+              selectedCity={selectedCity}
+            />
           </div>
 
           <div>
-            <AllFreeAdScreen />
+            <AllFreeAdScreen
+              selectedCountry={selectedCountry}
+              selectedState={selectedState}
+              selectedCity={selectedCity}
+            />
           </div>
         </Col>
       </Row>

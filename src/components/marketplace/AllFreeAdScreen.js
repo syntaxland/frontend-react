@@ -2,15 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
-import {
-   getAllFreeAd,
-} from "../../actions/marketplaceSellerActions";
+import { getAllFreeAd } from "../../actions/marketplaceSellerActions";
 
 import AllFreeAdCard from "./AllFreeAdCard";
 import Message from "../Message";
 import Loader from "../Loader";
 
-function AllFreeAdScreen() {
+function AllFreeAdScreen({ selectedCountry, selectedState, selectedCity }) {
   const dispatch = useDispatch();
 
   const getAllFreeAdState = useSelector((state) => state.getAllFreeAdState);
@@ -18,8 +16,14 @@ function AllFreeAdScreen() {
   console.log("All Free Ads:", ads);
 
   useEffect(() => {
-    dispatch(getAllFreeAd());
-  }, [dispatch]);
+    const adData = {
+      selected_country: selectedCountry,
+      selected_state: selectedState,
+      selected_city: selectedCity,
+    };
+    dispatch(getAllFreeAd(adData));
+    // eslint-disable-next-line
+  }, [dispatch, selectedCountry, selectedState, selectedCity]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -58,7 +62,7 @@ function AllFreeAdScreen() {
                     </Col>
                   ))}
                 </Row>
-              )} 
+              )}
               <nav className="mt-4">
                 <ul className="pagination justify-content-center">
                   <li
