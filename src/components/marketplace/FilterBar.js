@@ -1,9 +1,9 @@
 // FilterBar.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Select from "react-select";
-import { ScrollMenu } from 'react-horizontal-scrolling-menu';
-import 'react-horizontal-scrolling-menu/dist/styles.css';
+import { ScrollMenu } from "react-horizontal-scrolling-menu";
+import "react-horizontal-scrolling-menu/dist/styles.css";
 
 const AD_CATEGORY_CHOICES = [
   ["Home Appliances", "Home Appliances"],
@@ -126,13 +126,26 @@ function FilterBar() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
 
+  useEffect(() => {
+    const storedCategory = localStorage.getItem("selectedCategory");
+    const storedType = localStorage.getItem("selectedType");
+
+    if (storedCategory && storedType) {
+      setSelectedCategory(storedCategory);
+      setSelectedType(storedType);
+    }
+  }, []);
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setSelectedType(null);
+    localStorage.setItem("selectedCategory", category);
+    localStorage.removeItem("selectedType");
   };
 
   const handleTypeChange = (type) => {
     setSelectedType(type);
+    localStorage.setItem("selectedType", type);
   };
 
   return (
