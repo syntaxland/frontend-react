@@ -10,6 +10,7 @@ import AllFreeAdScreen from "./AllFreeAdScreen";
 import SearchFreeAdCard from "./SearchFreeAdCard";
 import SearchPaidAdCard from "./SearchPaidAdCard";
 import SellerSearchCard from "./SellerSearchCard";
+import FilterBar from "./FilterBar";
 import {
   getSellerUsernameSearch,
   searchAds,
@@ -195,7 +196,8 @@ function Marketplace() {
                   >
                     <div className="d-flex justify-content-center">
                       <span className="py-1">
-                        <i className="fas fa-search"></i> Search
+                        <i className="fas fa-search"></i>
+                        {/* Search */}
                         {/* Ads */}
                       </span>
                       {searchAdLoading && <LoaderButton />}
@@ -205,46 +207,6 @@ function Marketplace() {
               </Row>
             </Col>
           </Row>
-
-          {searchAdResult && (
-            <Row className="py-2 d-flex justify-content-center">
-              <Col md={6}>
-                <div>
-                  {freeAds || paidAds ? (
-                    <>
-                      {freeAds?.map((freeAds) => (
-                        <Col
-                          key={freeAds.id}
-                          xs={12}
-                          sm={12}
-                          md={6}
-                          lg={4}
-                          xl={4}
-                        >
-                          {freeAds && <SearchFreeAdCard freeAds={freeAds} />}
-                        </Col>
-                      ))}
-
-                      {paidAds?.map((paidAds) => (
-                        <Col
-                          key={paidAds.id}
-                          xs={12}
-                          sm={12}
-                          md={6}
-                          lg={4}
-                          xl={4}
-                        >
-                          {paidAds && <SearchPaidAdCard paidAds={paidAds} />}
-                        </Col>
-                      ))}
-                    </>
-                  ) : (
-                    <p></p>
-                  )}
-                </div>
-              </Col>
-            </Row>
-          )}
 
           <hr />
           <Col md={6}>
@@ -356,7 +318,8 @@ function Marketplace() {
                   >
                     <div className="d-flex justify-content-center">
                       <span className="py-1">
-                        <i className="fas fa-search"></i> Search
+                        <i className="fas fa-search"></i>
+                        {/* Search */}
                         {/* Seller */}
                       </span>
                       {sellerUsernameSearchLoading && <LoaderButton />}
@@ -367,21 +330,28 @@ function Marketplace() {
             </Col>
           </Row>
 
-          {searchSellerUsername && (
-            <Row className="py-2 d-flex justify-content-center">
-              <Col md={6}>
-                <div>
-                  {serachResults && (
-                    <SellerSearchCard
-                      serachResults={serachResults}
-                      sellerAvatarUrl={sellerAvatarUrl}
-                    />
-                  )}
-                </div>
-              </Col>
-            </Row>
-          )}
+          <div className="py-2 d-flex justify-content-center">
+            <FilterBar />
+          </div>
 
+          <div className="py-2 d-flex justify-content-center">
+            {searchSellerUsername && (
+              <Row className="py-2 d-flex justify-content-center">
+                <hr />
+                <Col md={6}>
+                  <div>
+                    {serachResults && (
+                      <SellerSearchCard
+                        serachResults={serachResults}
+                        sellerAvatarUrl={sellerAvatarUrl}
+                      />
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            )}
+          </div>
+          
           <hr />
 
           <div className="text-center py-2">
@@ -396,6 +366,49 @@ function Marketplace() {
             >
               Post Free Ads <i className="fas fa-plus-square"></i>
             </Button>
+          </div>
+
+          <div className="py-2">
+            {searchAdResult && (
+              <Row className="py-2 d-flex justify-content-center">
+                <h3 className="text-center">Search Ad Result</h3>
+                <Col>
+                  <div>
+                    {freeAds || paidAds ? (
+                      <>
+                        {freeAds?.map((freeAds) => (
+                          <Col
+                            key={freeAds.id}
+                            xs={12}
+                            sm={12}
+                            md={6}
+                            lg={4}
+                            xl={4}
+                          >
+                            {freeAds && <SearchFreeAdCard freeAds={freeAds} />}
+                          </Col>
+                        ))}
+
+                        {paidAds?.map((paidAds) => (
+                          <Col
+                            key={paidAds.id}
+                            xs={12}
+                            sm={12}
+                            md={6}
+                            lg={4}
+                            xl={4}
+                          >
+                            {paidAds && <SearchPaidAdCard paidAds={paidAds} />}
+                          </Col>
+                        ))}
+                      </>
+                    ) : (
+                      <p></p>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            )}
           </div>
 
           <div>
