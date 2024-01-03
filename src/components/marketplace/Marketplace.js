@@ -350,7 +350,7 @@ function Marketplace() {
 
           <div className="text-center py-2">
             <span>
-              At this angle, sells are quick...
+              At this angle, sells are quick ...{"  "}
             </span>
             <Button
               variant="success"
