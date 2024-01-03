@@ -1,9 +1,10 @@
 // FilterBar.js
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Select from "react-select";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
 import "react-horizontal-scrolling-menu/dist/styles.css";
+import "./FilterBar.css";
 
 const AD_CATEGORY_CHOICES = [
   ["Home Appliances", "Home Appliances"],
@@ -150,37 +151,54 @@ function FilterBar() {
 
   return (
     <Container>
-      <Row className="justify-content-center py-2">
+      <Row className="d-flex justify-content-center py-2">
         <Col>
-          <ScrollMenu>
-            {AD_CATEGORY_CHOICES.map(([value, label]) => (
-              <div key={value} className="category-item">
-                <button onClick={() => handleCategoryChange(value)}>
-                  {label}
-                </button>
-              </div>
-            ))}
-          </ScrollMenu>
-        </Col>
-        <Col>
-          {selectedCategory && (
-            <div>
-              <div>Ad Type</div>
-              <Select
-                options={AD_TYPE_CHOICES[selectedCategory].map(
-                  ([value, label]) => ({
-                    value,
-                    label,
-                  })
+          <div>
+            <ScrollMenu>
+              {AD_CATEGORY_CHOICES.map(([value, label]) => (
+                <div
+                  key={value}
+                  className={`category-item ${
+                    selectedCategory === value ? "active" : ""
+                  }`}
+                >
+                  <Button
+                    variant="outline-primary"
+                    className={`rounded ${
+                      selectedCategory === value ? "active" : ""
+                    }`}
+                    onClick={() => handleCategoryChange(value)}
+                  >
+                    {label}
+                  </Button>
+                </div>
+              ))}
+            </ScrollMenu>
+          </div>
+
+          <div className="d-flex justify-content-center text-center py-2">
+            <Row>
+              <Col md={12}>
+                {selectedCategory && (
+                  <div>
+                    <Select
+                      options={AD_TYPE_CHOICES[selectedCategory].map(
+                        ([value, label]) => ({
+                          value,
+                          label,
+                        })
+                      )}
+                      value={selectedType}
+                      onChange={handleTypeChange}
+                      placeholder="Select Type"
+                      className="rounded py-2 mb-2"
+                      required
+                    />
+                  </div>
                 )}
-                value={selectedType}
-                onChange={handleTypeChange}
-                placeholder="Select Type"
-                className="rounded py-2 mb-2"
-                required
-              />
-            </div>
-          )}
+              </Col>
+            </Row>
+          </div>
         </Col>
       </Row>
     </Container>

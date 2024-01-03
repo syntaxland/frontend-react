@@ -329,6 +329,7 @@ function Marketplace() {
               </Row>
             </Col>
           </Row>
+          
 
           <div className="py-2 d-flex justify-content-center">
             <FilterBar />
@@ -351,7 +352,7 @@ function Marketplace() {
               </Row>
             )}
           </div>
-          
+
           <hr />
 
           <div className="text-center py-2">
