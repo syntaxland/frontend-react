@@ -350,7 +350,7 @@ function Marketplace() {
 
           <div className="text-center py-2">
             <span>
-              Post your goods and services and start making more sales.
+              At this angle, sells are quick...
             </span>
             <Button
               variant="success"
