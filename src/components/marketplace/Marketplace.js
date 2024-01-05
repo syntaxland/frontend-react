@@ -12,7 +12,7 @@ import SellerSearchCard from "./SellerSearchCard";
 import FilterBar from "./FilterBar";
 import {
   getSellerUsernameSearch,
-  searchAds,
+  // searchAds,
   getAllPaidAd,
   getAllFreeAd,
 } from "../../actions/marketplaceSellerActions";
@@ -25,7 +25,7 @@ function Marketplace() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [searchTerm, setSearchTerm] = useState("");
+  // const [searchTerm, setSearchTerm] = useState("");
   const [sellerUsername, setSellerUsername] = useState("");
 
   const [searchSellerUsername, setSearchSellerUsername] = useState(null);
@@ -229,20 +229,20 @@ function Marketplace() {
   };
 
   const handleSearchAds = () => {
-    if (searchTerm.trim() !== "") {
-      const searchData = {
-        search_term: searchTerm.trim(),
-        selected_country: selectedCountry,
-        selected_state: selectedState,
-        selected_city: selectedCity,
-      };
-      const result = dispatch(searchAds(searchData));
+    // if (searchTerm.trim() !== "") {
+    //   const searchData = {
+    //     search_term: searchTerm.trim(),
+    //     selected_country: selectedCountry,
+    //     selected_state: selectedState,
+    //     selected_city: selectedCity,
+    //   };
+    //   const result = dispatch(searchAds(searchData));
       // setSearchAdResult(result);
       history.push("/ad-search-results");
-      if (!result) {
-        console.log("Ad not found.");
-      }
-    }
+      // if (!result) {
+      //   console.log("Ad not found.");
+      // }
+    // }
   };
 
   const handleSellerUsernameSearch = () => {
@@ -283,17 +283,17 @@ function Marketplace() {
           <Row className="py-2 d-flex justify-content-center">
             <Col md={8}>
               <Row className="py-2 d-flex justify-content-betwwen">
-                <Col md={10}>
-                  <Form.Group>
+                {/* <Col md={10}> */}
+                  {/* <Form.Group>
                     <Form.Control
                       type="text"
                       placeholder="Search ads"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                  </Form.Group>
-                </Col>
-                <Col md={2} className="d-flex justify-content-end">
+                  </Form.Group> */}
+                {/* </Col> */}
+                <Col  className="d-flex justify-content-center">
                   <Button
                     variant="primary"
                     className="rounded"
@@ -302,7 +302,7 @@ function Marketplace() {
                   >
                     <div className="d-flex justify-content-center">
                       <span className="py-1">
-                        <i className="fas fa-search"></i>
+                        Search Ads <i className="fas fa-search"></i>
                         {/* Search */}
                         {/* Ads */}
                       </span>
