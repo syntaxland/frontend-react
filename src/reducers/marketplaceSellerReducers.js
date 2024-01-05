@@ -117,11 +117,13 @@ const initialState = {
   error: null,
   sellerAccount: [],
   sellerPhoto: [],
-  ads: [],
   adMessages: [],
   sellerApiKey: [],
   sellerAvatarUrl: [],
   serachResults: [],
+  ads: [],
+  freeSearchAds: [],
+  paidSearchAds: [],
   freeAds: [],
   paidAds: [],
   sellerDetail: [],
@@ -155,11 +157,9 @@ export const searchAdsReducer = (state = initialState, action) => {
       return {
         loading: false,
         success: true,
-        freeAds: action.payload.free_ads,
-        paidAds: action.payload.paid_ads,
-        
+        freeSearchAds: action.payload.free_ads,
+        paidSearchAds: action.payload.paid_ads,
       };
-
     case SEARCH_ADS_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -514,7 +514,7 @@ export const getAllFreeAdReducer = (state = initialState, action) => {
     case GET_ALL_FREE_AD_REQUEST:
       return { loading: true };
     case GET_ALL_FREE_AD_SUCCESS:
-      return { loading: false, success: true, ads: action.payload };
+      return { loading: false, success: true, freeAds: action.payload };
     case GET_ALL_FREE_AD_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -566,7 +566,7 @@ export const getAllPaidAdReducer = (state = initialState, action) => {
     case GET_ALL_PAID_AD_REQUEST:
       return { loading: true };
     case GET_ALL_PAID_AD_SUCCESS:
-      return { loading: false, success: true, ads: action.payload };
+      return { loading: false, success: true, paidAds: action.payload };
     case GET_ALL_PAID_AD_FAIL:
       return { loading: false, error: action.payload };
     default:

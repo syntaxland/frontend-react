@@ -1,118 +1,121 @@
-// AllPaidAdScreen.js
+// AccountFundDebits.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "react-bootstrap";
-import { getAllPaidAd } from "../../actions/marketplaceSellerActions";
-
-import AllPaidAdCard from "./AllPaidAdCard";
+import { Table } from "react-bootstrap";
+import { getUserAccountFundDebits } from "../../redux/actions/AccountFundActions";
 import Message from "../Message";
 import Loader from "../Loader";
+import Pagination from "../Pagination";
 
-function AllPaidAdScreen({ selectedCountry, selectedState, selectedCity }) {
+function AccountFundDebits() {
   const dispatch = useDispatch();
 
-  const getAllPaidAdState = useSelector((state) => state.getAllPaidAdState);
-  const { loading, error, ads } = getAllPaidAdState;
-  console.log("PaidAds:", ads);
+  const getUserAccountFundDebitsState = useSelector(
+    (state) => state.getUserAccountFundDebitsState
+  );
+  const { loading, accountFunds, error } = getUserAccountFundDebitsState;
+  console.log("AccountFundDebits:", accountFunds);
 
-  useEffect(() => {
-    const adData = {
-      selected_country: selectedCountry,
-      selected_state: selectedState,
-      selected_city: selectedCity,
-    };
-    dispatch(getAllPaidAd(adData));
-    // eslint-disable-next-line
-  }, [dispatch, selectedCountry, selectedState, selectedCity]);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+  console.log("userInfo.access:", userInfo.access);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = ads?.slice(indexOfFirstItem, indexOfLastItem);
+  const itemsPerPage = 5;
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(ads?.length / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = accountFunds?.slice(indexOfFirstItem, indexOfLastItem);
+
+  useEffect(() => {
+    dispatch(getUserAccountFundDebits());
+  }, [dispatch]);
 
   return (
     <div>
-      <Row>
-        <Col>
-          <hr />
-          <h1 className="text-center">Promoted Ads</h1>
-          <hr />
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <Message variant="danger">{error}</Message>
+      <hr />
+      <h1 className="text-center py-3">
+        <i className="fas fa-credit-card"></i> Account Fund Debits
+      </h1>
+      <hr />
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <>
+          {currentItems.length === 0 ? (
+            <div className="text-center py-3">
+              Account Fund Debits appear here.
+            </div>
           ) : (
-            <>
-              {currentItems?.length === 0 ? (
-                <div className="text-center">Promoted ads appear here.</div>
-              ) : (
-                <Row>
-                  {currentItems?.map((product) => (
-                    <Col key={product.id} xs={12} sm={12} md={6} lg={4} xl={4}>
-                      <AllPaidAdCard product={product} />
-                    </Col>
-                  ))}
-                </Row>
-              )}
-              <nav className="mt-4">
-                <ul className="pagination justify-content-center">
-                  <li
-                    className={`page-item ${
-                      currentPage === 1 ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(currentPage - 1)}
-                    >
-                      Previous
-                    </button>
-                  </li>
-                  {pageNumbers.map((number) => (
-                    <li
-                      key={number}
-                      className={`page-item ${
-                        currentPage === number ? "active" : ""
-                      }`}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => paginate(number)}
-                      >
-                        {number}
-                      </button>
-                    </li>
-                  ))}
-                  <li
-                    className={`page-item ${
-                      currentPage === pageNumbers.length ? "disabled" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => paginate(currentPage + 1)}
-                    >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
-            </>
+            <Table striped bordered hover responsive className="table-sm">
+              <thead>
+                <tr>
+                  <th>SN</th>
+                  <th>Debit Fund ID</th>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Payment Method</th>
+                  <th>Currency</th>
+                  <th>Status</th>
+                  <th>Payment Provider</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems.map((accountFund, index) => (
+                  <tr key={accountFund.id}>
+                    <td>{index + 1}</td>
+                    <td>{accountFund.debit_account_id}</td>
+                    <td>
+                      <td>{accountFund.user_email}</td>
+                    </td>
+                    <td>{accountFund.amount}</td>
+                    <td>{accountFund.payment_method}</td>
+                    <td>{accountFund.currency}</td>
+                    <td>
+                      {accountFund.is_success ? (
+                        <i
+                          className="fas fa-check-circle"
+                          style={{ fontSize: "16px", color: "green" }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="fas fa-times-circle"
+                          style={{ fontSize: "16px", color: "red" }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>{accountFund.payment_provider}</td>
+                    <td>
+                      {new Date(accountFund.timestamp).toLocaleString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        second: "numeric",
+                      })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           )}
-          <hr />
-        </Col>
-      </Row>
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={accountFunds.length}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
+        </> 
+      )}
     </div>
   );
 }
 
-export default AllPaidAdScreen;
+export default AccountFundDebits;

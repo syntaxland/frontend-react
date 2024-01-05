@@ -18,28 +18,28 @@ import Loader from "../Loader";
 // import ProductPrice from "../ProductPrice";
 import PromoTimer from "../PromoTimer";
 
-function SearchPaidAdCard({ paidAds }) {
-  console.log("paidAds Card", paidAds);
-  const dispatch = useDispatch();
+function SearchPaidAdCard({ paidSearchAd }) { 
+  console.log("paidSearchAd Card", paidSearchAd);
+  const dispatch = useDispatch(); 
 
-  const [paidAdsSaved, setProductSaved] = useState(false);
-  const [totalSaves, setTotalSaves] = useState(paidAds?.ad_save_count);
+  const [paidSearchAdSaved, setProductSaved] = useState(false);
+  const [totalSaves, setTotalSaves] = useState(paidSearchAd?.ad_save_count);
 
   const getSellerAccountState = useSelector(
     (state) => state.getSellerAccountState
   );
   const { sellerAccount } = getSellerAccountState;
 
-  const [paidAdsMessages, setProductMessages] = useState({
-    paidAdsSaveSuccess: false,
-    paidAdsRemoveSuccess: false,
-    paidAdsSaveError: null,
-    paidAdsRemoveError: null,
+  const [paidSearchAdMessages, setProductMessages] = useState({
+    paidSearchAdSaveSuccess: false,
+    paidSearchAdRemoveSuccess: false,
+    paidSearchAdSaveError: null,
+    paidSearchAdRemoveError: null,
   });
 
-  const [paidAdsLoading, setProductLoading] = useState({
-    paidAdsSaveLoading: false,
-    paidAdsRemoveLoading: false,
+  const [paidSearchAdLoading, setProductLoading] = useState({
+    paidSearchAdSaveLoading: false,
+    paidSearchAdRemoveLoading: false,
   });
 
   const history = useHistory();
@@ -56,97 +56,97 @@ function SearchPaidAdCard({ paidAds }) {
   useEffect(() => {
     if (
       userInfo &&
-      userInfo.favorite_paidAdss &&
-      userInfo.favorite_paidAdss.includes(paidAds.id)
+      userInfo.favorite_paidSearchAds &&
+      userInfo.favorite_paidSearchAds.includes(paidSearchAd.id)
     ) {
       setProductSaved(true);
     } else {
       setProductSaved(false);
     }
-  }, [userInfo, paidAds.id]);
+  }, [userInfo, paidSearchAd.id]);
 
   useEffect(() => {
-    const pk = paidAds.id;
+    const pk = paidSearchAd.id;
     if (userInfo) {
       dispatch(getSellerAccount());
       dispatch(getPaidAdDetail(pk));
     }
-  }, [dispatch, userInfo, paidAds.id]);
+  }, [dispatch, userInfo, paidSearchAd.id]);
 
   const toggleFavoriteHandler = () => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (paidAdsSaved) {
-        setProductLoading({ paidAdsRemoveLoading: true });
-        dispatch(removeProduct(userInfo.id, paidAds.id))
+      if (paidSearchAdSaved) {
+        setProductLoading({ paidSearchAdRemoveLoading: true });
+        dispatch(removeProduct(userInfo.id, paidSearchAd.id))
           .then(() => {
             setProductMessages((prevState) => ({
               ...prevState,
-              paidAdsRemoveSuccess: true,
-              paidAdsSaveSuccess: false,
-              paidAdsRemoveError: null,
-              paidAdsSaveError: null,
+              paidSearchAdRemoveSuccess: true,
+              paidSearchAdSaveSuccess: false,
+              paidSearchAdRemoveError: null,
+              paidSearchAdSaveError: null,
             }));
             setProductSaved(false);
             setTotalSaves((prevSaves) => prevSaves - 1); // Decrement totalSaves
-            const updatedSaveCount = paidAds?.ad_save_count - 1;
-            dispatch(updateProductSaveCount(paidAds.id, updatedSaveCount));
+            const updatedSaveCount = paidSearchAd?.ad_save_count - 1;
+            dispatch(updateProductSaveCount(paidSearchAd.id, updatedSaveCount));
           })
           .catch((error) => {
             // Handle error
             setProductMessages((prevState) => ({
               ...prevState,
-              paidAdsRemoveError:
+              paidSearchAdRemoveError:
                 error.response && error.response.data.detail
                   ? error.response.data.detail
                   : error.message,
-              paidAdsRemoveSuccess: false,
-              paidAdsSaveSuccess: false,
-              paidAdsSaveError: null,
+              paidSearchAdRemoveSuccess: false,
+              paidSearchAdSaveSuccess: false,
+              paidSearchAdSaveError: null,
             }));
           })
           .finally(() => {
-            setProductLoading({ paidAdsRemoveLoading: false });
+            setProductLoading({ paidSearchAdRemoveLoading: false });
           });
       } else {
-        setProductLoading({ paidAdsSaveLoading: true });
-        dispatch(saveProduct(userInfo.id, paidAds.id))
+        setProductLoading({ paidSearchAdSaveLoading: true });
+        dispatch(saveProduct(userInfo.id, paidSearchAd.id))
           .then(() => {
             setProductMessages((prevState) => ({
               ...prevState,
-              paidAdsSaveSuccess: true,
-              paidAdsRemoveSuccess: false,
-              paidAdsSaveError: null,
-              paidAdsRemoveError: null,
+              paidSearchAdSaveSuccess: true,
+              paidSearchAdRemoveSuccess: false,
+              paidSearchAdSaveError: null,
+              paidSearchAdRemoveError: null,
             }));
             setProductSaved(true);
             setTotalSaves((prevSaves) => prevSaves + 1);
-            const updatedSaveCount = paidAds?.ad_save_count + 1;
-            dispatch(updateProductSaveCount(paidAds.id, updatedSaveCount));
+            const updatedSaveCount = paidSearchAd?.ad_save_count + 1;
+            dispatch(updateProductSaveCount(paidSearchAd.id, updatedSaveCount));
           })
           .catch((error) => {
             setProductMessages((prevState) => ({
               ...prevState,
-              paidAdsSaveError:
+              paidSearchAdSaveError:
                 error.response && error.response.data.detail
                   ? error.response.data.detail
                   : error.message,
-              paidAdsSaveSuccess: false,
-              paidAdsRemoveSuccess: false,
-              paidAdsRemoveError: null,
+              paidSearchAdSaveSuccess: false,
+              paidSearchAdRemoveSuccess: false,
+              paidSearchAdRemoveError: null,
             }));
           })
           .finally(() => {
-            setProductLoading({ paidAdsSaveLoading: false });
+            setProductLoading({ paidSearchAdSaveLoading: false });
           });
       }
     }
     setTimeout(() => {
       setProductMessages((prevState) => ({
         ...prevState,
-        paidAdsSaveSuccess: false,
-        paidAdsRemoveSuccess: false,
+        paidSearchAdSaveSuccess: false,
+        paidSearchAdRemoveSuccess: false,
       }));
     }, 3000);
   };
@@ -154,11 +154,11 @@ function SearchPaidAdCard({ paidAds }) {
   const viewProductHandler = () => {
     if (!userInfo) {
       history.push("/login");
-      // dispatch(trackProductView(userInfo.id, paidAds.id));
+      // dispatch(trackProductView(userInfo.id, paidSearchAd.id));
     }
-    dispatch(trackProductView(userInfo.id, paidAds.id));
+    dispatch(trackProductView(userInfo.id, paidSearchAd.id));
 
-    history.push(`/paid-ad-detail/${paidAds.id}`);
+    history.push(`/paid-ad-detail/${paidSearchAd.id}`);
   };
 
   function formatCount(viewCount) {
@@ -178,18 +178,18 @@ function SearchPaidAdCard({ paidAds }) {
       history.push("/login");
     } else {
       const queryParams = {
-        id: paidAds.id,
-        image1: paidAds.image1,
-        ad_name: paidAds.ad_name,
-        price: paidAds.price,
+        id: paidSearchAd.id,
+        image1: paidSearchAd.image1,
+        ad_name: paidSearchAd.ad_name,
+        price: paidSearchAd.price,
         sellerAvatarUrl,
-        seller_username: paidAds.seller_username,
-        expiration_date: paidAds.expiration_date,
-        ad_rating: paidAds.ad_rating,
+        seller_username: paidSearchAd.seller_username,
+        expiration_date: paidSearchAd.expiration_date,
+        ad_rating: paidSearchAd.ad_rating,
       };
 
       history.push({
-        pathname: `/paid/ad/message/${paidAds.id}`,
+        pathname: `/paid/ad/message/${paidSearchAd.id}`,
         search: `?${new URLSearchParams(queryParams).toString()}`,
       });
     }
@@ -197,30 +197,30 @@ function SearchPaidAdCard({ paidAds }) {
 
   return (
     <Card className="my-3 p-3 rounded">
-      {paidAdsMessages.paidAdsSaveSuccess && (
+      {paidSearchAdMessages.paidSearchAdSaveSuccess && (
         <Message variant="success">Item added to favorites.</Message>
       )}
-      {paidAdsMessages.paidAdsRemoveSuccess && (
+      {paidSearchAdMessages.paidSearchAdRemoveSuccess && (
         <Message variant="danger">Item removed from favorites.</Message>
       )}
-      {paidAdsMessages.paidAdsSaveError && (
-        <Message variant="danger">{paidAdsMessages.paidAdsSaveError}</Message>
+      {paidSearchAdMessages.paidSearchAdSaveError && (
+        <Message variant="danger">{paidSearchAdMessages.paidSearchAdSaveError}</Message>
       )}
-      {paidAdsMessages.paidAdsRemoveError && (
-        <Message variant="danger">{paidAdsMessages.paidAdsRemoveError}</Message>
+      {paidSearchAdMessages.paidSearchAdRemoveError && (
+        <Message variant="danger">{paidSearchAdMessages.paidSearchAdRemoveError}</Message>
       )}
 
-      {paidAdsLoading.paidAdsSaveLoading && <Loader />}
-      {paidAdsLoading.paidAdsRemoveLoading && <Loader />}
+      {paidSearchAdLoading.paidSearchAdSaveLoading && <Loader />}
+      {paidSearchAdLoading.paidSearchAdRemoveLoading && <Loader />}
 
       <Link onClick={viewProductHandler}>
-        <Card.Img src={paidAds.image1} />
+        <Card.Img src={paidSearchAd.image1} />
       </Link>
 
       <Card.Body>
         <Link onClick={viewProductHandler} className="py-2">
           <Card.Title as="div">
-            <strong>{paidAds.ad_name}</strong>
+            <strong>{paidSearchAd.ad_name}</strong>
           </Card.Title>
         </Link>
 
@@ -277,13 +277,13 @@ function SearchPaidAdCard({ paidAds }) {
           <div as="div">
             <div className="py-2">
               <RatingSeller
-                value={paidAds.rating}
-                text={`${formatCount(paidAds?.num_reviews)} reviews `}
+                value={paidSearchAd.rating}
+                text={`${formatCount(paidSearchAd?.num_reviews)} reviews `}
                 color={"green"}
               />
 
               {userInfo ? (
-                <Link to={`/review-list/${paidAds.id}`}>(Seller Reviews)</Link>
+                <Link to={`/review-list/${paidSearchAd.id}`}>(Seller Reviews)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
                   (Seller Reviews)
@@ -295,7 +295,7 @@ function SearchPaidAdCard({ paidAds }) {
           <Card.Text as="div" className="py-2">
             <span className="text-right" onClick={viewProductHandler}>
               <i className="fas fa-eye"></i>{" "}
-              {formatCount(paidAds?.ad_view_count)} views
+              {formatCount(paidSearchAd?.ad_view_count)} views
             </span>
           </Card.Text>
         </div>
@@ -303,16 +303,16 @@ function SearchPaidAdCard({ paidAds }) {
         <div className="d-flex justify-content-between">
           <Card.Text as="h5" className="py-2">
             <span>
-               {paidAds?.price} {paidAds?.currency}{" "}
-             {paidAds?.usd_price ? <span> / {paidAds?.usd_price} USD </span> : <></>}{" "}
-              {paidAds?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
+               {paidSearchAd?.price} {paidSearchAd?.currency}{" "}
+             {paidSearchAd?.usd_price ? <span> / {paidSearchAd?.usd_price} USD </span> : <></>}{" "}
+              {paidSearchAd?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
         </div>
 
         <div className="d-flex justify-content-end">
           <span className="py-2">
-            {paidAds?.promo_code ? (
+            {paidSearchAd?.promo_code ? (
               <Button
                 variant="outline-primary"
                 size="sm"
@@ -320,8 +320,8 @@ function SearchPaidAdCard({ paidAds }) {
                 disabled
               >
                 <i>
-                  Promo Code: {paidAds?.promo_code}{" "}
-                  {paidAds?.discount_percentage}% Off
+                  Promo Code: {paidSearchAd?.promo_code}{" "}
+                  {paidSearchAd?.discount_percentage}% Off
                 </i> 
               </Button> 
             ) : (
@@ -339,7 +339,7 @@ function SearchPaidAdCard({ paidAds }) {
               disabled
             >
               <i className="fas fa-clock"></i> Expires in:{" "}
-              <PromoTimer expirationDate={paidAds?.expiration_date} />
+              <PromoTimer expirationDate={paidSearchAd?.expiration_date} />
             </Button>
           </span>
         </div>
@@ -361,13 +361,13 @@ function SearchPaidAdCard({ paidAds }) {
               onClick={toggleFavoriteHandler}
               className="py-2 rounded"
               type="button"
-              variant={paidAdsSaved ? "danger" : "outline-danger"}
+              variant={paidSearchAdSaved ? "danger" : "outline-danger"}
             >
               <div className="mt-auto">
                 <i
-                  className={paidAdsSaved ? "fas fa-heart" : "far fa-heart"}
+                  className={paidSearchAdSaved ? "fas fa-heart" : "far fa-heart"}
                 ></i>{" "}
-                {paidAdsSaved ? "Saved" : "Save"}{" "}
+                {paidSearchAdSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
             </Button>
@@ -381,7 +381,7 @@ function SearchPaidAdCard({ paidAds }) {
               className="py-2 rounded"
               disabled
             >
-              <i className="fas fa-map-marker-alt"></i> {paidAds?.city} {paidAds?.state_province}, {paidAds?.country}.
+              <i className="fas fa-map-marker-alt"></i> {paidSearchAd?.city} {paidSearchAd?.state_province}, {paidSearchAd?.country}.
             </Button>
           </span>
 

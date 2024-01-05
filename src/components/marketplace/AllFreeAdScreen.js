@@ -12,8 +12,11 @@ function AllFreeAdScreen({ selectedCountry, selectedState, selectedCity }) {
   const dispatch = useDispatch();
 
   const getAllFreeAdState = useSelector((state) => state.getAllFreeAdState);
-  const { loading, error, ads } = getAllFreeAdState;
-  console.log("All Free Ads:", ads);
+  const { loading, error, freeAds } = getAllFreeAdState;
+  console.log("All Free Ads:", freeAds);
+  
+  const freeAdLength =  freeAds?.length;
+  console.log("freeAdLength:", freeAdLength);
 
   useEffect(() => {
     const adData = {
@@ -30,12 +33,12 @@ function AllFreeAdScreen({ selectedCountry, selectedState, selectedCity }) {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = ads?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = freeAds?.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(ads?.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(freeAds?.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 

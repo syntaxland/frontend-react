@@ -1,4 +1,4 @@
-// FilterBar.js
+// SearchFilterBar.js
 import React, { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Select from "react-select";
@@ -123,7 +123,7 @@ const AD_TYPE_CHOICES = {
   Others: [["Others", "Others"]],
 };
 
-function FilterBar({
+function SearchFilterBar({
   selectedCategory,
   selectedType,
   setSelectedCategory,
@@ -212,4 +212,4 @@ function FilterBar({
   );
 }
 
-export default FilterBar;
+export default SearchFilterBar;

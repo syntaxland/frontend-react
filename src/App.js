@@ -65,10 +65,8 @@ import PaidAdMessage from "./components/marketplace/PaidAdMessage";
 import FreeAdMessage from "./components/marketplace/FreeAdMessage";
 import EditPaidAd from "./components/marketplace/EditPaidAd";
 import SellerShopFront from "./components/marketplace/SellerShopFront";
-
 import EditFreeAd from "./components/marketplace/EditFreeAd";
-
-// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+import SearchResults from "./components/marketplace/SearchResults";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -153,8 +151,7 @@ function App() {
           <Route path="/edit/paid/ad/:id" component={EditPaidAd} />
           <Route path="/edit/free/ad/:id" component={EditFreeAd} />
           <Route path="/seller-shop-front/:seller_username" component={SellerShopFront} />
-
-          {/* <Route path="/paid-ad-screen" component={EditFreeAd} /> */}
+          <Route path="/ad-search-results" component={SearchResults} />
           {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
 
           <Route

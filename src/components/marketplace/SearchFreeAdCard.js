@@ -16,8 +16,8 @@ import Message from "../Message";
 import Loader from "../Loader";
 import PromoTimer from "../PromoTimer";
 
-function SearchFreeAdCard({ freeAds }) {
-  console.log("free Ads Card", freeAds);
+function SearchFreeAdCard({ freeSearchAd }) { 
+  console.log("free Ads Card", freeSearchAd);
 
   const dispatch = useDispatch();
 
@@ -26,19 +26,19 @@ function SearchFreeAdCard({ freeAds }) {
   );
   const { sellerAvatarUrl } = getFreeAdDetailState;
 
-  const [freeAdsSaved, setProductSaved] = useState(false);
-  const [totalSaves, setTotalSaves] = useState(freeAds?.ad_save_count);
+  const [freeSearchAdSaved, setProductSaved] = useState(false);
+  const [totalSaves, setTotalSaves] = useState(freeSearchAd?.ad_save_count);
 
-  const [freeAdsMessages, setProductMessages] = useState({
-    freeAdsSaveSuccess: false,
-    freeAdsRemoveSuccess: false,
-    freeAdsSaveError: null,
-    freeAdsRemoveError: null,
+  const [freeSearchAdMessages, setProductMessages] = useState({
+    freeSearchAdSaveSuccess: false,
+    freeSearchAdRemoveSuccess: false,
+    freeSearchAdSaveError: null,
+    freeSearchAdRemoveError: null,
   });
 
-  const [freeAdsLoading, setProductLoading] = useState({
-    freeAdsSaveLoading: false,
-    freeAdsRemoveLoading: false,
+  const [freeSearchAdLoading, setProductLoading] = useState({
+    freeSearchAdSaveLoading: false,
+    freeSearchAdRemoveLoading: false,
   });
 
   const history = useHistory();
@@ -53,99 +53,99 @@ function SearchFreeAdCard({ freeAds }) {
   console.log("is_seller_verified", sellerAccount?.is_seller_verified);
   
   useEffect(() => {
-    const pk = freeAds.id;
+    const pk = freeSearchAd.id;
     if (userInfo) {
       dispatch(getSellerAccount());
       dispatch(getFreeAdDetail(pk));
     } 
-  }, [dispatch, userInfo, freeAds.id]);
+  }, [dispatch, userInfo, freeSearchAd.id]);
 
   useEffect(() => {
     if (
       userInfo &&
-      userInfo.favorite_freeAdss &&
-      userInfo.favorite_freeAdss.includes(freeAds.id)
+      userInfo.favorite_freeSearchAds &&
+      userInfo.favorite_freeSearchAds.includes(freeSearchAd.id)
     ) {
       setProductSaved(true);
     } else {
       setProductSaved(false);
     }
-  }, [userInfo, freeAds.id]);
+  }, [userInfo, freeSearchAd.id]);
 
   const toggleFavoriteHandler = () => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (freeAdsSaved) {
-        setProductLoading({ freeAdsRemoveLoading: true });
-        dispatch(removeProduct(userInfo.id, freeAds.id))
+      if (freeSearchAdSaved) {
+        setProductLoading({ freeSearchAdRemoveLoading: true });
+        dispatch(removeProduct(userInfo.id, freeSearchAd.id))
           .then(() => {
             setProductMessages((prevState) => ({
               ...prevState,
-              freeAdsRemoveSuccess: true,
-              freeAdsSaveSuccess: false,
-              freeAdsRemoveError: null,
-              freeAdsSaveError: null,
+              freeSearchAdRemoveSuccess: true,
+              freeSearchAdSaveSuccess: false,
+              freeSearchAdRemoveError: null,
+              freeSearchAdSaveError: null,
             }));
             setProductSaved(false);
             setTotalSaves((prevSaves) => prevSaves - 1); // Decrement totalSaves
-            const updatedSaveCount = freeAds?.ad_save_count - 1;
-            dispatch(updateProductSaveCount(freeAds.id, updatedSaveCount));
+            const updatedSaveCount = freeSearchAd?.ad_save_count - 1;
+            dispatch(updateProductSaveCount(freeSearchAd.id, updatedSaveCount));
           })
           .catch((error) => {
             // Handle error
             setProductMessages((prevState) => ({
               ...prevState,
-              freeAdsRemoveError:
+              freeSearchAdRemoveError:
                 error.response && error.response.data.detail
                   ? error.response.data.detail
                   : error.message,
-              freeAdsRemoveSuccess: false,
-              freeAdsSaveSuccess: false,
-              freeAdsSaveError: null,
+              freeSearchAdRemoveSuccess: false,
+              freeSearchAdSaveSuccess: false,
+              freeSearchAdSaveError: null,
             }));
           })
           .finally(() => {
-            setProductLoading({ freeAdsRemoveLoading: false });
+            setProductLoading({ freeSearchAdRemoveLoading: false });
           });
       } else {
-        setProductLoading({ freeAdsSaveLoading: true });
-        dispatch(saveProduct(userInfo.id, freeAds.id))
+        setProductLoading({ freeSearchAdSaveLoading: true });
+        dispatch(saveProduct(userInfo.id, freeSearchAd.id))
           .then(() => {
             setProductMessages((prevState) => ({
               ...prevState,
-              freeAdsSaveSuccess: true,
-              freeAdsRemoveSuccess: false,
-              freeAdsSaveError: null,
-              freeAdsRemoveError: null,
+              freeSearchAdSaveSuccess: true,
+              freeSearchAdRemoveSuccess: false,
+              freeSearchAdSaveError: null,
+              freeSearchAdRemoveError: null,
             }));
             setProductSaved(true);
             setTotalSaves((prevSaves) => prevSaves + 1);
-            const updatedSaveCount = freeAds?.ad_save_count + 1;
-            dispatch(updateProductSaveCount(freeAds.id, updatedSaveCount));
+            const updatedSaveCount = freeSearchAd?.ad_save_count + 1;
+            dispatch(updateProductSaveCount(freeSearchAd.id, updatedSaveCount));
           })
           .catch((error) => {
             setProductMessages((prevState) => ({
               ...prevState,
-              freeAdsSaveError:
+              freeSearchAdSaveError:
                 error.response && error.response.data.detail
                   ? error.response.data.detail
                   : error.message,
-              freeAdsSaveSuccess: false,
-              freeAdsRemoveSuccess: false,
-              freeAdsRemoveError: null,
+              freeSearchAdSaveSuccess: false,
+              freeSearchAdRemoveSuccess: false,
+              freeSearchAdRemoveError: null,
             }));
           })
           .finally(() => {
-            setProductLoading({ freeAdsSaveLoading: false });
+            setProductLoading({ freeSearchAdSaveLoading: false });
           });
       }
     }
     setTimeout(() => {
       setProductMessages((prevState) => ({
         ...prevState,
-        freeAdsSaveSuccess: false,
-        freeAdsRemoveSuccess: false,
+        freeSearchAdSaveSuccess: false,
+        freeSearchAdRemoveSuccess: false,
       }));
     }, 3000);
   };
@@ -153,11 +153,11 @@ function SearchFreeAdCard({ freeAds }) {
   const viewProductHandler = () => {
     if (!userInfo) {
       history.push("/login");
-      // dispatch(trackProductView(userInfo.id, freeAds.id));
+      // dispatch(trackProductView(userInfo.id, freeSearchAd.id));
     }
-    dispatch(trackProductView(userInfo.id, freeAds.id));
+    dispatch(trackProductView(userInfo.id, freeSearchAd.id));
 
-    history.push(`/free-ad-detail/${freeAds.id}`);
+    history.push(`/free-ad-detail/${freeSearchAd.id}`);
   };
 
   function formatCount(viewCount) {
@@ -177,18 +177,18 @@ function SearchFreeAdCard({ freeAds }) {
       history.push("/login");
     } else {
       const queryParams = {
-        id: freeAds.id,
-        image1: freeAds.image1,
-        ad_name: freeAds.ad_name,
-        price: freeAds.price,
+        id: freeSearchAd.id,
+        image1: freeSearchAd.image1,
+        ad_name: freeSearchAd.ad_name,
+        price: freeSearchAd.price,
         sellerAvatarUrl,
-        seller_username: freeAds.seller_username,
-        expiration_date: freeAds.expiration_date,
-        ad_rating: freeAds.ad_rating,
+        seller_username: freeSearchAd.seller_username,
+        expiration_date: freeSearchAd.expiration_date,
+        ad_rating: freeSearchAd.ad_rating,
       };
 
       history.push({
-        pathname: `/free/ad/message/${freeAds.id}`,
+        pathname: `/free/ad/message/${freeSearchAd.id}`,
         search: `?${new URLSearchParams(queryParams).toString()}`,
       });
     }
@@ -196,31 +196,31 @@ function SearchFreeAdCard({ freeAds }) {
 
   return (
     <Card className="my-3 p-3 rounded">
-      {freeAdsMessages.freeAdsSaveSuccess && (
+      {freeSearchAdMessages.freeSearchAdSaveSuccess && (
         <Message variant="success">Item added to favorites.</Message>
       )}
-      {freeAdsMessages.freeAdsRemoveSuccess && (
+      {freeSearchAdMessages.freeSearchAdRemoveSuccess && (
         <Message variant="danger">Item removed from favorites.</Message>
       )}
-      {freeAdsMessages.freeAdsSaveError && (
-        <Message variant="danger">{freeAdsMessages.freeAdsSaveError}</Message>
+      {freeSearchAdMessages.freeSearchAdSaveError && (
+        <Message variant="danger">{freeSearchAdMessages.freeSearchAdSaveError}</Message>
       )}
-      {freeAdsMessages.freeAdsRemoveError && (
-        <Message variant="danger">{freeAdsMessages.freeAdsRemoveError}</Message>
+      {freeSearchAdMessages.freeSearchAdRemoveError && (
+        <Message variant="danger">{freeSearchAdMessages.freeSearchAdRemoveError}</Message>
       )}
 
-      {freeAdsLoading.freeAdsSaveLoading && <Loader />}
-      {freeAdsLoading.freeAdsRemoveLoading && <Loader />}
+      {freeSearchAdLoading.freeSearchAdSaveLoading && <Loader />}
+      {freeSearchAdLoading.freeSearchAdRemoveLoading && <Loader />}
 
       <Link onClick={viewProductHandler}>
-        <Card.Img src={freeAds.image1} />
+        <Card.Img src={freeSearchAd.image1} />
       </Link>
 
       <Card.Body>
         <div className="d-flex justify-content-between">
           <Link onClick={viewProductHandler}>
             <Card.Title as="div">
-              <strong>{freeAds.ad_name}</strong>
+              <strong>{freeSearchAd.ad_name}</strong>
             </Card.Title>
           </Link>
           <div>
@@ -264,13 +264,13 @@ function SearchFreeAdCard({ freeAds }) {
           <div as="div">
             <div className="py-2">
               <RatingSeller
-                value={freeAds.rating}
-                text={`${formatCount(freeAds?.num_reviews)} reviews `}
+                value={freeSearchAd.rating}
+                text={`${formatCount(freeSearchAd?.num_reviews)} reviews `}
                 color={"green"}
               />
 
               {userInfo ? (
-                <Link to={`/review-list/${freeAds.id}`}>(Seller Reviews)</Link>
+                <Link to={`/review-list/${freeSearchAd.id}`}>(Seller Reviews)</Link>
               ) : (
                 <Link onClick={() => history.push("/login")}>
                   (Seller Reviews)
@@ -282,7 +282,7 @@ function SearchFreeAdCard({ freeAds }) {
           <Card.Text as="div" className="py-2">
             <span className="text-right" onClick={viewProductHandler}>
               <i className="fas fa-eye"></i>{" "}
-              {formatCount(freeAds?.ad_view_count)} views
+              {formatCount(freeSearchAd?.ad_view_count)} views
             </span>
           </Card.Text>
         </div>
@@ -290,9 +290,9 @@ function SearchFreeAdCard({ freeAds }) {
         <div className="d-flex justify-content-between py-2">
           <Card.Text as="h5" className="py-2">
             <span>
-               {freeAds?.price} {freeAds?.currency}{" "}
-             {/* {freeAds?.usd_price ? <span> / {freeAds?.usd_price} USD </span> : <></>}{" "} */}
-              {freeAds?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
+               {freeSearchAd?.price} {freeSearchAd?.currency}{" "}
+             {/* {freeSearchAd?.usd_price ? <span> / {freeSearchAd?.usd_price} USD </span> : <></>}{" "} */}
+              {freeSearchAd?.is_price_negotiable ? <i>(Negotiable)</i> : <></>}
             </span>
           </Card.Text>
         </div>
@@ -306,7 +306,7 @@ function SearchFreeAdCard({ freeAds }) {
               disabled
             >
               <i className="fas fa-clock"></i> Expires in:{" "}
-              <PromoTimer expirationDate={freeAds?.expiration_date} />
+              <PromoTimer expirationDate={freeSearchAd?.expiration_date} />
             </Button>
           </span>
         </div>
@@ -328,13 +328,13 @@ function SearchFreeAdCard({ freeAds }) {
               onClick={toggleFavoriteHandler} 
               className="py-2 rounded"
               type="button"
-              variant={freeAdsSaved ? "danger" : "outline-danger"}
+              variant={freeSearchAdSaved ? "danger" : "outline-danger"}
             >
               <div className="mt-auto">
                 <i
-                  className={freeAdsSaved ? "fas fa-heart" : "far fa-heart"}
+                  className={freeSearchAdSaved ? "fas fa-heart" : "far fa-heart"}
                 ></i>{" "}
-                {freeAdsSaved ? "Saved" : "Save"}{" "}
+                {freeSearchAdSaved ? "Saved" : "Save"}{" "}
                 <span className="text-muted">({formatCount(totalSaves)})</span>
               </div>
             </Button> 
@@ -348,7 +348,7 @@ function SearchFreeAdCard({ freeAds }) {
               className="py-2 rounded"
               disabled
             >
-              <i className="fas fa-map-marker-alt"></i> {freeAds?.city} {freeAds?.state_province}, {freeAds?.country}.
+              <i className="fas fa-map-marker-alt"></i> {freeSearchAd?.city} {freeSearchAd?.state_province}, {freeSearchAd?.country}.
             </Button>
           </span>
 

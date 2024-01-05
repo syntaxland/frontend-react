@@ -148,7 +148,7 @@ export const getSellerShopfrontLink = () => async (dispatch, getState) => {
   }
 };
 
-export const searchAds = (searchTerm) => async (dispatch, getState) => {
+export const searchAds = (searchData) => async (dispatch, getState) => {
   try {
     dispatch({ type: SEARCH_ADS_REQUEST });
 
@@ -163,10 +163,14 @@ export const searchAds = (searchTerm) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${API_URL}/api/search-ads/${searchTerm}/`,
-      config
-    );
+    const {search_term, selected_country, selected_state, selected_city } = searchData; 
+    const url = `${API_URL}/api/search-ads/?search_term=${search_term}&country=${selected_country}&state=${selected_state}&city=${selected_city}`;
+    const { data } = await axios.get(url, config);
+
+    // const { data } = await axios.get(
+    //   `${API_URL}/api/search-ads/${searchTerm}/`,
+    //   config
+    // );
 
     dispatch({
       type: SEARCH_ADS_SUCCESS,
