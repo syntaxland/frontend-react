@@ -48,25 +48,24 @@ import SupportTicketDetails from "./components/profiles/SupportTicketDetails";
 import MessageInbox from "./components/profiles/MessageInbox";
 
 import UserDashboard from "./components/profiles/UserDashboard";
-import MarketplaceDashboard from "./components/marketplace/MarketplaceDashboard";
 import EcommerceDashboard from "./components/ecommerce/EcommerceDashboard";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
-import Marketplace from "./components/marketplace/Marketplace";
-import PostFreeAd from "./components/marketplace/PostFreeAd";
-import PostPaidAd from "./components/marketplace/PostPaidAd";
-import CreateMarketplaceSeller from "./components/marketplace/CreateMarketplaceSeller";
-import SellerPhoto from "./components/marketplace/SellerPhoto";
-import PaidAdProductDetail from "./components/marketplace/PaidAdProductDetail";
-import FreeAdProductDetail from "./components/marketplace/FreeAdProductDetail";
-import PaidAdScreen from "./components/marketplace/PaidAdScreen";
-
-import PaidAdMessage from "./components/marketplace/PaidAdMessage";
-import FreeAdMessage from "./components/marketplace/FreeAdMessage";
-import EditPaidAd from "./components/marketplace/EditPaidAd";
-import SellerShopFront from "./components/marketplace/SellerShopFront";
-import EditFreeAd from "./components/marketplace/EditFreeAd";
-import SearchResults from "./components/marketplace/SearchResults";
+// import MarketplaceDashboard from "./components/marketplace/MarketplaceDashboard";
+// import Marketplace from "./components/marketplace/Marketplace";
+// import PostFreeAd from "./components/marketplace/PostFreeAd";
+// import PostPaidAd from "./components/marketplace/PostPaidAd";
+// import CreateMarketplaceSeller from "./components/marketplace/CreateMarketplaceSeller";
+// import SellerPhoto from "./components/marketplace/SellerPhoto";
+// import PaidAdProductDetail from "./components/marketplace/PaidAdProductDetail";
+// import FreeAdProductDetail from "./components/marketplace/FreeAdProductDetail";
+// import PaidAdScreen from "./components/marketplace/PaidAdScreen";
+// import PaidAdMessage from "./components/marketplace/PaidAdMessage";
+// import FreeAdMessage from "./components/marketplace/FreeAdMessage";
+// import EditPaidAd from "./components/marketplace/EditPaidAd";
+// import SellerShopFront from "./components/marketplace/SellerShopFront";
+// import EditFreeAd from "./components/marketplace/EditFreeAd";
+// import SearchResults from "./components/marketplace/SearchResults";
 
 function App() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -114,10 +113,7 @@ function App() {
           <Route path="/payments" component={Payments} />
 
           <Route path="/dashboard/users" component={UserDashboard} />
-          <Route
-            path="/dashboard/marketplace/sellers"
-            component={MarketplaceDashboard}
-          />
+
           <Route
             path="/dashboard/ecommerce/sellers"
             component={EcommerceDashboard}
@@ -139,28 +135,31 @@ function App() {
           <Route path="/feedback" component={FeedbackScreen} />
           <Route path="/dark-mode" component={DarkModeScreen} />
 
+          {/* <Route
+            path="/dashboard/marketplace/sellers"
+            component={MarketplaceDashboard}
+          />
           <Route path="/marketplace" component={Marketplace} />
           <Route path="/ad/free" component={PostFreeAd} />
           <Route path="/ad/paid" component={PostPaidAd} />
           <Route path="/paid-ad-detail/:id" component={PaidAdProductDetail} />
           <Route path="/free-ad-detail/:id" component={FreeAdProductDetail} />
           <Route path="/paid-ad-screen" component={PaidAdScreen} />
-
           <Route path="/paid/ad/message/:id" component={PaidAdMessage} />
           <Route path="/free/ad/message/:id" component={FreeAdMessage} />
           <Route path="/edit/paid/ad/:id" component={EditPaidAd} />
           <Route path="/edit/free/ad/:id" component={EditFreeAd} />
-          <Route path="/seller-shop-front/:seller_username" component={SellerShopFront} />
+          <Route
+            path="/seller-shop-front/:seller_username"
+            component={SellerShopFront}
+          />
           <Route path="/ad-search-results" component={SearchResults} />
-          {/* <Route path="/paid-ad-screen" component={PaidAdMessage} /> */}
-
           <Route
             path="/create-marketplace-seller"
             component={CreateMarketplaceSeller}
           />
-          <Route path="/seller/photo/" component={SellerPhoto} />
-          {/*
-           */}
+          <Route path="/seller/photo/" component={SellerPhoto} /> */}
+
         </main>
         <Footer />
         {/* </section> */}

@@ -52,7 +52,7 @@ const CreditPointEarning = () => {
           <Col>
             <hr />
             <div>
-              <h1 className="text-center py-3">Credit Point Earnings</h1>
+              <h1 className="text-center py-3">Bonus Point Earnings</h1>
               <hr />
               {creditPointEarningLoading ? (
                 <Loader />
@@ -66,7 +66,7 @@ const CreditPointEarning = () => {
                         <th>SN</th>
                         <th>User</th>
                         <th>Order ID</th>
-                        <th>Credit Points Earned</th>
+                        <th>Bonus Points Earned</th>
                         <th>Created At</th>
                       </tr>
                     </thead>

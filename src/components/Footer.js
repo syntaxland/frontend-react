@@ -40,7 +40,8 @@ function Footer() {
         </Row> */}
         <Row>
           <Col className="text-center py-3">
-            <p>&copy; Sellangle Inc, {currentYear}.{" "} | Angle for quick sells... </p>
+            <p>&copy; Mcdof Shop Inc, {currentYear}.{" "} </p>
+            {/* <p>&copy; Sellangle Inc, {currentYear}.{" "} | Angle for quick sells... </p> */}
             Powered by
             <Button
               variant="outline-transparent"

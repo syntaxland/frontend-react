@@ -1,15 +1,15 @@
 // HomeScreen.js
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Product from "../Product";
 import { listProducts } from "../../actions/productAction";
 // import { listPromoProducts } from "../../actions/promoActions";
 import Loader from "../Loader";
 import Message from "../Message";
-import PromoProductScroll from "../PromoProductScroll";
+// import PromoProductScroll from "../PromoProductScroll";
 import RecommendedProducts from "../profiles/RecommendedProducts";
-import AllPaidAdScreen from "../marketplace/AllPaidAdScreen";
+// import AllPaidAdScreen from "../marketplace/AllPaidAdScreen";
 function HomeScreen({ history }) {
   const dispatch = useDispatch();
 
@@ -46,8 +46,8 @@ function HomeScreen({ history }) {
     <div>
       <Row className="d-flex justify-content-center py-2">
         <Col>
-          <div>
-            {/* <h1 className="py-3 text-center">MarketPlace Hot Deals</h1> */}
+
+          {/* <div>
             <AllPaidAdScreen />
             <span className="d-flex justify-content-center text-center">
               Check out more deals and/or post your ads at marketplace angle.{"  "}
@@ -60,23 +60,19 @@ function HomeScreen({ history }) {
                 Go to MarketPlace <i className="fa fa-shopping-cart"></i>
               </Button>
             </span>
-          </div>
+          </div> */}
 
-          <div>
+          {/* <div>
             <hr />
             <h1 className="text-center py-3">Sell Angle Current Offers</h1>
             <hr />
             <PromoProductScroll />
-            {/* {products.length === 0 ? (
-              <div className="text-center">Current offers appear here.</div>
-            ) : (
-              <PromoProductScroll />
-            )} */}
-          </div>
+            
+          </div> */}
 
           <div>
             <hr />
-            <h1 className="text-center py-3">Sell Angle Latest Products</h1>
+            <h1 className="text-center py-3">Latest Products</h1>
             <hr />
             {loading ? (
               <Loader />

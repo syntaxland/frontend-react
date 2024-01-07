@@ -10,9 +10,9 @@ import {
 import Message from "../Message";
 import Loader from "../Loader";
 import CreditPointEarning from "./CreditPointEarning";
-import GetBuyCreditPoint from "../CreditPoint/GetBuyCreditPoint";
-import GetSellCreditPoint from "../CreditPoint/GetSellCreditPoint";
-import GetBuyerCreditPoint from "../CreditPoint/GetBuyerCreditPoint";
+// import GetBuyCreditPoint from "../CreditPoint/GetBuyCreditPoint"; 
+// import GetSellCreditPoint from "../CreditPoint/GetSellCreditPoint";
+// import GetBuyerCreditPoint from "../CreditPoint/GetBuyerCreditPoint";
 
 const CreditPoint = () => {
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const CreditPoint = () => {
       <Row>
         <div className="justify-content-md-center">
           <Col>
-            <div>
+            {/* <div>
               <GetBuyCreditPoint />
             </div>
 
@@ -88,15 +88,14 @@ const CreditPoint = () => {
 
             <div>
               <GetBuyerCreditPoint />
-            </div>
+            </div> */}
 
             <div>
-              {/* <h1 className="text-center py-3">Credit Point Earnings</h1> */}
               <CreditPointEarning />
             </div>
 
             <div>
-              <h1 className="text-center py-3">Referral Credit Point Bunus</h1>
+              <h1 className="text-center py-3">Referral Bonus Point</h1>
               <hr />
 
               {creditPointPaymentsLoading ? (
@@ -198,7 +197,7 @@ const CreditPoint = () => {
             <div>
               <hr />
               <h1 className="py-3 text-center">
-                Credit Point Withdrawal Requests
+              Bonus Point Withdrawal Requests
               </h1>
               <hr />
 
@@ -319,8 +318,8 @@ const CreditPoint = () => {
               )}
             </div>
             <hr />
-            <span className="text-center py-3">
-              Note: A credit point request payment is processed in more or less
+            <span className="d-flex justify-content-center text-center py-3">
+              Note: A bonus point request payment is processed in more or less
               5 business days.
             </span>
             <hr />

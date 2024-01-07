@@ -175,6 +175,7 @@ function PaymentScreen() {
                     variant="primary"
                     onClick={() => handlePaymentGatewaySelection("paysofter")}
                     className="mr-2 rounded w-100"
+                    disabled
                   > 
                     Pay with Paysofter
                   </Button>
@@ -282,6 +283,7 @@ function PaymentScreen() {
             {selectedPaymentGateway === "paystack" && (
               <Paystack paymentData={paymentData} />
             )}
+
             {selectedPaymentGateway === "paysofter" && (
               <Paysofter
                 // paymentData={paymentData}
@@ -300,9 +302,11 @@ function PaymentScreen() {
                 shipmentSave={shipmentSave}
               />
             )}
+
             {selectedPaymentGateway === "paysofter-promise" && (
               <PaysofterPromise paymentData={paymentData} />
             )}
+            
           </Col>
         </div>
       </Row>

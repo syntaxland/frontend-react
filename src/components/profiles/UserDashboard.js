@@ -20,7 +20,7 @@ import CreditPoint from "./CreditPoint";
 import PromoProduct from "./Offers";
 import RecommendedProducts from "./RecommendedProducts";
 import ViewedItems from "./ViewedItems";
-import LiveChat from "./LiveChat";
+// import LiveChat from "./LiveChat";
 import Referrals from "./Referrals";
 import SupportTicket from "./SupportTicket";
 import Feedback from "./Feedback";
@@ -64,13 +64,13 @@ function UserDashboard({ history }) {
     history.push("/dashboard/admin");
   };
 
-  const handleAddbusiness = () => {
-    history.push("/create-marketplace-seller");
-  };
+  // const handleAddbusiness = () => {
+  //   history.push("/create-marketplace-seller");
+  // };
 
-  const handleMarketplaceDashboard = () => {
-    history.push("/dashboard/marketplace/sellers");
-  };
+  // const handleMarketplaceDashboard = () => {
+  //   history.push("/dashboard/marketplace/sellers");
+  // };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -113,8 +113,8 @@ function UserDashboard({ history }) {
       case "referrals":
         return <Referrals />;
 
-      case "live-chat":
-        return <LiveChat />;
+      // case "live-chat":
+      //   return <LiveChat />;
 
       case "support-ticket":
         return <SupportTicket />;
@@ -235,7 +235,7 @@ function UserDashboard({ history }) {
                   className="sidebar-link"
                   onClick={() => handleTabChange("credit-point")}
                 >
-                  <i className="fas fa-sack-dollar"></i> Credit Point
+                  <i className="fas fa-sack-dollar"></i> Bonus Point
                 </Button>
               </div>
 
@@ -319,7 +319,7 @@ function UserDashboard({ history }) {
                 </Button>
               </div>
 
-              <div>
+              {/* <div>
                 <Button
                   variant={activeTab === "live-chat" ? "info" : "outline-info"}
                   className="sidebar-link"
@@ -327,7 +327,7 @@ function UserDashboard({ history }) {
                 >
                   <i className="fas fa-comments"></i> Live Chat
                 </Button>
-              </div>
+              </div> */}
 
               <div>
                 <Button
@@ -360,12 +360,10 @@ function UserDashboard({ history }) {
                 )}
               </div>
 
-              <div className="">
+              {/* <div className="">
                 {!profile?.is_marketplace_seller ? (
                   <div className="mt-3">
-                    {/* <span className="py-2 text-center">
-                      Don't have a Seller account?{" "}
-                    </span> */}
+                    
                     <Button
                       size="sm"
                       className="sidebar-link py-2"
@@ -390,7 +388,8 @@ function UserDashboard({ history }) {
                     </div>
                   </>
                 )}
-              </div>
+              </div> */}
+
             </div>
           )}
         </Col>

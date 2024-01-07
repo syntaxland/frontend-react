@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
-import { Col, Row, Button, Modal } from "react-bootstrap";
+import { Col, Row, Modal } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
 import { getCreditPointBalance } from "../../actions/creditPointActions";
@@ -42,17 +42,17 @@ function Dashboard() {
   const dispatch = useDispatch();
 
   const [buyCreditPointModal, setBuyCreditPointModal] = useState(false);
-  const handleBuyCreditPointOpen = () => {
-    setBuyCreditPointModal(true);
-  };
+  // const handleBuyCreditPointOpen = () => {
+  //   setBuyCreditPointModal(true);
+  // };
   const handleBuyCreditPointClose = () => {
     setBuyCreditPointModal(false);
   };
 
   const [sellCreditPointModal, setSellCreditPointModal] = useState(false);
-  const handleSellCreditPointOpen = () => {
-    setSellCreditPointModal(true);
-  };
+  // const handleSellCreditPointOpen = () => {
+  //   setSellCreditPointModal(true);
+  // };
   const handleSellCreditPointClose = () => {
     setSellCreditPointModal(false);
   };
@@ -251,7 +251,7 @@ function Dashboard() {
                   <Row>
                     <Col>
                       <h2 className="py-3">
-                        Credit Point Wallet <i className="fas fa-wallet"></i>
+                        Bonus Point Wallet <i className="fas fa-wallet"></i>
                       </h2>
                       <p>
                         Balance:{" "}
@@ -259,10 +259,10 @@ function Dashboard() {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}{" "}
-                        cps
+                        NGN
                       </p>
 
-                      <div className="d-flex justify-content-between py-2">
+                      {/* <div className="d-flex justify-content-between py-2">
                         <span className="py-2">
                           <Button
                             variant="outline-success"
@@ -284,7 +284,7 @@ function Dashboard() {
                             Sell/Share CPS
                           </Button>
                         </span>
-                      </div>
+                      </div> */}
                     </Col>
                   </Row>
                 </Col>
@@ -292,7 +292,7 @@ function Dashboard() {
                 <hr />
                 <div className="line-graph mt-4">
                   <h2 className="py-3">Payments</h2>
-                  <Line data={lineGraphData} options={lineChartOptions} />
+                  <Line data={lineGraphData} options={lineChartOptions} /> 
                 </div>
               </Col>
               <hr />

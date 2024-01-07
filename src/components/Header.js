@@ -23,8 +23,8 @@ function Header() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const userProfile = useSelector((state) => state.userProfile);
-  const { profile } = userProfile;
+  // const userProfile = useSelector((state) => state.userProfile);
+  // const { profile } = userProfile;
 
   const [keyword, setKeyword] = useState("");
   const [greeting, setGreeting] = useState("");
@@ -66,7 +66,7 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> Sell Angle
+            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> Mcdof Shop
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">
@@ -93,10 +93,10 @@ function Header() {
             </Form>
 
             <Nav className="mr-auto ml-auto">
-              <Nav.Link as={Link} to="/marketplace">
+              {/* <Nav.Link as={Link} to="/marketplace">
                 {" "}
                 MarketPlace
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link as={Link} to="#">
                 {greeting}
                 {userInfo && userInfo.avatar && (
@@ -134,7 +134,7 @@ function Header() {
                   </Nav.Link>
                   <NavDropdown.Divider />
 
-                  <div>
+                  {/* <div>
                     {profile.is_marketplace_seller ? (
                       <>
                         <Nav.Link as={Link} to="/dashboard/marketplace/sellers">
@@ -159,9 +159,9 @@ function Header() {
                       </>
                     )}
                   </div>
-                  <NavDropdown.Divider />
+                  <NavDropdown.Divider /> */}
 
-                  <div>
+                  {/* <div>
                     {profile.is_marketplace_seller ? (
                       <>
                         <Nav.Link as={Link} to="/ad/free">
@@ -175,7 +175,7 @@ function Header() {
                     ) : (
                       <></>
                     )}
-                  </div>
+                  </div> */}
                   <NavDropdown.Divider />
 
                   <div>
