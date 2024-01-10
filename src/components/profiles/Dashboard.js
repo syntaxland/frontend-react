@@ -247,52 +247,9 @@ function Dashboard() {
                 </div>
 
                 <hr />
-                <Col className="d-flex justify-content-center">
-                  <Row>
-                    <Col>
-                      <h2 className="py-3">
-                        Bonus Point Wallet <i className="fas fa-wallet"></i>
-                      </h2>
-                      <p>
-                        Balance:{" "}
-                        {creditPointsFormatted.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}{" "}
-                        NGN
-                      </p>
-
-                      {/* <div className="d-flex justify-content-between py-2">
-                        <span className="py-2">
-                          <Button
-                            variant="outline-success"
-                            size="sm"
-                            className="py-2 rounded"
-                            onClick={handleBuyCreditPointOpen}
-                          >
-                            Buy CPS
-                          </Button>
-                        </span>
-
-                        <span className="py-2">
-                          <Button
-                            variant="outline-success"
-                            size="sm"
-                            className="py-2 rounded"
-                            onClick={handleSellCreditPointOpen}
-                          >
-                            Sell/Share CPS
-                          </Button>
-                        </span>
-                      </div> */}
-                    </Col>
-                  </Row>
-                </Col>
-
-                <hr />
                 <div className="line-graph mt-4">
                   <h2 className="py-3">Payments</h2>
-                  <Line data={lineGraphData} options={lineChartOptions} /> 
+                  <Line data={lineGraphData} options={lineChartOptions} />
                 </div>
               </Col>
               <hr />
@@ -325,6 +282,49 @@ function Dashboard() {
                   </Col>
                 </Row>
               </div>
+
+              <hr />
+              <Col className="d-flex justify-content-center">
+                <Row>
+                  <Col>
+                    <h2 className="py-3">
+                      Bonus Point Wallet <i className="fas fa-wallet"></i>
+                    </h2>
+                    <p>
+                      Balance:{" "}
+                      {creditPointsFormatted.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}{" "}
+                      NGN
+                    </p>
+
+                    {/* <div className="d-flex justify-content-between py-2">
+                        <span className="py-2">
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            className="py-2 rounded"
+                            onClick={handleBuyCreditPointOpen}
+                          >
+                            Buy CPS
+                          </Button>
+                        </span>
+
+                        <span className="py-2">
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            className="py-2 rounded"
+                            onClick={handleSellCreditPointOpen}
+                          >
+                            Sell/Share CPS
+                          </Button>
+                        </span>
+                      </div> */}
+                  </Col>
+                </Row>
+              </Col>
 
               <hr />
             </Row>

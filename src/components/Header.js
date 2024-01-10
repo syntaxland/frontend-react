@@ -130,9 +130,9 @@ function Header() {
                       className="fas fa-dashboard"
                       style={{ fontSize: "16px" }}
                     ></i>{" "}
-                    Dashboard (User)
+                    Dashboard 
                   </Nav.Link>
-                  <NavDropdown.Divider />
+                  {/* <NavDropdown.Divider /> */}
 
                   {/* <div>
                     {profile.is_marketplace_seller ? (
