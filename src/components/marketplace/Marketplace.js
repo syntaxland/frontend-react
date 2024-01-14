@@ -293,7 +293,7 @@ function Marketplace() {
                     />
                   </Form.Group> */}
                 {/* </Col> */}
-                <Col  className="d-flex justify-content-center">
+                <Col  className="d-flex justify-content-center"> 
                   <Button
                     variant="primary"
                     className="rounded"
