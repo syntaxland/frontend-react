@@ -32,7 +32,7 @@ function RecommendedProducts() {
   const pageNumbers = [];
   for (
     let i = 1;
-    i <= Math.ceil(productsRecommended.length / itemsPerPage);
+    i <= Math.ceil(productsRecommended?.length / itemsPerPage);
     i++
   ) {
     pageNumbers.push(i);
@@ -49,7 +49,7 @@ function RecommendedProducts() {
             <Message variant="danger">{error}</Message>
           ) : (
             <>
-              {currentItems.length === 0 ? (
+              {currentItems?.length === 0 ? (
                 <div className="text-center">
                   Recommended products appear here.
                 </div>
@@ -93,7 +93,7 @@ function RecommendedProducts() {
                   ))}
                   <li
                     className={`page-item ${
-                      currentPage === pageNumbers.length ? "disabled" : ""
+                      currentPage === pageNumbers?.length ? "disabled" : ""
                     }`}
                   >
                     <button
