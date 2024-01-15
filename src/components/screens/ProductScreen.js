@@ -119,7 +119,7 @@ function ProductScreen({ match, history }) {
 
                 <ListGroup.Item>
                   <Button
-                    // className="btn-block"
+                    // className="btn-block" 
                     className="w-100 rounded"
                     variant="success"
                     disabled={product.countInStock === 0}

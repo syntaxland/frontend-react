@@ -10,7 +10,7 @@ import {
   saveProduct,
   removeProduct,
   updateProductSaveCount,
-  trackProductView, 
+  // trackProductView, 
 } from "../actions/productAction";
 import Message from "./Message";
 import Loader from "./Loader";
@@ -191,11 +191,11 @@ function Product({ product }) {
   };
 
   const viewProductHandler = () => {
-    if (!userInfo) {
-      history.push("/login");
-      // dispatch(trackProductView(userInfo.id, product._id));
-    }
-    dispatch(trackProductView(userInfo.id, product._id));
+    // if (!userInfo) {
+    //   history.push("/login");
+    //   // dispatch(trackProductView(userInfo.id, product._id));
+    // }
+    // dispatch(trackProductView(userInfo.id, product._id));
 
     history.push(`/product/${product._id}`);
   };
@@ -284,12 +284,12 @@ function Product({ product }) {
           </Card.Title>
         </Link>
 
-        <Card.Text as="div">
+        {/* <Card.Text as="div">
           <span className="text-right" onClick={viewProductHandler}>
             <i className="fas fa-eye"></i> {formatCount(product.view_count)}{" "}
             views
           </span>
-        </Card.Text>
+        </Card.Text> */}
 
         <div as="div">
           <div className="my-3">
