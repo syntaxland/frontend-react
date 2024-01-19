@@ -41,8 +41,7 @@ function Footer() {
         <Row>
           <Col className="text-center py-3">
             <p>&copy; Mcdofshop, {currentYear}.{" "}All rights reserved. </p>
-            {/* <p>&copy; Sellangle Inc, {currentYear}.{" "} | Angle for quick sells... </p> */}
-            {/* Powered by */}
+            
             <Button
               variant="outline-transparent"
               className="rounded"
@@ -50,7 +49,6 @@ function Footer() {
             >
              <i style={{ fontSize: "12px", color: "white" }}>Powered by SoftGlobal</i> 
             </Button>{" "}
-            {/* | +2349066167293 */}
           </Col>
         </Row>
       </Container>
