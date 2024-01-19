@@ -163,8 +163,8 @@ export const searchAds = (searchData) => async (dispatch, getState) => {
       },
     };
 
-    const {search_term, selected_country, selected_state, selected_city } = searchData; 
-    const url = `${API_URL}/api/search-ads/?search_term=${search_term}&country=${selected_country}&state=${selected_state}&city=${selected_city}`;
+    const {search_term, selected_country, selected_state, selected_city, selected_category, selected_type } = searchData; 
+    const url = `${API_URL}/api/search-ads/?search_term=${search_term}&country=${selected_country}&state=${selected_state}&city=${selected_city}&selected_category=${selected_category}&selected_type=${selected_type}`;
     const { data } = await axios.get(url, config);
 
     // const { data } = await axios.get(
@@ -872,8 +872,8 @@ export const getAllFreeAd = (adData) => async (dispatch, getState) => {
       },
     };
 
-    const { selected_country, selected_state, selected_city } = adData;
-    const url = `${API_URL}/api/get-all-free-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}`;
+    const { selected_country, selected_state, selected_city, selected_category, selected_type } = adData;
+    const url = `${API_URL}/api/get-all-free-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}&selected_category=${selected_category}&selected_type=${selected_type}`;
     const { data } = await axios.get(url, config);
 
     // const { data } = await axios.get(
@@ -1059,8 +1059,12 @@ export const getAllPaidAd = (adData) => async (dispatch, getState) => {
       },
     };
 
-    const { selected_country, selected_state, selected_city } = adData;
-    const url = `${API_URL}/api/get-all-paid-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}`;
+    // const { selected_country, selected_state, selected_city, selected_category, selected_type } = adData;
+    // const url = `${API_URL}/api/get-all-paid-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}&selected_category=${selected_category}&selected_type=${selected_type}`;
+    const { selected_country, selected_state, selected_city, selected_category, selected_type } = adData;
+    const url = `${API_URL}/api/get-all-paid-ad/?country=${selected_country}&state=${selected_state}&city=${selected_city}&selected_category=${selected_category}&selected_type=${selected_type}`;
+    
+    
     const { data } = await axios.get(url, config);
 
     // const { data } = await axios.get(

@@ -50,7 +50,7 @@ function Footer() {
             >
               SoftGlobal
             </Button>{" "}
-            | +2349066167293
+            {/* | +2349066167293 */}
           </Col>
         </Row>
       </Container>

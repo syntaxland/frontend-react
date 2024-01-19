@@ -318,7 +318,7 @@ function Product({ product }) {
           </span>
         </Card.Text>
 
-        <span className="py-2">
+        {/* <span className="py-2">
           {product.promo_code && (
             <div>
               Promo code "{product.promo_code}" for{" "}
@@ -326,7 +326,18 @@ function Product({ product }) {
               <PromoTimer expirationDate={product.expiration_date} />
             </div>
           )}
-        </span>
+        </span>  */}
+
+{product.promo_code && new Date(product.expiration_date) >= new Date() && (
+  <span className="py-2">
+    <div>
+      Promo code "{product.promo_code}" for{" "}
+      {product.discount_percentage}% discount expires in:{" "}
+      <PromoTimer expirationDate={product.expiration_date} />
+    </div>
+  </span>
+)}
+
 
         <div className="d-flex justify-content-between">
           <span>
