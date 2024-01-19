@@ -48,7 +48,7 @@ function Footer() {
               className="rounded"
               onClick={softGlobalLink}
             >
-             <i style={{ color: "white" }}>Powered by SoftGlobal</i> 
+             <i style={{ fontSize: "12px", color: "white" }}>Powered by SoftGlobal</i> 
             </Button>{" "}
             {/* | +2349066167293 */}
           </Col>
