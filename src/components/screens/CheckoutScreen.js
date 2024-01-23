@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Message from "../Message";
 import Loader from "../Loader";
+import {formatAmount} from "../FormatAmount";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -118,8 +119,8 @@ function CheckoutScreen() {
                   <Col md={8}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                     <p>
-                      {item.qty} x NGN {item.price} = NGN{" "}
-                      {item.qty * item.price}
+                      {item.qty} x NGN {formatAmount(item.price)} = NGN{" "}
+                      {formatAmount(item.qty * item.price)}
                     </p>
                   </Col>
                 </Row>

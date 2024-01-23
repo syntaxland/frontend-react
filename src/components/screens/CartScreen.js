@@ -13,6 +13,7 @@ import {
 import Message from "../Message";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
 // import ProductPrice from "../ProductPrice";
+import { formatAmount } from "../FormatAmount";
 
 function CartScreen({ match, location, history }) {
   const productId = match.params.id;
@@ -60,7 +61,7 @@ function CartScreen({ match, location, history }) {
                   <Col md={3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>NGN {item.price}</Col>
+                  <Col md={2}>NGN {formatAmount(item.price)}</Col>
                   <Col md={3}>
                     <Form.Control
                       as="select"
@@ -103,7 +104,11 @@ function CartScreen({ match, location, history }) {
                 items
               </h2>
               NGN{" "}
-              {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
+              {formatAmount(
+                cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)
+              )}
+              {/* NGN{" "}
+              {cartItems.reduce((acc, item) => acc + item.qty * (item.price), 0)} */}
             </ListGroup.Item>
           </ListGroup>
 

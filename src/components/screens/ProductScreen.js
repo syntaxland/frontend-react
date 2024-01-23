@@ -15,13 +15,14 @@ import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productAction";
 import ProductPrice from "../ProductPrice";
+import { formatAmount } from "../FormatAmount";
 
 function ProductScreen({ match, history }) {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
-  console.log('product:', product)
+  console.log("product:", product);
 
   useEffect(() => {
     dispatch(listProductDetails(match.params.id));
@@ -61,14 +62,17 @@ function ProductScreen({ match, history }) {
               <ListGroup.Item>
                 <Rating
                   value={product.rating}
-                  text={`${product.numReviews} reviews`}
+                  text={`${product?.numReviews} reviews`}
                   color={"blue"}
                 />
               </ListGroup.Item>
               {/* <ListGroup.Item>Price: NGN {product.price}</ListGroup.Item> */}
 
               <ListGroup.Item>
-                <ProductPrice price={product.price} promoPrice={product.promo_price} />
+                <ProductPrice
+                  price={product?.price}
+                  promoPrice={product?.promo_price}
+                />
               </ListGroup.Item>
 
               <ListGroup.Item>
@@ -77,30 +81,30 @@ function ProductScreen({ match, history }) {
             </ListGroup>
           </Col>
           <Col md={3}>
-            <Card> 
-              <ListGroup variant="flush"> 
+            <Card>
+              <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
                     <Col>
-                      <strong>NGN {product.price}</strong>
+                      <strong>NGN {formatAmount(product.price)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Status:</Col> 
+                    <Col>Status:</Col>
                     <Col>
                       {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
                     </Col>
                   </Row>
                 </ListGroup.Item>
- 
+
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row>
                       <Col>Qty</Col>
-                      <Col xs="auto" className="my-1"> 
+                      <Col xs="auto" className="my-1">
                         <Form.Control
                           as="select"
                           value={qty}
@@ -119,13 +123,13 @@ function ProductScreen({ match, history }) {
 
                 <ListGroup.Item>
                   <Button
-                    // className="btn-block" 
+                    // className="btn-block"
                     className="w-100 rounded"
                     variant="success"
                     disabled={product.countInStock === 0}
                     type="button"
                     onClick={addToCartHandler}
-                  > 
+                  >
                     Add to Cart
                   </Button>
                 </ListGroup.Item>

@@ -1,5 +1,5 @@
 // SearchFilterBar.js
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Select from "react-select";
 import { ScrollMenu } from "react-horizontal-scrolling-menu";
@@ -33,6 +33,8 @@ const AD_TYPE_CHOICES = {
     ["Microwave", "Microwave"],
     ["Coffee Machine", "Coffee Machine"],
     ["Air Conditioner", "Air Conditioner"],
+    ["Solar", "Solar"],
+    ["Kitchen Appliances", "Kitchen Appliances"],
   ],
   Properties: [
     ["House", "House"],
@@ -124,15 +126,51 @@ const AD_TYPE_CHOICES = {
 };
 
 function SearchFilterBar({
+  freeSearchAds,
+  paidSearchAds,
   selectedCategory,
   selectedType,
   setSelectedCategory,
   setSelectedType,
-  totalAdsCategoryCount,
-  totalAdsTypeCount,
+  onCategoryChange,
+  onTypeChange,
 }) {
-  // const [selectedCategory, setSelectedCategory] = useState(null);
-  // const [selectedType, setSelectedType] = useState(null);
+  console.log("paidSearchAds length:", paidSearchAds?.length);
+  console.log("freeSearchAds length:", freeSearchAds?.length);
+
+  const [categoryCounts, setCategoryCounts] = useState({});
+  const [typeCounts, setTypeCounts] = useState({});
+  const [selectedTypeLabel, setSelectedTypeLabel] = useState("");
+
+  useEffect(() => {
+    const categoryCountsObj = {};
+    AD_CATEGORY_CHOICES.forEach(([value]) => {
+      const filteredFreeAds = freeSearchAds?.filter((ad) => ad.ad_category === value);
+      const filteredPaidAds = paidSearchAds?.filter((ad) => ad.ad_category === value);
+      categoryCountsObj[value] = {
+        freeSearchAdsCount: filteredFreeAds?.length,
+        paidSearchAdsCount: filteredPaidAds?.length,
+      };
+    });
+    setCategoryCounts(categoryCountsObj);
+
+    const typeCountsObj = {};
+    Object.keys(AD_TYPE_CHOICES).forEach((category) => {
+      AD_TYPE_CHOICES[category].forEach(([value]) => {
+        const filteredFreeAds = freeSearchAds?.filter(
+          (ad) => ad.ad_category === category && ad.ad_type === value
+        );
+        const filteredPaidAds = paidSearchAds?.filter(
+          (ad) => ad.ad_category === category && ad.ad_type === value
+        );
+        typeCountsObj[value] = {
+          freeSearchAdsCount: filteredFreeAds?.length,
+          paidSearchAdsCount: filteredPaidAds?.length,
+        };
+      });
+    });
+    setTypeCounts(typeCountsObj);
+  }, [freeSearchAds, paidSearchAds]);
 
   useEffect(() => {
     const storedCategory = localStorage.getItem("selectedCategory");
@@ -147,12 +185,35 @@ function SearchFilterBar({
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setSelectedType(null);
+
+    const filteredFreeAds = freeSearchAds?.filter(
+      (ad) => ad.ad_category === category
+    );
+    const filteredPaidAds = paidSearchAds?.filter(
+      (ad) => ad.ad_category === category
+    );
+    onCategoryChange(category, filteredFreeAds, filteredPaidAds);
+
     localStorage.setItem("selectedCategory", category);
     localStorage.removeItem("selectedType");
   };
 
   const handleTypeChange = (type) => {
     setSelectedType(type);
+    setSelectedTypeLabel(type.label);
+
+    const filteredFreeAds = freeSearchAds?.filter(
+      (ad) => ad.ad_category === selectedCategory && ad.ad_type === type.value
+    );
+    const filteredPaidAds = paidSearchAds?.filter(
+      (ad) => ad.ad_category === selectedCategory && ad.ad_type === type.value
+    );
+
+    console.log("filteredFreeAds after type change:", filteredFreeAds);
+    console.log("filteredPaidAds after type change:", filteredPaidAds);
+
+    onTypeChange(type.value, filteredFreeAds, filteredPaidAds);
+
     localStorage.setItem("selectedType", type.value);
   };
 
@@ -176,7 +237,11 @@ function SearchFilterBar({
                     }`}
                     onClick={() => handleCategoryChange(value)}
                   >
-                    {label} ({value === selectedCategory ? totalAdsCategoryCount : 0}) 
+                    {label} (
+                    {categoryCounts[value] &&
+                      categoryCounts[value].freeSearchAdsCount +
+                        categoryCounts[value].paidSearchAdsCount}
+                    )
                   </Button>
                 </div>
               ))}
@@ -192,12 +257,16 @@ function SearchFilterBar({
                       options={AD_TYPE_CHOICES[selectedCategory].map(
                         ([value, label]) => ({
                           value,
-                          label: `${label} (${value === selectedType ? totalAdsTypeCount : 0})`,
+                          label: `${label} (${typeCounts[value] &&
+                            typeCounts[value].freeSearchAdsCount +
+                              typeCounts[value].paidSearchAdsCount})`,
                         })
                       )}
                       value={selectedType}
-                      onChange={handleTypeChange}
-                      placeholder="Select Type"
+                      onChange={(type) => {
+                        handleTypeChange(type);
+                      }}
+                      placeholder={`Select Type (${selectedTypeLabel})`}
                       className="rounded py-2 mb-2"
                       required
                     />{" "}

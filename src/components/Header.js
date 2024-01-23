@@ -9,7 +9,7 @@ import {
   NavDropdown,
   Form,
 } from "react-bootstrap";
-import { logout } from "../actions/userActions";
+import { logout } from "../actions/userActions";  
 
 import { getUserProfile } from "../actions/userProfileActions";
 

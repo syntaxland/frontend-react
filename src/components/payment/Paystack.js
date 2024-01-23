@@ -116,8 +116,8 @@ function Paystack() {
     fetchData();
   }, [userInfo.access]);
 
-  const onSuccess = (reference) => {
-    handlePayment(reference);
+  const onSuccess = () => {
+    handlePayment();
     dispatch(clearCart());
     history.push("/");
   };
@@ -127,30 +127,21 @@ function Paystack() {
     history.push("/payment");
   };
 
-  const handlePayment = async (reference) => {
-    try {
-      const paymentData = {
-        reference: reference,
-        order_id: order_id,
-        amount: totalPrice,
-        email: userEmail,
+  const paymentData = {
+    reference: reference,
+    order_id: order_id,
+    amount: totalPrice,
+    email: userEmail,
 
-        items_amount: itemsPrice,
-        final_items_amount: finalItemsPrice,
-        promo_code_discount_amount: promoDiscount,
-        promo_code_discount_percentage: discountPercentage,
-        final_total_amount: promoTotalPrice,
-      };
+    items_amount: itemsPrice,
+    final_items_amount: finalItemsPrice,
+    promo_code_discount_amount: promoDiscount,
+    promo_code_discount_percentage: discountPercentage,
+    final_total_amount: promoTotalPrice,
+  };
 
-      const response = await dispatch(createPayment(paymentData));
-
-      if (response && response.reference) {
-        // Save the order_id, reference, amount, and email to backend
-        await axios.post(`${API_URL}/api/create-payment/`, paymentData);
-      }
-    } catch (error) {
-      console.log("Error handling payment:", error);
-    }
+  const handlePayment = () => {
+    dispatch(createPayment(paymentData));
   };
 
   const paymentObject = {
