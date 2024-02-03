@@ -238,7 +238,7 @@ function Paysofter({
               </ListGroup.Item>
               <ListGroup.Item>
                 Shipping Cost: NGN{" "}
-                {shippingPrice.toLocaleString(undefined, {
+                {shippingPrice.toLocaleString(undefined, { 
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}

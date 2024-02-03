@@ -238,7 +238,7 @@ function PaysofterButton({
 
               {selectedPaymentOption === "account-fund" && (
                 <PaysofterAccountFund
-                  promoTotalPrice={promoTotalPrice}
+                  promoTotalPrice={promoTotalPrice} 
                   paymentData={paymentData}
                   reference={reference}
                   userEmail={userEmail}

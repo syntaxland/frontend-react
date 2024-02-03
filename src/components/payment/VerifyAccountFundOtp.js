@@ -18,7 +18,7 @@ const VerifyAccountFundOtp = ({
   paymentData,
   reference,
   userEmail,
-  currency,
+  // currency,
   publicApiKey,
   formattedPayerEmail,
 }) => {
@@ -28,7 +28,9 @@ const VerifyAccountFundOtp = ({
   const [resendMessage, setResendMessage] = useState("");
   const [countdown, setCountdown] = useState(60);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
   const createdAt = new Date().toISOString();
+  const currency = "NGN";
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -55,6 +57,7 @@ const VerifyAccountFundOtp = ({
     payment_id: reference,
     email: userEmail,
     amount: promoTotalPrice,
+    currency: currency,
     public_api_key: publicApiKey,
     created_at: createdAt,
   };
@@ -113,7 +116,7 @@ const VerifyAccountFundOtp = ({
       setTimeout(() => {
         // history.push("/dashboard");
         window.location.reload();
-        window.location.href = "/dashboard/users";
+        window.location.href = "/dashboard/users"; 
       }, 5000);
     }
     // eslint-disable-next-line

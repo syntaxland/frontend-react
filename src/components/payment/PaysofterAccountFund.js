@@ -118,7 +118,7 @@ currency
   return (
     <>
       {showVerifyAccountFundOtp ? (
-        <VerifyAccountFundOtp
+        <VerifyAccountFundOtp 
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
