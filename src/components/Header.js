@@ -5,11 +5,11 @@ import {
   Navbar,
   Nav,
   Container,
-  Button,
+  Button, 
   NavDropdown,
   Form,
 } from "react-bootstrap";
-import { logout } from "../actions/userActions";  
+import { logout } from "../actions/userActions";   
 
 import { getUserProfile } from "../actions/userProfileActions";
 
@@ -17,13 +17,13 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Header.css";
 
 function Header() {
-  const userLogin = useSelector((state) => state.userLogin);
+  const userLogin = useSelector((state) => state.userLogin);  
   const { userInfo } = userLogin;
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  // const userProfile = useSelector((state) => state.userProfile);
+  // const userProfile = useSelector((state) => state.userProfile);   
   // const { profile } = userProfile;
 
   const [keyword, setKeyword] = useState("");

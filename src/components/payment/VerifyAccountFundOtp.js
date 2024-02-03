@@ -113,7 +113,7 @@ const VerifyAccountFundOtp = ({
       setTimeout(() => {
         // history.push("/dashboard");
         window.location.reload();
-        window.location.href = "/dashboard";
+        window.location.href = "/dashboard/users";
       }, 5000);
     }
     // eslint-disable-next-line

@@ -273,7 +273,7 @@ function Paysofter({
                 )}
               </ListGroup.Item>
               <ListGroup.Item>
-                Final Total Amount: NGN{" "}
+                Final Total Amount: NGN{" "} 
                 {promoTotalPrice ? (
                   <span>
                     {promoTotalPrice.toLocaleString(undefined, {

@@ -103,7 +103,7 @@ function PaymentScreen() {
           `${API_URL}/api/get-payment-details/`,
           {
             headers: {
-              Authorization: `Bearer ${userInfo.access}`,
+              Authorization: `Bearer ${userInfo.access}`, 
             },
           }
         );
