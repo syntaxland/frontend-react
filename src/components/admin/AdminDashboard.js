@@ -11,7 +11,7 @@ import SendMessage from "./SendMessage";
 import MessageInbox from "./MessageInbox";
 import SendEmail from "./SendEmail";
 import Dashboard from "./Dashboard";
-import CreditPoint from "./CreditPoint";
+// import CreditPoint from "./CreditPoint";
 import SetPromoCode from "./SetPromoCode";
 import PromoTimer from "./ApplyPromoCode";
 // import LiveChat from "./LiveChat";
@@ -54,8 +54,8 @@ function AdminDashboard({ history }) {
       case "send-email":
         return <SendEmail />;
 
-      case "credit-point-requests":
-        return <CreditPoint />;
+      // case "credit-point-requests":
+      //   return <CreditPoint />;
 
       case "promo-code":
         return <PromoTimer />;
@@ -164,7 +164,7 @@ function AdminDashboard({ history }) {
                 </Button>
               </div>
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "credit-point-requests"
@@ -176,7 +176,7 @@ function AdminDashboard({ history }) {
                 >
                   <i className="fas fa-sack-dollar"></i> Credit Point
                 </Button>
-              </div>
+              </div> */}
 
               <div>
                 <Button
