@@ -9,8 +9,8 @@ import Message from "../Message";
 import Loader from "../Loader";
 import {formatAmount} from "../FormatAmount";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
+import { API_URL } from "../../config/apiConfig";
+ 
 function CheckoutScreen() {
   const dispatch = useDispatch();
   const history = useHistory();

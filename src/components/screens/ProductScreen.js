@@ -10,7 +10,7 @@ import {
   Form,
 } from "react-bootstrap";
 import Rating from "../Rating";
-import Loader from "../Loader";
+import Loader from "../Loader"; 
 import Message from "../Message";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductDetails } from "../../actions/productAction";

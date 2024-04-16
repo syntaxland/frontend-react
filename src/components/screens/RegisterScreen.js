@@ -11,7 +11,7 @@ import { sendEmailOtp } from "../../actions/emailOtpActions";
 // import FormContainer from "../FormContainer";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-// import GoogleLoginScreen from "./GoogleLoginScreen";
+// import GoogleLoginScreen from "./GoogleLoginScreen"; 
 
 function RegisterScreen({ location }) {
   const history = useHistory();
@@ -222,7 +222,7 @@ function RegisterScreen({ location }) {
         history.push("/verify-email-otp");
         // window.location.href = "/verify-email-otp";
       }, 5000);
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer); 
     }
 
     // eslint-disable-next-line

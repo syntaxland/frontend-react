@@ -8,7 +8,7 @@ import Message from "../Message";
 import Loader from "../Loader";
 
 function RecommendedProducts() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     dispatch(fetchRecommendedProducts());

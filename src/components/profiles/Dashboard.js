@@ -138,8 +138,8 @@ function Dashboard() {
     return totalPayment;
   };
 
-  const creditPoints = creditPointBalance.balance;
-  const creditPointsFormatted = creditPoints ? creditPoints : [];
+  // const creditPoints = creditPointBalance.balance;
+  // const creditPointsFormatted = creditPoints ? creditPoints : [];
 
   // const withdrawCreditPoints =
   //   creditPoints >= 5000 ? (
@@ -283,11 +283,11 @@ function Dashboard() {
                 </Row>
               </div>
 
-              <hr />
+              {/* <hr /> */}
               <Col className="d-flex justify-content-center">
                 <Row>
                   <Col>
-                    <h2 className="py-3">
+                    {/* <h2 className="py-3">
                       Bonus Point Wallet <i className="fas fa-wallet"></i>
                     </h2>
                     <p>
@@ -297,7 +297,7 @@ function Dashboard() {
                         maximumFractionDigits: 2,
                       })}{" "}
                       NGN
-                    </p>
+                    </p> */}
 
                     {/* <div className="d-flex justify-content-between py-2">
                         <span className="py-2">

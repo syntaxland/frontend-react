@@ -8,7 +8,6 @@ import { Container } from "react-bootstrap";
 // This is a react-router-dom@5.3.4 app
 // import { useHistory  } from 'react-router'
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import styled, {  createGlobalStyle, ThemeProvider} from "styled-components"
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -31,6 +30,7 @@ import LiveChatScreen from "./components/screens/LiveChatScreen";
 import FeedbackScreen from "./components/screens/FeedbackScreen";
 import DarkModeScreen from "./components/screens/DarkModeScreen";
 import TermsAndConditionScreen from "./components/screens/TermsAndConditionScreen";
+import PrivacyPolicyScreen from "./components/screens/PrivacyPolicyScreen";
 
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
@@ -100,6 +100,7 @@ function App() {
             path="/terms-and-conditions"
             component={TermsAndConditionScreen}
           />
+          <Route path="/privacy-policy" component={PrivacyPolicyScreen} />
 
           <Route path="/user/profile" component={UserProfile} />
           <Route path="/delete-account" component={DeleteAccount} />
@@ -159,7 +160,6 @@ function App() {
             component={CreateMarketplaceSeller}
           />
           <Route path="/seller/photo/" component={SellerPhoto} /> */}
-
         </main>
         <Footer />
         {/* </section> */}

@@ -16,12 +16,12 @@ import OrderItem from "./OrderItem";
 import Reviews from "./Reviews";
 import Dashboard from "./Dashboard";
 import MessageInbox from "./MessageInbox";
-import CreditPoint from "./CreditPoint";
+// import CreditPoint from "./CreditPoint";
 import PromoProduct from "./Offers";
 import RecommendedProducts from "./RecommendedProducts";
 import ViewedItems from "./ViewedItems";
 // import LiveChat from "./LiveChat";
-import Referrals from "./Referrals";
+// import Referrals from "./Referrals";
 import SupportTicket from "./SupportTicket";
 import Feedback from "./Feedback";
 import Settings from "./Settings";
@@ -98,8 +98,8 @@ function UserDashboard({ history }) {
       case "message-inbox":
         return <MessageInbox />;
 
-      case "credit-point":
-        return <CreditPoint />;
+      // case "credit-point":
+      //   return <CreditPoint />;
 
       case "recommended-products":
         return <RecommendedProducts />;
@@ -110,8 +110,8 @@ function UserDashboard({ history }) {
       case "viewed-products":
         return <ViewedItems />;
 
-      case "referrals":
-        return <Referrals />;
+      // case "referrals":
+      //   return <Referrals />;
 
       // case "live-chat":
       //   return <LiveChat />;
@@ -217,7 +217,7 @@ function UserDashboard({ history }) {
                 </Button>
               </div>
 
-              <div>
+              {/* <div>
                 <Button
                   variant={activeTab === "referrals" ? "info" : "outline-info"}
                   className="sidebar-link"
@@ -225,9 +225,9 @@ function UserDashboard({ history }) {
                 >
                   <i className="fa fa-user-plus"></i> Referrals
                 </Button>
-              </div>
+              </div> */}
 
-              <div>
+              {/* <div>
                 <Button
                   variant={
                     activeTab === "credit-point" ? "info" : "outline-info"
@@ -237,7 +237,7 @@ function UserDashboard({ history }) {
                 >
                   <i className="fas fa-sack-dollar"></i> Bonus Point
                 </Button>
-              </div>
+              </div> */}
 
               <div>
                 <Button

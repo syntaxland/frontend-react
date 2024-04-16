@@ -10,7 +10,7 @@ import Loader from '../Loader';
 function SavedItems() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(() => { 
     dispatch(getUserFavoriteProducts());
   }, [dispatch]);
 

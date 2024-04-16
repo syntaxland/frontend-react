@@ -11,7 +11,7 @@ function ViewedItems() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserViewedProducts());
+    dispatch(getUserViewedProducts()); 
   }, [dispatch]);
 
   const userViewedProducts = useSelector((state) => state.userViewedProducts);

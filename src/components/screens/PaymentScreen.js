@@ -6,9 +6,9 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Paystack from "../payment/Paystack";
 import Paysofter from "../payment/Paysofter";
-import PaysofterPromise from "../payment/PaysofterPromise"; 
+// import PaysofterPromise from "../payment/PaysofterPromise"; 
 
-const API_URL = process.env.REACT_APP_API_URL;
+import { API_URL } from "../../config/apiConfig"; 
 
 function PaymentScreen() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -20,9 +20,6 @@ function PaymentScreen() {
     }
   }, [userInfo]);
 
-  // const history = useHistory();
-
-  // const [publicKey, setPublicKey] = useState("");
   const [paysofterPublicKey, setPaysofterPublicKey] = useState("");
   const [paystackPublicKey, setPaystackPublicKey] = useState("");
   const [reference, setReference] = useState("");
@@ -51,7 +48,7 @@ function PaymentScreen() {
   const shipmentSave = JSON.parse(localStorage.getItem("shipmentData")) || [];
   console.log("shipmentSave:", shipmentSave);
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart); 
   const { cartItems } = cart;
 
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -281,7 +278,7 @@ function PaymentScreen() {
             </div>
 
             {selectedPaymentGateway === "paystack" && (
-              <Paystack paymentData={paymentData} />
+              <Paystack paymentData={paymentData} /> 
             )}
 
             {selectedPaymentGateway === "paysofter" && (
@@ -303,9 +300,9 @@ function PaymentScreen() {
               />
             )}
 
-            {selectedPaymentGateway === "paysofter-promise" && (
+            {/* {selectedPaymentGateway === "paysofter-promise" && (
               <PaysofterPromise paymentData={paymentData} />
-            )}
+            )} */}
             
           </Col>
         </div>

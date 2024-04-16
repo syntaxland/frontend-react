@@ -7,7 +7,7 @@ const ProductPrice = ({ price, promoPrice }) => {
     return null; 
   }
 
-  const discountPercentage = promoPrice
+  const discountPercentage = promoPrice 
     ? ((price - promoPrice) / price) * 100
     : 0;
 

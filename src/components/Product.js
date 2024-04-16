@@ -22,7 +22,7 @@ function Product({ product }) {
   const [addToCartMessage, setAddToCartMessage] = useState(false);
   const [removeFromCartMessage, setRemoveFromCartMessage] = useState(false);
   const [productSaved, setProductSaved] = useState(false);
-  const [totalSaves, setTotalSaves] = useState(product.save_count);
+  const [totalSaves, setTotalSaves] = useState(product.save_count); 
 
   const [productMessages, setProductMessages] = useState({
     productSaveSuccess: false,
@@ -41,7 +41,7 @@ function Product({ product }) {
   const history = useHistory();
 
   const location = useLocation();
-  const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+  const qty = location.search ? Number(location.search.split("=")[1]) : 1; 
 
   const [isCart, setIsCart] = useState(
     cartItems.some((item) => item.product === product._id)

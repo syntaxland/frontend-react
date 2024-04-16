@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader";
 import Message from "../Message";
 import { clearCart } from "../../actions/cartActions";
-import { createPayment } from "../../actions/paymentActions";
+import { createPayment } from "../../actions/paymentActions"; 
 import ApplyPromoCode from "../ApplyPromoCode";
 
-const API_URL = process.env.REACT_APP_API_URL;
+import { API_URL } from "../../config/apiConfig"; 
 
 function Paystack() {
   const userLogin = useSelector((state) => state.userLogin);

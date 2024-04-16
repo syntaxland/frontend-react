@@ -30,18 +30,6 @@ const ShipmentScreen = ({ history, match }) => {
 
   const order_id = match.params.id;
 
-  //   const location = useLocation();
-  //   const { pathname } = location;
-  //   const order_id = pathname.split("/shipment/")[1];
-
-  // let shipmentData = {
-  //   address,
-  //   city,
-  //   postalCode,
-  //   country,
-  //   order_id,
-  // };
-
   const shipmentData = useMemo(() => {
     return {
       address,

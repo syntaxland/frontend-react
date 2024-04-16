@@ -10,7 +10,7 @@ import {
   Form,
 } from "react-bootstrap";
 import { logout } from "../actions/userActions";   
-
+ 
 import { getUserProfile } from "../actions/userProfileActions";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,7 @@ function Header() {
   // const userProfile = useSelector((state) => state.userProfile);   
   // const { profile } = userProfile;
 
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState("");  
   const [greeting, setGreeting] = useState("");
   const history = useHistory();
 

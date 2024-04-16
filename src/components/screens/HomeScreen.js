@@ -95,7 +95,7 @@ function HomeScreen({ history }) {
                         lg={4}
                         xl={4}
                       >
-                        <Product product={product} />
+                        <Product product={product} /> 
                       </Col>
                     ))}
                   </Row>

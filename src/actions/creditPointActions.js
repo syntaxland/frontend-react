@@ -39,7 +39,8 @@ import {
   GET_BUYER_CREDIT_POINT_FAIL,
 } from "../constants/creditPointConstants";
 
-const API_URL = process.env.REACT_APP_API_URL;
+// const API_URL = process.env.REACT_APP_API_URL;
+import { API_URL } from "../config/apiConfig";
 
 export const getBuyerCreditPoint = () => async (dispatch, getState) => {
   try {
