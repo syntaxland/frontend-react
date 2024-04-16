@@ -31,6 +31,7 @@ import FeedbackScreen from "./components/screens/FeedbackScreen";
 import DarkModeScreen from "./components/screens/DarkModeScreen";
 import TermsAndConditionScreen from "./components/screens/TermsAndConditionScreen";
 import PrivacyPolicyScreen from "./components/screens/PrivacyPolicyScreen";
+import DeleteAccountGuideScreen from "./components/screens/DeleteAccountGuideScreen";
 
 import SendEmailOtp from "./components/emailOtp/SendEmailOtp";
 import VerifyEmailOtp from "./components/emailOtp/VerifyEmailOtp";
@@ -101,6 +102,7 @@ function App() {
             component={TermsAndConditionScreen}
           />
           <Route path="/privacy-policy" component={PrivacyPolicyScreen} />
+          <Route path="/account-deletion-guide" component={DeleteAccountGuideScreen} />
 
           <Route path="/user/profile" component={UserProfile} />
           <Route path="/delete-account" component={DeleteAccount} />

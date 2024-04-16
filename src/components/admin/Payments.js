@@ -17,12 +17,12 @@ function Payments() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = payments.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = payments?.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(payments.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(payments?.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -52,7 +52,7 @@ function Payments() {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((payment, index) => (
+              {currentItems?.map((payment, index) => (
                 <tr key={payment.id}>
                   <td>{index + 1}</td>
                   {/* <td>{payment.order.order_id}</td> */}

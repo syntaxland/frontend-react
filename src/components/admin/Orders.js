@@ -22,12 +22,12 @@ function Orders() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = orders?.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(orders.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(orders?.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -65,7 +65,7 @@ function Orders() {
               </tr>
             </thead>
             <tbody>
-              {currentItems.map((order, index) => (
+              {currentItems?.map((order, index) => (
                 <tr key={order._id}>
                   <td>{index + 1}</td>
                   <td>{order.order_id}</td>
