@@ -1,32 +1,31 @@
 // Headers.js
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom"; 
+import { Link, useHistory } from "react-router-dom";
 import {
   Navbar,
   Nav,
   Container,
-  Button, 
+  Button,
   NavDropdown,
   Form,
 } from "react-bootstrap";
-import { logout } from "../actions/userActions";   
- 
+import { logout } from "../actions/userActions";
 import { getUserProfile } from "../actions/userProfileActions";
-
 import { useDispatch, useSelector } from "react-redux";
 import "./Header.css";
+import logoImage from "../images/logo.png";
 
 function Header() {
-  const userLogin = useSelector((state) => state.userLogin);  
+  const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  // const userProfile = useSelector((state) => state.userProfile);   
+  // const userProfile = useSelector((state) => state.userProfile);
   // const { profile } = userProfile;
 
-  const [keyword, setKeyword] = useState("");  
+  const [keyword, setKeyword] = useState("");
   const [greeting, setGreeting] = useState("");
   const history = useHistory();
 
@@ -66,7 +65,17 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="md" sticky="top">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
-            <i className="fas fa-home" style={{ fontSize: "16px" }}></i> Mcdof Shop
+            {/* <i className="fas fa-home" style={{ fontSize: "16px" }}></i>  */}
+            <img
+              src={logoImage}
+              alt="Mcdofshop"
+              style={{
+                maxHeight: "40px",
+                maxWidth: "80px",
+                height: "auto",
+                width: "auto",
+              }}
+            />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarCollapse" />
           <Navbar.Collapse id="navbarCollapse">
@@ -130,7 +139,7 @@ function Header() {
                       className="fas fa-dashboard"
                       style={{ fontSize: "16px" }}
                     ></i>{" "}
-                    Dashboard 
+                    Dashboard
                   </Nav.Link>
                   {/* <NavDropdown.Divider /> */}
 
