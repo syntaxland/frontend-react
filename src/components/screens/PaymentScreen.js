@@ -6,9 +6,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import Paystack from "../payment/Paystack";
 import Paysofter from "../payment/Paysofter";
-// import PaysofterPromise from "../payment/PaysofterPromise"; 
 
-import { API_URL } from "../../config/apiConfig"; 
+import { API_URL } from "../../config/apiConfig";
 
 function PaymentScreen() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -29,6 +28,8 @@ function PaymentScreen() {
   const { pathname } = location;
   const order_id = pathname.split("/payment/")[1];
 
+  const currency = "NGN";
+
   // const paymentCreate = useSelector((state) => state.paymentCreate);
   // const { success } = paymentCreate;
 
@@ -48,7 +49,7 @@ function PaymentScreen() {
   const shipmentSave = JSON.parse(localStorage.getItem("shipmentData")) || [];
   console.log("shipmentSave:", shipmentSave);
 
-  const cart = useSelector((state) => state.cart); 
+  const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -100,7 +101,7 @@ function PaymentScreen() {
           `${API_URL}/api/get-payment-details/`,
           {
             headers: {
-              Authorization: `Bearer ${userInfo.access}`, 
+              Authorization: `Bearer ${userInfo.access}`,
             },
           }
         );
@@ -134,10 +135,10 @@ function PaymentScreen() {
     promoDiscount,
     discountPercentage,
     promoTotalPrice,
-    // publicKey,
     paystackPublicKey,
     paysofterPublicKey,
     shipmentSave,
+    currency,
   };
   console.log("paymentData:", paymentData);
 
@@ -173,7 +174,7 @@ function PaymentScreen() {
                     onClick={() => handlePaymentGatewaySelection("paysofter")}
                     className="mr-2 rounded w-100"
                     // disabled
-                  > 
+                  >
                     Pay with Paysofter
                   </Button>
                 </Col>
@@ -274,16 +275,15 @@ function PaymentScreen() {
                   </Modal>
                 </Col>
               </Row> */}
-
             </div>
 
             {selectedPaymentGateway === "paystack" && (
-              <Paystack paymentData={paymentData} /> 
+              <Paystack paymentData={paymentData} />
             )}
 
             {selectedPaymentGateway === "paysofter" && (
               <Paysofter
-                // paymentData={paymentData}
+                paymentData={paymentData}
                 reference={reference}
                 order_id={order_id}
                 totalPrice={totalPrice}
@@ -297,12 +297,10 @@ function PaymentScreen() {
                 promoTotalPrice={promoTotalPrice}
                 paysofterPublicKey={paysofterPublicKey}
                 shipmentSave={shipmentSave}
+                currency={currency}
               />
             )}
 
-            {/* {selectedPaymentGateway === "paysofter-promise" && (
-              <PaysofterPromise paymentData={paymentData} />
-            )} */}
             
           </Col>
         </div>

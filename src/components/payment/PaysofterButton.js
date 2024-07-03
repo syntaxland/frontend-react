@@ -8,7 +8,7 @@ import UssdPayment from "./UssdPayment";
 import BankPayment from "./BankPayment";
 import TransferPayment from "./TransferPayment";
 import PaysofterAccountFund from "./PaysofterAccountFund";
-import PaysofterPromise from "./PaysofterPromise"; 
+import PaysofterPromise from "./PaysofterPromise";   
 import QrPayment from "./QrPayment";
 
 import "./Paysofter.css";
@@ -251,7 +251,6 @@ function PaysofterButton({
                   promoTotalPrice={promoTotalPrice}
                   userEmail={userEmail}
                   publicApiKey={publicApiKey}
-                  
                   paymentData={paymentData}
                   reference={reference}
                 />

@@ -8,7 +8,7 @@ import { faToggleOn } from "@fortawesome/free-solid-svg-icons";
 // import { faBox, faCheck, faToggleOn } from '@fortawesome/free-solid-svg-icons';
 import {
   getOrders,
-  confirmOderDelivery,
+  confirmOderDelivery, 
   deleteOrder,
 } from "../../actions/orderActions";
 import Message from "../Message";

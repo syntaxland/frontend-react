@@ -1,7 +1,7 @@
 // CardPayment.js
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import Select from "react-select";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../actions/cartActions";
@@ -11,6 +11,51 @@ import {
 } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
+
+const MONTH_CHOICES = [
+  ["January", "01"],
+  ["February", "02"],
+  ["March", "03"],
+  ["April", "04"],
+  ["May", "05"],
+  ["June", "06"],
+  ["July", "07"],
+  ["August", "08"],
+  ["September", "09"],
+  ["October", "10"],
+  ["November", "11"],
+  ["December", "12"],
+];
+
+const YEAR_CHOICES = [
+  ["2024", "24"],
+  ["2025", "25"],
+  ["2026", "26"],
+  ["2027", "27"],
+  ["2028", "28"],
+  ["2029", "29"],
+  ["2030", "30"],
+  ["2031", "31"],
+  ["2032", "32"],
+  ["2033", "33"],
+  ["2034", "34"],
+  ["2035", "35"],
+  ["2036", "36"],
+  ["2037", "37"],
+  ["2038", "38"],
+  ["2039", "39"],
+  ["2040", "40"],
+  ["2041", "41"],
+  ["2042", "42"],
+  ["2043", "43"],
+  ["2044", "44"],
+  ["2045", "45"],
+  ["2046", "46"],
+  ["2047", "47"],
+  ["2048", "48"],
+  ["2049", "49"],
+  ["2050", "50"],
+];
 
 function CardPayment({
   promoTotalPrice,
@@ -37,34 +82,28 @@ function CardPayment({
   const [cardType, setCardType] = useState("");
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: "",
-    expirationMonthYear: null,
     expirationMonth: null,
     expirationYear: null,
     cvv: "",
   });
 
-  const [
-    isExpirationMonthYearSelected,
-    setIsExpirationMonthYearSelected,
-  ] = useState(false);
-
-  const handlePaymentDetailsChange = (e) => {
-    const { name, value } = e.target;
-
-    // Detect card type based on the card number prefix
+  const handlePaymentDetailsChange = (name, value) => {
     let detectedCardType = "";
-    if (/^4/.test(value)) {
-      detectedCardType = "Visa";
-    } else if (/^5[1-5]/.test(value)) {
-      detectedCardType = "Mastercard";
+    if (name === "cardNumber") {
+      if (/^4/.test(value)) {
+        detectedCardType = "Visa";
+      } else if (/^5[1-5]/.test(value)) {
+        detectedCardType = "Mastercard";
+      }
+      setCardType(detectedCardType);
     }
-    setCardType(detectedCardType);
     setPaymentDetails({ ...paymentDetails, [name]: value });
   };
 
   const isFormValid = () => {
     return (
-      isExpirationMonthYearSelected &&
+      paymentDetails.expirationMonth &&
+      paymentDetails.expirationYear &&
       paymentDetails.cardNumber &&
       paymentDetails.cvv
     );
@@ -83,9 +122,10 @@ function CardPayment({
       public_api_key: publicApiKey,
       created_at: createdAt,
       currency: currency,
-
       card_number: paymentDetails.cardNumber,
-      expiration_month_year: paymentDetails.expirationMonthYear,
+      expiration_month: paymentDetails.expirationMonth,
+      expiration_year: paymentDetails.expirationYear,
+      // expiration_month_year: `${paymentDetails.expirationMonth}/${paymentDetails.expirationYear}`,
       cvv: paymentDetails.cvv,
     };
 
@@ -98,12 +138,10 @@ function CardPayment({
       dispatch(clearCart());
       const timer = setTimeout(() => {
         window.location.reload();
-        // history.push("/dashboard");
         window.location.href = "/dashboard/users";
       }, 5000);
       return () => clearTimeout(timer);
     }
-    // console.log('// eslint-disable-next-line')
     // eslint-disable-next-line
   }, [dispatch, success, history]);
 
@@ -123,7 +161,9 @@ function CardPayment({
             type="text"
             name="cardNumber"
             value={paymentDetails.cardNumber}
-            onChange={handlePaymentDetailsChange}
+            onChange={(e) =>
+              handlePaymentDetailsChange(e.target.name, e.target.value)
+            }
             required
             placeholder="1234 5678 9012 3456"
             maxLength="16"
@@ -138,41 +178,63 @@ function CardPayment({
             )}
           </p>
         )}
-        <i className="fab fa-cc-mastercard"></i>{" "}
-        <i className="fab fa-cc-visa"></i>
-        <Form.Group>
-          <Form.Label>Expiration Month/Year</Form.Label>
-          {/*<Form.Control
-            type="text" // You can change this to 'date' for separate month and year fields
-            name="expirationMonthYear"
-            value={paymentDetails.expirationMonthYear}
-            onChange={handlePaymentDetailsChange}
-            required
-            placeholder="MM/YY"
-          /> */}
-          <DatePicker
-            selected={paymentDetails.expirationMonthYear}
-            onChange={(date) => {
-              setPaymentDetails({
-                ...paymentDetails,
-                expirationMonthYear: date,
-              });
-              setIsExpirationMonthYearSelected(!!date);
-            }}
-            dateFormat="MM/yy"
-            showMonthYearPicker
-            isClearable
-            placeholderText="Select month/year"
-            className="rounded-select"
-          />
-        </Form.Group>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>Expiration Month</Form.Label>
+              <Select
+                options={MONTH_CHOICES?.map(([value, label]) => ({
+                  value,
+                  label,
+                }))}
+                onChange={(selectedOption) =>
+                  handlePaymentDetailsChange(
+                    "expirationMonth",
+                    selectedOption.value
+                  )
+                }
+                value={{
+                  value: paymentDetails.expirationMonth,
+                  label: paymentDetails.expirationMonth,
+                }}
+                placeholder="Select Month"
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            {/* <span> / </span> */}
+            <Form.Group>
+              <Form.Label>Expiration Year</Form.Label>
+              <Select
+                options={YEAR_CHOICES?.map(([value, label]) => ({
+                  value,
+                  label,
+                }))}
+                value={{
+                  value: paymentDetails.expirationYear,
+                  label: paymentDetails.expirationYear,
+                }}
+                onChange={(selectedOption) =>
+                  handlePaymentDetailsChange(
+                    "expirationYear",
+                    selectedOption.value
+                  )
+                }
+                placeholder="Select Year"
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+
         <Form.Group>
           <Form.Label>CVV</Form.Label>
           <Form.Control
-            type="password"
+            type="password" 
             name="cvv"
             value={paymentDetails.cvv}
-            onChange={handlePaymentDetailsChange}
+            onChange={(e) =>
+              handlePaymentDetailsChange(e.target.name, e.target.value)
+            }
             required
             maxLength="3"
             placeholder="123"

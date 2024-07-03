@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import Product from "../Product";
-import { listProducts } from "../../actions/productAction";
+import { listProducts } from "../../actions/productAction"; 
 // import { listPromoProducts } from "../../actions/promoActions";
 import Loader from "../Loader";
 import Message from "../Message";

@@ -15,8 +15,8 @@ const PaysofterAccountFund = ({
   userEmail,
   publicApiKey,
   duration,
-paymenthMethod,
-currency
+  paymenthMethod,
+  currency,
 }) => {
   const dispatch = useDispatch();
 
@@ -63,7 +63,7 @@ currency
   const handleSecurityCodeModalShow = () => {
     setShowSecurityCodeModal(true);
   };
-  
+
   const handleSecurityCodeModalClose = () => {
     setShowSecurityCodeModal(false);
   };
@@ -71,8 +71,6 @@ currency
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible(!securityCodeVisible);
   };
-
-  
 
   const handleInfoModalShow = () => {
     setShowInfoModal(true);
@@ -84,8 +82,8 @@ currency
 
   const debitAccountData = {
     account_id: accountId,
-    security_code: securityCode, 
-    amount: promoTotalPrice, 
+    security_code: securityCode,
+    amount: promoTotalPrice,
     public_api_key: publicApiKey,
   };
 
@@ -108,9 +106,8 @@ currency
         setShowVerifyAccountFundOtp(true);
       }, 1000);
       return () => clearTimeout(timer);
-    }
-    else {
-      console.error("Error verifying account")
+    } else {
+      console.error("Error verifying account");
     }
     // eslint-disable-next-line
   }, [dispatch, success, history, error]);
@@ -118,7 +115,7 @@ currency
   return (
     <>
       {showVerifyAccountFundOtp ? (
-        <VerifyAccountFundOtp 
+        <VerifyAccountFundOtp
           promoTotalPrice={promoTotalPrice}
           paymentData={paymentData}
           reference={reference}
@@ -302,10 +299,11 @@ currency
                       </Modal.Header>
                       <Modal.Body>
                         <p className="text-center">
-                          A 4-digit randomly generated Paysofter Account Security Code that expires
-                          at a given time (e.g. every hour). Having issue
-                          applying the security code? Refresh your paysofter
-                          account page, logout and login or clear browsing data.{" "}
+                          A 4-digit randomly generated Paysofter Account
+                          Security Code that expires at a given time (e.g. every
+                          hour). Having issue applying the security code?
+                          Refresh your paysofter account page, logout and login
+                          or clear browsing data.{" "}
                           <a
                             href="https://paysofter.com/"
                             target="_blank"

@@ -5,7 +5,7 @@ import { Row, Col, Form, Button, Modal } from "react-bootstrap";
 import { debitPaysofterAccountFund } from "../../actions/paymentActions";
 import Message from "../Message";
 import Loader from "../Loader";
-import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp";
+import VerifyAccountFundPromiseOtp from "./VerifyAccountFundPromiseOtp"; 
 
 const PaysofterAccountFundPromise = ({
   promoTotalPrice,
@@ -95,7 +95,7 @@ const PaysofterAccountFundPromise = ({
     account_id: accountId,
     security_code: securityCode,
     amount: promoTotalPrice,
-    // public_api_key: publicApiKey,
+    public_api_key: publicApiKey,
   };
 
   const handleFieldChange = (fieldName, value) => {

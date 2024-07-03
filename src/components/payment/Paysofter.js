@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 // import {
 //   createPayment,
-//   createPaysofterPayment,
+//   createPaysofterPayment,  
 // } from "../../actions/paymentActions";
 import PaysofterButton from "./PaysofterButton"; 
 import ApplyPromoCode from "../ApplyPromoCode";

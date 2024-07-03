@@ -87,7 +87,6 @@ function SupportTicketScreen({ history }) {
                 <option value="otp">OTP</option>
                 <option value="payments">Payments</option>
                 <option value="services">Services</option>
-                <option value="credit_points">Credit Points</option>
                 <option value="referrals">Referrals</option>
                 <option value="others">Others</option>
               </Form.Control>

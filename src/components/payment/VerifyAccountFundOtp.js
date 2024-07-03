@@ -51,7 +51,7 @@ const VerifyAccountFundOtp = ({
 
   const sendOtpData =
     JSON.parse(localStorage.getItem("debitAccountData")) || [];
-  console.log("sendOtpData:", sendOtpData, sendOtpData.account_id);
+  console.log("sendOtpData:", sendOtpData, sendOtpData.account_id); 
 
   const paysofterPaymentData = {
     payment_id: reference,
