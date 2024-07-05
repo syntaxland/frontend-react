@@ -1,17 +1,13 @@
 // Dashboard.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
-import { Col, Row, Modal } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Message from "../Message";
 import Loader from "../Loader";
-import { getCreditPointBalance } from "../../actions/creditPointActions";
 import { listPayments } from "../../actions/paymentActions";
 import { getOrders } from "../../actions/orderActions";
 import { Line, Pie } from "react-chartjs-2";
-import SellCreditPoint from "../CreditPoint/SellCreditPoint";
-import SelectCurrency from "../CreditPoint/SelectCurrency";
-
 import {
   Chart as ChartJS,
   ArcElement,
@@ -38,28 +34,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  // const [creditPointEarning, setCreditPointEarning] = useState(0);
   const dispatch = useDispatch();
-
-  const [buyCreditPointModal, setBuyCreditPointModal] = useState(false);
-  // const handleBuyCreditPointOpen = () => {
-  //   setBuyCreditPointModal(true);
-  // };
-  const handleBuyCreditPointClose = () => {
-    setBuyCreditPointModal(false);
-  };
-
-  const [sellCreditPointModal, setSellCreditPointModal] = useState(false);
-  // const handleSellCreditPointOpen = () => {
-  //   setSellCreditPointModal(true);
-  // };
-  const handleSellCreditPointClose = () => {
-    setSellCreditPointModal(false);
-  };
-
-  const creditPointBal = useSelector((state) => state.creditPointBal);
-  const { loading, error, creditPointBalance } = creditPointBal;
-  console.log("creditPointBalance:", creditPointBalance);
 
   const paymentList = useSelector((state) => state.paymentList);
   const {
@@ -74,7 +49,6 @@ function Dashboard() {
   console.log("Orders from state:", orders);
 
   useEffect(() => {
-    dispatch(getCreditPointBalance());
     dispatch(listPayments());
     dispatch(getOrders());
   }, [dispatch]);
@@ -114,21 +88,6 @@ function Dashboard() {
     },
   };
 
-  // const lineGraphData = {
-  //   labels: payments.map((payment) =>
-  //     new Date(payment.created_at).toLocaleString()
-  //   ),
-  //   datasets: [
-  //     {
-  //       label: "Amount Paid (NGN)",
-  //       fill: false,
-  //       borderColor: "rgba(75,192,192,1)",
-  //       borderWidth: 2,
-  //       data: payments.map((payment) => payment.amount),
-  //     },
-  //   ],
-  // };
-
   const getTotalPayment = () => {
     let totalPayment = 0;
 
@@ -137,29 +96,6 @@ function Dashboard() {
     });
     return totalPayment;
   };
-
-  // const creditPoints = creditPointBalance.balance;
-  // const creditPointsFormatted = creditPoints ? creditPoints : [];
-
-  // const withdrawCreditPoints =
-  //   creditPoints >= 5000 ? (
-  //     <Link
-  //       to={{
-  //         pathname: "/credit-point",
-  //         search: `?creditPoints=${creditPoints}`,
-  //       }}
-  //     >
-  //       <Button variant="success" className="rounded" size="sm">
-  //         Withdraw Points
-  //       </Button>
-  //     </Link>
-  //   ) : (
-  //     <p>
-  //       <Button variant="danger" className="rounded" size="sm" readOnly>
-  //         Earned points mature from NGN 5,000
-  //       </Button>
-  //     </p>
-  //   );
 
   const paidOrderRateData = {
     labels: [
@@ -215,12 +151,10 @@ function Dashboard() {
   return (
     <div className="justify-content-center text-center">
       <div>
-        {loading || paymentLoading || orderLoading ? (
+        {paymentLoading || orderLoading ? (
           <Loader />
-        ) : error || paymentError || orderError ? (
-          <Message variant="danger">
-            {error || paymentError || orderError}
-          </Message>
+        ) : paymentError || orderError ? (
+          <Message variant="danger">{paymentError || orderError}</Message>
         ) : (
           <div>
             <Row>
@@ -283,76 +217,11 @@ function Dashboard() {
                 </Row>
               </div>
 
-              {/* <hr /> */}
-              <Col className="d-flex justify-content-center">
-                <Row>
-                  <Col>
-                    {/* <h2 className="py-3">
-                      Bonus Point Wallet <i className="fas fa-wallet"></i>
-                    </h2>
-                    <p>
-                      Balance:{" "}
-                      {creditPointsFormatted.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}{" "}
-                      NGN
-                    </p> */}
-
-                    {/* <div className="d-flex justify-content-between py-2">
-                        <span className="py-2">
-                          <Button
-                            variant="outline-success"
-                            size="sm"
-                            className="py-2 rounded"
-                            onClick={handleBuyCreditPointOpen}
-                          >
-                            Buy CPS
-                          </Button>
-                        </span>
-
-                        <span className="py-2">
-                          <Button
-                            variant="outline-success"
-                            size="sm"
-                            className="py-2 rounded"
-                            onClick={handleSellCreditPointOpen}
-                          >
-                            Sell/Share CPS
-                          </Button>
-                        </span>
-                      </div> */}
-                  </Col>
-                </Row>
-              </Col>
-
               <hr />
             </Row>
           </div>
         )}
       </div>
-
-      <Modal show={buyCreditPointModal} onHide={handleBuyCreditPointClose}>
-        <Modal.Header closeButton>
-          <Modal.Title className="text-center w-100 py-2">
-            Buy Credit Point
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="py-2 d-flex justify-content-center">
-          {buyCreditPointModal && <SelectCurrency />}
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={sellCreditPointModal} onHide={handleSellCreditPointClose}>
-        <Modal.Header closeButton>
-          <Modal.Title className="text-center w-100 py-2">
-            Sell/Share Credit Point
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="py-2 d-flex justify-content-center">
-          {sellCreditPointModal && <SellCreditPoint />}
-        </Modal.Body>
-      </Modal>
     </div>
   );
 }

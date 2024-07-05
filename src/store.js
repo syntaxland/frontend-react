@@ -9,7 +9,7 @@ import {
   saveProductReducer,
   userFavoriteProductsReducer,
   userViewedProductsReducer,
-  removeProductReducer, 
+  removeProductReducer,
   updateProductSaveCountReducer,
   viewedProductReducer,
   recommendedProductsReducer,
@@ -18,45 +18,6 @@ import {
 import { cartReducer } from "./reducers/cartReducers";
 import { userLoginReducers } from "./reducers/userReducers";
 import { userRegisterReducers } from "./reducers/userReducers";
-import {
-  marketplaceSellerAccountReducer,
-  marketplaceSellerPhotoReducer,
-  getSellerAccountReducer,
-  updateSellerAccountReducer,
-  getSellerPhotoReducer,
-  updateSellerPhotoReducer,
-  postFreeAdReducer,
-  postPaidAdReducer,
-  getFreeAdReducer,
-  updateFreeAdReducer,
-  getAllFreeAdReducer,
-  getPaidAdReducer,
-  updatePaidAdReducer,
-  getAllPaidAdReducer,
-  deleteFreeAdReducer,
-  deletePaidAdReducer,
-  getFreeAdDetailReducer,
-  getSellerApiKeyReducer,
-  updateSellerApiKeyReducer,
-  getPaidAdDetailReducer,
-  createPaidAdMessageReducer,
-  editPaidAdReducer,
-  deactivatePaidAdReducer,
-  reactivatePaidAdReducer,
-  deactivateFreeAdReducer,
-  getSellerActivePaidAdsReducer,
-getSellerActiveFreeAdsReducer,
-  reactivateFreeAdReducer,
-  editFreeAdReducer,
-  getSellerUsernameSearchReducer,
-  searchAdsReducer,
-  getSellerShopfrontLinkReducer,
-getSellerDetailReducer,
-  listPaidAdMessageReducer,
-  createFreeAdMessageReducer,
-  listFreeAdMessageReducer,
-} from "./reducers/marketplaceSellerReducers";
-
 import {
   orderCreateReducer,
   shipmentSaveReducer,
@@ -119,21 +80,6 @@ import {
   otpVerifyReducer,
   otpVerifyUsdPromiseReducer,
 } from "./reducers/accountFundOtpReducers";
-
-import {
-  buyCreditPointReducer,
-  sellCreditPointReducer,
-  getBuyCreditPointReducer,
-  getBuyerCreditPointReducer,
-  getSellCreditPointReducer,
-  creditPointRequestCreateReducer,
-  creditPointListReducer,
-  creditPointAllListReducer,
-  creditPointBalanceReducer,
-  creditPointEarningsReducer,
-  userCreditPointPaymentsReducer,
-  allCreditPointPaymentsReducer,
-} from "./reducers/creditPointReducers";
 
 import { messagingReducer, emailReducer } from "./reducers/messagingReducers";
 import {
@@ -202,18 +148,7 @@ const reducer = combineReducers({
   orderAddReview: orderAddReviewReducer,
   orderEditReview: orderEditReviewReducer,
 
-  buyCreditPointState: buyCreditPointReducer,
-  sellCreditPointState: sellCreditPointReducer,
-  getBuyCreditPointState: getBuyCreditPointReducer,
-  getBuyerCreditPointState: getBuyerCreditPointReducer,
-  getSellCreditPointState: getSellCreditPointReducer,
-  creditPointRequestCreate: creditPointRequestCreateReducer,
-  creditPointList: creditPointListReducer,
-  creditPointAllList: creditPointAllListReducer,
-  creditPointBal: creditPointBalanceReducer,
-  userCreditPointPayments: userCreditPointPaymentsReducer,
-  allCreditPointPayments: allCreditPointPaymentsReducer,
-  creditPointEarningState: creditPointEarningsReducer,
+ 
 
   orderList: orderListReducer,
   allOrderList: allOrderListReducer,
@@ -270,49 +205,6 @@ const reducer = combineReducers({
   applyPomoCodeState: applyPomoCodeReducer,
   createPromoCodeState: createPromoCodeReducer,
   promoProductList: promoProductListReducer,
-
-  marketplaceSellerState: marketplaceSellerAccountReducer,
-  marketplaceSellerPhotoState: marketplaceSellerPhotoReducer,
-  getSellerAccountState: getSellerAccountReducer,
-  updateSellerAccountState: updateSellerAccountReducer,
-  getSellerPhotoState: getSellerPhotoReducer,
-  updateSellerPhotoState: updateSellerPhotoReducer,
-  postFreeAdState: postFreeAdReducer,
-  postPaidAdState: postPaidAdReducer,
-
-  getFreeAdState: getFreeAdReducer,
-  updateFreeAdState: updateFreeAdReducer,
-  getAllFreeAdState: getAllFreeAdReducer,
-  getPaidAdState: getPaidAdReducer,
-  updatePaidAdState: updatePaidAdReducer,
-  getAllPaidAdState: getAllPaidAdReducer,
-  deleteFreeAdState: deleteFreeAdReducer,
-  deletePaidAdState: deletePaidAdReducer,
-
-  getFreeAdDetailState: getFreeAdDetailReducer,
-  getSellerApiKeyState: getSellerApiKeyReducer,
-  updateSellerApiKeyState: updateSellerApiKeyReducer,
-  getPaidAdDetailState: getPaidAdDetailReducer,
-
-  editPaidAdState: editPaidAdReducer,
-  deactivatePaidAdState: deactivatePaidAdReducer,
-  reactivatePaidAdState: reactivatePaidAdReducer,
-
-  deactivateFreeAdState: deactivateFreeAdReducer,
-  getSellerActivePaidAdsState: getSellerActivePaidAdsReducer,
-  getSellerActiveFreeAdsState: getSellerActiveFreeAdsReducer,
-  reactivateFreeAdState: reactivateFreeAdReducer,
-  editFreeAdState: editFreeAdReducer,
-
-  getSellerUsernameSearchState: getSellerUsernameSearchReducer,
-  searchAdsState: searchAdsReducer,
-  getSellerShopfrontLinkState: getSellerShopfrontLinkReducer,
-getSellerDetailState: getSellerDetailReducer,
-
-  createPaidAdMessageState: createPaidAdMessageReducer,
-  listPaidAdMessageState: listPaidAdMessageReducer,
-  createFreeAdMessageState: createFreeAdMessageReducer,
-  listFreeAdMessageState: listFreeAdMessageReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
